@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الدعاء — خريطة تفاعلية</title>
+<title>الدعاء</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -347,6 +347,19 @@
   }
   .modal-action-btn:hover{background:rgba(255,255,255,0.14);}
 
+  /* ---------- NAVIGATION ARROWS IN MODAL ---------- */
+  .modal-nav-arrows{
+    display:inline-flex;gap:4px;margin-inline-start:12px;position:relative;z-index:2;
+  }
+  .modal-nav-btn{
+    background:rgba(255,255,255,0.07);border:1px solid var(--border-glass);
+    color:var(--text-main);border-radius:10px;width:34px;height:34px;
+    font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .2s ease, opacity .2s ease;
+  }
+  .modal-nav-btn:hover{background:rgba(255,255,255,0.14);}
+  .modal-nav-btn:disabled{opacity:0.3;cursor:not-allowed;}
+
   .toast{
     position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
     background:var(--bg-panel-2);border:1px solid var(--border-glass);
@@ -439,7 +452,7 @@
     <input type="text" id="hadithQuery" enterkeyhint="search" autocomplete="off" placeholder="اكتب جزءاً من نص الحديث...">
     <button type="submit" id="hadithSearchBtn">بحث</button>
   </form>
-  <div class="hadith-hint">النتائج تُجلب مباشرة من dorar.net، وتشمل الراوي والمحدث ودرجة الحديث</div>
+  <div class="hadith-hint">نحاول جلب النتائج مباشرة من dorar.net؛ إذا تعذّر ذلك، ننقلك للبحث هناك مباشرة</div>
   <div class="hadith-results" id="hadithResults"></div>
 </div>
 
@@ -452,6 +465,10 @@
 <div class="overlay" id="overlay">
   <div class="modal" id="modal">
     <button class="modal-close" id="closeBtn" aria-label="إغلاق">✕</button>
+    <div class="modal-nav-arrows">
+      <button class="modal-nav-btn" id="prevTopicBtn" aria-label="الموضوع السابق">🔼</button>
+      <button class="modal-nav-btn" id="nextTopicBtn" aria-label="الموضوع التالي">🔽</button>
+    </div>
     <div class="modal-actions">
       <button class="modal-action-btn" id="shareBtn">🔗 مشاركة</button>
       <button class="modal-action-btn" id="pdfBtn">🖨️ PDF</button>
@@ -538,7 +555,7 @@ const topics = [
     icon:'📜', title:'ما علاقة الدعاء بالقدر؟',
     teaser:'الدعاء نفسه من القدر',
     body:`
-      <p>من أكثر الأسئلة التي تُطرح: إذا كان كل شيء مكتوباً، فلماذا أدعو؟</p>
+      <p>من أكثر الأسئلة التي تُطرح: إذا كان كل شيء مكتوباً، فلماذا أدعو?</p>
       <p>الجواب: لأن الله كتب النتائج، وكتب الأسباب المؤدية إلى النتائج. فكما أن الله كتب النجاح وكتب له سبباً وهو الدراسة، وكتب الرزق وكتب له سبباً وهو السعي، فقد كتب كثيراً من الخيرات وجعل لها سبباً اسمه الدعاء.</p>
       <p><strong>إذن: الدعاء ليس خارج القدر، بل الدعاء نفسه من القدر.</strong></p>
       <div class="hadith-box"><div class="txt">«الدعاء من أنفع الأدوية، وهو عدو البلاء»</div><div class="meta">ابن القيّم — كتاب الداء والدواء</div></div>
@@ -550,7 +567,7 @@ const topics = [
     body:`
       <div class="example-box"><span class="lbl">القدر المبرم</span>هو ما قضاه الله تعالى في علمه الأزلي وكتبه في اللوح المحفوظ. وهذا لا يتغيّر ولا يتبدّل؛ لأن علم الله كامل لا يطرأ عليه نقص ولا زيادة.</div>
       <div class="verse-box">﴿وَعِندَهُ أُمُّ الْكِتَابِ﴾<div class="meta">سورة الرعد، الآية 39</div></div>
-      <div class="example-box"><span class="lbl">القدر المعلَّق</span>هو ما يُظهره الله للملائكة معلَّقاً على أسباب معيّنة؛ فقد يُكتب عند الملك أن فلاناً إذا دعا رفع الله عنه البلاء، وإذا لم يدعُ بقي البلاء عليه. فإذا وقع السبب وقع المسبَّب بإذن الله.</div>
+      <div class="example-box"><span class="lbl">القدر المعلَّق</span>هو ما يُظهره الله للملائكة معلَّقاً على أسباب معيّنة; فقد يُكتب عند الملك أن فلاناً إذا دعا رفع الله عنه البلاء، وإذا لم يدعُ بقي البلاء عليه. فإذا وقع السبب وقع المسبَّب بإذن الله.</div>
       <p>قد يبدو للإنسان أن شيئاً قد تغيّر، لكن الحقيقة أن الله كان يعلم منذ الأزل أن هذا العبد سيدعو، وأن البلاء سيُرفع عنه بسبب دعائه. فالتغيير الذي نراه نحن كان معلوماً لله سبحانه قبل خلق السماوات والأرض.</p>
       <div class="hadith-box"><div class="txt">«لا يردّ القدر إلا الدعاء»</div><div class="meta">رواه الترمذي وابن ماجه، وحسّنه الألباني</div></div>
       <div class="khulasa"><span class="lbl">الخلاصة</span>القدر المبرم لا يتغيّر لأنه داخل في علم الله الأزلي. أما القدر المعلَّق فهو ما ربطه الله بأسباب معيّنة كالدعاء وصلة الرحم والعمل الصالح.</div>
@@ -562,7 +579,7 @@ const topics = [
     teaser:'قد يكون سبباً في دفع البلاء أو جلب الخير',
     body:`
       <div class="hadith-box"><div class="txt">«لا يردّ القدر إلا الدعاء»</div><div class="meta">رواه الترمذي وابن ماجه، وحسّنه بعض أهل العلم</div></div>
-      <p>ومعنى الحديث أن الدعاء قد يكون سبباً في دفع بلاء أو جلب خير. أما علم الله الأزلي فلا يتغيّر؛ فالله يعلم منذ الأزل أنك ستدعو، وما الذي سيحدث بعد الدعاء.</p>
+      <p>ومعنى الحديث أن الدعاء قد يكون سبباً في دفع بلاء أو جلب خير. أما علم الله الأزلي فلا يتغيّر; فالله يعلم منذ الأزل أنك ستدعو، وما الذي سيحدث بعد الدعاء.</p>
       <div class="example-box"><span class="lbl">مثال</span>قد يصيب الإنسان همّ أو كرب، فيدعو الله، فيفرّج الله عنه. فنحن نرى أن الدعاء كان سبباً في الفرج، وهذا صحيح. لكن الله كان يعلم منذ البداية أنه سيدعو وأن الفرج سيأتي بسبب هذا الدعاء.</p>
     `
   },
@@ -572,7 +589,7 @@ const topics = [
     body:`
       <p>نعم. فمن أعظم نِعم الله على العبد أن يوفّقه للدعاء.</p>
       <div class="hadith-box"><div class="txt">«إذا فتح الله لك باب الدعاء فقد فتح لك باب الرحمة»</div><div class="meta">مأثور عن بعض السلف الصالح</div></div>
-      <p>والمقصود أن توفيق العبد للدعاء علامة خير؛ لأن كثيراً من الناس يغفلون عن اللجوء إلى الله أصلاً.</p>
+      <p>والمقصود أن توفيق العبد للدعاء علامة خير; لأن كثيراً من الناس يغفلون عن اللجوء إلى الله أصلاً.</p>
     `
   },
   {
@@ -584,7 +601,7 @@ const topics = [
       <div class="hadith-box"><div class="txt">«ادعوا الله وأنتم موقنون بالإجابة»</div><div class="meta">رواه الترمذي، رقم 3479</div></div>
       <div class="example-box"><span class="lbl">اليقين الصحيح</span>«يا رب أنت قادر على كل شيء، وأنا أثق بحكمتك ورحمتك.»</div>
       <div class="example-box"><span class="lbl">اليقين الخاطئ</span>«أنا متأكد أن هذا الأمر سيحدث بنفس الصورة التي أريدها.»</div>
-      <p>فقد يدعو شخص بوظيفة معيّنة يراها خيراً له، ثم يكتشف بعد مدة أن الخير كان في أمر آخر أفضل له؛ فلو تحققت رغبته الأولى لربما وقع في ضرر لا يعلمه.</p>
+      <p>فقد يدعو شخص بوظيفة معيّنة يراها خيراً له، ثم يكتشف بعد مدة أن الخير كان في أمر آخر أفضل له; فلو تحققت رغبته الأولى لربما وقع في ضرر لا يعلمه.</p>
       <div class="note-box"><span class="tag">🎙️ لفتة للحضور</span>اليقين ثمرة "لذّة المناجاة". من الخطأ الشائع أن يدعو الشخص من باب "التجربة" ويقول: (بجرّب أدعي وأشوف)! الله لا يُجرَّب، ادعُ وأنت واثق برحمته وحكمته وخياراته لك.</div>
     `
   },
@@ -618,8 +635,8 @@ const topics = [
     icon:'🧭', title:'التوكّل والأخذ بالأسباب',
     teaser:'الدعاء وحده لا يكفي دون عمل',
     body:`
-      <p>من الأخطاء الشائعة أن يظن بعض الناس أن الدعاء وحده يكفي دون عمل أو سعي. والصحيح أن الإسلام يجمع بين الدعاء والأخذ بالأسباب؛ فالدعاء سبب من الأسباب التي شرعها الله، والعمل سبب آخر.</p>
-      <div class="verse-box">﴿وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ﴾<div class="meta">سورة النجم، الآية 39</div></div>
+      <p>من الأخطاء الشائعة أن يظن بعض الناس أن الدعاء وحده يكفي دون عمل أو سعي. والصحيح أن الإسلام يجمع بين الدعاء والأخذ بالأسباب; فالدعاء سبب من الأسباب التي شرعها الله، والعمل سبب آخر.</p>
+      <div class="verse-box">﴿...وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ﴾<div class="meta">سورة النجم، الآية 39</div></div>
       <div class="hadith-box"><div class="txt">«احرص على ما ينفعك، واستعن بالله ولا تعجز»</div><div class="meta">رواه مسلم</div></div>
       <div class="example-box"><span class="lbl">من دعا بالنجاح</span>يجتهد في الدراسة، ينظّم وقته، يبتعد عن أسباب الفشل.</div>
       <div class="example-box"><span class="lbl">من دعا بالرزق</span>يسعى في العمل، يجتهد في طلب الرزق الحلال.</div>
@@ -631,7 +648,7 @@ const topics = [
     icon:'🕊️', title:'آداب الدعاء',
     teaser:'الإخلاص، الحمد، استقبال القبلة، وحضور القلب',
     body:`
-      <div class="verse-box">﴿ادْعُوا رَبَّكُمْ تَضَرُّعًا وَخُفْيَةً﴾<div class="meta">سورة الأعراف، الآية 55</div></div>
+      <div class="verse-box">﴿ادْعُوا رَبَّكُمْ تَضَرُّعًا وَخُفْيَةً...﴾<div class="meta">سورة الأعراف، الآية 55</div></div>
       <ul>
         <li><strong>الإخلاص لله تعالى:</strong> فلا يدعو إلا الله وحده.</li>
         <li><strong>البدء بحمد الله والثناء عليه</strong>، ثم الصلاة على النبي ﷺ.</li>
@@ -654,7 +671,7 @@ const topics = [
         <li>الإلحاح وعدم الاستعجال.</li>
         <li>الثناء على الله: الحمد لله، سبحان الله، يا رب لك الحمد.</li>
         <li>الصلاة على النبي ﷺ في بداية الدعاء ونهايته.</li>
-        <li>التوبة من الذنوب؛ فالذنوب قد تحرم العبد من بعض الخيرات.</li>
+        <li>التوبة من الذنوب; فالذنوب قد تحرم العبد من بعض الخيرات.</li>
         <li>أكل الحلال.</li>
         <li>الدعاء في أوقات الإجابة: السجود، بين الأذان والإقامة، الثلث الأخير من الليل، يوم الجمعة.</li>
         <li>حضور القلب.</li>
@@ -690,13 +707,13 @@ const topics = [
     body:`
       <p>قد تتأخر الإجابة لأن: الوقت غير مناسب — أو الله يدفع عنك شراً أكبر — أو الله يدّخر لك الأجر — أو الله يريد لك خيراً أعظم.</p>
       <p><strong>الاستجابة تسبق الدعاء دائماً:</strong> فإذا تمكّن العبد من أن يدعو فهذا يعني أن الله استجاب له قبل ذلك بأن ألهمه الدعاء.</p>
-      <div class="verse-box">﴿وَآتَاكُم مِّن كُلِّ مَا سَأَلْتُمُوهُ﴾<div class="meta">سورة إبراهيم، الآية 34</div></div>
+      <div class="verse-box">﴿وَآتَاكُم مِّن كُلِّ مَا سَأَلْتُمُوهُ...﴾<div class="meta">سورة إبراهيم، الآية 34</div></div>
       <div class="hadith-box"><div class="txt">«إني لا أحمل همّ الإجابة، ولكن أحمل همّ الدعاء، فإذا أُلهمت الدعاء فإن الإجابة معه»</div><div class="meta">أثر مشهور عن عمر بن الخطاب رضي الله عنه</div></div>
-      <div class="note-box"><span class="tag">🎙️ لفتة للحضور</span>تأخّر الإجابة فيه حِكم تربوية عظيمة: منها أن الله يبتليك تستكثر من العبادة؛ لأن العبد وقت الحاجة يقبل على الصلاة والوتر والبر (زي الطالب أيام الاختبارات)! ومنها تنظيف وتطهير العبد من الذنوب؛ فالبلاء الطويل يغسل الأوساخ المتراكمة في القلب، حتى يرجع العبد منيباً خالصاً.</div>
+      <div class="note-box"><span class="tag">🎙️ لفتة للحضور</span>تأخّر الإجابة فيه حِكم تربوية عظيمة: منها أن الله يبتليك تستكثر من العبادة; لأن العبد وقت الحاجة يقبل على الصلاة والوتر والبر (زي الطالب أيام الاختبارات)! ومنها تنظيف وتطهير العبد من الذنوب; فالبلاء الطويل يغسل الأوساخ المتراكمة في القلب، حتى يرجع العبد منيباً خالصاً.</div>
     `
   },
   {
-    icon:'🕋', title:'كيف كان النبي ﷺ يدعو؟',
+    icon:'👑', title:'كيف كان النبي ﷺ يدعو؟',
     teaser:'حمد الله، الصلاة عليه ﷺ، وجوامع الدعاء',
     body:`
       <p>كان النبي ﷺ أكمل الناس عبودية لربه، وكان دعاؤه يجمع بين الأدب والخشوع وحسن الثناء على الله.</p>
@@ -707,7 +724,7 @@ const topics = [
         <li><strong>تكرار الدعاء</strong> أحياناً، ثبت أنه ﷺ كان يكرره ثلاثاً.</li>
         <li><strong>حضور القلب</strong> واستشعار عظمة الله والحاجة إليه.</li>
       </ol>
-      <div class="verse-box">﴿رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ﴾<div class="meta">سورة البقرة، الآية 201</div></div>
+      <div class="verse-box">﴿رَبَّنا آتِنا فِي الدُّنْيا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنا عَذابَ النَّارِ﴾<div class="meta">سورة البقرة، الآية 201</div></div>
       <div class="hadith-box"><div class="txt">«كان إذا دعا دعا ثلاثاً»</div><div class="meta">عبد الله بن مسعود رضي الله عنه</div></div>
       <div class="note-box"><span class="tag">🎙️ لفتة للحضور</span>ثلاث قصص حيّة على قوة الدعاء الباطن والافتقار اللفظي:
         <br><br><strong>موسى عليه السلام:</strong> دخل مدين مطارداً خائفاً جائعاً، وقال بسطر واحد: «رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ»، فجاءه الرزق والأمان والزوجة والنبوّة بكاملها!
@@ -854,8 +871,10 @@ const modalNum = document.getElementById('modalNum');
 const modalBody = document.getElementById('modalBody');
 const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
+let currentTopicIndex = null;
 
 function openTopic(i){
+  if(i < 0 || i >= topics.length) return;
   const t = topics[i];
   currentTopicIndex = i;
   modalNum.textContent = ORD[i];
@@ -864,6 +883,11 @@ function openTopic(i){
   overlay.classList.add('open');
   modal.scrollTop = 0;
   document.body.style.overflow = 'hidden';
+  
+  // Update nav buttons disabled state
+  document.getElementById('prevTopicBtn').disabled = (i === 0);
+  document.getElementById('nextTopicBtn').disabled = (i === topics.length - 1);
+
   if(location.hash !== `#topic-${i+1}`){
     history.replaceState(null, '', `#topic-${i+1}`);
   }
@@ -874,6 +898,20 @@ function openTopic(i){
     updateProgress();
   }
 }
+
+/* Arrow Navigation Event Listeners */
+document.getElementById('prevTopicBtn').addEventListener('click', ()=>{
+  if(currentTopicIndex !== null && currentTopicIndex > 0){
+    openTopic(currentTopicIndex - 1);
+  }
+});
+
+document.getElementById('nextTopicBtn').addEventListener('click', ()=>{
+  if(currentTopicIndex !== null && currentTopicIndex < topics.length - 1){
+    openTopic(currentTopicIndex + 1);
+  }
+});
+
 function closeModal(){
   overlay.classList.remove('open');
   document.body.style.overflow = '';
@@ -911,7 +949,6 @@ qa.forEach((cat, ci)=>{
     const aBox = qEl.querySelector('.qa-a');
     qHead.addEventListener('click', ()=>{
       const isOpen = qEl.classList.toggle('open');
-      // generous fixed cap: avoids fragile scrollHeight recompute chains
       aBox.style.maxHeight = isOpen ? '1200px' : '0px';
     });
     body.appendChild(qEl);
@@ -923,7 +960,6 @@ qa.forEach((cat, ci)=>{
   const head = catEl.querySelector('.qa-cat-head');
   head.addEventListener('click', ()=>{
     const isOpen = catEl.classList.toggle('open');
-    // generous fixed cap large enough to always contain all open items inside
     body.style.maxHeight = isOpen ? '6000px' : '0px';
   });
 
@@ -950,7 +986,6 @@ function showToast(msg){
 /* ---------------- quick search (topics + Q&A) ---------------- */
 const quickSearch = document.getElementById('quickSearch');
 const searchCount = document.getElementById('searchCount');
-// plain-text cache of each topic's body for matching (strip HTML tags)
 const topicPlainText = topics.map(t => (t.title+' '+t.teaser+' '+t.body).replace(/<[^>]*>/g,' '));
 
 quickSearch.addEventListener('input', ()=> applyQuickSearch());
@@ -959,14 +994,12 @@ function applyQuickSearch(){
   const term = quickSearch.value.trim().toLowerCase();
   let matchCount = 0;
 
-  // filter topic nodes
   Array.from(mapGrid.children).forEach((el, i)=>{
     const match = !term || topicPlainText[i].toLowerCase().includes(term);
     el.classList.toggle('hidden-search', !match);
     if(match) matchCount++;
   });
 
-  // filter Q&A items, auto-expand categories that contain a match
   document.querySelectorAll('.qa-cat').forEach((catEl)=>{
     let anyMatchInCat = false;
     catEl.querySelectorAll('.qa-item').forEach((qEl)=>{
@@ -993,29 +1026,35 @@ function applyQuickSearch(){
   searchCount.textContent = term ? `${matchCount} نتيجة` : '';
 }
 
-// Form submit (covers Enter key AND mobile keyboard's "Go/Search" action button,
-// which on some mobile keyboards does not fire a normal 'Enter' keydown event):
-// jump straight to the first matching topic, or scroll to the first matching Q&A item.
+/* Form Search Action with Dorar Fallback Automation */
 document.getElementById('quickSearchForm').addEventListener('submit', (e)=>{
   e.preventDefault();
 
-  const term = quickSearch.value.trim().toLowerCase();
+  const term = quickSearch.value.trim();
   if(!term) return;
 
-  const firstTopicIdx = topicPlainText.findIndex(txt => txt.toLowerCase().includes(term));
+  // 1. Try to find in custom topic maps
+  const firstTopicIdx = topicPlainText.findIndex(txt => txt.toLowerCase().includes(term.toLowerCase()));
   if(firstTopicIdx !== -1){
     openTopic(firstTopicIdx);
     return;
   }
 
+  // 2. Try to find in Q&A items
   const firstQaMatch = document.querySelector('.qa-item:not(.hidden-search)');
   if(firstQaMatch){
     firstQaMatch.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
   }
+
+  // 3. Automation: If no results found, forward query directly to Dorar Al-Saniyah Engine!
+  document.getElementById('hadithQuery').value = term;
+  document.getElementById('hadithResults').scrollIntoView({behavior:'smooth', block:'center'});
+  runDorarSearch();
+  showToast('لم يتم العثور على موضوع داخلي، تم جلب نتائج "الدرر السنية" تلقائياً! ✨');
 });
 
 /* ---------------- share + PDF for open topic ---------------- */
-let currentTopicIndex = null;
 const shareBtn = document.getElementById('shareBtn');
 const pdfBtn = document.getElementById('pdfBtn');
 const printArea = document.getElementById('printArea');
@@ -1035,8 +1074,6 @@ pdfBtn.addEventListener('click', ()=>{
   if(currentTopicIndex === null) return;
   const t = topics[currentTopicIndex];
 
-  // Print in a completely isolated window so nothing from the main page
-  // (cards, blur effects, hidden sections) can bleed into the printout.
   const printWin = window.open('', '_blank', 'width=800,height=900');
   if(!printWin){
     showToast('يرجى السماح بالنوافذ المنبثقة لتصدير PDF');
@@ -1090,8 +1127,22 @@ window.addEventListener('hashchange', openFromHash);
 
 /* ---------------- live hadith search (dorar.net JSONP) ---------------- */
 const hadithQuery = document.getElementById('hadithQuery');
-const hadithSearchBtn = document.getElementById('hadithSearchBtn');
 const hadithResults = document.getElementById('hadithResults');
+
+function renderDorarFallback(message, q){
+  hadithResults.innerHTML = `
+    <div class="hadith-empty">${message}</div>
+    <button type="button" class="hadith-source-link" id="dorarFallbackBtn" style="background:none;border:none;cursor:pointer;width:100%;font-family:'Tajawal',sans-serif;font-weight:bold;color:var(--gold);">
+      اضغط هنا للانتقال للبحث المباشر في موقع الدرر السنية ↗
+    </button>`;
+  
+  // يفتح الموقع فوراً والكلمة مكتوبة في رابط البحث
+  window.open(`https://dorar.net/hadith/search?q=${encodeURIComponent(q)}`, '_blank', 'noopener');
+
+  document.getElementById('dorarFallbackBtn').addEventListener('click', ()=>{
+    window.open(`https://dorar.net/hadith/search?q=${encodeURIComponent(q)}`, '_blank', 'noopener');
+  });
+}
 
 function runDorarSearch(){
   const q = hadithQuery.value.trim();
@@ -1105,25 +1156,16 @@ function runDorarSearch(){
     if(s) s.remove();
   };
 
-  // safety timeout in case the request hangs or is blocked
   const timeoutId = setTimeout(()=>{
-    hadithResults.innerHTML = `
-      <div class="hadith-empty">تعذّر الوصول للنتائج مباشرة الآن.</div>
-      <a class="hadith-source-link" href="https://dorar.net/hadith" target="_blank" rel="noopener">
-        افتح الموسوعة الحديثية وابحث فيها ↗
-      </a>`;
+    renderDorarFallback('تعذّر الوصول للنتائج المباشرة من هذا الموقع.', q);
     cleanup();
-  }, 6000);
+  }, 5000);
 
   window[cbName] = function(data){
     clearTimeout(timeoutId);
     const list = (data && data.ahadith) ? data.ahadith : [];
     if(!list.length){
-      hadithResults.innerHTML = `
-        <div class="hadith-empty">لا توجد نتائج مطابقة.</div>
-        <a class="hadith-source-link" href="https://dorar.net/hadith" target="_blank" rel="noopener">
-          جرّب البحث المتقدم في الموسوعة الحديثية ↗
-        </a>`;
+      renderDorarFallback('لا توجد نتائج مطابقة.', q);
     }else{
       hadithResults.innerHTML = list.slice(0,10).map(item=>`
         <div class="hadith-result-item">${item.th || ''}</div>
@@ -1140,11 +1182,7 @@ function runDorarSearch(){
   script.src = `https://dorar.net/dorar_api.json?skey=${encodeURIComponent(q)}&callback=${cbName}`;
   script.onerror = ()=>{
     clearTimeout(timeoutId);
-    hadithResults.innerHTML = `
-      <div class="hadith-empty">تعذّر تحميل النتائج مباشرة (قد يمنع المتصفح الطلب).</div>
-      <a class="hadith-source-link" href="https://dorar.net/hadith" target="_blank" rel="noopener">
-        افتح الموسوعة الحديثية وابحث فيها ↗
-      </a>`;
+    renderDorarFallback('تعذّر تحميل النتائج مباشرة.', q);
     cleanup();
   };
   document.head.appendChild(script);
