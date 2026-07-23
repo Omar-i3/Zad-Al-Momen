@@ -301,15 +301,29 @@ function injectAppHeader() {
     document.body.insertBefore(topBar, document.body.firstChild);
 }
 
-function injectAppBottomNav() {
+// =========================================================
+// 🚀 محرك تحويل واجهة الجوال للتطبيق (App Shell Logic)
+// =========================================================
+function initAppNativeEngine() {
+    // التحقق الحقيقي: هل يعمل الموقع داخل تطبيق Capacitor الأندرويد (APK) أم متصفح عادي؟
+    const isNative = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+
+    if (isNative) {
+        document.body.classList.add('is-native-app');
+        injectAppHeader();
+    }
+
+    injectAppBottomNav(isNative);
+    enableHapticTouch();
+}
+
+function injectAppBottomNav(isNative) {
     if (document.getElementById('liquid-app-nav')) return;
 
     const path = window.location.pathname;
     const isHome = path.includes('index.html') || path.endsWith('/') || path === '';
     const isDuaa = path.includes('duaa.html');
     const isAzkar = path.includes('azkar.html');
-
-    const isNative = document.body.classList.contains('is-native-app') || (window.Capacitor && window.Capacitor.isNativePlatform());
 
     const nav = document.createElement('div');
     nav.id = 'liquid-app-nav';
@@ -318,6 +332,7 @@ function injectAppBottomNav() {
     let extraNavButton = "";
 
     if (isNative) {
+        // 📱 داخل تطبيق الأندرويد المثبت (APK): يظهر زر ينقله للموقع
         extraNavButton = `
             <button type="button" onclick="openWebsiteLink()" class="liquid-nav-item">
                 <span style="font-size: 1.15rem;">🌐</span>
@@ -325,6 +340,7 @@ function injectAppBottomNav() {
             </button>
         `;
     } else {
+        // 🌐 داخل المتصفح العادي (الموقع): يظهر زر تحميل التطبيق/التعليمات
         extraNavButton = `
             <button type="button" onclick="openAppModal()" class="liquid-nav-item">
                 <span style="font-size: 1.15rem;">📱</span>

@@ -527,8 +527,11 @@
         <span>📊 نسبة إتمام أذكار العدادات اليومية</span>
         <span id="azkar-progress-text" style="color: #f0d9a8; font-family: monospace; font-size: 1.1rem;">0%</span>
     </div>
-    
-    <!-- ==================== سبحة التسبيح الحرة ==================== -->
+    <div style="background: rgba(0, 0, 0, 0.4); border-radius: 10px; height: 12px; width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+        <div id="azkar-progress-bar" style="background: linear-gradient(90deg, #5fd6c4, #d6a85c); height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 10px;"></div>
+    </div>
+</div>
+<!-- ==================== سبحة التسبيح الحرة ==================== -->
     <div class="azkar-accordion open" style="margin-top: 15px; margin-bottom: 15px; text-align: right;">
         <div class="accordion-header">
           <div class="accordion-title">📿 السبحة الإلكترونية الحرة</div>
@@ -545,11 +548,6 @@
           </div>
         </div>
     </div>
-
-    <div style="background: rgba(0, 0, 0, 0.4); border-radius: 10px; height: 12px; width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
-        <div id="azkar-progress-bar" style="background: linear-gradient(90deg, #5fd6c4, #d6a85c); height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 10px;"></div>
-    </div>
-</div>
 
 <div class="tabs-nav">
   <button class="tab-btn active" onclick="switchTab('daily-path')">🕒 مسار يومك الدائم</button>
