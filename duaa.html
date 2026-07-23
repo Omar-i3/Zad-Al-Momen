@@ -1570,30 +1570,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!banner) return;
 
-    // عدم إظهار البنر إذا كان الموقع مفتوحاً بالفعل كتطبيق أو إذا أغلقه الزائر مؤقتاً
+    // استخدام localStorage لمنع ظهور البنر مجدداً للأبد عند إغلاقه أو تحميل التطبيق
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-    if (isStandalone || sessionStorage.getItem('pwa_banner_closed')) return;
+    if (isStandalone || localStorage.getItem('pwa_banner_closed') === 'true') return;
 
     const ua = navigator.userAgent.toLowerCase();
     const isIOS = /iphone|ipad|ipod/.test(ua);
     const isAndroid = /android/.test(ua);
 
-    // 1. للآيفون: عرض إرشادات إضافة الشاشة الرئيسية
     if (isIOS) {
         bannerText.innerHTML = 'للآيفون: اضغط <span style="color:#d6a85c; font-weight:bold;">مشاركة 📤</span> ثم اختر <span style="color:#d6a85c; font-weight:bold;">(إضافة إلى الشاشة الرئيسية)</span>';
         banner.style.display = 'block';
-    } 
-    // 2. للأندرويد: إظهار زر تحميل ملف الـ APK المباشر
-    else if (isAndroid) {
+    } else if (isAndroid) {
         bannerText.innerText = 'ثبّت تطبيق الأندرويد المباشر (APK) لتصفح أسرع وأسهل!';
         apkBtn.style.display = 'inline-block';
         banner.style.display = 'block';
     }
 
+    // عند إغلاق البنر
     closeBtn.addEventListener('click', () => {
         banner.style.display = 'none';
-        sessionStorage.setItem('pwa_banner_closed', 'true');
+        localStorage.setItem('pwa_banner_closed', 'true');
     });
+
+    // عند الضغط على تحميل الـ APK
+    if (apkBtn) {
+        apkBtn.addEventListener('click', () => {
+            localStorage.setItem('pwa_banner_closed', 'true');
+            setTimeout(() => { banner.style.display = 'none'; }, 1000);
+        });
+    }
 });
 </script>
 <script src="notifications.js"></script>
