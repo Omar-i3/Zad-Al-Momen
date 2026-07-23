@@ -1,10 +1,15 @@
-// الإحداثيات الافتراضية (مكة المكرمة / جدة) في حال تعذر الحصول على الـ GPS
-const DEFAULT_LAT = 21.4225;
-const DEFAULT_LNG = 39.8262;
+// إحداثيات مدينة جدة الدقيقة (في حال عدم تفعيل الـ GPS)
+const DEFAULT_LAT = 21.5433;
+const DEFAULT_LNG = 39.1728;
 
+// 1. تشغيل النظام والساعة والتنبيهات
 async function initNotifications() {
-    // 1. طلب إذن الإشعارات
-    if ('Notification' in window) {
+    // تشغيل ساعة مكة الحية والتقويم الاحتياطي
+    startMakkahClock();
+    displayHijriDateFallback();
+
+    // طلب إذن الإشعارات (فقط إذا لم يتم اتخاذ قرار سابقاً من المستخدم)
+    if ('Notification' in window && Notification.permission === 'default') {
         try {
             await Notification.requestPermission();
         } catch (e) {
@@ -12,14 +17,14 @@ async function initNotifications() {
         }
     }
 
-    // 2. طلب موقع المستخدم أو الاعتماد على التوقيت الافتراضي
+    // جلب المواقيت بـ GPS أو التوقيت الافتراضي لجدة
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 fetchPrayerTimes(position.coords.latitude, position.coords.longitude);
             },
             (error) => {
-                console.warn("تعذر تحديد الموقع الجغرافي، جاري استخدام التوقيت الافتراضي");
+                console.warn("تعذر تحديد الموقع الجغرافي، جاري استخدام التوقيت الافتراضي لجدة");
                 fetchPrayerTimes(DEFAULT_LAT, DEFAULT_LNG);
             },
             { timeout: 5000 }
@@ -29,17 +34,46 @@ async function initNotifications() {
     }
 }
 
-// جلب المواقيت من السيرفر
+// 2. ساعة حية لتوقيت مكة المكرمة (تتحدث كل ثانية)
+function startMakkahClock() {
+    function updateClock() {
+        const now = new Date();
+        const timeOptions = {
+            timeZone: 'Asia/Riyadh',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        };
+        const timeStr = now.toLocaleTimeString('ar-SA', timeOptions);
+        const timeElem = document.getElementById('makkah-time-text');
+        if (timeElem) {
+            timeElem.innerText = `🕋 توقيت مكة: ${timeStr}`;
+        }
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+}
+
+// 3. جلب مواقيت الصلاة والتاريخ الهجري الدقيق من السيرفر
 async function fetchPrayerTimes(lat, lng) {
     try {
-        const response = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=4`);
+        const response = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=4&school=0`);
         const data = await response.json();
         const timings = data.data.timings;
+        const dateData = data.data.date;
 
-        // أ) رسم المواقيت على واجهة الشاشة
+        // تحديث التاريخ الهجري الدقيق 100% من السيرفر (تقويم أم القرى)
+        if (dateData && dateData.hijri) {
+            const h = dateData.hijri;
+            const hijriElem = document.getElementById('hijri-date-text');
+            if (hijriElem) {
+                hijriElem.innerText = `📅 ${h.weekday.ar}، ${h.day} ${h.month.ar} ${h.year} هـ`;
+            }
+        }
+
+        // رسم المواقيت وجدولتها
         renderPrayerTimesUI(timings);
-
-        // ب) جدولة التنبيهات للأندرويد
         scheduleAllNotifications(timings);
     } catch (err) {
         console.error("خطأ في جلب مواقيت الصلاة:", err);
@@ -48,7 +82,27 @@ async function fetchPrayerTimes(lat, lng) {
     }
 }
 
-// عرض أوقات الصلاة بصرياً في الكارت
+// 4. تقويم هجري احتياطي محلي أثناء انتظار التحميل
+function displayHijriDateFallback() {
+    try {
+        const today = new Date();
+        const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+        const hijriFormatted = formatter.format(today);
+        const elem = document.getElementById('hijri-date-text');
+        if (elem && elem.innerText.includes('جاري')) {
+            elem.innerText = `📅 ${hijriFormatted} هـ`;
+        }
+    } catch (e) {
+        console.log("استخدام التوقيت الهجري من السيرفر فقط");
+    }
+}
+
+// 5. رسم مواقيت الصلاة بصرياً على الشاشة
 function renderPrayerTimesUI(timings) {
     const loadingElem = document.getElementById('prayer-loading');
     const gridElem = document.getElementById('prayer-grid');
@@ -83,7 +137,7 @@ function formatTime12(time24) {
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
 }
 
-// جدولة التنبيهات في تطبيق Capacitor
+// 6. جدولة التنبيهات في تطبيق Capacitor
 async function scheduleAllNotifications(timings) {
     const iqamahOffsets = { Fajr: 20, Dhuhr: 15, Asr: 15, Maghrib: 10, Isha: 15 };
     const prayerNamesAr = { Fajr: "الفجر", Dhuhr: "الظهر", Asr: "العصر", Maghrib: "المغرب", Isha: "العشاء" };

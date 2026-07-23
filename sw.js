@@ -1,14 +1,15 @@
-const CACHE_NAME = 'zad-al-momen-v1';
+const CACHE_NAME = 'zad-al-momen-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './azkar.html',
   './duaa.html',
   './bot.js',
+  './notifications.js',
+  './check-update.js',
   './manifest.json'
 ];
 
-// تثبيت الـ Service Worker وتخزين الملفات
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -17,7 +18,6 @@ self.addEventListener('install', (e) => {
   );
 });
 
-// تفعيل وتحديث الكاش
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
@@ -32,7 +32,6 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// استرجاع الملفات بسرعة
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((response) => {
