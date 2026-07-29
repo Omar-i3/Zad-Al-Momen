@@ -1,0 +1,1710 @@
+/* ==========================================================================
+   🌙 زاد المؤمن - ملف التنسيقات الشامل والكامل (app.css)
+   مشروع: تطبيق زاد المؤمن / بيئة أندرويد وويب
+   الإصدار: 3.0 الكامل والنهائي
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. المتغيرات العامة والألوان (CSS Custom Properties)
+   -------------------------------------------------------------------------- */
+:root {
+  /* ألوان الخلفيات واللوحات الزجاجية */
+  --bg-deep: #070b18;
+  --bg-panel: #0f1730;
+  --bg-panel-2: #141d3d;
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-glass-hover: rgba(214, 168, 92, 0.12);
+  
+  /* ألوان الهوية البصرية (الذهبي والفيروزي) */
+  --gold: #d6a85c;
+  --gold-soft: #f0d9a8;
+  --gold-bright: #ffd700;
+  --teal: #5fd6c4;
+  --teal-soft: #a8f0e6;
+  
+  /* ألوان النصوص */
+  --text-main: #f3efe3;
+  --text-muted: #93a0c2;
+  --text-dim: #6272a4;
+  
+  /* ألوان الصناديق الخاصة والتنبيهات */
+  --hadith: #8fc9a8;
+  --verse-gold: #e6c587;
+  --success: #2ec4b6;
+  --error: #e74c3c;
+  --warning: #f39c12;
+  
+  /* الحدود والظلال الزجاجية */
+  --border-glass: rgba(214, 168, 92, 0.28);
+  --border-glass-light: rgba(255, 255, 255, 0.1);
+  --shadow-deep: 0 15px 35px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 25px rgba(214, 168, 92, 0.25);
+  
+  /* الانحناءات والانتقالات */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. التجميع العام وإعادة الضبط (Global Reset & Typography)
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 20% -10%, rgba(95, 214, 196, 0.10), transparent 45%),
+    radial-gradient(ellipse at 80% 0%, rgba(214, 168, 92, 0.12), transparent 40%),
+    var(--bg-deep);
+  color: var(--text-main);
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  padding-bottom: 110px;
+  line-height: 1.6;
+  user-select: none;
+}
+
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+h1, h2, h3, h4, .amiri {
+  font-family: 'Amiri', serif;
+  font-weight: 700;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. زر تبديل الوضع (Theme Toggle Button)
+   -------------------------------------------------------------------------- */
+.theme-btn {
+  position: fixed !important;
+  top: 16px !important;
+  left: 16px !important;
+  z-index: 99999 !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid var(--border-glass) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.25rem !important;
+  cursor: pointer !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  transition: transform var(--transition-fast), background var(--transition-fast) !important;
+}
+
+.theme-btn:hover {
+  transform: scale(1.08) !important;
+  background: rgba(214, 168, 92, 0.15) !important;
+}
+
+.theme-btn:active {
+  transform: scale(0.92) !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. شريط توقيت مكة والتقويم الهجري (Time & Hijri Container)
+   -------------------------------------------------------------------------- */
+#time-hijri-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  margin: 14px auto 18px !important;
+  padding: 8px 18px !important;
+  width: fit-content !important;
+  max-width: 92% !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--border-glass) !important;
+  border-radius: 30px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+#makkah-time-badge, 
+#hijri-date-badge {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+#makkah-time-text {
+  font-family: 'Tajawal', sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: var(--gold-soft) !important;
+  white-space: nowrap !important;
+}
+
+#hijri-date-text {
+  font-family: 'Amiri', serif !important;
+  font-size: 0.95rem !important;
+  color: var(--gold) !important;
+  white-space: nowrap !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. القسم الرئيسي (Hero Section & Animated Moon)
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 45px 20px 20px;
+  text-align: center;
+}
+
+.moon {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 55%, #8a6a34 100%);
+  box-shadow: 0 0 60px 10px rgba(214, 168, 92, 0.45), 0 0 120px 40px rgba(214, 168, 92, 0.15);
+  animation: breathe 5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 60px 10px rgba(214, 168, 92, 0.45), 0 0 120px 40px rgba(214, 168, 92, 0.15);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 80px 18px rgba(214, 168, 92, 0.6), 0 0 150px 55px rgba(214, 168, 92, 0.22);
+  }
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  margin: 0 0 10px;
+  color: var(--gold-soft);
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero .tagline {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin: 0 auto 20px;
+  line-height: 1.8;
+}
+
+.verse-strip {
+  max-width: 640px;
+  margin: 0 auto 6px;
+  font-family: 'Amiri', serif;
+  font-size: 1.35rem;
+  color: var(--gold-soft);
+  line-height: 2.1;
+}
+
+.verse-source {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.progress-wrap {
+  max-width: 340px;
+  margin: 20px auto 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.progress-bar-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin: 0 10px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+  transition: width 0.5s ease;
+}
+
+/* --------------------------------------------------------------------------
+   6. أشرطة البحث والتصفية (Search Bar Component)
+   -------------------------------------------------------------------------- */
+.search-wrap {
+  max-width: 500px;
+  margin: 20px auto 26px;
+  position: relative;
+  z-index: 1;
+  padding: 0 18px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 10px 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color var(--transition-fast);
+}
+
+.search-box:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(214, 168, 92, 0.2);
+}
+
+.search-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.95rem;
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-count {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   7. شبكة البطاقات الرئيسية (Portal & Dashboard Cards Grid)
+   -------------------------------------------------------------------------- */
+.main-grid {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 10px auto 40px;
+  padding: 0 20px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.portal-card {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 24px;
+  padding: 26px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.portal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(214, 168, 92, 0.25), transparent 70%);
+  transition: opacity 0.3s ease;
+}
+
+.portal-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(214, 168, 92, 0.2);
+}
+
+.portal-card:hover::before {
+  opacity: 1;
+}
+
+.portal-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.portal-title {
+  font-family: 'Amiri', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold-soft);
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.portal-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 260px;
+  position: relative;
+  z-index: 1;
+}
+
+.portal-btn {
+  margin-top: 16px;
+  padding: 8px 20px;
+  border-radius: 12px;
+  background: rgba(214, 168, 92, 0.12);
+  border: 1px solid var(--border-glass);
+  color: var(--gold-soft);
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.portal-card:hover .portal-btn {
+  background: var(--gold);
+  color: #1a1200;
+  box-shadow: 0 0 15px rgba(214, 168, 92, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   8. مواقيت الصلاة (Prayer Times System)
+   -------------------------------------------------------------------------- */
+.prayer-times-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+}
+
+@media (min-width: 600px) {
+  .prayer-times-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.prayer-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 12px 8px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.prayer-name {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.prayer-time {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold-soft);
+}
+
+/* --------------------------------------------------------------------------
+   9. نافذة تخصيص التنبيهات المنبثقة (Adhan Settings Modal)
+   -------------------------------------------------------------------------- */
+.adhan-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(3, 5, 14, 0.82) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999999 !important;
+  padding: 16px !important;
+}
+
+.adhan-modal-overlay.open {
+  display: flex !important;
+}
+
+.adhan-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.adhan-toggle-row:last-child {
+  border-bottom: none;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: 0.3s;
+  border-radius: 34px;
+  border: 1px solid var(--border-glass);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3px;
+  background-color: var(--text-muted);
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--gold);
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+  background-color: #1a1200;
+}
+
+/* --------------------------------------------------------------------------
+   10. العناوين والأقسام الفرعية (Section Labels & Dividers)
+   -------------------------------------------------------------------------- */
+.section-label {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  margin: 40px 0 16px;
+}
+
+.section-label span {
+  font-family: 'Amiri', serif;
+  font-size: 1.6rem;
+  color: var(--gold-soft);
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border-glass);
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: -6px;
+  margin-bottom: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   11. خريطة موضوعات الدعاء (Duaa Map Grid & Nodes)
+   -------------------------------------------------------------------------- */
+.map {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 18px 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.node {
+  position: relative;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 20px 16px 18px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.node:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 24px rgba(214, 168, 92, 0.25);
+}
+
+.node.visited {
+  border-color: rgba(95, 214, 196, 0.5);
+}
+
+.node.visited .node-num {
+  color: var(--teal);
+  background: rgba(95, 214, 196, 0.15);
+  border-color: var(--teal);
+}
+
+.node-num {
+  font-family: 'Amiri', serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--gold);
+  background: rgba(214, 168, 92, 0.12);
+  border: 1px solid var(--border-glass);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.node-icon {
+  font-size: 1.7rem;
+}
+
+.node-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.node-teaser {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   12. النافذة المنبثقة لاستعراض المواضيع (Overlay & Centered Modal)
+   -------------------------------------------------------------------------- */
+.overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(3, 5, 14, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999999 !important;
+  padding: 16px !important;
+}
+
+.overlay.open {
+  display: flex !important;
+}
+
+.modal {
+  background: linear-gradient(180deg, var(--bg-panel-2), var(--bg-panel)) !important;
+  border: 1px solid var(--border-glass) !important;
+  width: 100% !important;
+  max-width: 680px !important;
+  max-height: 80vh !important;
+  overflow-y: auto !important;
+  border-radius: 24px !important;
+  padding: 26px 22px 34px !important;
+  position: relative !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8) !important;
+  margin: auto !important;
+}
+
+.modal-close {
+  position: sticky !important;
+  top: 0 !important;
+  float: left !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--border-glass) !important;
+  color: var(--text-main) !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  font-size: 1.1rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 3 !important;
+  transition: background var(--transition-fast);
+}
+
+.modal-close:hover {
+  background: rgba(237, 76, 92, 0.2) !important;
+  color: #ff6b6b !important;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-num {
+  font-family: 'Amiri', serif;
+  color: var(--gold);
+  border: 1px solid var(--border-glass);
+  background: rgba(214, 168, 92, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--gold-soft);
+  line-height: 1.4;
+}
+
+.modal-body {
+  margin-top: 18px;
+  line-height: 2;
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+/* --------------------------------------------------------------------------
+   13. أزرار التنقل بين المواضيع داخل المودال
+   -------------------------------------------------------------------------- */
+.modal-nav-btn-top,
+.modal-nav-btn-bottom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--border-glass) !important;
+  color: var(--gold-soft) !important;
+  padding: 12px 18px !important;
+  border-radius: 14px !important;
+  cursor: pointer !important;
+  font-family: 'Tajawal', sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  position: relative !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  transition: all 0.25s ease !important;
+}
+
+.modal-nav-btn-top {
+  margin-bottom: 18px !important;
+  clear: both !important;
+}
+
+.modal-nav-btn-bottom {
+  margin-top: 24px !important;
+  background: linear-gradient(135deg, rgba(214, 168, 92, 0.12), rgba(255, 255, 255, 0.03)) !important;
+}
+
+.modal-nav-btn-top:hover,
+.modal-nav-btn-bottom:hover {
+  background: rgba(214, 168, 92, 0.2) !important;
+  border-color: var(--gold) !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 4px 15px rgba(214, 168, 92, 0.2) !important;
+}
+
+.modal-nav-btn-top:disabled,
+.modal-nav-btn-bottom:disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   14. قسم الأسئلة والأجوبة التفاعلي (Interactive Q&A Component)
+   -------------------------------------------------------------------------- */
+.qa-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 18px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.qa-cat {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.qa-cat-head {
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: 'Amiri', serif;
+  font-size: 1.15rem;
+  color: var(--gold-soft);
+  user-select: none;
+}
+
+.qa-cat-head .arrow {
+  transition: transform 0.3s ease;
+  color: var(--gold);
+}
+
+.qa-cat.open .qa-cat-head .arrow {
+  transform: rotate(180deg);
+}
+
+.qa-cat-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.qa-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.qa-q {
+  padding: 14px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.95rem;
+}
+
+.qa-q .plus {
+  color: var(--teal);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.qa-item.open .qa-q .plus {
+  transform: rotate(45deg);
+}
+
+.qa-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding: 0 20px;
+}
+
+.qa-a-inner {
+  padding-bottom: 16px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.9;
+}
+
+/* --------------------------------------------------------------------------
+   15. قسم الأذكار والتسبيح الإلكتروني (Azkar & Counter)
+   -------------------------------------------------------------------------- */
+.azkar-accordion {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.azkar-accordion:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.accordion-header {
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+}
+
+.accordion-header:hover {
+  background: rgba(214, 168, 92, 0.04);
+}
+
+.accordion-title {
+  font-size: 1.2rem;
+  color: var(--gold-soft);
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.accordion-icon {
+  font-size: 1.1rem;
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.azkar-accordion.open {
+  border-color: var(--gold);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+}
+
+.azkar-accordion.open .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.azkar-accordion.open .accordion-title {
+  color: var(--gold);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-body {
+  padding: 4px 22px 22px;
+  border-top: 1px solid rgba(214, 168, 92, 0.1);
+}
+
+.zkr-item {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 14px;
+  margin-top: 14px;
+  border-right: 3px solid var(--teal);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.zkr-text {
+  font-family: 'Amiri', serif;
+  font-size: 1.3rem;
+  line-height: 2.2;
+  color: var(--text-main);
+  text-align: justify;
+  margin: 0;
+}
+
+.counter-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.zkr-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zkr-badge {
+  background: rgba(95, 214, 196, 0.12);
+  color: var(--teal);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+.counter-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.counter-screen {
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gold-soft);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-glass);
+  min-width: 65px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.counter-screen.done {
+  color: var(--success);
+  border-color: var(--success);
+  box-shadow: 0 0 10px rgba(46, 196, 182, 0.2);
+}
+
+.btn-plus {
+  background: linear-gradient(135deg, var(--gold), #b9803a);
+  border: none;
+  color: #1a1200;
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-plus:active,
+.btn-plus:hover {
+  transform: scale(1.05);
+}
+
+.btn-plus.done {
+  background: #2a3d3a;
+  color: rgba(46, 196, 182, 0.4);
+  pointer-events: none;
+}
+
+.btn-reset {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   16. شبكة أسماء الله الحسنى (99 Names of Allah)
+   -------------------------------------------------------------------------- */
+.names-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.name-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 16px 10px;
+  text-align: center;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
+}
+
+.name-card:hover,
+.name-card:active {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(214, 168, 92, 0.25);
+  background: rgba(214, 168, 92, 0.12);
+}
+
+.name-title {
+  font-family: 'Amiri', serif;
+  font-size: 1.45rem;
+  font-weight: bold;
+  color: var(--gold-soft);
+}
+
+.name-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   17. قائمة السنن النبوية اليومية (Sunnah Checklist)
+   -------------------------------------------------------------------------- */
+.sunnah-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.sunnah-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.sunnah-item.completed {
+  border-color: var(--teal);
+  background: rgba(95, 214, 196, 0.06);
+}
+
+.sunnah-check {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 2px solid var(--border-glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+.sunnah-item.completed .sunnah-check {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #070b18;
+}
+
+/* --------------------------------------------------------------------------
+   18. البحث في الموسوعة الحديثية (Hadith Search)
+   -------------------------------------------------------------------------- */
+.hadith-search-wrap {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0 18px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.hadith-search-box {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+
+.hadith-search-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.95rem;
+  padding: 6px 10px;
+}
+
+.hadith-search-box button {
+  background: linear-gradient(135deg, var(--gold), #b9803a);
+  border: none;
+  color: #1a1200;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.hadith-hint {
+  text-align: center !important;
+  color: var(--text-muted) !important;
+  font-size: 0.85rem !important;
+  margin: 12px auto 20px !important;
+  padding: 10px 16px !important;
+  max-width: 600px !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px dashed var(--border-glass) !important;
+  border-radius: 14px !important;
+  line-height: 1.6 !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.hadith-result-item {
+  background: rgba(0, 0, 0, 0.25);
+  border-right: 3px solid var(--gold);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.hadith-source-link {
+  display: block;
+  text-align: center;
+  color: var(--gold-soft);
+  margin-top: 15px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   19. الصناديق التوضيحية المخصصة (Custom Callout Boxes)
+   -------------------------------------------------------------------------- */
+.hadith-box {
+  background: rgba(143, 201, 168, 0.07);
+  border-inline-start: 3px solid var(--hadith);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 16px 0;
+}
+
+.hadith-box .txt {
+  font-family: 'Amiri', serif;
+  font-size: 1.15rem;
+  color: var(--gold-soft);
+  line-height: 2;
+}
+
+.hadith-box .meta {
+  font-size: 0.78rem;
+  color: var(--hadith);
+  margin-top: 8px;
+}
+
+.verse-box {
+  background: rgba(214, 168, 92, 0.06);
+  border-inline-start: 3px solid var(--gold);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 16px 0;
+  font-family: 'Amiri', serif;
+  font-size: 1.2rem;
+  color: var(--gold-soft);
+  line-height: 2.1;
+}
+
+.note-box {
+  background: rgba(95, 214, 196, 0.06);
+  border: 1px dashed rgba(95, 214, 196, 0.4);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 18px 0;
+  font-size: 0.92rem;
+  color: var(--text-main);
+}
+
+.example-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 14px 0;
+  font-size: 0.92rem;
+}
+
+.example-box .lbl {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.82rem;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.khulasa {
+  background: rgba(214, 168, 92, 0.1);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   20. نافذة الشات المصغرة (تظهر على اليسار)
+   -------------------------------------------------------------------------- */
+#chat-window-mini {
+  position: fixed;
+  bottom: 90px;
+  left: 16px;
+  width: 340px;
+  max-width: 90vw;
+  max-height: 420px;
+  background: linear-gradient(180deg, #141d3d, #0f1730);
+  border: 1px solid rgba(214, 168, 92, 0.28);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 999999;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  animation: chatSlideUp 0.3s ease;
+}
+
+#chat-window-mini.open {
+  display: flex;
+}
+
+#chat-window-mini .chat-header {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(214, 168, 92, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+#chat-window-mini .chat-header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#chat-window-mini .chat-header-title span:first-child {
+  font-size: 1.2rem;
+}
+
+#chat-window-mini .chat-header-title div {
+  font-weight: 700;
+  color: #f0d9a8;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+#chat-window-mini .chat-header-title div small {
+  font-weight: 400;
+  font-size: 0.65rem;
+  color: #5fd6c4;
+  display: block;
+}
+
+#chat-window-mini .chat-close-btn {
+  background: none;
+  border: none;
+  color: #93a0c2;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#chat-window-mini .chat-messages {
+  flex: 1;
+  padding: 10px 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  max-height: 260px;
+}
+
+#chat-window-mini .chat-messages .msg-bot {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f3efe3;
+  padding: 8px 12px;
+  border-radius: 12px 12px 0 12px;
+  align-self: flex-start;
+  max-width: 88%;
+  font-size: 0.82rem;
+}
+
+#chat-window-mini .chat-messages .msg-user {
+  background: linear-gradient(135deg, rgba(214, 168, 92, 0.25), rgba(214, 168, 92, 0.1));
+  color: #f0d9a8;
+  padding: 8px 12px;
+  border-radius: 12px 12px 12px 0;
+  align-self: flex-end;
+  max-width: 85%;
+  font-size: 0.82rem;
+  border: 1px solid rgba(214, 168, 92, 0.15);
+}
+
+#chat-window-mini .chat-form {
+  display: flex;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(214, 168, 92, 0.1);
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+#chat-window-mini .chat-form input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(214, 168, 92, 0.15);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: #f3efe3;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.82rem;
+  outline: none;
+}
+
+#chat-window-mini .chat-form input::placeholder {
+  color: #93a0c2;
+}
+
+#chat-window-mini .chat-form button {
+  background: linear-gradient(135deg, #d6a85c, #b9803a);
+  border: none;
+  color: #1a1200;
+  font-weight: 700;
+  padding: 0 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.78rem;
+}
+
+@keyframes chatSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   شريط الملاحة السفلي الشفاف (Liquid Bottom Glass Dock) - إصلاح المظهر
+   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   شريط الملاحة السفلي الشفاف (Liquid Bottom Glass Dock)
+   -------------------------------------------------------------------------- */
+.liquid-bottom-nav {
+  position: fixed !important;
+  bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  max-width: 480px !important;
+  height: 62px !important;
+  background: rgba(15, 23, 42, 0.92) !important;
+  backdrop-filter: blur(25px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+  border: 1px solid rgba(214, 168, 92, 0.35) !important;
+  border-radius: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  z-index: 99999 !important;
+  padding: 0 8px !important;
+  overflow: hidden !important;
+}
+
+.liquid-nav-item {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  color: #94a3b8 !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 4px 10px !important;
+  border-radius: 20px !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  min-width: 44px !important;
+}
+
+.liquid-nav-item.active {
+  color: #f0d9a8 !important;
+  background: rgba(214, 168, 92, 0.18) !important;
+}
+
+/* ===== الأيقونة ===== */
+.liquid-nav-item span:first-child {
+  font-size: 1.2rem !important;
+  line-height: 1.2 !important;
+}
+
+/* ===== النص تحت الأيقونة ===== */
+.liquid-nav-item span:last-child {
+  font-size: 0.6rem !important;
+  font-weight: 600 !important;
+  margin-top: 1px !important;
+  line-height: 1.3 !important;
+}
+
+/* ==========================================
+   شريط الموسوعة الفرعي
+   ========================================== */
+.encyclopedia-nav {
+  gap: 2px !important;
+  justify-content: flex-start !important;
+  padding: 0 4px !important;
+  height: 56px !important;
+  width: 96% !important;
+  max-width: 480px !important;
+  overflow: hidden !important;
+  flex-wrap: nowrap !important;
+}
+
+.encyclopedia-nav .liquid-nav-item {
+  padding: 4px 6px !important;
+  min-width: 36px !important;
+  flex: 1 !important;
+}
+
+.encyclopedia-nav .liquid-nav-item span:first-child {
+  font-size: 0.95rem !important;
+  line-height: 1.2 !important;
+}
+
+.encyclopedia-nav .liquid-nav-item span:last-child {
+  font-size: 0.48rem !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin-top: 1px !important;
+}
+/* --------------------------------------------------------------------------
+   22. إشعارات البانر الطافية (Toast Banner Notifications)
+   -------------------------------------------------------------------------- */
+.toast-banner {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30px);
+  background: linear-gradient(135deg, #0f1730, #141d3d);
+  border: 1px solid var(--gold);
+  color: var(--gold-soft);
+  padding: 12px 28px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  z-index: 9999999;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-banner.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   23. التذييل والحقوق (Footer & Credits)
+   -------------------------------------------------------------------------- */
+footer {
+  text-align: center;
+  padding: 40px 20px 40px;
+  position: relative;
+  z-index: 1;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   إصلاحات أمان للطبقات والنوافذ المنبثقة
+   ========================================================================== */
+.pdf-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(3, 5, 14, 0.98) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  display: none;
+  flex-direction: column !important;
+  z-index: 9999999 !important;
+}
+
+.pdf-modal-overlay.open {
+  display: flex !important;
+}
+
+.pdf-header {
+  background: rgba(15, 23, 48, 0.98);
+  border-bottom: 1px solid var(--border-glass);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 10;
+}
+
+.pdf-header-start {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.pdf-btn-back {
+  background: linear-gradient(135deg, var(--gold), #b9803a);
+  border: none;
+  color: #1a1200;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Tajawal', sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(214, 168, 92, 0.25);
+}
+
+.pdf-btn-back:active {
+  transform: scale(0.96);
+}
+
+.pdf-title {
+  font-family: 'Amiri', serif;
+  color: var(--gold-soft);
+  font-size: 1.1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pdf-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pdf-btn-open {
+  background: rgba(214, 168, 92, 0.15);
+  border: 1px solid var(--border-glass);
+  color: var(--gold-soft);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pdf-btn-close {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-body {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background: #1e1e1e;
+  position: relative;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

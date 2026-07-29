@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>موسوعة زاد المؤمن — المعرفة والإيمان</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <link rel="stylesheet" href="app.css">
+  <style>
+  .whatsapp-channel-btn {
+  position: fixed;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 99990;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 10px);
+  text-decoration: none !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 700;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.whatsapp-channel-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+}
+
+.whatsapp-channel-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 480px) {
+  .whatsapp-channel-btn {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    right: 12px;
+    padding: 8px 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+  <canvas id="stars"></canvas>
+  <button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+    <!-- زر متابعة قناة الواتساب أسفل اليمين -->
+  <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
+    <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
+    <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
+  </a>
+
+  <!-- شريط توقيت مكة المكرمة والتقويم الهجري اليومي فقط -->
+  <div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+  </div>
+
+  <div class="hero">
+    <div class="moon"></div>
+    <h1>موسوعة زاد المؤمن</h1>
+    <p class="tagline">اختر القسم الذي تريد استكشافه والتعمق فيه في رياض العلم والتزكية واليقين وحسن الظن بالله.</p>
+  </div>
+
+  <!-- شبكة أقسام الموسوعة -->
+  <div class="main-grid">
+    <div class="portal-card" onclick="window.location.href='duaa.html'">
+      <div class="portal-icon">🤲</div>
+      <div class="portal-title">خريطة الدعاء الشاملة</div>
+      <div class="portal-desc">المواضيع الـ 18 الكاملة: مفهوم الدعاء، علاقته بالقدر، الموانع والمفاتيح.</div>
+      <div class="portal-btn">دخول خريطة الدعاء ↗</div>
+    </div>
+    <div class="portal-card" onclick="window.location.href='names.html'">
+      <div class="portal-icon">✨</div>
+      <div class="portal-title">أسماء الله الحسنى (99)</div>
+      <div class="portal-desc">استكشف جميع أسماء الله الحسنى الـ 99 كاملة، معانيها، وكيف تدعو بها.</div>
+      <div class="portal-btn">استكشف الأسماء ↗</div>
+    </div>
+    <div class="portal-card" onclick="window.location.href='sunnah.html'">
+      <div class="portal-icon">🌿</div>
+      <div class="portal-title">السنن النبوية اليومية</div>
+      <div class="portal-desc">قائمة تفاعلية بالسنن والمستحبات النبوية اليومية مع الأدلة ومربعات الإنجاز.</div>
+      <div class="portal-btn">جدول السنن ↗</div>
+    </div>
+    <div class="portal-card" onclick="window.location.href='stories.html'">
+      <div class="portal-icon">📜</div>
+      <div class="portal-title">قصص وقبسات إيمانية</div>
+      <div class="portal-desc">مكتبة تتضمن 20 قصة وموقفاً في اليقين وأدب الأنبياء والصحابة.</div>
+      <div class="portal-btn">قراءة القبسات ↗</div>
+    </div>
+    <div class="portal-card" onclick="window.location.href='books.html'">
+      <div class="portal-icon">📖</div>
+      <div class="portal-title">المكتبة والكتب الإسلامية</div>
+      <div class="portal-desc">قراءة المصحف الشريف وأمهات الكتب مثل الداء والدواء والبداية والنهاية.</div>
+      <div class="portal-btn">تصفّح الكتب ↗</div>
+    </div>
+    <div class="portal-card" onclick="window.location.href='azkar.html'">
+      <div class="portal-icon">📿</div>
+      <div class="portal-title">ركن الأذكار اليومية</div>
+      <div class="portal-desc">أذكار الصباح والمساء، أذكار الصلاة، والسبحة الإلكترونية الحرّة.</div>
+      <div class="portal-btn">دخول الأذكار ↗</div>
+    </div>
+  </div>
+
+  <!-- بنر تثبيت التطبيق الذكي -->
+  <div id="smart-app-banner" style="display: none; position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); z-index: 9998; width: 92%; max-width: 480px; background: linear-gradient(135deg, #0f1730, #141d3d); border: 1px solid rgba(214, 168, 92, 0.4); border-radius: 18px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); backdrop-filter: blur(12px); color: #f3efe3; font-family: 'Tajawal', sans-serif;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 2rem;">🌙</span>
+              <div>
+                  <div style="font-weight: bold; color: #f0d9a8; font-size: 0.95rem;">تطبيق "زاد المؤمن"</div>
+                  <div id="banner-text" style="font-size: 0.8rem; color: #93a0c2; line-height: 1.4; margin-top: 2px;"></div>
+              </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+              <a id="apk-download-btn" href="zad-al-momen.apk" download style="display: none; background: linear-gradient(135deg, #d6a85c, #b9803a); color: #1a1200; font-weight: bold; padding: 8px 14px; border-radius: 10px; text-decoration: none; font-size: 0.82rem; white-space: nowrap;">تحميل APK 📲</a>
+              <button type="button" onclick="closeAppInstallBanner()" style="background: none; border: none; color: #93a0c2; font-size: 1.2rem; cursor: pointer; padding: 4px;">✕</button>
+          </div>
+      </div>
+  </div>
+
+  <footer>
+    <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — موسوعة العلم والإيمان</div>
+    <div class="small">جميع الحقوق محفوظة © عمر</div>
+  </footer>
+
+  <!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
+  <div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+    <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+      <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.3rem;">🌙</span>
+          <div>
+            <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+            <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلية من السنة الصحيحة</div>
+          </div>
+        </div>
+        <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+      </div>
+
+      <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+      <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+        <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+        <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== شريط الملاحة السفلي (الفرعي للموسوعة) ==================== -->
+  <nav class="liquid-bottom-nav encyclopedia-nav">
+    <a href="index.html" class="liquid-nav-item" style="border-left: 1px solid rgba(214,168,92,0.2);">
+      <span style="font-size: 1.2rem;">↩️</span>
+      <span>رجوع</span>
+    </a>
+    <a href="duaa.html" class="liquid-nav-item">
+      <span style="font-size: 1.2rem;">🤲</span>
+      <span>الدعاء</span>
+    </a>
+    <a href="names.html" class="liquid-nav-item">
+      <span style="font-size: 1.2rem;">✨</span>
+      <span>الأسماء</span>
+    </a>
+    <a href="sunnah.html" class="liquid-nav-item">
+      <span style="font-size: 1.2rem;">🌿</span>
+      <span>السنن</span>
+    </a>
+    <a href="stories.html" class="liquid-nav-item">
+      <span style="font-size: 1.2rem;">📜</span>
+      <span>القصص</span>
+    </a>
+    <a href="books.html" class="liquid-nav-item">
+      <span style="font-size: 1.2rem;">📖</span>
+      <span>المكتبة</span>
+    </a>
+    <a href="azkar.html" class="liquid-nav-item">
+      <span style="font-size: 1.2rem;">📿</span>
+      <span>الأذكار</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span style="font-size: 1.2rem;">💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
+
+  <!-- ==================== السكربتات البرمجية ==================== -->
+  <script>
+    /* ===== خلفية النجوم ===== */
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function initStars() {
+      canvas.width = window.innerWidth;
+      canvas.height = Math.max(document.body.scrollHeight, window.innerHeight * 2);
+      stars = [];
+      const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+      for (let i = 0; i < count; i++) {
+        stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.1 + 0.3, a: Math.random(), speed: Math.random() * 0.01 + 0.003 });
+      }
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#f0d9a8';
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        s.a += s.speed;
+        ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(drawStars);
+    }
+    window.addEventListener('resize', initStars);
+    initStars();
+    drawStars();
+
+    /* ===== تبديل الثيم والحفظ ===== */
+    const themeBtn = document.getElementById('themeBtn');
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+      if (themeBtn) themeBtn.textContent = '🌙';
+    }
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        themeBtn.textContent = isLight ? '🌙' : '🌞';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+    }
+
+    /* ===== فتح المساعد من الشريط السفلي ===== */
+    function toggleChat() {
+      const chatWindow = document.getElementById('chat-window');
+      if (chatWindow) {
+        const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
+        chatWindow.style.display = isHidden ? 'flex' : 'none';
+        if (isHidden && document.getElementById('chat-input')) {
+          document.getElementById('chat-input').focus();
+        }
+      }
+    }
+    document.getElementById('chat-close-btn')?.addEventListener('click', () => {
+      const chatWindow = document.getElementById('chat-window');
+      if (chatWindow) chatWindow.style.display = 'none';
+    });
+
+    /* ===== بنر تثبيت التطبيق ===== */
+    function openAppInstallBanner() {
+      const banner = document.getElementById('smart-app-banner');
+      if (!banner) return;
+      const bannerText = document.getElementById('banner-text');
+      const apkBtn = document.getElementById('apk-download-btn');
+      const ua = navigator.userAgent.toLowerCase();
+      const isIOS = /iphone|ipad|ipod/.test(ua);
+
+      if (isIOS) {
+        if (bannerText) bannerText.innerHTML = 'للآيفون: اضغط <span style="color:#d6a85c; font-weight:bold;">مشاركة 📤</span> ثم اختر <span style="color:#d6a85c; font-weight:bold;">(إضافة إلى الشاشة الرئيسية)</span>';
+        if (apkBtn) apkBtn.style.display = 'none';
+      } else {
+        if (bannerText) bannerText.innerText = 'ثبّت تطبيق الأندرويد المباشر (APK) لتصفح أسرع وأسهل!';
+        if (apkBtn) apkBtn.style.display = 'inline-block';
+      }
+      banner.style.display = 'block';
+    }
+    function closeAppInstallBanner() {
+      const banner = document.getElementById('smart-app-banner');
+      if (banner) banner.style.display = 'none';
+    }
+
+    /* ===== توقيت مكة والتاريخ الهجري فقط ===== */
+    function updateMakkahTimeAndHijri() {
+      const now = new Date();
+      try {
+        const timeFormatter = new Intl.DateTimeFormat('ar-SA', {
+          timeZone: 'Asia/Riyadh',
+          hour12: true,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+        const timeElem = document.getElementById('makkah-time-text');
+        if (timeElem) timeElem.textContent = `🕋 مكة: ${timeFormatter.format(now)}`;
+      } catch (e) {}
+
+      try {
+        const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        });
+        const hijriElem = document.getElementById('hijri-date-text');
+        if (hijriElem) hijriElem.textContent = `📅 ${hijriFormatter.format(now)} هـ`;
+      } catch (e) {}
+    }
+    updateMakkahTimeAndHijri();
+    setInterval(updateMakkahTimeAndHijri, 1000);
+  </script>
+
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>

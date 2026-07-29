@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ركن الأذكار اليومية — زاد المؤمن</title>
+
+  <!-- أيقونة الموقع والخطوط الرسمية -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📿</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- إعدادات تطبيق PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
+  <link rel="stylesheet" href="app.css">
+    <style>
+  .whatsapp-channel-btn {
+  position: fixed;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 99990;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 10px);
+  text-decoration: none !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 700;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.whatsapp-channel-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+}
+
+.whatsapp-channel-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 480px) {
+  .whatsapp-channel-btn {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    right: 12px;
+    padding: 8px 12px;
+  }
+}
+</style>
+
+  <style>
+    :root {
+      --bg-deep: #070b18;
+      --bg-panel: #0f1730;
+      --bg-panel-2: #141d3d;
+      --gold: #d6a85c;
+      --gold-soft: #f0d9a8;
+      --teal: #5fd6c4;
+      --text-main: #f3efe3;
+      --text-muted: #93a0c2;
+      --border-glass: rgba(214, 168, 92, 0.28);
+      --success: #2ec4b6;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+
+    body {
+      background:
+        radial-gradient(ellipse at 20% -10%, rgba(95,214,196,0.10), transparent 45%),
+        radial-gradient(ellipse at 80% 0%, rgba(214,168,92,0.12), transparent 40%),
+        var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding-bottom: 110px;
+    }
+
+    #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    h1, h2, h3, .amiri { font-family: 'Amiri', serif; }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 60px 20px 10px;
+      text-align: center;
+    }
+    .moon {
+      width: 110px; height: 110px; margin: 0 auto 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 55%, #8a6a34 100%);
+      box-shadow: 0 0 60px 10px rgba(214,168,92,0.45), 0 0 120px 40px rgba(214,168,92,0.15);
+      animation: breathe 5s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%,100%{transform:scale(1);box-shadow:0 0 60px 10px rgba(214,168,92,0.45),0 0 120px 40px rgba(214,168,92,0.15);}
+      50%{transform:scale(1.06);box-shadow:0 0 80px 18px rgba(214,168,92,0.6),0 0 150px 55px rgba(214,168,92,0.22);}
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      margin: 0 0 10px; color: var(--gold-soft);
+    }
+    .hero .tagline {
+      font-size: 1.05rem; color: var(--text-muted);
+      max-width: 600px; margin: 0 auto; line-height: 1.8;
+    }
+
+    /* ---------- كبسولة توقيت مكة والتاريخ ---------- */
+    #time-hijri-container {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      margin: 12px auto 18px !important;
+      padding: 8px 16px !important;
+      width: fit-content !important;
+      max-width: 92% !important;
+      background: rgba(15, 23, 42, 0.7) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border: 1px solid rgba(214, 168, 92, 0.3) !important;
+      border-radius: 30px !important;
+      position: relative !important; z-index: 10 !important;
+    }
+    #makkah-time-text { font-family: 'Tajawal', sans-serif !important; font-size: 0.82rem !important; font-weight: 700 !important; color: #f0d9a8 !important; }
+    #hijri-date-text { font-family: 'Amiri', serif !important; font-size: 0.9rem !important; color: #d6a85c !important; }
+
+    /* ---------- TABS NAVIGATION ---------- */
+    .tabs-nav {
+      display: flex; justify-content: center; gap: 16px;
+      margin: 25px auto; max-width: 600px; padding: 0 20px;
+      position: relative; z-index: 5;
+    }
+    .tab-btn {
+      flex: 1; padding: 14px 20px; border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted); font-family: 'Tajawal', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      transition: all 0.3s ease; backdrop-filter: blur(10px);
+    }
+    .tab-btn:hover { background: rgba(214, 168, 92, 0.08); color: var(--gold-soft); }
+    .tab-btn.active {
+      background: var(--gold); color: #1a1200;
+      border-color: var(--gold); box-shadow: 0 0 20px rgba(214, 168, 92, 0.3);
+    }
+
+    /* ---------- TAB CONTENT ---------- */
+    .tab-content {
+      display: none; max-width: 800px; margin: 0 auto;
+      padding: 0 20px; position: relative; z-index: 1;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- ACCORDION CARD STYLE ---------- */
+    .azkar-accordion {
+      background: rgba(15, 23, 48, 0.65);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px; margin-bottom: 16px; overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .azkar-accordion:hover { border-color: var(--gold); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+
+    .accordion-header {
+      padding: 20px 24px; display: flex; justify-content: space-between;
+      align-items: center; cursor: pointer; user-select: none; background: transparent;
+    }
+    .accordion-header:hover { background: rgba(214, 168, 92, 0.04); }
+    .accordion-title { font-size: 1.25rem; color: var(--gold-soft); font-weight: 700; margin: 0; display: flex; align-items: center; gap: 12px; }
+    .accordion-icon { font-size: 1.1rem; color: var(--gold); transition: transform 0.3s ease; }
+
+    .azkar-accordion.open { border-color: var(--gold); background: rgba(15, 25, 52, 0.85); }
+    .azkar-accordion.open .accordion-icon { transform: rotate(180deg); }
+    .azkar-accordion.open .accordion-title { color: var(--gold); }
+
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+    .accordion-body { padding: 4px 24px 24px; border-top: 1px solid rgba(214,168,92,0.1); }
+
+    /* ---------- ZKR ITEM & COUNTER ---------- */
+    .zkr-item {
+      background: rgba(0, 0, 0, 0.22);
+      border-radius: 14px; margin-top: 14px;
+      border-right: 3px solid var(--teal);
+      padding: 16px 20px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .zkr-text {
+      font-family: 'Amiri', serif; font-size: 1.35rem; line-height: 2.2;
+      color: var(--text-main); text-align: justify; margin: 0;
+    }
+
+    .counter-panel {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03); padding: 8px 14px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 10px;
+    }
+    .zkr-hint { font-size: 0.88rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+    .zkr-badge { background: rgba(95,214,196,0.12); color: var(--teal); padding: 2px 10px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; }
+
+    .counter-actions { display: flex; align-items: center; gap: 12px; }
+    .counter-screen {
+      font-family: monospace; font-size: 1.15rem; font-weight: 700; color: var(--gold-soft);
+      background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 6px; border: 1px solid var(--border-glass);
+      min-width: 65px; text-align: center; transition: all 0.3s ease;
+    }
+    .counter-screen.done { color: var(--success); border-color: var(--success); box-shadow: 0 0 10px rgba(46, 196, 182, 0.2); }
+
+    .btn-plus {
+      background: linear-gradient(135deg, var(--gold), #b9803a); border: none; color: #1a1200;
+      font-size: 1.2rem; font-weight: 700; width: 42px; height: 42px; border-radius: 10px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+    }
+    .btn-plus:active, .btn-plus:hover { transform: scale(1.05); }
+    .btn-plus.done { background: #2a3d3a; color: rgba(46, 196, 182, 0.4); pointer-events: none; }
+
+    .btn-reset {
+      background: none; border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted);
+      width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+    }
+
+    /* ---------- HADITH SEARCH ---------- */
+    .section-label { text-align: center; position: relative; z-index: 1; margin: 50px 0 20px; }
+    .section-label span { font-family: 'Amiri', serif; font-size: 1.65rem; color: var(--gold-soft); padding-bottom: 6px; border-bottom: 2px solid var(--border-glass); }
+    .section-sub { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 28px; }
+
+    .hadith-search-wrap { max-width: 800px; margin: 0 auto; padding: 0 20px 40px; position: relative; z-index: 1; }
+    .hadith-search-box { display: flex; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass); border-radius: 16px; padding: 10px; margin-bottom: 16px; }
+    .hadith-search-box input { flex: 1; background: none; border: none; outline: none; color: var(--text-main); font-family: 'Tajawal', sans-serif; font-size: 0.95rem; padding: 6px 10px; }
+    .hadith-search-box button { background: linear-gradient(135deg,var(--gold),#b9803a); border: none; color: #1a1200; font-weight: 700; border-radius: 12px; padding: 8px 18px; cursor: pointer; font-family: 'Tajawal', sans-serif; }
+
+    .theme-btn {
+      position: fixed; top: 16px; left: 16px; z-index: 60; width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center; font-size: 1.25rem; cursor: pointer; color: var(--text-main);
+    }
+
+    body.light {
+      --bg-deep:#f6efe0; --bg-panel:#fffaf1; --bg-panel-2:#fdf3de; --gold:#b9803a; --gold-soft:#8a5a24; --teal:#1f8f7c; --text-main:#3a2f22; --text-muted:#7a6d58; --border-glass: rgba(185,128,58,0.32);
+    }
+
+    /* ---------- زر قناة الواتساب المطور أسفل اليمين ---------- */
+    .whatsapp-channel-btn {
+      position: fixed;
+      bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+      right: 16px;
+      z-index: 99990;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #ffffff !important;
+      padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+      border-radius: 30px;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      display: flex;
+      align-items: center;
+      gap: clamp(6px, 1vw, 10px);
+      text-decoration: none !important;
+      font-family: 'Tajawal', sans-serif;
+      font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .whatsapp-channel-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+    }
+
+    .whatsapp-channel-btn:active {
+      transform: scale(0.96);
+    }
+
+    @media (max-width: 480px) {
+      .whatsapp-channel-btn {
+        bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+        right: 12px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+<!-- زر متابعة قناة الواتساب أسفل اليمين -->
+<a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
+  <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
+  <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
+</a>
+
+<div class="hero">
+  <div class="moon"></div>
+  <h1>الأذكار اليومية والمأثورة عن النبي ﷺ</h1>
+  <p class="tagline">زادك اليومي من الأدعية المأثورة والكنوز النبوية ليكون قلبك معلقاً بالله في كل لحظة.</p>
+</div>
+
+<!-- كبسولة توقيت مكة والتاريخ الهجري -->
+<div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 توقيت مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+</div>
+
+<div style="max-width: 800px; margin: 0 auto; padding: 0 18px;">
+
+  <!-- شريط تقدم إتمام الأذكار -->
+  <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(214, 168, 92, 0.3); border-radius: 16px; padding: 16px 20px; margin: 10px auto 20px; text-align: center; backdrop-filter: blur(10px);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #d6a85c; font-weight: bold; font-size: 0.95rem;">
+          <span>📊 نسبة إتمام أذكار العدادات اليومية</span>
+          <span id="azkar-progress-text" style="color: #f0d9a8; font-family: monospace; font-size: 1.1rem;">0%</span>
+      </div>
+      <div style="background: rgba(0, 0, 0, 0.4); border-radius: 10px; height: 12px; width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+          <div id="azkar-progress-bar" style="background: linear-gradient(90deg, #5fd6c4, #d6a85c); height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 10px;"></div>
+      </div>
+  </div>
+
+  <!-- السبحة الإلكترونية التفاعلية المحدثة (مفتوحة دائماً ولا تنغلق) -->
+  <div class="azkar-accordion open" style="border-color: var(--gold); background: linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02)); margin-bottom: 24px;">
+    <div class="accordion-header" style="cursor: default;">
+      <h3 class="accordion-title" style="color: var(--gold);"><span>📿</span> السبحة الإلكترونية التفاعلية</h3>
+    </div>
+    <div class="accordion-body" style="padding-top: 15px; display: block;">
+      <div style="text-align: center;">
+        <div style="font-size: 0.9rem; color: var(--gold-soft); margin-bottom: 8px;">اختر الذكر أو اكتب ذكرك الخاص:</div>
+        
+        <!-- قائمة الاختيار مع خيار الإدخال المخصص -->
+        <select id="tasbeehSelect" onchange="handleTasbeehChange(this)" style="width: 100%; max-width: 360px; padding: 10px 14px; background: rgba(15,23,48,0.9); border: 1px solid var(--border-glass); border-radius: 12px; color: var(--text-main); font-family: 'Tajawal', sans-serif; font-size: 0.98rem; outline: none; margin-bottom: 12px;">
+          <option value="سُبْحَانَ اللَّهِ">سُبْحَانَ اللَّهِ</option>
+          <option value="الْحَمْدُ لِلَّهِ">الْحَمْدُ لِلَّهِ</option>
+          <option value="لَا إِلَهَ إِلَّا اللَّهُ">لَا إِلَهَ إِلَّا اللَّهُ</option>
+          <option value="اللَّهُ أَكْبَرُ">اللَّهُ أَكْبَرُ</option>
+          <option value="أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</option>
+          <option value="لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ</option>
+          <option value="اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ">اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</option>
+          <option value="custom">✍️ إدخال كلمة مخصصة...</option>
+        </select>
+
+        <!-- حقل إدخال الذكر المخصص -->
+        <input type="text" id="customTasbeehInput" placeholder="اكتب الذكر الذي تريد التسبيح به..." style="display: none; width: 100%; max-width: 360px; padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--gold); border-radius: 12px; color: var(--gold-soft); font-family: 'Tajawal', sans-serif; font-size: 0.95rem; margin: 0 auto 14px; text-align: center;" oninput="updateCustomTasbeehText(this.value)">
+
+        <div id="tasbeehText" class="amiri" style="font-size: 1.8rem; color: var(--gold-soft); margin: 12px 0; min-height: 48px;">سُبْحَانَ اللَّهِ</div>
+
+        <div id="free-counter-screen" style="font-family: monospace; font-size: 3.2rem; font-weight: 700; color: var(--teal); background: rgba(0,0,0,0.4); padding: 12px 30px; border-radius: 20px; border: 2px solid var(--border-glass); display: inline-block; min-width: 170px; margin-bottom: 16px;">0</div>
+
+        <div>
+          <button type="button" onclick="incrementFreeCounter()" style="width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #b9803a); border: none; color: #1a1200; font-size: 2rem; font-weight: bold; cursor: pointer; box-shadow: 0 8px 20px rgba(214,168,92,0.35); transition: transform 0.1s ease;">اضغط</button>
+        </div>
+
+        <button type="button" onclick="resetFreeCounter()" style="margin-top: 16px; background: none; border: 1px solid rgba(255,255,255,0.15); color: var(--text-muted); padding: 6px 16px; border-radius: 10px; cursor: pointer; font-size: 0.82rem;">إعادة ضبط العداد ↺</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="tabs-nav">
+  <button class="tab-btn active" onclick="switchTab(event, 'daily-path')">🕒 مسار يومك الدائم</button>
+  <button class="tab-btn" onclick="switchTab(event, 'treasures-path')">💎 كنوز ومواقف طارئة</button>
+</div>
+
+<!-- ==================== التبويب الأول: الأذكار الدورية ==================== -->
+<div id="daily-path" class="tab-content active">
+  
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🕒 1. عند الاستيقاظ من النوم</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">«الحَمْدُ للهِ الذِي أحْيَانَا بَعْدَ مَا أمَاتَنَا وَإلَيْهِ النُّشُورُ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">«الحمدُ للهِ الذي عافاني في جَسَدي, ورَدَّ عليَّ رُوحي, وأذِنَ لي بذِكْرِهِ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">«لا إلَهَ إلَّا اللَّهُ وَحْدَهُ لا شَرِيكَ له, له المُلْكُ وَلَهُ الحَمْدُ, وَهو علَى كُلِّ شيءٍ قَدِيرٌ, سُبْحَانَ اللَّهِ, وَالْحَمْدُ لِلَّهِ, وَلَا إلَهَ إلَّا اللَّهُ, وَاللَّهُ أَكْبَرُ, وَلَا حَوْلَ وَلَا قُوَّةَ إلَّا باللَّهِ».</p></div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🌅 2. أذكار الصباح (بعد صلاة الفجر)</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">آية الكرسي: «اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ...»</p></div>
+        
+        <div class="zkr-item">
+          <p class="zkr-text">المعوذات: سور (الإخلاص، والفلق، والناس).</p>
+          <div class="counter-panel">
+            <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 3 مرات</span></div>
+            <div class="counter-actions">
+              <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
+              <div class="counter-screen">0 / 3</div>
+              <button class="btn-plus" onclick="countUp(this, 3)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="zkr-item"><p class="zkr-text">سيد الاستغفار: «اللَّهُمَّ أَنْتَ رَبِّي لا إِلَهَ إِلا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطعتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ...»</p></div>
+        
+        <div class="zkr-item">
+          <p class="zkr-text">«بِسْمِ اللَّهِ الَّذِي لا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلا فِي السَّمَاءِ وَهو السَّمِيعُ الْعَلِيمُ».</p>
+          <div class="counter-panel">
+            <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 3 مرات</span></div>
+            <div class="counter-actions">
+              <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
+              <div class="counter-screen">0 / 3</div>
+              <button class="btn-plus" onclick="countUp(this, 3)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="zkr-item">
+          <p class="zkr-text">«حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ ۖ عَلَيْهِ تَوَكَّلْتُ ۖ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ».</p>
+          <div class="counter-panel">
+            <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 7 مرات</span></div>
+            <div class="counter-actions">
+              <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
+              <div class="counter-screen">0 / 7</div>
+              <button class="btn-plus" onclick="countUp(this, 7)">+</button>
+            </div>
+          </div>
+        </div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🚪 3. دخول وخروج الحمام (أعزك الله)</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">عند الدخول: «بِسْمِ اللَّهِ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">عند الخروج: «غُفْرَانَكَ».</p></div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🧼 4. عند الوضوء واللبس</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">أول الوضوء: «بِسْمِ اللَّهِ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">آخر الوضوء: «أَشْهَدُ أَنْ لا إِلَهَ إِلا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ...»</p></div>
+        <div class="zkr-item"><p class="zkr-text">عند لبس الثوب: «الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا الثَّوْبَ وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ».</p></div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🏡 5. عند الخروج والدخول من المنزل</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">عند الخروج: «بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلا حَوْلَ وَلا قُوَّةَ إِلاَّ بِاللَّهِ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">عند الدخول: «بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا».</p></div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🚗 6. عند ركوب السيارة أو المواصلات</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">«بِسْمِ اللهِ، الْحَمْدُ للهِ، {سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ * وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ}».</p></div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🕌 7. سماع الأذان وإدبار الصلوات</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">عند الأذان: تكرار كلمات المؤذن، وعند الحيعلتين: «لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">بعد الأذان: «اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ...»</p></div>
+        
+        <div class="zkr-item">
+          <p class="zkr-text">التسبيح والتحميد والتكبير دبر كل صلاة مأثورة.</p>
+          <div class="counter-panel">
+            <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 33 مرة لكل ذكر</span></div>
+            <div class="counter-actions">
+              <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
+              <div class="counter-screen">0 / 33</div>
+              <button class="btn-plus" onclick="countUp(this, 33)">+</button>
+            </div>
+          </div>
+        </div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🍲 8. عند تناول وجبات الطعام والشراب</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">قبل البدء: «بِسْمِ اللَّهِ» (وإذا نسي: «بِسْمِ اللَّهِ فِي أَوَّلِهِ وَآخِرِهِ»).</p></div>
+        <div class="zkr-item"><p class="zkr-text">عند الانتهاء: «الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ».</p></div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🌆 9. أذكار المساء (بعد صلاة العصر)</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item">
+          <p class="zkr-text">المعوذات (الإخلاص، الفلق، الناس) في المساء.</p>
+          <div class="counter-panel">
+            <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 3 مرات</span></div>
+            <div class="counter-actions">
+              <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
+              <div class="counter-screen">0 / 3</div>
+              <button class="btn-plus" onclick="countUp(this, 3)">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="zkr-item"><p class="zkr-text">زيادة قراءة أواخر سورة البقرة: «آَمَنَ الرَّسُولُ بِمَا أُنْزِلَ إِلَيْهِ مِنْ رَبِّهِ...»</p></div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🛏️ 10. أذكار النوم (ختام اليوم)</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">«بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، فَإِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا...»</p></div>
+        <div class="zkr-item"><p class="zkr-text">«بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا».</p></div>
+        
+        <div class="zkr-item" style="border-right-color: var(--gold); background: rgba(214, 168, 92, 0.05);">
+          <div style="font-weight: 700; color: var(--gold-soft); font-size: 1.1rem; margin-bottom: 4px; text-align: center;">كيف تنام وأنت مغفور الذنب؟</div>
+          <p class="zkr-text" style="border-right: none; padding-right: 0; text-align: center; font-size: 1.2rem;">
+            قال رسول الله ﷺ من قال حين يأوي إلى فراشه:<br><br>
+            " لا إله إلا الله وحده لا شريك له ، له الملك، وله الحمد ، وهو على كل شيء قدير ، لا حول ولا قوة الا بالله العلي العظيم ، سبحان الله، الحمدلله ، ولا إله إلا الله، الله أكبر "
+          </p>
+          <div class="zkr-hint" style="justify-content: center; margin-top: 8px;">
+            <span class="zkr-badge" style="background: rgba(214, 168, 92, 0.15); color: var(--gold); font-size: 0.88rem; padding: 4px 14px;">غُفِرت له ذنوبه ولو كانت مثلَ زَبَدِ البحر .</span>
+          </div>
+        </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ==================== التبويب الثاني: الكنوز والمواقف الطارئة ==================== -->
+<div id="treasures-path" class="tab-content">
+  
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">🚨 أ) أذكار الحالات والمواقف الطارئة</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        <div class="zkr-item"><p class="zkr-text">كفارة المجلس: «سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لا إِلَهَ إِلا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">عند الغضب أو الضيق: «أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">عند رؤية ما يعجبك (للحفظ من العين): «مَا شَاءَ اللَّهُ لَا قُوَّةَ إِلَّا بِاللَّهِ» أو «اللَّهُمَّ بَارِكْ عَلَيْهِ».</p></div>
+    </div></div>
+  </div>
+
+  <div class="azkar-accordion">
+    <div class="accordion-header"><div class="accordion-title">💎 ب) كنوز نبوية مأثورة بالأجور المضاعفة</div><div class="accordion-icon">▼</div></div>
+    <div class="accordion-content"><div class="accordion-body">
+        
+        <div class="zkr-item">
+          <p class="zkr-text">«لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ».</p>
+          <div class="counter-panel">
+            <div class="zkr-hint"><span class="zkr-badge">الحرز اليومي</span><span>كررها 100 مرة للحفظ المكتمل</span></div>
+            <div class="counter-actions">
+              <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
+              <div class="counter-screen">0 / 100</div>
+              <button class="btn-plus" onclick="countUp(this, 100)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="zkr-item">
+          <p class="zkr-text">«سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ».</p>
+          <div class="counter-panel">
+            <div class="zkr-hint"><span class="zkr-badge">الرحمن</span><span>خفيفتان على اللسان، ثقيلتان في الميزان</span></div>
+            <div class="counter-actions">
+              <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
+              <div class="counter-screen">0 / 100</div>
+              <button class="btn-plus" onclick="countUp(this, 100)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="zkr-item"><p class="zkr-text">«اللَّهُمَّ اغْفِرْ لِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ، وَالْمُسْلِمِينَ وَالْمُسْلِمَاتِ، الأَحْيَاءِ مِنْهُمْ وَالأَمْواتِ».</p></div>
+        <div class="zkr-item"><p class="zkr-text">«لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ» (كنز من كنوز الجنة تحت العرش).</p></div>
+    </div></div>
+  </div>
+
+</div>
+
+<script>
+  const hadithSearchForm = document.getElementById('hadithSearchForm');
+  const hadithQuery = document.getElementById('hadithQuery');
+
+  if (hadithSearchForm && hadithQuery) {
+    hadithSearchForm.addEventListener('submit', (e) => {
+      e.preventDefault(); 
+      const query = hadithQuery.value.trim();
+      if (!query) return;
+
+      const dorarUrl = `https://dorar.net/hadith/search?q=${encodeURIComponent(query)}`;
+      window.open(dorarUrl, '_blank', 'noopener,noreferrer');
+    });
+  }
+</script>
+
+<footer style="text-align: center; margin-top: 20px; padding: 20px 0;">
+  <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 6px;">زاد المؤمن — حصنك الإيماني اليومي</div>
+  <div style="font-size: 0.85rem; color: var(--text-muted);">جميع الحقوق محفوظة © عمر</div>
+</footer>
+
+<!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
+<div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+  <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+    <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🌙</span>
+        <div>
+          <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+          <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلية من السنة الصحيحة</div>
+        </div>
+      </div>
+      <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+    </div>
+
+    <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+    <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+      <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+      <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 18px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif;">إرسال</button>
+    </form>
+  </div>
+</div>
+
+ <!-- ==================== شريط الملاحة السفلي (الرئيسية) ==================== -->
+<nav class="liquid-bottom-nav">
+  <a href="index.html" class="liquid-nav-item active">
+    <span style="font-size: 1.2rem;">🏠</span>
+    <span>الرئيسية</span>
+  </a>
+  <a href="encyclopedia.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📚</span>
+    <span>الموسوعة</span>
+  </a>
+  <a href="azkar.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📿</span>
+    <span>الأذكار</span>
+  </a>
+  <a href="javascript:void(0)" onclick="openAppModal()" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📱</span>
+    <span>تطبيق</span>
+  </a>
+  <a href="javascript:void(0)" onclick="openAiChat()" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">💬</span>
+    <span>المساعد</span>
+  </a>
+</nav>
+
+<!-- ==================== السكربتات البرمجية ==================== -->
+<script>
+/* ---------- Tab Switcher ---------- */
+function switchTab(evt, tabId) {
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
+}
+
+/* ---------- Accordion Logic ---------- */
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', function() {
+    const card = this.parentElement;
+    const content = card.querySelector('.accordion-content');
+    if (!content) return;
+    card.classList.toggle('open');
+    if (card.classList.contains('open')) {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } else {
+      content.style.maxHeight = null;
+    }
+  });
+});
+
+/* ---------- Counter & Progress Logic ---------- */
+function updateAzkarProgress() {
+  const screens = document.querySelectorAll('.counter-screen');
+  if (!screens.length) return;
+  
+  let completedCount = 0;
+  screens.forEach(s => {
+    const parts = s.textContent.split('/');
+    if (parts.length === 2) {
+      const cur = parseInt(parts[0].trim());
+      const target = parseInt(parts[1].trim());
+      if (cur >= target && target > 0) completedCount++;
+    }
+  });
+
+  const percentage = Math.round((completedCount / screens.length) * 100);
+  const progressBar = document.getElementById('azkar-progress-bar');
+  const progressText = document.getElementById('azkar-progress-text');
+
+  if (progressBar && progressText) {
+    progressBar.style.width = percentage + '%';
+    progressText.innerText = percentage + '% ' + (percentage === 100 ? '🎉 (أتممت العدادات!)' : '');
+  }
+}
+
+function countUp(button, target) {
+  const panel = button.closest('.counter-panel');
+  const screen = panel.querySelector('.counter-screen');
+  let current = parseInt(screen.textContent.split(' ')[0]);
+  
+  if (current < target) {
+    current++;
+    screen.textContent = `${current} / ${target}`;
+    if (navigator.vibrate) navigator.vibrate(30);
+    if (current === target) {
+      screen.classList.add('done');
+      button.classList.add('done');
+      if (navigator.vibrate) navigator.vibrate([60, 50, 60]);
+    }
+    updateAzkarProgress();
+  }
+}
+
+function resetCounter(button) {
+  const panel = button.closest('.counter-panel');
+  const screen = panel.querySelector('.counter-screen');
+  const plusBtn = panel.querySelector('.btn-plus');
+  const target = screen.textContent.split(' ')[2];
+  
+  screen.textContent = `0 / ${target}`;
+  screen.classList.remove('done');
+  plusBtn.classList.remove('done');
+  updateAzkarProgress();
+}
+
+/* ---------- السبحة الإلكترونية الحرّة والمخصصة ---------- */
+let freeCount = localStorage.getItem('free_tasbeeh_count') || 0;
+const freeScreen = document.getElementById('free-counter-screen');
+if (freeScreen) freeScreen.innerText = freeCount;
+
+function handleTasbeehChange(select) {
+  const customInput = document.getElementById('customTasbeehInput');
+  const tasbeehText = document.getElementById('tasbeehText');
+  if (select.value === 'custom') {
+    if (customInput) {
+      customInput.style.display = 'block';
+      customInput.focus();
+    }
+    if (tasbeehText) tasbeehText.textContent = (customInput && customInput.value) ? customInput.value : 'الذكر المخصص';
+  } else {
+    if (customInput) customInput.style.display = 'none';
+    if (tasbeehText) tasbeehText.textContent = select.value;
+  }
+}
+
+function updateCustomTasbeehText(val) {
+  const tasbeehText = document.getElementById('tasbeehText');
+  if (tasbeehText) tasbeehText.textContent = val || 'الذكر المخصص';
+}
+
+function incrementFreeCounter() {
+    freeCount++;
+    if (freeScreen) freeScreen.innerText = freeCount;
+    localStorage.setItem('free_tasbeeh_count', freeCount);
+    if (navigator.vibrate) navigator.vibrate(25);
+}
+
+function resetFreeCounter() {
+    freeCount = 0;
+    if (freeScreen) freeScreen.innerText = freeCount;
+    localStorage.setItem('free_tasbeeh_count', freeCount);
+}
+
+function copyZkrText(btn) {
+    const item = btn.closest('.zkr-item');
+    const text = item.querySelector('.zkr-text').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = '✨';
+        setTimeout(() => { btn.innerHTML = originalContent; }, 1500);
+    });
+}
+
+/* ===== خلفية النجوم ===== */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function initStars() {
+  canvas.width = window.innerWidth;
+  canvas.height = Math.max(document.body.scrollHeight, window.innerHeight * 2);
+  stars = [];
+  const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      r: Math.random() * 1.1 + 0.3, a: Math.random(), speed: Math.random() * 0.01 + 0.003
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#f0d9a8';
+  for (let i = 0; i < stars.length; i++) {
+    const s = stars[i]; s.a += s.speed;
+    ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', initStars);
+
+/* ===== الثيم المفضل ===== */
+const themeBtn = document.getElementById('themeBtn');
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light');
+  if (themeBtn) themeBtn.textContent = '🌙';
+}
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light');
+    themeBtn.textContent = isLight ? '🌙' : '🌞';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+}
+
+/* ===== توقيت مكة والتاريخ الهجري فقط ===== */
+function updateMakkahTimeAndHijri() {
+  const now = new Date();
+  try {
+    const timeFormatter = new Intl.DateTimeFormat('ar-SA', {
+      timeZone: 'Asia/Riyadh', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+    const timeElem = document.getElementById('makkah-time-text');
+    if (timeElem) timeElem.textContent = `🕋 توقيت مكة: ${timeFormatter.format(now)}`;
+  } catch (e) {}
+
+  try {
+    const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    });
+    const hijriElem = document.getElementById('hijri-date-text');
+    if (hijriElem) hijriElem.textContent = `📅 ${hijriFormatter.format(now)} هـ`;
+  } catch (e) {}
+}
+
+updateMakkahTimeAndHijri();
+setInterval(updateMakkahTimeAndHijri, 1000);
+
+/* ===== فتح وإغلاق الشات ===== */
+function toggleChat() {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) {
+    const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
+    chatWindow.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden && document.getElementById('chat-input')) {
+      document.getElementById('chat-input').focus();
+    }
+  }
+}
+
+document.getElementById('chat-close-btn')?.addEventListener('click', () => {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) chatWindow.style.display = 'none';
+});
+
+initStars();
+drawStars();
+updateAzkarProgress();
+</script>
+
+<script src="notifications.js" defer></script>
+<script src="bot.js" defer></script>
+<script src="check-update.js" defer></script>
+</body>
+</html>

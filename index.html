@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>بوابة زاد المؤمن</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
+
+  <link rel="stylesheet" href="app.css">
+
+  <style>
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--bg-panel-2);
+      border: 1px solid var(--border-glass);
+      color: var(--gold-soft);
+      padding: 12px 22px;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* زر قناة الواتساب المطور أسفل اليمين ومتجاوب مع جميع الشاشات */
+    .whatsapp-channel-btn {
+      position: fixed;
+      bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+      right: 16px;
+      z-index: 99990;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #ffffff !important;
+      padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+      border-radius: 30px;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      display: flex;
+      align-items: center;
+      gap: clamp(6px, 1vw, 10px);
+      text-decoration: none !important;
+      font-family: 'Tajawal', sans-serif;
+      font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .whatsapp-channel-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+    }
+
+    .whatsapp-channel-btn:active {
+      transform: scale(0.96);
+    }
+
+    @media (max-width: 480px) {
+      .whatsapp-channel-btn {
+        bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+        right: 12px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars"></canvas>
+  <button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+  <!-- زر متابعة قناة الواتساب أسفل اليمين -->
+  <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
+    <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
+    <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
+  </a>
+
+  <div class="hero">
+    <div class="moon"></div>
+    <h1>زاد المؤمن</h1>
+    <p class="tagline">بوابتك الروحية الشاملة إلى رياض العبادة والذكر والتعلق بالله سبحانه وتعالى في السراء والضراء.</p>
+  </div>
+
+  <!-- شريط توقيت مكة والتاريخ الهجري فقط (يعتمد على notifications.js) -->
+  <div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+  </div>
+
+  <!-- كارت مواقيت الصلاة (يعتمد على notifications.js) -->
+  <div id="prayer-times-card" style="position: relative; z-index: 1; background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)); border: 1px solid var(--border-glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 20px; padding: 20px; margin: 0 auto 26px; max-width: 600px; text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px;">
+      <h3 style="margin: 0; color: var(--gold-soft); font-size: 1.25rem; font-family: 'Amiri', serif;">🕌 مواقيت الصلاة اليوم</h3>
+      <button type="button" onclick="openAdhanSettings()" style="background: rgba(214,168,92,0.12); border: 1px solid rgba(214,168,92,0.3); color: #f0d9a8; padding: 4px 12px; border-radius: 16px; font-size: 0.7rem; cursor: pointer; font-family: 'Tajawal', sans-serif;">تخصيص</button>
+    </div>
+    <div id="prayer-loading" style="color: var(--text-muted); font-size: 0.9rem;">جاري جلب مواقيت الصلاة حسب موقعك...</div>
+    <div id="prayer-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; display: none;"></div>
+  </div>
+
+  <!-- آية اليوم والحديث النبوي (متغيرين يومياً تلقائياً) -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto 26px; padding: 0 20px; position: relative; z-index: 1;">
+    <div style="background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)); border: 1px solid var(--border-glass); backdrop-filter: blur(14px); border-radius: 20px; padding: 20px; text-align: right;">
+      <h3 style="margin: 0 0 10px; color: var(--gold-soft); font-size: 1.15rem; font-family: 'Amiri', serif; display: flex; align-items: center; gap: 8px;">
+        <span>📖</span> آية وتدبر اليوم
+      </h3>
+      <p id="daily-ayah-text" style="font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--text-main); line-height: 1.9; margin: 0 0 8px;"></p>
+      <div id="daily-ayah-meta" style="font-size: 0.8rem; color: var(--gold-soft); text-align: left;"></div>
+      <div id="daily-ayah-note" style="font-size: 0.82rem; color: var(--gold-soft); margin-top: 10px; line-height: 1.6; background: rgba(214,168,92,0.1); padding: 8px 12px; border-radius: 10px;"></div>
+    </div>
+
+    <div style="background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)); border: 1px solid var(--border-glass); backdrop-filter: blur(14px); border-radius: 20px; padding: 20px; text-align: right;">
+      <h3 style="margin: 0 0 10px; color: var(--gold-soft); font-size: 1.15rem; font-family: 'Amiri', serif; display: flex; align-items: center; gap: 8px;">
+        <span>📜</span> حديث اليوم النبوي
+      </h3>
+      <p id="daily-hadith-text" style="font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--text-main); line-height: 1.9; margin: 0 0 10px;"></p>
+      <div id="daily-hadith-meta" style="font-size: 0.8rem; color: var(--teal); text-align: left;"></div>
+    </div>
+  </div>
+
+  <!-- شريط البحث -->
+  <div class="search-wrap">
+    <div class="search-box">
+      <span>🔎</span>
+      <form id="sectionSearchForm" style="flex:1;display:contents;">
+        <input type="text" id="sectionSearch" enterkeyhint="search" autocomplete="off" placeholder="ابحث في أقسام البوابة (خريطة الدعاء، الأذكار)...">
+      </form>
+    </div>
+    <div class="search-count" id="searchCount"></div>
+  </div>
+
+  <!-- الشبكة الرئيسية -->
+  <div class="main-grid" id="mainGrid">
+    <div class="portal-card" onclick="window.location.href='encyclopedia.html'">
+      <div class="portal-icon">📚</div>
+      <div class="portal-title">الموسوعة</div>
+      <div class="portal-desc">كل الأقسام تجدها هنا من الدعاء وأسماء الله الحسنى والسنن والقصص والمكتبة والأذكار</div>
+      <div class="portal-btn">دخول القسم ←</div>
+    </div>
+
+    <div class="portal-card" onclick="window.location.href='azkar.html'">
+      <div class="portal-icon">📿</div>
+      <div class="portal-title">ركن الأذكار اليومية</div>
+      <div class="portal-desc">أذكار الصباح والمساء، أذكار الصلاة، والأدعية المأثورة عن النبي ﷺ.</div>
+      <div class="portal-btn">دخول القسم ←</div>
+    </div>
+
+    <div class="portal-card" onclick="window.location.href='books.html'">
+      <div class="portal-icon">📖</div>
+      <div class="portal-title">المكتبة والكتب الإسلامية</div>
+      <div class="portal-desc">قراءة المصحف الشريف وأمهات الكتب الإسلامية مباشرة داخل التطبيق.</div>
+      <div class="portal-btn">تصفّح الكتب ←</div>
+    </div>
+  </div>
+
+  <!-- قسم دقق حديثاً -->
+  <div class="section-label"><span>دقّق حديثاً</span></div>
+  <p class="section-sub">بحث مباشر في الموسوعة الحديثية بموقع الدرر السنية</p>
+  <div class="hadith-search-wrap">
+    <form id="hadithSearchForm" class="hadith-search-box" style="display:flex;gap:8px;">
+      <input type="text" id="hadithQuery" enterkeyhint="search" autocomplete="off" placeholder="اكتب جزءاً من نص الحديث للتحقق...">
+      <button type="submit" id="hadithSearchBtn">بحث</button>
+    </form>
+    <div class="hadith-hint">نحاول جلب النتائج مباشرة من dorar.net؛ إذا تعذّر ذلك، ننقلك للبحث هناك مباشرة</div>
+    <div class="hadith-results" id="hadithResults"></div>
+  </div>
+
+  <!-- نافذة تخصيص الأذان -->
+  <div class="adhan-modal-overlay" id="adhanModal">
+    <div class="adhan-modal-card" style="background: #0f1730; border: 1px solid var(--border-glass); border-radius: 20px; width: 100%; max-width: 400px; padding: 22px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+        <div style="font-weight: 700; color: var(--gold-soft); font-size: 1.05rem;">⚙️ تخصيص تنبيهات الأذان</div>
+        <button type="button" onclick="closeAdhanSettings()" style="background: none; border: none; color: var(--text-main); font-size: 1.2rem; cursor: pointer;">✕</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px;">حدد الصلوات التي ترغب في تفعيل الصوت والإشعارات لها:</p>
+      <div class="adhan-toggle-row" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+        <span style="color: var(--text-main); font-weight: 500;">🌅 أذان الفجر</span>
+        <label class="switch"><input type="checkbox" id="toggle-fajr" checked><span class="slider"></span></label>
+      </div>
+      <div class="adhan-toggle-row" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+        <span style="color: var(--text-main); font-weight: 500;">☀️ أذان الظهر</span>
+        <label class="switch"><input type="checkbox" id="toggle-dhuhr" checked><span class="slider"></span></label>
+      </div>
+      <div class="adhan-toggle-row" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+        <span style="color: var(--text-main); font-weight: 500;">🌤️ أذان العصر</span>
+        <label class="switch"><input type="checkbox" id="toggle-asr" checked><span class="slider"></span></label>
+      </div>
+      <div class="adhan-toggle-row" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+        <span style="color: var(--text-main); font-weight: 500;">🌆 أذان المغرب</span>
+        <label class="switch"><input type="checkbox" id="toggle-maghrib" checked><span class="slider"></span></label>
+      </div>
+      <div class="adhan-toggle-row" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+        <span style="color: var(--text-main); font-weight: 500;">🌙 أذان العشاء</span>
+        <label class="switch"><input type="checkbox" id="toggle-isha" checked><span class="slider"></span></label>
+      </div>
+      <div style="text-align: center; margin-top: 18px;">
+        <button type="button" onclick="closeAdhanSettings()" style="background: linear-gradient(135deg, var(--gold), #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 8px 24px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif;">حفظ وإغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <footer><p>جميع الحقوق محفوظة © عمر</p></footer>
+  <div class="toast" id="toast"></div>
+
+  <!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
+  <div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+    <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+      <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.3rem;">🌙</span>
+          <div>
+            <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+            <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلية من السنة الصحيحة</div>
+          </div>
+        </div>
+        <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+      </div>
+
+      <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+      <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+        <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+        <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+      </form>
+    </div>
+  </div>
+
+ <!-- ==================== شريط الملاحة السفلي (الرئيسية) ==================== -->
+<nav class="liquid-bottom-nav">
+  <a href="index.html" class="liquid-nav-item active">
+    <span style="font-size: 1.2rem;">🏠</span>
+    <span>الرئيسية</span>
+  </a>
+  <a href="encyclopedia.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📚</span>
+    <span>الموسوعة</span>
+  </a>
+  <a href="azkar.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📿</span>
+    <span>الأذكار</span>
+  </a>
+  <a href="javascript:void(0)" onclick="openAppModal()" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📱</span>
+    <span>تطبيق</span>
+  </a>
+  <a href="javascript:void(0)" onclick="openAiChat()" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">💬</span>
+    <span>المساعد</span>
+  </a>
+</nav>
+
+  <!-- ==================== السكربتات البرمجية ==================== -->
+  <script>
+    /* ===== خلفية النجوم ===== */
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resizeCanvas() { canvas.height = document.body.scrollHeight; canvas.width = window.innerWidth; }
+    function initStars() {
+      resizeCanvas(); stars = [];
+      const count = Math.floor((canvas.width * canvas.height) / 9000);
+      for (let i = 0; i < count; i++) {
+        stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.3 + 0.3, a: Math.random(), speed: Math.random() * 0.02 + 0.005 });
+      }
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#f0d9a8';
+      for (const s of stars) {
+        s.a += s.speed;
+        const op = (Math.sin(s.a) + 1) / 2 * 0.7 + 0.15;
+        ctx.globalAlpha = op;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(drawStars);
+    }
+    window.addEventListener('resize', initStars);
+    initStars();
+    drawStars();
+
+    /* ===== تبديل الثيم والحفظ ===== */
+    const themeBtn = document.getElementById('themeBtn');
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+      if (themeBtn) themeBtn.textContent = '🌙';
+    }
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        themeBtn.textContent = isLight ? '🌙' : '🌞';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+    }
+
+    /* ===== Toast ===== */
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    function showToast(msg) {
+      if (!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+    }
+
+    /* ===== البحث في الأقسام ===== */
+    const sectionSearch = document.getElementById('sectionSearch');
+    const searchCount = document.getElementById('searchCount');
+    const portalCards = document.querySelectorAll('.portal-card');
+    function normalizeArabic(text) {
+      return text.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').trim().toLowerCase();
+    }
+    if (sectionSearch) {
+      sectionSearch.addEventListener('input', () => {
+        const term = normalizeArabic(sectionSearch.value);
+        let matchCount = 0;
+        portalCards.forEach(card => {
+          const title = normalizeArabic(card.querySelector('.portal-title').textContent);
+          const desc = normalizeArabic(card.querySelector('.portal-desc').textContent);
+          const match = !term || title.includes(term) || desc.includes(term);
+          card.classList.toggle('hidden-search', !match);
+          if (match) matchCount++;
+        });
+        if (searchCount) searchCount.textContent = sectionSearch.value.trim() ? `${matchCount} نتيجة` : '';
+      });
+    }
+    document.getElementById('sectionSearchForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const rawTerm = sectionSearch.value.trim();
+      if (!rawTerm) return;
+      const term = normalizeArabic(rawTerm);
+      let hasLocalMatch = false;
+      portalCards.forEach(card => {
+        const title = normalizeArabic(card.querySelector('.portal-title').textContent);
+        const desc = normalizeArabic(card.querySelector('.portal-desc').textContent);
+        if (title.includes(term) || desc.includes(term)) hasLocalMatch = true;
+      });
+      if (hasLocalMatch) {
+        const firstMatch = document.querySelector('.portal-card:not(.hidden-search)');
+        if (firstMatch) firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        const hadithInput = document.getElementById('hadithQuery');
+        if (hadithInput) hadithInput.value = rawTerm;
+        document.getElementById('hadithResults')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        runDorarSearch();
+        showToast('لم نعثر على قسم مطابق، تم تفعيل بحث "الدرر السنية" تلقائياً! ✨');
+      }
+    });
+
+    /* ===== الدرر السنية ===== */
+    const hadithQuery = document.getElementById('hadithQuery');
+    const hadithResults = document.getElementById('hadithResults');
+    function renderDorarFallback(message, q) {
+      if (!hadithResults) return;
+      hadithResults.innerHTML = `
+        <div class="hadith-empty" style="text-align:center; color:var(--text-muted); padding:10px;">${message}</div>
+        <a href="https://dorar.net/hadith/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="display:block; text-align:center; color:var(--gold); font-weight:bold; margin-top:8px;">
+          اضغط هنا للانتقال للبحث المباشر في موقع الدرر السنية ↗
+        </a>`;
+    }
+    function runDorarSearch() {
+      if (!hadithQuery) return;
+      const q = hadithQuery.value.trim();
+      if (!q) return;
+      if (hadithResults) hadithResults.innerHTML = '<div class="hadith-loading" style="text-align:center; padding:12px;">جارٍ البحث في الدرر السنية...</div>';
+      const cbName = 'dorarCb_' + Date.now();
+      const cleanup = () => { delete window[cbName]; const s = document.getElementById(cbName); if (s) s.remove(); };
+      const timeoutId = setTimeout(() => { renderDorarFallback('تعذّر الوصول للنتائج المباشرة.', q); cleanup(); }, 4500);
+      window[cbName] = function(data) {
+        clearTimeout(timeoutId);
+        const list = (data && data.ahadith) ? data.ahadith : [];
+        if (!list.length) { renderDorarFallback('لا توجد نتائج مطابقة.', q); }
+        else {
+          if (hadithResults) {
+            hadithResults.innerHTML = list.slice(0, 8).map(item => `<div class="hadith-result-item" style="background:rgba(0,0,0,0.25); border-right:3px solid var(--gold); border-radius:12px; padding:12px 16px; margin-bottom:10px; font-size:0.92rem; line-height:1.8;">${item.th || ''}</div>`).join('') +
+              `<a class="hadith-source-link" href="https://dorar.net/hadith/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="display:block; text-align:center; color:var(--teal); margin-top:10px; font-weight:bold;">تصفّح الموسوعة الحديثية كاملة ↗</a>`;
+          }
+        }
+        cleanup();
+      };
+      const script = document.createElement('script');
+      script.id = cbName;
+      script.src = `https://dorar.net/dorar_api.json?skey=${encodeURIComponent(q)}&callback=${cbName}`;
+      document.head.appendChild(script);
+    }
+    document.getElementById('hadithSearchForm')?.addEventListener('submit', (e) => { e.preventDefault(); runDorarSearch(); });
+
+    /* ===== تخصيص الأذان النوافذ ===== */
+    window.openAdhanSettings = function() {
+      const adhanModal = document.getElementById('adhanModal');
+      if (adhanModal) adhanModal.classList.add('open');
+    };
+    window.closeAdhanSettings = function() {
+      const adhanModal = document.getElementById('adhanModal');
+      if (adhanModal) adhanModal.classList.remove('open');
+    };
+
+    /* ===== الشات المساعد ===== */
+    window.toggleChat = function() {
+      const chatWindow = document.getElementById('chat-window');
+      if (chatWindow) {
+        const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
+        chatWindow.style.display = isHidden ? 'flex' : 'none';
+        if (isHidden && document.getElementById('chat-input')) {
+          document.getElementById('chat-input').focus();
+        }
+      }
+    };
+    document.getElementById('chat-close-btn')?.addEventListener('click', () => {
+      const chatWindow = document.getElementById('chat-window');
+      if (chatWindow) chatWindow.style.display = 'none';
+    });
+
+    /* ===== كود الـ 20 آية والـ 20 حديث المتغيرين يومياً ===== */
+    const dailyAyat = [
+      { text: "«رَبِّ اشْرَحْ لِي صَدْرِي ۝ وَيَسِّرْ لِي أَمْرِي»", meta: "سورة طه — الآيتان 25-26", note: "💡 إضاءة: انشراح الصدر وتيسير الأمور يُستجلب بالدعاء والافتقار إلى الله." },
+      { text: "«وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ»", meta: "سورة البقرة — الآية 186", note: "💡 إضاءة: قُرْبُ الله من عباده الداعين لا يحتاج واسطة ولا شفيماً." },
+      { text: "«أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ»", meta: "سورة الرعد — الآية 28", note: "💡 إضاءة: طمأنينة الروح الحقيقية لا تكون إلا بذكر الله والتعلق به." },
+      { text: "«وَقَالَ رَبُّكُمُ ادْعُونِي أَسْتَجِبْ لَكُمْ»", meta: "سورة غافر — الآية 60", note: "💡 إضاءة: وعد الله بالاستجابة صادق لا يتخلف، والأمر بالدعاء عبادة." },
+      { text: "«وَتَوَكَّلْ عَلَى الْحَيِّ الَّذِي لَا يَمُوتُ»", meta: "سورة الفرقان — الآية 58", note: "💡 إضاءة: الاعتماد على غير الله عجز، والتوكل عليه كفاية وقوة." },
+      { text: "«فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا»", meta: "سورة الشرح — الآيتان 5-6", note: "💡 إضاءة: لن يغلب عسر واحد يسرين، والفرج يقترب مع اشتداد الأزمة." },
+      { text: "«وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا ۝ وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ»", meta: "سورة الطلاق — الآيتان 2-3", note: "💡 إضاءة: التقوى هي الباب المضمون لفتح المغاليق وسعة الرزق." },
+      { text: "«وَاصْبِرْ لِحُكْمِ رَبِّكَ فَإِنَّكَ بِأَعْيُنِنَا»", meta: "سورة الطور — الآية 48", note: "💡 إضاءة: المعية الإلهية والحفظ الرباني يحيط بالصابرين." },
+      { text: "«إِنَّ رَبِّي لَطِيفٌ لِّمَا يَشَاءُ»", meta: "سورة يوسف — الآية 100", note: "💡 إضاءة: تدبير الله الألطف يأتيك من حيث لا تدري وفي أبهى صورة." },
+      { text: "«لا تَدْرِي لَعَلَّ اللَّهَ يُحْدِثُ بَعْدَ ذَلِكَ أَمْرًا»", meta: "سورة الطلاق — الآية 1", note: "💡 إضاءة: لا تيأس، فالتحولات الإيجابية تُصنع في الخفاء بأمر ربك." },
+      { text: "«وَالضُّحَى ۝ وَاللَّيْلِ إِذَا سَجَى ۝ مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَى»", meta: "سورة الضحى — الآيات 1-3", note: "💡 إضاءة: جفاء الظروف لا يعني هجران الله لك، فرحمته ملازمة." },
+      { text: "«قُلِ اللَّهُ يُنَجِّيكُم مِّنْهَا وَمِن كُلِّ كَرْبٍ»", meta: "سورة الأنعام — الآية 64", note: "💡 إضاءة: النجاة من المصاعب والشدائد بيد النافع الضار وحده." },
+      { text: "«وَأُفَوِّضُ أَمْرِي إِلَى اللَّهِ ۚ إِنَّ اللَّهَ بَصِيرٌ بِالْعِبَادِ»", meta: "سورة غافر — الآية 44", note: "💡 إضاءة: التفويض والتوكل التام يثمر وقاية وحفظاً إلهياً كاملاً." },
+      { text: "«فَدَعَا رَبَّهُ أَنِّي مَغْلُوبٌ فَانتَصِرْ»", meta: "سورة القمر — الآية 10", note: "💡 إضاءة: كلمة واحدة صادقة من قلب منكسر تمزق حجب السماء." },
+      { text: "«وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَى»", meta: "سورة الضحى — الآية 5", note: "💡 إضاءة: عطاء الله ليس مجرد قضاء حاجة، بل إرضاء لقلبك." },
+      { text: "«إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ»", meta: "سورة يوسف — الآية 86", note: "💡 إضاءة: الشكوى لله عز وكرامة، ولغيره ذل وانكسار." },
+      { text: "«وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ»", meta: "سورة الحديد — الآية 4", note: "💡 إضاءة: الأنس بالله والطمأنينة تثمر مع شعورك بالمعية الإلهية." },
+      { text: "«إِنَّ رَحْمَتَ اللَّهِ قَرِيبٌ مِّنَ الْمُحْسِنِينَ»", meta: "سورة الأعراف — الآية 56", note: "💡 إضاءة: الإحسان في العبادة والخلق يقرب إليك الرحمات." },
+      { text: "«نَبِّئْ عِبَادِي أَنِّي أَنَا الْغَفُورُ الرَّحِيمُ»", meta: "سورة الحجر — الآية 49", note: "💡 إضاءة: باب التوبة والمغفرة مفتوح لا يغلق في وجه عائب." },
+      { text: "«قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَى أَنفُسِهِمْ لا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ»", meta: "سورة الزمر — الآية 53", note: "💡 إضاءة: لا تتكالب عليك ذنوبك لتيأس من رحمة واسع المغفرة." }
+    ];
+
+    const dailyHadiths = [
+      { text: "«من سلك طريقاً يلتمس فيه علماً سهّل الله له به طريقاً إلى الجنة»", meta: "تخريج: صحيح مسلم" },
+      { text: "«إنَّ العبدَ ليَتَكلَّمُ بالكلمةِ من رضوانِ اللهِ لا يُلقي لها بالاً يرفَعُه بها درجات»", meta: "تخريج: صحيح البخاري" },
+      { text: "«احرص على ما ينفعك، واستعن بالله ولا تعجز»", meta: "تخريج: صحيح مسلم" },
+      { text: "«الدعاء هو العبادة»", meta: "تخريج: صحيح الترمذي" },
+      { text: "«الدعاء بين الأذان والإقامة لا يرد»", meta: "تخريج: سنن أبي داود والترمذي" },
+      { text: "«أقرب ما يكون العبد من ربه وهو ساجد، فأكثروا الدعاء»", meta: "تخريج: صحيح مسلم" },
+      { text: "«من لزم الاستغفار جعل الله له من كل ضيق مخرجاً ومن كل هم فرجاً»", meta: "تخريج: سنن أبي داود" },
+      { text: "«تبسمك في وجه أخيك لك صدقة»", meta: "تخريج: صحيح الترمذي" },
+      { text: "«كلمتان خفيفتان على اللسان، ثقيلتان في الميزان، حبيبتان إلى الرحمن: سبحان الله وبحمده، سبحان الله العظيم»", meta: "تخريج: صحيح البخاري ومسلم" },
+      { text: "«لا يزال لسانك رطباً من ذكر الله»", meta: "تخريج: سنن الترمذي" },
+      { text: "«من قال سبحان الله وبحمده في يوم مائة مرة حُطّت خطاياه وإن كانت مثل زبد البحر»", meta: "تخريج: صحيح البخاري" },
+      { text: "«إن الله حيي كريم يستحي إذا رفع الرجل إليه يديه أن يردهما صفراً خائبتين»", meta: "تخريج: سنن أبي داود" },
+      { text: "«من صلى عليّ صلاة واحدة صلى الله عليه بها عشراً»", meta: "تخريج: صحيح مسلم" },
+      { text: "«عجباً لأمر المؤمن إن أمره كله خير، وليس ذاك لأحد إلا للمؤمن؛ إن أصابته سراء شكر فكان خيراً له، وإن أصابته ضراء صبر فكان خيراً له»", meta: "تخريج: صحيح مسلم" },
+      { text: "«اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن»", meta: "تخريج: سنن الترمذي" },
+      { text: "«من قرأ آية الكرسي دبر كل صلاة مكتوبة لم يمنعه من دخول الجنة إلا أن يموت»", meta: "تخريج: السلسلة الصحيحة للألباني" },
+      { text: "«طوبى لمن وجد في صحيفته استغفاراً كثيراً»", meta: "تخريج: سنن ابن ماجه" },
+      { text: "«خيركم من تعلم القرآن وعلمه»", meta: "تخريج: صحيح البخاري" },
+      { text: "«المؤمن القوي خير وأحب إلى الله من المؤمن الضعيف وفي كلٍ خير»", meta: "تخريج: صحيح مسلم" },
+      { text: "«صنيعة المعروف تقي مصارع السوء»", meta: "تخريج: السلسلة الصحيحة" }
+    ];
+
+    const dayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+    const currentAyah = dailyAyat[dayIndex % dailyAyat.length];
+    const currentHadith = dailyHadiths[dayIndex % dailyHadiths.length];
+
+    if (document.getElementById('daily-ayah-text')) {
+      document.getElementById('daily-ayah-text').innerText = currentAyah.text;
+      document.getElementById('daily-ayah-meta').innerText = currentAyah.meta;
+      document.getElementById('daily-ayah-note').innerHTML = currentAyah.note;
+    }
+
+    if (document.getElementById('daily-hadith-text')) {
+      document.getElementById('daily-hadith-text').innerText = currentHadith.text;
+      document.getElementById('daily-hadith-meta').innerText = currentHadith.meta;
+    }
+  </script>
+
+  <!-- ربط السكربتات الأساسية المعتمدة -->
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>

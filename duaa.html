@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>خريطة الدعاء الشاملة — زاد المؤمن</title>
+
+  <!-- أيقونة الموقع والخطوط الرسمية -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- إعدادات تطبيق PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
+  <link rel="stylesheet" href="app.css">
+    <style>
+  .whatsapp-channel-btn {
+  position: fixed;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 99990;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 10px);
+  text-decoration: none !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 700;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.whatsapp-channel-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+}
+
+.whatsapp-channel-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 480px) {
+  .whatsapp-channel-btn {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    right: 12px;
+    padding: 8px 12px;
+  }
+}
+</style>
+
+  <style>
+    :root {
+      --bg-deep: #070b18;
+      --bg-panel: #0f1730;
+      --bg-panel-2: #141d3d;
+      --gold: #d6a85c;
+      --gold-soft: #f0d9a8;
+      --teal: #5fd6c4;
+      --text-main: #f3efe3;
+      --text-muted: #93a0c2;
+      --hadith: #8fc9a8;
+      --border-glass: rgba(214, 168, 92, 0.28);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background:
+        radial-gradient(ellipse at 20% -10%, rgba(95,214,196,0.10), transparent 45%),
+        radial-gradient(ellipse at 80% 0%, rgba(214,168,92,0.12), transparent 40%),
+        var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding-bottom: 120px;
+    }
+
+    #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    h1, h2, h3, .amiri { font-family: 'Amiri', serif; }
+
+    /* ---------- الهيرو الرئيسي ---------- */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 60px 20px 30px;
+      text-align: center;
+    }
+    .moon {
+      width: 110px; height: 110px; margin: 0 auto 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 55%, #8a6a34 100%);
+      box-shadow: 0 0 60px 10px rgba(214,168,92,0.45), 0 0 120px 40px rgba(214,168,92,0.15);
+      animation: breathe 5s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%,100%{transform:scale(1);box-shadow:0 0 60px 10px rgba(214,168,92,0.45),0 0 120px 40px rgba(214,168,92,0.15);}
+      50%{transform:scale(1.06);box-shadow:0 0 80px 18px rgba(214,168,92,0.6),0 0 150px 55px rgba(214,168,92,0.22);}
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      margin: 0 0 8px; color: var(--gold-soft);
+      letter-spacing: 1px;
+    }
+    .hero .tagline {
+      font-size: 1.05rem; color: var(--text-muted);
+      max-width: 580px; margin: 0 auto 20px; line-height: 1.8;
+    }
+    .verse-strip {
+      max-width: 640px; margin: 0 auto 6px;
+      font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--gold-soft);
+      line-height: 2;
+    }
+    .verse-source { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; }
+
+    .progress-wrap {
+      max-width: 340px; margin: 20px auto 0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px; padding: 10px 18px;
+      font-size: 0.85rem; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .progress-bar-track { flex: 1; height: 6px; border-radius: 6px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--teal), var(--gold)); transition: width 0.5s ease; }
+
+    /* ---------- كبسولة توقيت مكة والتاريخ ---------- */
+    #time-hijri-container {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      margin: 12px auto 18px !important;
+      padding: 8px 16px !important;
+      width: fit-content !important;
+      max-width: 92% !important;
+      background: rgba(15, 23, 42, 0.7) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border: 1px solid rgba(214, 168, 92, 0.3) !important;
+      border-radius: 30px !important;
+      position: relative !important; z-index: 10 !important;
+    }
+    #makkah-time-text { font-family: 'Tajawal', sans-serif !important; font-size: 0.82rem !important; font-weight: 700 !important; color: #f0d9a8 !important; }
+    #hijri-date-text { font-family: 'Amiri', serif !important; font-size: 0.9rem !important; color: #d6a85c !important; }
+
+    /* ---------- شبكة خريطة الموضوعات الزجاجية ---------- */
+    .section-label { text-align: center; position: relative; z-index: 1; margin: 50px 0 20px; }
+    .section-label span {
+      font-family: 'Amiri', serif; font-size: 1.65rem; color: var(--gold-soft);
+      padding-bottom: 6px; border-bottom: 2px solid var(--border-glass);
+    }
+    .section-sub { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 28px; }
+
+    .map {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto; padding: 0 18px 40px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .node {
+      position: relative;
+      background: rgba(15, 23, 48, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px; padding: 20px 16px 18px;
+      cursor: pointer; text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    .node:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 24px rgba(214,168,92,0.25);
+    }
+    .node.visited { border-color: rgba(95,214,196,0.5); background: rgba(15, 28, 48, 0.75); }
+    .node.visited .node-num { color: var(--teal); background: rgba(95, 214, 196, 0.15); border-color: var(--teal); }
+    .node-num {
+      font-family: 'Amiri', serif; font-weight: 700; font-size: 0.8rem; color: var(--gold);
+      background: rgba(214,168,92,0.12); border: 1px solid var(--border-glass);
+      width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .node-icon { font-size: 1.7rem; }
+    .node-title { font-weight: 700; font-size: 1rem; color: var(--text-main); line-height: 1.5; }
+    .node-teaser { font-size: 0.78rem; color: var(--text-muted); }
+    .node.hidden-search, .qa-item.hidden-search, .qa-cat.hidden-search { display: none !important; }
+
+    /* ---------- النافذة المنبثقة للموضوع (Modal) ---------- */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(3,5,14,0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 99999; padding: 16px;
+    }
+    .overlay.open { display: flex !important; }
+    .modal {
+      background: linear-gradient(180deg, var(--bg-panel-2), var(--bg-panel));
+      border: 1px solid var(--border-glass);
+      width: 100%; max-width: 680px; max-height: 82vh; overflow-y: auto;
+      border-radius: 24px; padding: 26px 22px 34px;
+      position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    }
+    .modal-close {
+      position: sticky; top: 0; float: left;
+      background: rgba(255,255,255,0.08); border: 1px solid var(--border-glass);
+      color: var(--text-main); width: 34px; height: 34px; border-radius: 50%;
+      font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      z-index: 3; transition: background 0.2s ease;
+    }
+    .modal-close:hover { background: rgba(237,76,92,0.2); color: #ff6b6b; }
+    .modal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .modal-num {
+      font-family: 'Amiri', serif; color: var(--gold); border: 1px solid var(--border-glass);
+      background: rgba(214,168,92,0.1); width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 700;
+    }
+    .modal h2 { margin: 0; font-size: 1.45rem; color: var(--gold-soft); line-height: 1.4; }
+    .modal-body { margin-top: 18px; line-height: 2; font-size: 1rem; color: var(--text-main); }
+    .modal-body p { margin-bottom: 12px; }
+    .modal-body ul, .modal-body ol { padding-inline-start: 20px; margin-bottom: 14px; }
+
+    /* أزرار التنقل داخل الكرت */
+    .modal-nav-btn-top, .modal-nav-btn-bottom {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-glass); color: var(--gold-soft);
+      padding: 10px 14px; border-radius: 14px; cursor: pointer;
+      font-family: 'Tajawal', sans-serif; font-size: 0.88rem; font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .modal-nav-btn-top { margin-bottom: 16px; clear: both; }
+    .modal-nav-btn-bottom { margin-top: 22px; background: linear-gradient(135deg, rgba(214,168,92,0.12), rgba(255,255,255,0.03)); }
+    .modal-nav-btn-top:hover, .modal-nav-btn-bottom:hover { background: rgba(214,168,92,0.2); border-color: var(--gold); color: var(--text-main); }
+    .modal-nav-btn-top:disabled, .modal-nav-btn-bottom:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+
+    /* ---------- الصناديق التوضيحية ---------- */
+    .hadith-box {
+      background: rgba(143, 201, 168, 0.08); border-inline-start: 3px solid var(--hadith);
+      border-radius: 10px; padding: 14px 16px; margin: 16px 0;
+    }
+    .hadith-box .txt { font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--gold-soft); line-height: 2; }
+    .hadith-box .meta { font-size: 0.78rem; color: var(--hadith); margin-top: 6px; }
+
+    .verse-box {
+      background: rgba(214, 168, 92, 0.08); border-inline-start: 3px solid var(--gold);
+      border-radius: 10px; padding: 14px 16px; margin: 16px 0;
+      font-family: 'Amiri', serif; font-size: 1.2rem; color: var(--gold-soft); line-height: 2.1;
+    }
+    .verse-box .meta { font-family: 'Tajawal', sans-serif; font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+
+    .note-box {
+      background: rgba(95, 214, 196, 0.08); border: 1px dashed rgba(95, 214, 196, 0.4);
+      border-radius: 14px; padding: 14px 16px; margin: 16px 0; font-size: 0.92rem; color: var(--text-main);
+    }
+    .example-box {
+      background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass);
+      border-radius: 12px; padding: 12px 16px; margin: 14px 0; font-size: 0.92rem;
+    }
+    .example-box .lbl { color: var(--gold); font-weight: 700; font-size: 0.82rem; margin-bottom: 6px; display: block; }
+    .khulasa { background: rgba(214, 168, 92, 0.12); border-radius: 12px; padding: 14px 16px; margin-top: 18px; font-weight: 500; }
+
+    /* ---------- قسم الأسئلة والأجوبة ---------- */
+    .qa-wrap { max-width: 800px; margin: 0 auto; padding: 0 18px 40px; position: relative; z-index: 1; }
+    .qa-cat {
+      background: rgba(15, 23, 48, 0.65); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-glass); border-radius: 18px; margin-bottom: 16px; overflow: hidden;
+    }
+    .qa-cat-head {
+      padding: 16px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--gold-soft); user-select: none;
+    }
+    .qa-cat-head .arrow { transition: transform 0.3s ease; color: var(--gold); }
+    .qa-cat.open .qa-cat-head .arrow { transform: rotate(180deg); }
+    .qa-cat-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .qa-item { border-top: 1px solid rgba(255, 255, 255, 0.06); }
+    .qa-q {
+      padding: 14px 20px; cursor: pointer; font-weight: 500; display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; font-size: 0.95rem;
+    }
+    .qa-q .plus { color: var(--teal); flex-shrink: 0; transition: transform 0.3s ease; }
+    .qa-item.open .qa-q .plus { transform: rotate(45deg); }
+    .qa-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 20px; }
+    .qa-a-inner { padding-bottom: 16px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.9; }
+
+    /* ---------- أشرطة البحث ---------- */
+    .search-wrap { max-width: 480px; margin: 20px auto 26px; position: relative; z-index: 1; padding: 0 18px; }
+    .search-box {
+      display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass); border-radius: 16px; padding: 10px 16px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .search-box input { flex: 1; background: none; border: none; outline: none; color: var(--text-main); font-family: 'Tajawal', sans-serif; font-size: 0.95rem; }
+    .search-box input::placeholder { color: var(--text-muted); }
+
+    .theme-btn {
+      position: fixed; top: 16px; left: 16px; z-index: 60; width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center; font-size: 1.25rem; cursor: pointer; color: var(--text-main);
+    }
+
+    body.light {
+      --bg-deep:#f6efe0; --bg-panel:#fffaf1; --bg-panel-2:#fdf3de; --gold:#b9803a; --gold-soft:#8a5a24; --teal:#1f8f7c; --text-main:#3a2f22; --text-muted:#7a6d58; --border-glass: rgba(185,128,58,0.32);
+    }
+
+    .hadith-search-wrap {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 0 18px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hadith-search-box {
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 10px;
+      margin-bottom: 16px;
+    }
+
+    .hadith-search-box input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.95rem;
+      padding: 6px 10px;
+    }
+
+    .hadith-search-box button {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      border: none;
+      color: #1a1200;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .hadith-hint {
+      text-align: center !important;
+      color: var(--text-muted) !important;
+      font-size: 0.85rem !important;
+      margin: 12px auto 20px !important;
+      padding: 10px 16px !important;
+      max-width: 600px !important;
+      background: rgba(255, 255, 255, 0.02) !important;
+      border: 1px dashed var(--border-glass) !important;
+      border-radius: 14px !important;
+      line-height: 1.6 !important;
+      backdrop-filter: blur(10px) !important;
+    }
+
+    .hadith-result-item {
+      background: rgba(0, 0, 0, 0.25);
+      border-right: 3px solid var(--gold);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .hadith-source-link {
+      display: block;
+      text-align: center;
+      color: var(--gold-soft);
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px 40px;
+      position: relative;
+      z-index: 1;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+  <!-- زر متابعة قناة الواتساب أسفل اليمين -->
+  <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
+    <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
+    <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
+  </a>
+
+<div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 توقيت مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+</div>
+
+<div class="hero">
+  <div class="moon"></div>
+  <h1>خريطة الدعاء الشاملة</h1>
+  <p class="tagline">هو الصلة المباشرة بين العبد وربه؛ معناه، علاقته بالقدر، اليقين، الإلحاح، وأسباب الاستجابة وموانعها.</p>
+  <div class="verse-strip">﴿وَقَالَ رَبُّكُمُ ادْعُونِي أَسْتَجِبْ لَكُمْ﴾</div>
+  <div class="verse-source">سورة غافر — الآية 60</div>
+  <div class="verse-strip" style="font-size:1.15rem; margin-top:8px;">﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ﴾</div>
+  <div class="verse-source">سورة البقرة — الآية 186</div>
+
+  <div class="progress-wrap">
+    <span>استكشفت:</span>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <span id="progressText" style="font-weight: 700; color: var(--gold-soft);">0 / 18</span>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <span>🔍</span>
+    <form id="quickSearchForm" style="flex:1; display:contents;">
+      <input type="text" id="quickSearch" enterkeyhint="search" autocomplete="off" placeholder="ابحث في المواضيع والأسئلة...">
+    </form>
+  </div>
+  <div class="search-count" id="searchCount" style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:8px;"></div>
+</div>
+
+<div class="section-label"><span>خريطة الموضوعات</span></div>
+<p class="section-sub">اضغط على أي نقطة لتفتح الموضوع كاملاً وتصفحه</p>
+
+<div class="map" id="mapGrid"></div>
+
+<div class="section-label"><span>أسئلة وأجوبة في عقيدة وآداب الدعاء</span></div>
+<p class="section-sub">الملحق الموحّد — مرتّب حسب المحور والاحتياجات الإيمانية</p>
+<div class="qa-wrap" id="qaWrap"></div>
+
+<div class="section-label"><span>دقّق حديثاً</span></div>
+<p class="section-sub">بحث مباشر في الموسوعة الحديثية بموقع الدرر السنية</p>
+<div class="hadith-search-wrap">
+  <form id="hadithSearchForm" class="hadith-search-box" style="display:flex; gap:8px;">
+    <input type="text" id="hadithQuery" enterkeyhint="search" autocomplete="off" placeholder="اكتب جزءاً من نص الحديث للتحقق...">
+    <button type="submit" id="hadithSearchBtn">بحث</button>
+  </form>
+  <div class="hadith-hint">نحاول جلب النتائج مباشرة من dorar.net؛ إذا تعذّر ذلك، ننقلك للبحث هناك مباشرة</div>
+  <div class="hadith-results" id="hadithResults"></div>
+</div>
+
+<footer>
+  <div class="amiri" style="font-size: 1.15rem; color: var(--gold-soft); line-height: 2; margin-bottom: 8px;">فكلما أكثرتَ من الدعاء ازددتَ قرباً من الله، وكلما ازددتَ يقيناً وإلحاحاً وحسنَ ظن بربك كان ذلك أكمل في عبوديتك.</div>
+  <div class="small" style="color: var(--text-muted);">جميع الحقوق محفوظة © عمر</div>
+</footer>
+
+<!-- النافذة المنبثقة للاستعراض والتنقل (Modal) -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="closeBtn" aria-label="إغلاق">✕</button>
+    
+    <button type="button" class="modal-nav-btn-top" id="prevTopicBtn">
+      ▲ الموضوع السابق
+    </button>
+
+    <div class="modal-head">
+      <div class="modal-num" id="modalNum">١</div>
+      <h2 id="modalTitle">عنوان الموضوع</h2>
+    </div>
+    
+    <div class="modal-body" id="modalBody"></div>
+
+    <button type="button" class="modal-nav-btn-bottom" id="nextTopicBtn">
+      الموضوع التالي ▼
+    </button>
+  </div>
+</div>
+
+<!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
+<div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+  <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+    <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🌙</span>
+        <div>
+          <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+          <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلية من السنة الصحيحة</div>
+        </div>
+      </div>
+      <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+    </div>
+
+    <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+    <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+      <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+      <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== شريط الملاحة السفلي ==================== -->
+<nav class="liquid-bottom-nav">
+  <a href="encyclopedia.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📚</span>
+    <span>الموسوعة</span>
+  </a>
+  <a href="duaa.html" class="liquid-nav-item active">
+    <span style="font-size: 1.2rem;">🤲</span>
+    <span>الدعاء</span>
+  </a>
+  <a href="names.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">✨</span>
+    <span>الأسماء</span>
+  </a>
+  <a href="sunnah.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">🌿</span>
+    <span>السنن</span>
+  </a>
+  <a href="stories.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📜</span>
+    <span>القصص</span>
+  </a>
+  <a href="books.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📖</span>
+    <span>المكتبة</span>
+  </a>
+  <a href="azkar.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📿</span>
+    <span>الأذكار</span>
+  </a>
+  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">💬</span>
+    <span>المساعد</span>
+  </a>
+</nav>
+
+<script>
+/* ---------- بيانات موضوعات خريطة الدعاء الـ 18 كاملة ---------- */
+const topics = [
+  {
+    icon:'🌙', title:'ما هو الدعاء؟',
+    teaser:'دعاء المسألة ودعاء العبادة',
+    body:`
+      <p>الدعاء هو توجّه العبد إلى الله بطلب الخير، أو دفع الشر، أو سؤال الرحمة والمغفرة والهداية وغير ذلك.</p>
+      <p>والدعاء نوعان:</p>
+      <div class="example-box"><span class="lbl">1. دعاء المسألة</span>وهو طلب شيء معيّن، مثل: «اللهم ارزقني، اللهم اشفني»، «اللهم وفقني، اللهم اهدني».</div>
+      <div class="example-box"><span class="lbl">2. دعاء العبادة</span>وهو كل عبادة يتقرّب بها العبد إلى الله، مثل: الصلاة، الصيام، الذكر، قراءة القرآن.</div>
+      <div class="hadith-box"><div class="txt">«الدعاء هو العبادة»</div><div class="meta">الراوي: النعمان بن بشير | صحيح الأدب المفرد</div></div>
+      <div class="note-box">💡 <strong>إضاءة:</strong> الدعاء عبادة مذهلة؛ لأنه يجمع بين عبادة الباطن (يقين القلب وتوكّله) وعبادة الظاهر (حركة اللسان والبدن). وفوق هذا، هو العبادة الوحيدة التي لا تُتعب الجوارح وأجرها عظيم عند الله.</div>
+    `
+  },
+  {
+    icon:'✨', title:'لماذا الدعاء مهم؟',
+    teaser:'يجمع أعظم معاني العبودية',
+    body:`
+      <p>الدعاء يجمع أعظم معاني العبودية والتوحيد في قلب المؤمن:</p>
+      <ul>
+        <li><strong>التوحيد:</strong> لا تدعو إلا الله، ولا تستغيث إلا به.</li>
+        <li><strong>التوكّل:</strong> تفويض الأمر كله لله مع الثقة بتدبيره.</li>
+        <li><strong>الرجاء والخوف:</strong> طمع في رحمة الله مع خشية عقابه.</li>
+        <li><strong>الاعتراف بالفقر:</strong> إظهار الضعف البشري أمام القدرة الإلهية المطلقة.</li>
+      </ul>
+      <div class="hadith-box"><div class="txt">«كلما كان العبد أتمّ افتقاراً إلى الله وأعظم لجوءاً إليه، كان أقرب إلى الإجابة»</div><div class="meta">ابن تيمية — مجموع الفتاوى</div></div>
+    `
+  },
+  {
+    icon:'📜', title:'ما علاقة الدعاء بالقدر؟',
+    teaser:'الدعاء نفسه من القدر',
+    body:`
+      <p>من أكثر الأسئلة التي تُطرح: إذا كان كل شيء مكتوباً، فلماذا أدعو؟</p>
+      <p>الجواب: لأن الله كتب النتائج، وكتب الأسباب المؤدية إلى النتائج. فكما أن الله كتب النجاح وكتب له سبباً وهو الدراسة، وكتب الرزق وكتب له سبباً وهو السعي، فقد كتب كثيراً من الخيرات وجعل لها سبباً اسمه الدعاء.</p>
+      <p><strong>إذن: الدعاء ليس خارج القدر, بل الدعاء نفسه من القدر.</strong></p>
+      <div class="hadith-box"><div class="txt">«الدعاء من أنفع الأدوية، وهو عدو البلاء»</div><div class="meta">ابن القيّم — كتاب الداء والدواء</div></div>
+    `
+  },
+  {
+    icon:'⚖️', title:'القدر المبرم والقدر المعلَّق',
+    teaser:'الفرق بين ما لا يتغيّر وما يُعلَّق بالأسباب',
+    body:`
+      <div class="example-box"><span class="lbl">القدر المبرم</span>هو ما قضاه الله تعالى في علمه الأزلي وكتبه في اللوح المحفوظ، وهذا لا يتغيّر ولا يتبدّل.</div>
+      <div class="verse-box">﴿وَعِندَهُ أُمُّ الْكِتَابِ﴾<div class="meta">سورة الرعد — الآية 39</div></div>
+      <div class="example-box"><span class="lbl">القدر المعلَّق</span>هو ما يُظهره الله للملائكة معلَّقاً على أسباب معيّنة؛ فقد يُكتب عند الملك أن فلاناً إذا دعا رفع الله عنه البلاء، وإذا لم يدعُ بقي البلاء عليه.</div>
+      <p>فالتغيير الذي يقع إنما هو في صحف الملائكة، أما علم الله الأزلي الشامل فلا يتغير.</p>
+      <div class="hadith-box"><div class="txt">«لا يردّ القدر إلا الدعاء»</div><div class="meta">رواه الترمذي وابن ماجه</div></div>
+    `
+  },
+  {
+    icon:'🔄', title:'هل الدعاء يغيّر القدر؟',
+    teaser:'قد يكون سبباً في دفع البلاء أو جلب الخير',
+    body:`
+      <div class="hadith-box"><div class="txt">«لا يردّ القدر إلا الدعاء»</div><div class="meta">رواه الترمذي</div></div>
+      <p>ومعنى الحديث أن الدعاء قد يكون سبباً شرعياً في دفع بلاء أو جلب خير، وكل ذلك داخل تحت مشيئة الله وقدره السابق.</p>
+    `
+  },
+  {
+    icon:'🌟', title:'هل الدعاء علامة خير؟',
+    teaser:'توفيق العبد للدعاء من أعظم النعم',
+    body:`
+      <p>نعم. فمن أعظم نِعم الله على العبد أن يوفّقه للدعاء والابتهال إليه.</p>
+      <div class="hadith-box"><div class="txt">«إذا فتح الله لك باب الدعاء فقد فتح لك باب الرحمة»</div><div class="meta">مأثور عن السلف الصالح</div></div>
+    `
+  },
+  {
+    icon:'🤲', title:'ما هو اليقين في الدعاء؟',
+    teaser:'ليس التأكد من صورة الإجابة، بل الثقة بالله',
+    body:`
+      <p><strong>اليقين لا يعني:</strong> أن تكون متأكداً أن الله سيعطيك الأمر بنفس الشروط والتفاصيل التي تطلبها.</p>
+      <p><strong>بل يعني:</strong> أن تؤمن أن الله يسمعك، وأنه قادر على كل شيء، وأنه أرحم بك من نفسك، وسيختار لك الأفضل.</p>
+      <div class="hadith-box"><div class="txt">«ادعوا الله وأنتم موقنون بالإجابة»</div><div class="meta">رواه الترمذي</div></div>
+    `
+  },
+  {
+    icon:'🔁', title:'ما هو الإلحاح في الدعاء؟',
+    teaser:'تكرار الدعاء وعدم تركه رغم تأخّر الإجابة',
+    body:`
+      <p>الإلحاح هو: تكرار الدعاء، والمواظبة عليه، وعدم تركه بسبب تأخّر الإجابة.</p>
+      <div class="hadith-box"><div class="txt">«ومن أنفع الأدوية الإلحاح في الدعاء»</div><div class="meta">ابن القيّم — الداء والدواء</div></div>
+    `
+  },
+  {
+    icon:'📿', title:'الدعاء بأسماء الله الحسنى',
+    teaser:'من أعظم آداب الدعاء',
+    body:`
+      <p>التوسل بأسماء الله الحسنى هو أعظم أبواب القبول والدعاء المستجاب.</p>
+      <div class="verse-box">﴿وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا﴾<div class="meta">سورة الأعراف — الآية 180</div></div>
+      <p>ادعُ كل حاجة باسم الله المناسب لها: "يا رزاق ارزقني"، "يا غفور اغفر لي"، "يا شافي اشفني".</p>
+    `
+  },
+  {
+    icon:'🧭', title:'التوكّل والأخذ بالأسباب',
+    teaser:'الدعاء وحده لا يكفي دون عمل',
+    body:`
+      <p>التوكّل الصحيح هو الاعتماد على الله بالدعاء والقلب مع الأخذ بالأسباب المادية المشروعة.</p>
+      <div class="hadith-box"><div class="txt">«احرص على ما ينفعك، واستعن بالله ولا تعجز»</div><div class="meta">رواه مسلم</div></div>
+    `
+  },
+  {
+    icon:'🕊️', title:'آداب الدعاء',
+    teaser:'الإخلاص، الحمد، استقبال القبلة، وحضور القلب',
+    body:`
+      <ul>
+        <li>الإخلاص لله تعالى في المسألة.</li>
+        <li>البدء بحمد الله والثناء عليه ثم الصلاة على النبي ﷺ.</li>
+        <li>استقبال القبلة ورفع اليدين.</li>
+        <li>حضور القلب وحسن الظن بالله.</li>
+      </ul>
+      <div class="hadith-box"><div class="txt">«إن ربكم حييّ كريم يستحي من عبده إذا رفع يديه إليه أن يردّهما صفراً»</div><div class="meta">رواه أبو داود والترمذي</div></div>
+    `
+  },
+  {
+    icon:'🔑', title:'أسباب استجابة الدعاء',
+    teaser:'الإخلاص، اليقين، الإلحاح، أكل الحلال، وأوقات الإجابة',
+    body:`
+      <ul>
+        <li>الإخلاص واليقين التام بالله.</li>
+        <li>طيب المطعم والمشرب والابتعاد عن الحرام.</li>
+        <li>تحري أوقات الإجابة الشريفة (كالسجود، والثلث الأخير من الليل).</li>
+      </ul>
+    `
+  },
+  {
+    icon:'🚫', title:'موانع إجابة الدعاء',
+    teaser:'الحرام، الإثم، الاستعجال، وغفلة القلب',
+    body:`
+      <p>من موانع الاستجابة:</p>
+      <ul>
+        <li>أكل الحرام والكسب المشبوه.</li>
+        <li>الدعاء بإثم أو قطيعة رحم.</li>
+        <li>استعجال الإجابة كأن يقول: "دعوت فلم يستجب لي".</li>
+        <li>غفلة القلب أثناء الدعاء.</li>
+      </ul>
+    `
+  },
+  {
+    icon:'⏳', title:'لماذا تتأخر الإجابة أحياناً؟',
+    teaser:'الاستجابة تسبق الدعاء دائماً',
+    body:`
+      <p>تأخر الإجابة فيه حكم بالغة: إما ليدخر الله لك الأجر العظيم في الآخرة، أو ليدفع عنك شراً أكبر، أو ليرى صدق افتفارك ولجوئك إليه.</p>
+    `
+  },
+  {
+    icon:'🕋', title:'كيف كان النبي ﷺ يدعو؟',
+    teaser:'حمد الله، الصلاة عليه ﷺ، وجوامع الدعاء',
+    body:`
+      <p>كان النبي ﷺ يبدأ دعاءه بالحمد والثناء والصلاة على نفسه، وكان يحب جوامع الدعاء ويكرر دعاءه ثلاثاً.</p>
+      <div class="verse-box">﴿رَبَّنا آتِنا فِي الدُّنْيا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنا عَذابَ النَّارِ﴾</div>
+    `
+  },
+  {
+    icon:'💎', title:'هل كل دعاء مستجاب؟',
+    teaser:'ثلاث خصال، لا يضيع الدعاء أبداً',
+    body:`
+      <p>المؤمن رابح في جميع الأحوال: إما أن يُعجل له ما طلب، أو يُصرف عنه من السوء مثلها، أو يُدخر له ثوابها في الآخرة.</p>
+    `
+  },
+  {
+    icon:'🌤️', title:'تحويل الشر إلى خير',
+    teaser:'الله قادر على تبديل الأحوال',
+    body:`
+      <p>الله قادر على أن يغير الأحوال ويبدل العسر يسراً. ومن أفضل الأدعية التفويض كدعاء الاستخارة النبوي.</p>
+    `
+  },
+  {
+    icon:'⚠️', title:'أشهر أخطاء الناس في الدعاء',
+    teaser:'استعجال، يأس، وسوء ظن',
+    body:`
+      <ul>
+        <li>استعجال الإجابة والترك.</li>
+        <li>تكلّف السجع المبالغ فيه.</li>
+        <li>ترك الأسباب المشروعة.</li>
+      </ul>
+    `
+  }
+];
+
+/* ---------- بيانات قسم الأسئلة والأجوبة ---------- */
+const qa = [
+  { cat:'أسئلة عقيدة الدعاء والقدر', items:[
+    {q:'إذا كان كل شيء مكتوباً في اللوح المحفوظ، فما فائدة الدعاء؟', a:'الله كتب المقادير وكتب لها أسباباً. فالدعاء سبب شرعي جالب للخير ودافع للبلاء كبقية الأسباب.'},
+    {q:'كيف يردّ الدعاء القدر وهو مكتوب؟ وما الفرق بين المبرم والمعلَّق؟', a:'القدر المبرم لا يتغير وهو في علم الله الأزلي. القدر المعلق ما يكتب في صحف الملائكة معلقاً على أسباب كالدعاء.'},
+    {q:'هل الدعاء يغيّر القدر؟', a:'نعم، يكون سبباً في دفع البلاء أو جلب الخير بقدر الله.'},
+    {q:'هل الدعاء المستمر علامة خير؟', a:'نعم، وتوفيق الله للعبد إلى الدعاء من أعظم النعم.'}
+  ]},
+  { cat:'أسئلة صيغ وآداب الدعاء', items:[
+    {q:'ما هو اسم الله الأعظم؟', a:'«اللهم إني أسألك بأني أشهد أنك أنت الله لا إله إلا أنت، الأحد الصمد، الذي لم يلد ولم يولد، ولم يكن له كفواً أحد.»'},
+    {q:'هل الدعاء بأسماء الله الحسنى أفضل؟', a:'نعم، وهو من أفضل آداب الدعاء وأسباب الاستجابة.'},
+    {q:'هل يجوز الدعاء بصيغة "اللهم إني لا أسألك رد القضاء ولكن أسألك اللطف فيه"؟', a:'غير مشروع، والسنة سؤال الله العافية ورد القضاء السوء تماماً.'},
+    {q:'هل يجوز في دعاء الزواج طلب تحويل الشر إلى خير؟', a:'نعم جائز وحسن، فالله قادر على تبديل الأحوال إيجاباً.'}
+  ]},
+  { cat:'أسئلة اليقين وتأخّر الإجابة', items:[
+    {q:'هل يجب أن أكون متيقناً 100% من حصول ما أريد بعينه؟', a:'المطلوب اليقين بقدرة الله وحكمته ورحمته واختياره الأفضل لك.'},
+    {q:'هل تكرار الدعاء يُعتبر إلحاحاً؟', a:'نعم، وهو محمود ومستحب.'},
+    {q:'أدعو الله منذ سنوات ولم أرَ الإجابة، فهل دعائي مرفوض؟', a:'لا، فالدعاء لا يضيع، وله صور استجابة ثلاث يختار الله لك أنفعها.'}
+  ]},
+  { cat:'أسئلة الموانع والأخذ بالأسباب', items:[
+    {q:'ما هي أعظم موانع استجابة الدعاء؟', a:'أكل الحرام، استعجال الإجابة، الدعاء بإثم أو قطيعة رحم، وغفلة القلب.'},
+    {q:'هل يكفي الدعاء وحده دون سعي أو عمل؟', a:'لا يكفي، التوكل الصحيح هو جمع الدعاء مع الأخذ بالأسباب المادية.'}
+  ]},
+  { cat:'أسئلة حول المشاعر الباطنة أثناء الدعاء', items:[
+    {q:'هل يصح أن أدعو الله وأنا أبكي بحرقة؟', a:'البكاء والانكسار بين يدي الله هو أعلى درجات العبودية ومن أسباب القبول.'},
+    {q:'أشعر بالخجل من ذنوبي فأتراجع عن الدعاء، فما العمل؟', a:'هذا من وسوسة الشيطان، فالله يستجيب للمضطرين والتائبين ويرفع بالدعاء الذنوب.'}
+  ]},
+  { cat:'أسئلة حول علاقة الدعاء بالآخرين والبيئة المحيطة', items:[
+    {q:'هل دعاء الوالدين أو الصالحين أقوى من دعائي لنفسي؟', a:'دعاء الوالدين مستجاب، لكن دعاءك لنفسك يمتلك حرقة الاضطرار والله يجيب المضطر.'},
+    {q:'هل يجوز أن أدعو على من ظلمني؟', a:'يجوز للمظلوم الدعاء بقدر مظلمته، والعفو وتفويض الأمر لله أعظم أجراً.'}
+  ]},
+  { cat:'أسئلة حول الوسائل والشكليات في الدعاء', items:[
+    {q:'هل يجب رفع اليدين في كل دعاء؟', a:'رفع اليدين سنة إلا في المواضع التي لم يرفع فيها النبي كخطبة الجمعة والسجود.'},
+    {q:'هل يُشترط استقبال القبلة والطهارة؟', a:'لا يشترط، ويجوز الدعاء على كل حال، لكنهما من كمال الآداب.'}
+  ]},
+  { cat:'الدعاء بتفاصيل التفاصيل (الأشياء الصغيرة)', items:[
+    {q:'هل يجوز أن أدعو الله بأشياء صغيرة جداً كالملح وموقف السيارة؟', a:'مستحب، فقد كان السلف يسألون الله كل شيء حتى شسع النعل لتأكيد الافتقار.'}
+  ]},
+  { cat:'الاعتداء في الدعاء', items:[
+    {q:'ما معنى "الاعتداء في الدعاء" الذي نهى عنه الإسلام؟', a:'هو الدعاء بمستحيل عقلاً أو شرعاً، أو التفصيل المبالغ فيه جداً، أو الدعاء بإثم.'}
+  ]}
+];
+
+/* ---------- تشغيل الخريطة والمودال ---------- */
+const mapGrid = document.getElementById('mapGrid');
+const visited = new Set(JSON.parse(localStorage.getItem('visited_duaa_topics') || '[]'));
+const ORD = ['١','٢','٣','٤','٥','٦','٧','٨','٩','١٠','١١','١٢','١٣','١٤','١٥','١٦','١٧','١٨'];
+
+topics.forEach((t, i) => {
+  const el = document.createElement('div');
+  el.className = 'node' + (visited.has(i) ? ' visited' : '');
+  el.innerHTML = `
+    <div class="node-num">${ORD[i]}</div>
+    <div class="node-icon">${t.icon}</div>
+    <div class="node-title">${t.title}</div>
+    <div class="node-teaser">${t.teaser}</div>
+  `;
+  el.addEventListener('click', () => openTopic(i));
+  mapGrid.appendChild(el);
+});
+
+const overlay = document.getElementById('overlay');
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modalTitle');
+const modalNum = document.getElementById('modalNum');
+const modalBody = document.getElementById('modalBody');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+let currentTopicIndex = null;
+
+function updateProgress() {
+  const pct = Math.round((visited.size / topics.length) * 100);
+  progressFill.style.width = pct + '%';
+  progressText.textContent = `${visited.size} / ${topics.length}`;
+  localStorage.setItem('visited_duaa_topics', JSON.stringify([...visited]));
+}
+
+function openTopic(i) {
+  if (i < 0 || i >= topics.length) return;
+  const t = topics[i];
+  currentTopicIndex = i;
+  modalNum.textContent = ORD[i];
+  modalTitle.textContent = t.title;
+  modalBody.innerHTML = t.body;
+
+  overlay.classList.add('open');
+  modal.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+
+  document.getElementById('prevTopicBtn').disabled = (i === 0);
+  document.getElementById('nextTopicBtn').disabled = (i === topics.length - 1);
+
+  if (!visited.has(i)) {
+    visited.add(i);
+    mapGrid.children[i].classList.add('visited');
+    updateProgress();
+  }
+}
+
+document.getElementById('prevTopicBtn').addEventListener('click', () => {
+  if (currentTopicIndex !== null && currentTopicIndex > 0) openTopic(currentTopicIndex - 1);
+});
+
+document.getElementById('nextTopicBtn').addEventListener('click', () => {
+  if (currentTopicIndex !== null && currentTopicIndex < topics.length - 1) openTopic(currentTopicIndex + 1);
+});
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  currentTopicIndex = null;
+}
+
+document.getElementById('closeBtn').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+/* ---------- بناء قسم الأسئلة والأجوبة ---------- */
+const qaWrap = document.getElementById('qaWrap');
+qa.forEach((cat) => {
+  const catEl = document.createElement('div');
+  catEl.className = 'qa-cat';
+  const body = document.createElement('div');
+  body.className = 'qa-cat-body';
+
+  cat.items.forEach((item) => {
+    const qEl = document.createElement('div');
+    qEl.className = 'qa-item';
+    qEl.innerHTML = `
+      <div class="qa-q"><span>${item.q}</span><span class="plus">+</span></div>
+      <div class="qa-a"><div class="qa-a-inner">${item.a}</div></div>
+    `;
+    const qHead = qEl.querySelector('.qa-q');
+    const aBox = qEl.querySelector('.qa-a');
+    qHead.addEventListener('click', () => {
+      const isOpen = qEl.classList.toggle('open');
+      aBox.style.maxHeight = isOpen ? '1000px' : '0px';
+    });
+    body.appendChild(qEl);
+  });
+
+  catEl.innerHTML = `<div class="qa-cat-head"><span>${cat.cat}</span><span class="arrow">▼</span></div>`;
+  catEl.appendChild(body);
+
+  const head = catEl.querySelector('.qa-cat-head');
+  head.addEventListener('click', () => {
+    const isOpen = catEl.classList.toggle('open');
+    body.style.maxHeight = isOpen ? '5000px' : '0px';
+  });
+
+  qaWrap.appendChild(catEl);
+});
+
+/* ---------- البحث المباشر السريع ---------- */
+const quickSearch = document.getElementById('quickSearch');
+const searchCount = document.getElementById('searchCount');
+
+quickSearch.addEventListener('input', () => {
+  const term = quickSearch.value.trim().toLowerCase();
+  let matchCount = 0;
+
+  Array.from(mapGrid.children).forEach((el, i) => {
+    const txt = (topics[i].title + ' ' + topics[i].teaser).toLowerCase();
+    const match = !term || txt.includes(term);
+    el.classList.toggle('hidden-search', !match);
+    if (match) matchCount++;
+  });
+
+  searchCount.textContent = term ? `تم العثور على ${matchCount} نتيجة` : '';
+});
+
+/* ===== توقيت مكة والتاريخ الهجري فقط ===== */
+function updateMakkahTimeAndHijri() {
+  const now = new Date();
+  
+  // توقيت مكة المكرمة
+  try {
+    const timeFormatter = new Intl.DateTimeFormat('ar-SA', {
+      timeZone: 'Asia/Riyadh',
+      hour12: true,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const timeElem = document.getElementById('makkah-time-text');
+    if (timeElem) timeElem.textContent = `🕋 مكة: ${timeFormatter.format(now)}`;
+  } catch (e) {}
+
+  // التاريخ الهجري فقط
+  try {
+    const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    const hijriElem = document.getElementById('hijri-date-text');
+    if (hijriElem) hijriElem.textContent = `📅 ${hijriFormatter.format(now)} هـ`;
+  } catch (e) {}
+}
+
+updateMakkahTimeAndHijri();
+setInterval(updateMakkahTimeAndHijri, 1000);
+
+/* ---------- خلفية النجوم التفاعلية ---------- */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function initStars() {
+  canvas.width = window.innerWidth;
+  canvas.height = Math.max(document.body.scrollHeight, window.innerHeight * 2);
+  stars = [];
+  const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      r: Math.random() * 1.1 + 0.3, a: Math.random(), speed: Math.random() * 0.01 + 0.003
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#f0d9a8';
+  for (let i = 0; i < stars.length; i++) {
+    const s = stars[i]; s.a += s.speed;
+    ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', initStars);
+
+/* ===== كود تشغيل وتفعيل زر الوضع الليلي/الفاتح وتذكره ===== */
+const themeBtn = document.getElementById('themeBtn');
+
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light');
+  if (themeBtn) themeBtn.textContent = '🌙';
+}
+
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light');
+    themeBtn.textContent = isLight ? '🌙' : '🌞';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+}
+
+function toggleChat() {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) {
+    const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
+    chatWindow.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden && document.getElementById('chat-input')) {
+      document.getElementById('chat-input').focus();
+    }
+  }
+}
+
+document.getElementById('chat-close-btn')?.addEventListener('click', () => {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) chatWindow.style.display = 'none';
+});
+
+/* ===== كود بحث دقق حديثاً في الدرر السنية لصفحة duaa.html ===== */
+const hadithQuery = document.getElementById('hadithQuery');
+const hadithResults = document.getElementById('hadithResults');
+
+function runDorarSearch() {
+  if (!hadithQuery) return;
+  const q = hadithQuery.value.trim();
+  if (!q) return;
+
+  hadithResults.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:16px;">جارٍ البحث في الدرر السنية...</div>';
+
+  const cbName = 'dorarCb_' + Date.now();
+  const cleanup = () => {
+    delete window[cbName];
+    const s = document.getElementById(cbName);
+    if (s) s.remove();
+  };
+
+  const timeoutId = setTimeout(() => {
+    hadithResults.innerHTML = `
+      <div style="text-align:center; color:var(--text-muted); padding:10px;">تعذّر تحميل النتائج المباشرة.</div>
+      <a href="https://dorar.net/hadith/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="display:block; text-align:center; color:var(--gold); font-weight:bold; margin-top:8px;">اضغط هنا للبحث المباشر في موقع الدرر السنية ↗</a>`;
+    cleanup();
+  }, 4500);
+
+  window[cbName] = function(data) {
+    clearTimeout(timeoutId);
+    const list = (data && data.ahadith) ? data.ahadith : [];
+    if (!list.length) {
+      hadithResults.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:12px;">لا توجد نتائج مطابقة لـ "${q}".</div>`;
+    } else {
+      hadithResults.innerHTML = list.slice(0, 8).map(item => `
+        <div class="hadith-result-item" style="background:rgba(0,0,0,0.25); border-right:3px solid var(--gold); border-radius:12px; padding:12px 16px; margin-bottom:10px; font-size:0.92rem; line-height:1.8;">
+          ${item.th || ''}
+        </div>
+      `).join('') + `<a href="https://dorar.net/hadith/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="display:block; text-align:center; color:var(--teal); margin-top:10px; font-size:0.85rem; font-weight:bold;">تصفّح الموسوعة الحديثية كاملة في الدرر السنية ↗</a>`;
+    }
+    cleanup();
+  };
+
+  const script = document.createElement('script');
+  script.id = cbName;
+  script.src = `https://dorar.net/dorar_api.json?skey=${encodeURIComponent(q)}&callback=${cbName}`;
+  document.head.appendChild(script);
+}
+
+const hadithSearchForm = document.getElementById('hadithSearchForm');
+if (hadithSearchForm) {
+  hadithSearchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    runDorarSearch();
+  });
+}
+
+initStars();
+drawStars();
+updateProgress();
+</script>
+
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>

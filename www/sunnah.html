@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>السنن النبوية اليومية — زاد المؤمن</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <link rel="stylesheet" href="app.css">
+    <style>
+  .whatsapp-channel-btn {
+  position: fixed;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 99990;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 10px);
+  text-decoration: none !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 700;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.whatsapp-channel-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+}
+
+.whatsapp-channel-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 480px) {
+  .whatsapp-channel-btn {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    right: 12px;
+    padding: 8px 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+  <!-- زر متابعة قناة الواتساب أسفل اليمين -->
+  <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
+    <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
+    <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
+  </a>
+
+<!-- شريط توقيت مكة والتاريخ الهجري فقط -->
+<div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 توقيت مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+</div>
+
+<div class="hero">
+  <div class="moon"></div>
+  <h1>السنن النبوية اليومية المأثورة</h1>
+  <p class="tagline">حافظ على هدي النبي ﷺ في يومك وليلتك مع أدلتها الصحيحة الموثقة؛ اضغط على المربع لتسجيل إنجازك اليومي.</p>
+
+  <div class="verse-strip">
+    ﴿وَإِن تُطِيعُوهُ تَهْتَدُوا﴾
+  </div>
+  <div class="verse-source">سورة النور — الآية 54</div>
+
+  <div class="progress-wrap">
+    <span>إنجازك اليوم:</span>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="sunnahProgressFill"></div>
+    </div>
+    <span id="sunnahProgressText" style="font-weight: 700; color: var(--gold-soft);">0 / 10</span>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <span>🔍</span>
+    <input type="text" id="sunnahSearchInput" placeholder="ابحث في السنن النبوية أو الأدلة..." autocomplete="off">
+  </div>
+</div>
+
+<div style="max-width: 850px; margin: 0 auto 50px; padding: 0 18px; position: relative; z-index: 10;">
+  <div class="sunnah-list" id="sunnahList"></div>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <button type="button" onclick="resetSunnahProgress()" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: var(--text-muted); padding: 8px 20px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.85rem;">
+      إعادة ضبط الإنجاز لليوم الجديد ↺
+    </button>
+  </div>
+</div>
+
+<footer>
+  <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — السنن النبوية اليومية</div>
+  <div class="small">جميع الحقوق محفوظة © عمر</div>
+</footer>
+
+<!-- ==================== شريط الملاحة السفلي ==================== -->
+<nav class="liquid-bottom-nav encyclopedia-nav">
+  <a href="encyclopedia.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📚</span>
+    <span>الموسوعة</span>
+  </a>
+  <a href="duaa.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">🤲</span>
+    <span>الدعاء</span>
+  </a>
+  <a href="names.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">✨</span>
+    <span>الأسماء</span>
+  </a>
+  <a href="sunnah.html" class="liquid-nav-item active">
+    <span style="font-size: 1.2rem;">🌿</span>
+    <span>السنن</span>
+  </a>
+  <a href="stories.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📜</span>
+    <span>القصص</span>
+  </a>
+  <a href="books.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📖</span>
+    <span>المكتبة</span>
+  </a>
+  <a href="azkar.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📿</span>
+    <span>الأذكار</span>
+  </a>
+  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">💬</span>
+    <span>المساعد</span>
+  </a>
+</nav>
+
+<!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
+<div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+  <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+    <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🌙</span>
+        <div>
+          <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+          <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلية من السنة الصحيحة</div>
+        </div>
+      </div>
+      <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+    </div>
+
+    <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+    <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+      <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+      <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ---------- بيانات السنن النبوية اليومية الـ 10 مع أدلتها ---------- */
+const sunnahData = [
+  {
+    id: "sunnah_1",
+    title: "صلاة الضحى (صلاة الأوابين)",
+    desc: "تجزئ عن 360 صدقة عن كل مفصل في جسدك، ووقتها من بعد الشروق بـ 15 دقيقة حتى قبيل الظهر.",
+    evidence: "«يُصْبِحُ عَلَى كُلِّ سُلَامَى مِنْ أَحَدِكُمْ صَدَقَةٌ... وَيُجْزِئُ مِنْ ذَلِكَ رَكْعَتَانِ يَرْكَعُهُمَا مِنَ الضُّحَى» [رواه مسلم]"
+  },
+  {
+    id: "sunnah_2",
+    title: "السنن الرواجب (12 ركعة)",
+    desc: "2 قبل الفجر، 4 قبل الظهر و2 بعدها، 2 بعد المغرب، و2 بعد العشاء.",
+    evidence: "«مَنْ صَلَّى فِي يَوْمٍ وَلَيْلَةٍ ثِنْتَيْ عَشْرَةَ رَكْعَةً بُنِيَ لَهُ بَيْتٌ فِي الْجَنَّةِ» [رواه مسلم]"
+  },
+  {
+    id: "sunnah_3",
+    title: "صلاة الوتر وختام قيام الليل",
+    desc: "أقلها ركعة واحدة بعد صلاة العشاء، وتكون ختام صلاتك بالليل.",
+    evidence: "«اجْعَلُوا آخِرَ صَلَاتِكُمْ بِاللَّيْلِ وِتْرًا» [رواه البخاري ومسلم]"
+  },
+  {
+    id: "sunnah_4",
+    title: "استعمال السواك عند كل صلاة ووضوء",
+    desc: "تطهير للفم ومجلبة لمرضاة الله سبحانه وتعالى في اليوم والليلة.",
+    evidence: "«السِّوَاكُ مَطْهَرَةٌ لِلْفَمِ مَرْضَاةٌ لِلرَّبِّ» [رواه النسائي والترمذي]"
+  },
+  {
+    id: "sunnah_5",
+    title: "ترديد الأذان والدعاء بعده",
+    desc: "ترديد كلمات الأذان خلف المؤذن، ثم الصلاة على النبي وسؤال الوسيلة له.",
+    evidence: "«حَلَّتْ لَهُ شَفَاعَتِي يَوْمَ الْقِيَامَةِ» [رواه البخاري]"
+  },
+  {
+    id: "sunnah_6",
+    title: "قراءة سورة الملك قبل النوم",
+    desc: "تكون مانعة وحاجبة من عذاب القبر لمن حافظ على قراءتها وتدبرها كل ليلة.",
+    evidence: "«إِنَّ سُورَةً مِنَ الْقُرْآنِ ثَلَاثُونَ آيَةً شَفَعَتْ لِرَجُلٍ حَتَّى غُفِرَ لَهُ» [رواه الترمذي]"
+  },
+  {
+    id: "sunnah_7",
+    title: "النوم على طهارة والاضطجاع على الشق الأيمن",
+    desc: "الوضوء قبل النوم ونفض الفراش والاضطجاع على الجانب الأيمن مع أذكار النوم.",
+    evidence: "«إِذَا أَتَيْتَ مَضْجَعَكَ فَتَوَضَّأْ وَضُوءَكَ لِلصَّلَاةِ، ثُمَّ اضْطَجِعْ عَلَى شِقِّكَ الْأَيْمَنِ» [رواه البخاري]"
+  },
+  {
+    id: "sunnah_8",
+    title: "إفشاء السلام والابتسامة في وجه المسلمين",
+    desc: "مفتاح المحبة والإيمان، والابتسامة صدقة يكتبها الله لك في ميزانك.",
+    evidence: "«تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ» [رواه الترمذي]"
+  },
+  {
+    id: "sunnah_9",
+    title: "الاستغفار والتوبة 100 مرة يومياً",
+    desc: "ترطيب اللسان بالاستغفار والتوبة الاقتداء بالهدى النبوي المبارك.",
+    evidence: "«إِنِّي لَأَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ فِي الْيَوْمِ أَكْثَرَ مِنْ سَبْعِينَ مَرَّةً» [رواه البخاري]"
+  },
+  {
+    id: "sunnah_10",
+    title: "إعانة ذوي الحاجة وإماطة الأذى عن الطريق",
+    desc: "مساعدة محتاج، قضاء دين، أو رفع أذى من الطريق صدقة يومية موجبة للرحمة.",
+    evidence: "«وَتُمِيطُ الْأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ» [رواه البخاري ومسلم]"
+  }
+];
+
+/* ---------- إدارة حالة السنن وحفظ الإنجاز ---------- */
+const sunnahList = document.getElementById('sunnahList');
+const sunnahProgressFill = document.getElementById('sunnahProgressFill');
+const sunnahProgressText = document.getElementById('sunnahProgressText');
+
+let completedSunnahs = new Set(JSON.parse(localStorage.getItem('completed_sunnahs') || '[]'));
+
+function updateSunnahProgress() {
+  if (!sunnahProgressFill || !sunnahProgressText) return;
+  const count = completedSunnahs.size;
+  sunnahProgressFill.style.width = (count / sunnahData.length * 100) + '%';
+  sunnahProgressText.textContent = `${count} / ${sunnahData.length}`;
+  localStorage.setItem('completed_sunnahs', JSON.stringify([...completedSunnahs]));
+}
+
+function renderSunnahList(list = sunnahData) {
+  if (!sunnahList) return;
+  sunnahList.innerHTML = '';
+  list.forEach(item => {
+    const isDone = completedSunnahs.has(item.id);
+    const div = document.createElement('div');
+    div.className = 'sunnah-item' + (isDone ? ' completed' : '');
+    div.innerHTML = `
+      <div style="flex: 1;">
+        <div style="font-weight: 700; font-size: 1.05rem; color: var(--gold-soft); margin-bottom: 4px;">${item.title}</div>
+        <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.6; margin-bottom: 8px;">${item.desc}</div>
+        <div class="hadith-box" style="margin: 0; padding: 10px 12px;">
+          <div class="txt" style="font-size: 0.95rem;">📖 ${item.evidence}</div>
+        </div>
+      </div>
+      <div class="sunnah-check" onclick="toggleSunnah('${item.id}')">${isDone ? '✓' : ''}</div>
+    `;
+    sunnahList.appendChild(div);
+  });
+}
+
+function toggleSunnah(id) {
+  if (completedSunnahs.has(id)) {
+    completedSunnahs.delete(id);
+  } else {
+    completedSunnahs.add(id);
+    if (navigator.vibrate) navigator.vibrate(40);
+  }
+  updateSunnahProgress();
+  renderSunnahList();
+}
+
+function resetSunnahProgress() {
+  completedSunnahs.clear();
+  updateSunnahProgress();
+  renderSunnahList();
+}
+
+/* ---------- محرك البحث والتصفية ---------- */
+const sunnahSearchInput = document.getElementById('sunnahSearchInput');
+
+if (sunnahSearchInput) {
+  sunnahSearchInput.addEventListener('input', () => {
+    const query = sunnahSearchInput.value.trim().toLowerCase();
+    if (!query) {
+      renderSunnahList();
+      return;
+    }
+    const filtered = sunnahData.filter(s => 
+      s.title.toLowerCase().includes(query) ||
+      s.desc.toLowerCase().includes(query) ||
+      s.evidence.toLowerCase().includes(query)
+    );
+    renderSunnahList(filtered);
+  });
+}
+
+/* ---------- خلفية النجوم ---------- */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function initStars() {
+  canvas.width = window.innerWidth;
+  canvas.height = Math.max(document.body.scrollHeight, window.innerHeight * 2);
+  stars = [];
+  const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.1 + 0.3,
+      a: Math.random(),
+      speed: Math.random() * 0.01 + 0.003
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#f0d9a8';
+  for (let i = 0; i < stars.length; i++) {
+    const s = stars[i];
+    s.a += s.speed;
+    ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', initStars);
+
+/* ===== تبديل الثيم والحفظ ===== */
+const themeBtn = document.getElementById('themeBtn');
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light');
+  if (themeBtn) themeBtn.textContent = '🌙';
+}
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light');
+    themeBtn.textContent = isLight ? '🌙' : '🌞';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+}
+
+/* ===== توقيت مكة والتاريخ الهجري فقط ===== */
+function updateMakkahTimeAndHijri() {
+  const now = new Date();
+  
+  // توقيت مكة المكرمة
+  try {
+    const timeFormatter = new Intl.DateTimeFormat('ar-SA', {
+      timeZone: 'Asia/Riyadh',
+      hour12: true,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const timeElem = document.getElementById('makkah-time-text');
+    if (timeElem) timeElem.textContent = `🕋 مكة: ${timeFormatter.format(now)}`;
+  } catch (e) {}
+
+  // التاريخ الهجري فقط
+  try {
+    const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    const hijriElem = document.getElementById('hijri-date-text');
+    if (hijriElem) hijriElem.textContent = `📅 ${hijriFormatter.format(now)} هـ`;
+  } catch (e) {}
+}
+
+updateMakkahTimeAndHijri();
+setInterval(updateMakkahTimeAndHijri, 1000);
+
+/* ===== فتح المساعد الرقمي من الشريط السفلي ===== */
+function toggleChat() {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) {
+    const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
+    chatWindow.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden && document.getElementById('chat-input')) {
+      document.getElementById('chat-input').focus();
+    }
+  }
+}
+
+document.getElementById('chat-close-btn')?.addEventListener('click', () => {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) chatWindow.style.display = 'none';
+});
+
+initStars();
+drawStars();
+renderSunnahList();
+updateSunnahProgress();
+</script>
+
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>

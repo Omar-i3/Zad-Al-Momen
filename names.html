@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>أسماء الله الحسنى كاملة (99 اسماً) — زاد المؤمن</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <link rel="stylesheet" href="app.css">
+    <style>
+  .whatsapp-channel-btn {
+  position: fixed;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 99990;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 10px);
+  text-decoration: none !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 700;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.whatsapp-channel-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+}
+
+.whatsapp-channel-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 480px) {
+  .whatsapp-channel-btn {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    right: 12px;
+    padding: 8px 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+  <!-- زر متابعة قناة الواتساب أسفل اليمين -->
+  <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
+    <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
+    <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
+  </a>
+
+<!-- شريط توقيت مكة والتاريخ الهجري فقط -->
+<div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 توقيت مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+</div>
+
+<div class="hero">
+  <div class="moon"></div>
+  <h1>أسماء الله الحسنى كاملة (99 اسماً)</h1>
+  <p class="tagline">تأمل معاني أسماء الله جل جلاله، واعرف كيف تتوسل بها وتدعو بها في صلواتك ولحظات خلوتك لترميم قلبك.</p>
+  
+  <div class="verse-strip">
+    ﴿وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا﴾
+  </div>
+  <div class="verse-source">سورة الأعراف — الآية 180</div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <span>🔍</span>
+    <input type="text" id="nameSearchInput" placeholder="ابحث في أسماء الله الحسنى أو معانيها..." autocomplete="off">
+  </div>
+  <div class="search-count" id="searchCount"></div>
+</div>
+
+<div style="max-width: 1100px; margin: 0 auto; padding: 0 18px 40px; position: relative; z-index: 10;">
+  <div class="names-grid" id="namesGrid"></div>
+</div>
+
+<!-- النافذة المنبثقة لتفاصيل الاسم (Modal) -->
+<div class="overlay" id="nameOverlay">
+  <div class="modal" id="nameModal">
+    <button type="button" class="modal-close" id="closeNameModalBtn">✕</button>
+
+    <div class="modal-head" style="justify-content: center; text-align: center; flex-direction: column;">
+      <div id="modalNameTitle" class="amiri" style="font-size: 2.8rem; color: var(--gold-soft); margin-top: 10px;">الله</div>
+      <div id="modalNameSub" style="font-size: 0.9rem; color: var(--gold); margin-bottom: 10px;">الاسم الأعظم</div>
+    </div>
+
+    <div class="modal-body" id="modalNameBody"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — أسماء الله الحسنى</div>
+  <div class="small">جميع الحقوق محفوظة © عمر</div>
+</footer>
+
+<!-- ==================== شريط الملاحة السفلي ==================== -->
+<nav class="liquid-bottom-nav encyclopedia-nav">
+  <a href="encyclopedia.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📚</span>
+    <span>الموسوعة</span>
+  </a>
+  <a href="duaa.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">🤲</span>
+    <span>الدعاء</span>
+  </a>
+  <a href="names.html" class="liquid-nav-item active">
+    <span style="font-size: 1.2rem;">✨</span>
+    <span>الأسماء</span>
+  </a>
+  <a href="sunnah.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">🌿</span>
+    <span>السنن</span>
+  </a>
+  <a href="stories.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📜</span>
+    <span>القصص</span>
+  </a>
+  <a href="books.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📖</span>
+    <span>المكتبة</span>
+  </a>
+  <a href="azkar.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📿</span>
+    <span>الأذكار</span>
+  </a>
+  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">💬</span>
+    <span>المساعد</span>
+  </a>
+</nav>
+
+<!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
+<div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+  <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+    <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🌙</span>
+        <div>
+          <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+          <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلية من السنة الصحيحة</div>
+        </div>
+      </div>
+      <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+    </div>
+
+    <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+    <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+      <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+      <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ---------- قائمة أسماء الله الحسنى الـ 99 كاملة ---------- */
+const namesData = [
+  { name: "الله", sub: "الاسم الأعظم", meaning: "علم على الذات الإلهية الواجب الوجود، المعبود بحق الذي لا يستحق العبادة سواه.", dua: "اللهم إني أسألك بأنك أنت الله لا إله إلا أنت الأحد الصمد الذي لم يلد ولم يولد ولم يكن له كفواً أحد." },
+  { name: "الرَّحْمَنُ", sub: "واسع الرحمة", meaning: "الذي وسعت رحمته كل شيء في الكون، رحمة عامة لشامل الخلق.", dua: "يا رحمن ارحم ضعفي وقلة حيلتي واشملني برحمتك التي وسعت كل شيء." },
+  { name: "الرَّحِيمُ", sub: "دائم الرحمة", meaning: "الذي يوصل الرحمة إلى عباده المؤمنين خاصة وينعم عليهم بالتوفيق والهدى.", dua: "يا رحيم ارحمني يوم ألقاك وتولني فيمن توليت." },
+  { name: "الْمَلِكُ", sub: "صاحب الملك", meaning: "الذي له الملك المطلق والتصرف في الكون بلا منازع ولا شريك.", dua: "يا ملك الملوك أصلح لي شأني ولا تكلني إلى نفسي طرفة عين." },
+  { name: "الْقُدُّوسُ", sub: "المنزه عن العيوب", meaning: "المطهر المنزه عن كل نقص وعيب ومماثلة للمخلوقين.", dua: "سبوح قدوس رب الملائكة والروح، طهر قلوبنا من النفاق وأعمالنا من الرياء." },
+  { name: "السَّلَامُ", sub: "ناشر السلام", meaning: "الذي سلم من كل عيب ونقص، والذي يفيض السلام والأمان على خلقه.", dua: "اللهم أنت السلام ومنك السلام تباركت يا ذا الجلال والإكرام." },
+  { name: "الْمُؤْمِنُ", sub: "واهب الأمان", meaning: "الذي صدق عباده وعده وأمنهم من عذابه وظلمه.", dua: "يا مؤمن آمن روعاتي واستر عورتي وأفض السكينة على قلبي." },
+  { name: "الْمُهَيْمِنُ", sub: "الرقيب الحافظ", meaning: "المطلع على أفعال خلقه، الشاهد عليهم والرقيب الحافظ لكلياتهم.", dua: "يا مهيمن احفظني بحفظك واجعلني تحت رعايتك وعينك التي لا تنام." },
+  { name: "الْعَزِيزُ", sub: "القوي القاهر", meaning: "الذي لا يغلب ولا يرام جنابه، الغالب على أمره بعزته وقوته.", dua: "يا عزيز أعزني بطاعتك ولا تذلني بمعصيتك." },
+  { name: "الْجَبَّارُ", sub: "جابر القلوب", meaning: "الذي يجبر الكسير ويغني الفقير ويسر العسير، وقاهر العتاة.", dua: "يا جبار اجبر كسر قلبي واجبر خاطري فرجاً قريباً." },
+  { name: "الْمُتَكَبِّرُ", sub: "المنفرد بالعظمة", meaning: "المتعالي عن صفات الخلق والشركاء، ذو الكبرياء والعظمة.", dua: "يا متكبر طهر نفوسنا من الكبر واجعلنا من المتواضعين لخلقك." },
+  { name: "الْخَالِقُ", sub: "موجد الأشياء", meaning: "الذي أوجد الكائنات من العدم على غير مثال سابق.", dua: "يا خالق الكون أحسن خلقي وخُلُقي وثبتني على دينك." },
+  { name: "الْبَارِئُ", sub: "المنفذ للخلق", meaning: "الذي خلق الخلائق بريئة من التفاوت وربطها بنظام محكم.", dua: "يا بارئ النفوس بارك لي في جسدي وصحتي وعافيتي." },
+  { name: "الْمُصَوِّرُ", sub: "مبتكر الصور", meaning: "الذي أعطى كل مخلوق صورته وهيئته الخاصة التي تميزه.", dua: "يا مصور صور أمورنا على ما تحب وترضى واجعل أرواحنا جميلة بطاعتك." },
+  { name: "الْغَفَّارُ", sub: "كثير المغفرة", meaning: "الذي يستر الذنوب في الدنيا ويصفح عنها في الآخرة مرة بعد مرة.", dua: "يا غفار اغفر لي ذنوبي كلها دقيقها وجليلها أولها وآخرها." },
+  { name: "الْقَهَّارُ", sub: "الغالب المطلق", meaning: "الذي خضعت له الرقاب وعنت له الوجوه وقهر كل شيء بعظمته.", dua: "يا قهار اقهر أعداء دينك واقهر وسواس الشيطان في صدورنا." },
+  { name: "الْوَهَّابُ", sub: "كثير العطاء", meaning: "الذي يجود بالنعم والمنن الجزيلة بدون عوض ولا مقابل.", dua: "رب هب لي من لدنك رحمة وهب لي رزقاً واسعاً وعملاً صالحاً." },
+  { name: "الرَّزَّاقُ", sub: "مفيض الأرزاق", meaning: "المتكفل برزق جميع أبدان وأرواح الخلائق أجمعين.", dua: "يا رزاق ارزقني من حيث لا أحتسب بارك لي فيما رزقتني." },
+  { name: "الْفَتَّاحُ", sub: "قاضي الحاجات", meaning: "الذي يفتح أبواب الرحمة والرزق والفرج والخير لعباده.", dua: "يا فتاح افتح لنا أبواب خيرك ورحمتك وتوفيقك." },
+  { name: "الْعَلِيمُ", sub: "محيط العلم", meaning: "الذي لا يخفى عليه شيء في الأرض ولا في السماء ظاهراً وباطناً.", dua: "يا عليم علمني ما ينفعني وانفعني بما علمتني وزدني علماً." },
+  { name: "الْقَابِضُ", sub: "حابس الرزق", meaning: "الذي يقبض الأرواح والأرزاق بحكمته وعدله عمن يشاء.", dua: "يا قابض اقبض عنا الشر والهموم ووفقنا لحسن الخاتمة." },
+  { name: "الْبَاسِطُ", sub: "موسع الأرزاق", meaning: "الذي يبسط الرزق والرحمة على من يشاء بفضله وكرمه.", dua: "يا باسط ابسط علينا من بركاتك ورحمتك وفضلك ورزقك." },
+  { name: "الْخَافِضُ", sub: "مذل الجبارين", meaning: "الذي يخفض الكفار والمشركين والمستكبرين ويضع قدرهم.", dua: "يا خافض اخفض قدر كل من أراد بنا وبالمسلمين سوءاً." },
+  { name: "الرَّافِعُ", sub: "معلي الصالحين", meaning: "الذي يرفع أولياءه بالتقوى والإيمان والدرجات العالية.", dua: "يا رافع ارفع درجاتنا في الدنيا والآخرة واجعلنا من المقربين." },
+  { name: "الْمُعِزُّ", sub: "واهب العزة", meaning: "الذي يعز من يشاء بطاعته والإيمان به والاستمساك بملته.", dua: "يا معز أعز الإسلام والمسلمين وأعز نفوسنا بالإيمان." },
+  { name: "الْمُذِلُّ", sub: "مخزي الظالمين", meaning: "الذي يذل أعداءه بمعصيتهم وتركهم لهدايته.", dua: "يا مذل لا تذلنا لذنب ارتكبناه واعصمنا من موارد الهلاك." },
+  { name: "السَّمِيعُ", sub: "سامع الدعاء", meaning: "الذي يسمع كل نجوى ودعاء، لا يشغله صوت عن صوت ولا لغة عن لغة.", dua: "يا سميع الدعاء اسمع دعائي واستجب لي ولجميع المسلمين." },
+  { name: "الْبَصِيرُ", sub: "مبصر الخفايا", meaning: "الذي يبصر دبيب النملة السوداء على الصخرة الصماء في الليلة الظلماء.", dua: "يا بصير بصرنا بعيوبنا واجعل طاعتنا في سرنا كعلانيتنا." },
+  { name: "الْحَكَمُ", sub: "العادل المنصف", meaning: "الذي يحكم بين عباده بالعدل المطلق الذي لا ظلم فيه.", dua: "يا حكم احكم بيننا وبين أعدائنا بالحق وأنت خير الحاكمين." },
+  { name: "الْعَدْلُ", sub: "المترفع عن الظلم", meaning: "الذي لا يجور في حكمه ويعطي كل ذي حق حقه بحكمة.", dua: "يا عدل اجعلنا من أهل العدل والقسط وأعذنا من الظلم." },
+  { name: "اللَّطِيفُ", sub: "الرفيق بعباده", meaning: "الذي يوصل البر والرحمة إلى عباده في خفاء ورفق وبطرق لا يشعرون بها.", dua: "يا لطيف الطف بنا فيما جرت به المقادير واصرف عنا الفتن." },
+  { name: "الْخَبِيرُ", sub: "عالم البواطن", meaning: "الذي لا تخفى عليه خفايا الأمور وبواطن الصدور وضغائن النفوس.", dua: "يا خبير طهر قلوبنا من الغل والحسد واصلح سرائرنا." },
+  { name: "الْحَلِيمُ", sub: "لا يعجل العقوبة", meaning: "الذي يرى معصية العاصين ولا يعاجلهم بالعقوبة لعلهم يتوبون.", dua: "يا حليم احلم علينا ولا تؤاخذنا بما فعل السفهاء منا." },
+  { name: "الْعَظِيمُ", sub: "جليل القدر", meaning: "الذي له العظمة المطلقة في ذاته وصفاته وأفعاله.", dua: "يا عظيم عظّم حبك في قلوبنا واجعل خشيتك نصب أعيننا." },
+  { name: "الْغَفُورُ", sub: "واسع الصفح", meaning: "الذي يغفر الذنوب العظام ويتجاوز عن الخطايا والآثام.", dua: "يا غفور اغفر لنا خطايانا وتجاوز عن سيئاتنا." },
+  { name: "الشَّكُورُ", sub: "مضاعف الحسنات", meaning: "الذي يثيب على العمل القليل بالثواب الجزيل والكبير.", dua: "يا شكور تقبل منا يسير أعمالنا واجعلها خالصة لوجهك." },
+  { name: "الْعَلِيُّ", sub: "المتعالي عن النقص", meaning: "الذي له العلو المطلق في ذاته وقهره وقدرته وشأنه.", dua: "يا علي ارفع مقامنا في جنات النعيم ووفقنا لمرضاتك." },
+  { name: "الْكَبِيرُ", sub: "أكبر من كل شيء", meaning: "الذي كل شيء دونه صغير وحقير أمام عظمته وكبريائه.", dua: "الله أكبر كبيراً والحمد لله كثيراً وسبحان الله بكرة وأصيلاً." },
+  { name: "الْحَفِيظُ", sub: "حامي الخلائق", meaning: "الذي يحفظ السماوات والأرض وما فيهما ويحفظ عباده من الهلاك.", dua: "يا حفيظ احفظنا من بين أيدينا ومن خلفنا وعن أيماننا وعن شمائلنا." },
+  { name: "الْمُقِيتُ", sub: "مفيض الأقوات", meaning: "الذي يخلق الأقوات ويصلها إلى الأبدان والأرواح ويقتدر عليها.", dua: "يا مقيت اقبل توبتنا وقوّ أبداننا وأرواحنا على طاعتك." },
+  { name: "الْحَسِيبُ", sub: "كافي العباد", meaning: "الذي يكفي عباده جميع حاجاتهم ويحاسبهم على أعمالهم.", dua: "حسبي الله ونعم الوكيل، يا حسيب اكفني ما أهمني من أمر الدنيا والآخرة." },
+  { name: "الْجَلِيلُ", sub: "عظيم الصفات", meaning: "المتصف بجلال القدر وعظم الشأن وكمال الصفات.", dua: "يا ذا الجلال والإكرام أسبغ علينا نعمك واجعلنا من الشاكرين." },
+  { name: "الْكَرِيمُ", sub: "واسع الجود", meaning: "الذي يعطي بلا عوض ويبدأ بالنوال قبل السؤال ولا يضيع من أمله.", dua: "يا كريم أكرمنا بزيارة بيتك الحرام وافتح لنا أبواب فضلك." },
+  { name: "الرَّقِيبُ", sub: "ملاحظ الحركات", meaning: "الذي لا يغفل عن شيء ولا يغيب عنه خاطر أو حركة.", dua: "يا رقيب اجعلنا نخشاك كأننا نراك ونستحيي منك في الخلوات." },
+  { name: "الْمُجِيبُ", sub: "سامع المستغيثين", meaning: "الذي يقابل الدعاء والإجابة والسؤال بالقبول والعطاء.", dua: "يا مجيب الدعوات استجب دعاءنا ولا تردنا خائبين." },
+  { name: "الْوَاسِعُ", sub: "محيط بالفضل", meaning: "الذي وسع علمه ورحمته ورزقه ومغفرته جميع خلقه.", dua: "يا واسع الفضل والجود وسع علينا في أرزاقنا وأخلاقنا." },
+  { name: "الْحَكِيمُ", sub: "متقن التدبير", meaning: "الذي يضع الأشياء في مواضعها الصحيحة بحكمته وعدله.", dua: "يا حكيم اهدنا لخير الأمور وارزقنا الحكمة في قولنا وعملنا." },
+  { name: "الْوَدُودُ", sub: "المحب لعباده", meaning: "الذي يتودد إلى أوليائه بالنعمة والمغفرة ويحب المؤمنين.", dua: "يا ودود ألقِ محبتك في قلوبنا ومحبتنا في قلوب عبادك الصالحين." },
+  { name: "الْمَجِيدُ", sub: "شريف الذات", meaning: "البالغ المجد والعظمة والشرف والمجد المطلق.", dua: "يا مجيد لك الحمد والمجد والشكر على كل حال." },
+  { name: "الْبَاعِثُ", sub: "محيي الأموات", meaning: "الذي يبعث الخلائق بعد الموت للحساب والجزاء.", dua: "يا باعث ابعثنا يوم القيامة مع النبيين والصديقين والشهداء." },
+  { name: "الشَّهِيدُ", sub: "الحاضر المطلع", meaning: "الذي لا يغيب عنه شيء والشاهد على جميع الأعمال.", dua: "يا شهيد اشهد لنا بالإيمان والتوحيد عند الموت." },
+  { name: "الْحَقُّ", sub: "الركن الثابت", meaning: "الذي لا شك في وجوده ولا في وعده وكلماته هي الحق.", dua: "اللهم أنت الحق ووعدك الحق ولقاؤك حق والجنة حق والنار حق." },
+  { name: "الْوَكِيلُ", sub: "المعتمد في الأمور", meaning: "الذي يتولى أمور عباده ويكفيهم وينصرهم إذا توكلوا عليه.", dua: "يا وكيل توكلت عليك في جميع أموري فاكفني واهدني." },
+  { name: "الْقَوِيُّ", sub: "شديد القدرة", meaning: "الذي لا يعجزه شيء وله القوة المطلقة والقدرة التامة.", dua: "يا قوي قوّ عزائمنا على الطاعة وثبت أقدامنا." },
+  { name: "الْمَتِينُ", sub: "شديد القوة", meaning: "الذي لا تنقطع قوته ولا يلحقه في أفعاله مشقة ولا تعب.", dua: "يا متين أصلح قلوبنا وثبتنا على الصراط المستقيم." },
+  { name: "الْوَلِيُّ", sub: "ناصر المؤمنين", meaning: "الذي يتولى عباده الصالحين بالنصر والتوفيق والهداية.", dua: "يا ولي الصالحين كن لنا ولياً ونصيراً ومعيناً وضهيراً." },
+  { name: "الْحَمِيدُ", sub: "المستحق للحمد", meaning: "المحمود على كل حال وفي كل وقت على ذاته وصفاته.", dua: "يا حميد لك الحمد كله والشكر كله علانيته وسره." },
+  { name: "الْمُحْصِي", sub: "عالم الأعداد", meaning: "الذي أحصى كل شيء عدداً ولا يعزب عنه مثقال ذرة.", dua: "يا محصي تجاوز عن خطايانا وأحصِنا في زمرة الصالحين." },
+  { name: "الْمُبْدِئُ", sub: "منشئ الخلق", meaning: "الذي بدأ خلق الأشياء وأنشأها أول مرة.", dua: "يا مبدئ يا معيد أنشئ في قلوبنا إيماناً خالصاً لا يزول." },
+  { name: "الْمُعِيدُ", sub: "مُرجع الخلايق", meaning: "الذي يعيد الخلق بعد الفناء للبعث والنشور.", dua: "يا معيد أعد إلينا طمأنينة أرواحنا واجمعنا في جناتك." },
+  { name: "الْمُحْيِي", sub: "واهب الحياة", meaning: "الذي يحيي الأجساد والأرواح والقلوب بنور الإيمان.", dua: "يا محيي القلوب أحيِ قلوبنا بذكرك وطاعتك وشكرك." },
+  { name: "الْمُمِيتُ", sub: "مقدر الموت", meaning: "الذي يسلب الحياة من الأحياء عند انقضاء آجالهم.", dua: "يا مميت أمتنا على الإسلام والسنة وأعذنا من سوء الخاتمة." },
+  { name: "الْحَيُّ", sub: "دائم الحياة", meaning: "الذي له الحياة الكاملة الدائمة التي لا تزول ولا تفنى.", dua: "يا حي يا قيوم برحمتك أستغيث أصلح لي شأني كله." },
+  { name: "الْقَيُّومُ", sub: "القائم بنفسه", meaning: "القائم بنفسه والحافظ لكل شيء والقائم بمدار الكون.", dua: "يا قيوم أقمني في سبيلك واجعل حياتي كلها في طاعتك." },
+  { name: "الْوَاجِدُ", sub: "الغني المطلق", meaning: "الذي لا يعوزه شيء ولا يفتقر إلى شيء.", dua: "يا واجد أصلح لي بالي وأغنني بفضلك عن من سواك." },
+  { name: "الْمَاجِدُ", sub: "واسع الكرم", meaning: "الذي له المجد العظيم والعطاء الواسع والخير الجزيل.", dua: "يا ماجد لك الجلال والعظمة فاجعلنا من عتقائك من النار." },
+  { name: "الْوَاحِدُ", sub: "المتفرد بالذات", meaning: "الذي لا ثاني له ولا شريك له في ذاته وصفاته.", dua: "يا واحد يا أحد اشهد أنك الله الذي لم يلد ولم يولد." },
+  { name: "الصَّمَدُ", sub: "المقصود في الحوائج", meaning: "الذي تصمد إليه الخلائق وتلجأ إليه في حوائجها.", dua: "يا صمد إليك يلجأ قلبي وبك أستعين في كل شدة." },
+  { name: "الْقَادِرُ", sub: "صاحب القدرة", meaning: "الذي يقدر على كل شيء ولا يعجزه أمر في الأرض ولا في السماء.", dua: "يا قادر اقدر لي الخير حيث كان ثم رضني به." },
+  { name: "الْمُقْتَدِرُ", sub: "تعدت قدرته الخيال", meaning: "الذي تظهر قدرته في خلق الأشياء وتصريفها بحكمة.", dua: "يا مقتدر ينزل شفائك وفرجك ورحمتك علينا برحمتك." },
+  { name: "الْمُقَدِّمُ", sub: "منزل المراتب", meaning: "الذي يقدم من يشاء من خلقه في المراتب والدرجات.", dua: "يا مقدم قدمنا في الخيرات واجعلنا من السابقين للقرآن." },
+  { name: "الْمُؤَخِّرُ", sub: "مؤخر الأشياء", meaning: "الذي تؤخر الأشياء وتضعها في أوقاتها المناسبة بحكمته.", dua: "يا مؤخر أخر عنا الشرور والمصائب ووفقنا لكل خير." },
+  { name: "الأَوَّلُ", sub: "ليس قبله شيء", meaning: "الذي لا بداية لوجوده، الأسبق قبل كل مخلوق.", dua: "اللهم أنت الأول فليس قبلك شيء، وأنت الآخر فليس بعدك شيء." },
+  { name: "الآخِرُ", sub: "ليس بعده شيء", meaning: "الباقي بعد فناء كل شيء والذي لا نهاية لوجوده.", dua: "يا آخر تثبيتك على دينك عند الموت هو أملنا وثناؤنا." },
+  { name: "الظَّاهِرُ", sub: "الواضح بآياته", meaning: "الذي ظهر بعظمته وآياته وعلا فوق كل شيء.", dua: "يا ظاهر أظهر الحق واهدنا إليه واجعلنا من أنصاره." },
+  { name: "الْبَاطِنُ", sub: "الخفي بذاته", meaning: "الذي احتجب عن الأبصار المطلع على خفايا الصدور.", dua: "يا باطن يعلم خائنة الأعين اقضِ عنا الدين وأغننا من الفقر." },
+  { name: "الْوَالِي", sub: "مالك تدبير الكون", meaning: "المالك للشيء والمتولي لأمور الخلائق المدبر لها.", dua: "يا والي تولّ أمرنا ولا تكلنا لأحد من خلقك." },
+  { name: "الْمُتَعَالِي", sub: "المنزه عن النقائص", meaning: "المنزه عن صفات المخلوقين والمستعلي عليهم بقدرته.", dua: "يا متعالي جل شأنك وتبارك اسمك وتعالى جدمك." },
+  { name: "الْبَرُّ", sub: "عطوف رحيم", meaning: "كثير المحسن والمحسن إلى عباده الذي يتجاوز عن خطاياهم.", dua: "يا بر المحسن احسبنا في جودك وإحسانك وأعذنا من عذابك." },
+  { name: "التَّوَّابُ", sub: "قابل التوبة", meaning: "الذي يوفق عباده للتوبة ويقبلها منهم كرماً وعفواً.", dua: "يا تواب تب علينا لنتوب إنك أنت التواب الرحيم." },
+  { name: "الْمُنْتَقِمُ", sub: "معاقب الظلمة", meaning: "الذي يعاقب العصاة والظلمة والجاحدين بعد الإمهال.", dua: "يا منتقم انتقم من كل ظالم وطاغية ونصر المستضعفين." },
+  { name: "الْعَفُوُّ", sub: "ماحي الذنوب", meaning: "الذي يمحو الذنوب ويزيل آثارها ولا يطالب بها العبد.", dua: "اللهم إنك عفو تحب العفو فاعفُ عني." },
+  { name: "الرَّءُوفُ", sub: "شدة الرحمة", meaning: "الذي يعطف على عباده برأفته ويخفف عنهم التكاليف.", dua: "يا رؤوف ائذن لقلبي بالراحة والسكينة واشملني برأفتك." },
+  { name: "مَالِكُ الْمُلْكِ", sub: "صاحب السلطان", meaning: "الذي يؤتي الملك من يشاء وينزع الملك ممن يشاء.", dua: "اللهم مالك الملك تؤتي الملك من يشاء وتنزع الملك ممن تشاء بيدك الخير." },
+  { name: "ذُو الْجَلَالِ وَالإِكْرَامِ", sub: "مستحق التعظيم", meaning: "الذي يستحق أن يجالّ فلا يعصى ويُكرم فلا يُكفر.", dua: "يا ذا الجلال والإكرام ثبت قلوبنا على دينك وألهمنا رشدنا." },
+  { name: "الْمُقْسِطُ", sub: "العادل المنصف", meaning: "الذي ينصف المظلوم من الظالم ويقيم العدل التام.", dua: "يا مقسط أقم القسط والعدل في حياتنا وأبعد عنا الجور." },
+  { name: "الْجَامِعُ", sub: "جامع الخلائق", meaning: "الذي يجمع الخلائق ليوم لا ريب فيه الحاشر للأرواح.", dua: "يا جامع الناس ليوم لا ريب فيه اجمع بيني وبين أمنياتي وحوائجي." },
+  { name: "الْغَنِيُّ", sub: "لا يحتاج لأحد", meaning: "الذي لا يفتقر إلى شيء وكل الخلائق فقيرة إليه.", dua: "يا غني أنت الغني ونحن الفقراء إليك فاغننا بحلالك عن حرامك." },
+  { name: "الْمُغْنِي", sub: "ساد الفقر", meaning: "الذي يغني من يشاء من عباده بالمال والرضا والقناعة.", dua: "يا مغني أغنِ أرواحنا باليقين وأكفنا بحلالك." },
+  { name: "الْمَانِعُ", sub: "حامي الضرر", meaning: "الذي يمنع أسباب الهلاك والبلاء عمن يشاء بحكمته.", dua: "يا مانع امنع عنا الشياطين والشرور وسوء القضاء." },
+  { name: "الضَّارُّ", sub: "مقدر الضر", meaning: "الذي يصيب بالضر من يشاء ابتلاءً أو عقوبة.", dua: "يا ضار يا نافع لا يكشف الضر إلا أنت فاشفنا وعافنا." },
+  { name: "النَّافِعُ", sub: "مفيض الخيرات", meaning: "الذي يوصل النفع والخير إلى من يشاء من خلقه.", dua: "يا نافع انفعنا بما علمتنا واجعل أوقاتنا نافعة لمستقبلنا." },
+  { name: "النُّورُ", sub: "هادي السماوات", meaning: "الذي أنار السماوات والأرض ويهدي بنوره من يشاء.", dua: "اللهم اجعل في قلبي نوراً وفي بصري نوراً وفي سمعي نوراً." },
+  { name: "الْهَادِي", sub: "مرشد القلوب", meaning: "الذي يبصر الخلائق ويرشدهم إلى طريق الحق والنجاة.", dua: "يا هادي اهدِ قلبي وسدد لساني واهدني الصراط المستقيم." },
+  { name: "الْبَدِيعُ", sub: "خالق العجائب", meaning: "الذي أبدع الخلق وصنعه على غير مثال سابق بجمال وإتقان.", dua: "يا بديع السماوات والأرض أبدع في حياتنا فرجاً وتوفيقاً." },
+  { name: "الْبَاقِي", sub: "لا يفنى أبداً", meaning: "الذي لا ينتهي وجوده ولا يلحقه الفناء أبداً.", dua: "يا باقي وكل شيء هالك إلا وجهك اجعل أعمالنا قائمة لوجهك." },
+  { name: "الْوَارِثُ", sub: "مسترد الأملاك", meaning: "الذي يبقى بعد فناء جميع الخلائق وترجع إليه الأملاك.", dua: "يا وارث السماوات والأرض اجعل القرآن ربيع قلوبنا ووارث خيرينا." },
+  { name: "الرَّشِيدُ", sub: "مرشد الصواب", meaning: "الذي يرشد عباده إلى ما فيه صلاحهم وتقع أفعاله على صواب.", dua: "يا رشيد أرشدنا لأحسن الأخلاق وألهمنا رشدنا في كل أمر." },
+  { name: "الصَّبُورُ", sub: "لا يعجل العقوبة", meaning: "الذي لا يعاجل العصاة بالعقوبة ويميّز الصابرين.", dua: "يا صبور أفرغ علينا صبراً وتوفنا مسلمين وألحقنا بالصالحين." }
+];
+
+/* ---------- عرض شبكة كروت الأسماء ---------- */
+const namesGrid = document.getElementById('namesGrid');
+const nameOverlay = document.getElementById('nameOverlay');
+const modalNameTitle = document.getElementById('modalNameTitle');
+const modalNameSub = document.getElementById('modalNameSub');
+const modalNameBody = document.getElementById('modalNameBody');
+const searchCount = document.getElementById('searchCount');
+
+function renderNames(list = namesData) {
+  if (!namesGrid) return;
+  namesGrid.innerHTML = '';
+  list.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'name-card';
+    card.innerHTML = `
+      <div class="name-title">${item.name}</div>
+      <div class="name-sub">${item.sub}</div>
+    `;
+    card.addEventListener('click', () => openNameDetails(item));
+    namesGrid.appendChild(card);
+  });
+}
+
+function openNameDetails(item) {
+  if (!modalNameTitle || !modalNameBody || !nameOverlay) return;
+  modalNameTitle.textContent = item.name;
+  modalNameSub.textContent = item.sub;
+  modalNameBody.innerHTML = `
+    <div style="font-size: 1.05rem; line-height: 1.9; color: var(--text-main); margin-bottom: 20px;">
+      <strong style="color: var(--gold-soft); display: block; margin-bottom: 6px;">📖 المعنى والأثر الإيماني:</strong>
+      ${item.meaning}
+    </div>
+    <div class="hadith-box" style="margin-top: 15px;">
+      <div style="font-size: 0.85rem; color: var(--gold); margin-bottom: 6px;">🤲 كيف تتوسل وتدعو بهذا الاسم؟</div>
+      <div class="txt" style="font-size: 1.2rem;">«${item.dua}»</div>
+    </div>
+  `;
+  nameOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeNameDetails() {
+  if (!nameOverlay) return;
+  nameOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('closeNameModalBtn')?.addEventListener('click', closeNameDetails);
+nameOverlay?.addEventListener('click', (e) => { if (e.target === nameOverlay) closeNameDetails(); });
+
+/* ---------- محرك البحث المباشر في الأسماء ---------- */
+const nameSearchInput = document.getElementById('nameSearchInput');
+
+if (nameSearchInput) {
+  nameSearchInput.addEventListener('input', () => {
+    const query = nameSearchInput.value.trim().toLowerCase();
+    if (!query) {
+      renderNames();
+      if (searchCount) searchCount.textContent = '';
+      return;
+    }
+    const filtered = namesData.filter(item => 
+      item.name.toLowerCase().includes(query) ||
+      item.sub.toLowerCase().includes(query) ||
+      item.meaning.toLowerCase().includes(query)
+    );
+    renderNames(filtered);
+    if (searchCount) searchCount.textContent = `تم العثور على ${filtered.length} اسمًا`;
+  });
+}
+
+/* ---------- خلفية النجوم ---------- */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function initStars() {
+  canvas.width = window.innerWidth;
+  canvas.height = Math.max(document.body.scrollHeight, window.innerHeight * 2);
+  stars = [];
+  const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.1 + 0.3,
+      a: Math.random(),
+      speed: Math.random() * 0.01 + 0.003
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#f0d9a8';
+  for (let i = 0; i < stars.length; i++) {
+    const s = stars[i];
+    s.a += s.speed;
+    ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', initStars);
+
+/* ===== تبديل الثيم والحفظ ===== */
+const themeBtn = document.getElementById('themeBtn');
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light');
+  if (themeBtn) themeBtn.textContent = '🌙';
+}
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light');
+    themeBtn.textContent = isLight ? '🌙' : '🌞';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+}
+
+/* ===== توقيت مكة والتاريخ الهجري فقط ===== */
+function updateMakkahTimeAndHijri() {
+  const now = new Date();
+  
+  // توقيت مكة المكرمة
+  try {
+    const timeFormatter = new Intl.DateTimeFormat('ar-SA', {
+      timeZone: 'Asia/Riyadh',
+      hour12: true,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const timeElem = document.getElementById('makkah-time-text');
+    if (timeElem) timeElem.textContent = `🕋 مكة: ${timeFormatter.format(now)}`;
+  } catch (e) {}
+
+  // التاريخ الهجري فقط
+  try {
+    const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    const hijriElem = document.getElementById('hijri-date-text');
+    if (hijriElem) hijriElem.textContent = `📅 ${hijriFormatter.format(now)} هـ`;
+  } catch (e) {}
+}
+
+updateMakkahTimeAndHijri();
+setInterval(updateMakkahTimeAndHijri, 1000);
+
+/* ===== فتح المساعد الرقمي من الشريط السفلي ===== */
+function toggleChat() {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) {
+    const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
+    chatWindow.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden && document.getElementById('chat-input')) {
+      document.getElementById('chat-input').focus();
+    }
+  }
+}
+
+document.getElementById('chat-close-btn')?.addEventListener('click', () => {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) chatWindow.style.display = 'none';
+});
+
+initStars();
+drawStars();
+renderNames();
+</script>
+
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>

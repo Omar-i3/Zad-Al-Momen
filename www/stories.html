@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>قبسات وقصص إيمانية (20 قصة) — زاد المؤمن</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <link rel="stylesheet" href="app.css">
+    <style>
+  .whatsapp-channel-btn {
+  position: fixed;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 99990;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 10px);
+  text-decoration: none !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 700;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.whatsapp-channel-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+}
+
+.whatsapp-channel-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 480px) {
+  .whatsapp-channel-btn {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    right: 12px;
+    padding: 8px 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+  <!-- زر متابعة قناة الواتساب أسفل اليمين -->
+  <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
+    <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
+    <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
+  </a>
+
+<!-- شريط توقيت مكة والتاريخ الهجري فقط -->
+<div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 توقيت مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+</div>
+
+<div class="hero">
+  <div class="moon"></div>
+  <h1>قبسات وقصص إيمانية (20 قصة)</h1>
+  <p class="tagline">قراءة في دقيقة تعيد لقلبك الشغف واليقين وحسن الظن بربك عز وجل في السراء والضراء.</p>
+
+  <div class="verse-strip">
+    ﴿نَحْنُ نَقُصُّ عَلَيْكَ أَحْسَنَ الْقَصَصِ﴾
+  </div>
+  <div class="verse-source">سورة يوسف — الآية 3</div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <span>🔍</span>
+    <input type="text" id="storySearchInput" placeholder="ابحث في القصص أو أسماء الأنبياء والصحابة..." autocomplete="off">
+  </div>
+  <div class="search-count" id="searchCount"></div>
+</div>
+
+<div style="max-width: 850px; margin: 0 auto 50px; padding: 0 18px; position: relative; z-index: 10;">
+  <div id="storiesContainer"></div>
+</div>
+
+<!-- بنر تثبيت التطبيق الذكي -->
+<div id="smart-app-banner" style="display: none; position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); z-index: 9998; width: 92%; max-width: 480px; background: linear-gradient(135deg, #0f1730, #141d3d); border: 1px solid rgba(214, 168, 92, 0.4); border-radius: 18px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); backdrop-filter: blur(12px); color: #f3efe3; font-family: 'Tajawal', sans-serif;">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 2rem;">🌙</span>
+            <div>
+                <div style="font-weight: bold; color: #f0d9a8; font-size: 0.95rem;">تطبيق "زاد المؤمن"</div>
+                <div id="banner-text" style="font-size: 0.8rem; color: #93a0c2; line-height: 1.4; margin-top: 2px;"></div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <a id="apk-download-btn" href="zad-al-momen.apk" download style="display: none; background: linear-gradient(135deg, #d6a85c, #b9803a); color: #1a1200; font-weight: bold; padding: 8px 14px; border-radius: 10px; text-decoration: none; font-size: 0.82rem; white-space: nowrap;">تحميل APK 📲</a>
+            <button type="button" onclick="closeAppInstallBanner()" style="background: none; border: none; color: #93a0c2; font-size: 1.2rem; cursor: pointer; padding: 4px;">✕</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+  <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — قصص وقبسات إيمانية</div>
+  <div class="small">جميع الحقوق محفوظة © عمر</div>
+</footer>
+
+<!-- ==================== شريط الملاحة السفلي ==================== -->
+<nav class="liquid-bottom-nav encyclopedia-nav">
+  <a href="encyclopedia.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📚</span>
+    <span>الموسوعة</span>
+  </a>
+  <a href="duaa.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">🤲</span>
+    <span>الدعاء</span>
+  </a>
+  <a href="names.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">✨</span>
+    <span>الأسماء</span>
+  </a>
+  <a href="sunnah.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">🌿</span>
+    <span>السنن</span>
+  </a>
+  <a href="stories.html" class="liquid-nav-item active">
+    <span style="font-size: 1.2rem;">📜</span>
+    <span>القصص</span>
+  </a>
+  <a href="books.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📖</span>
+    <span>المكتبة</span>
+  </a>
+  <a href="azkar.html" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">📿</span>
+    <span>الأذكار</span>
+  </a>
+  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+    <span style="font-size: 1.2rem;">💬</span>
+    <span>المساعد</span>
+  </a>
+</nav>
+
+<!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
+<div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+  <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+    <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🌙</span>
+        <div>
+          <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+          <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلية من السنة الصحيحة</div>
+        </div>
+      </div>
+      <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+    </div>
+
+    <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+    <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+      <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+      <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ---------- بيانات الـ 20 قصة وقبسة إيمانية كاملة ---------- */
+const storiesData = [
+  {
+    title: "1. يقين يونس عليه السلام في بطن الحوت",
+    text: "في ظلمات ثلاث (ظلمة الليل، ظلمة البحر، وظلمة بطن الحوت)، انقطع الأمل من كل الأسباب البشرية تماماً. فنادى يونس عليه السلام بتوحيد خالص: ﴿لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ﴾، فجاء الغوث الإلهي العاجل: ﴿فَاسْتَجَبْنَا لَهُ وَنَجَّيْنَاهُ مِنَ الْغَمِّ ۚ وَكَذَٰلِكُ نُنْجِي الْمُؤْمِنِينَ﴾."
+  },
+  {
+    title: "2. أدب أيوب عليه السلام عند البلاء",
+    text: "بعد 18 عاماً من الابتلاء الشديد والمرض وتخلي الناس عنه، لم يشتَكِ أيوب لربّه بل قال بأدب وافتقار جم: ﴿أَنِّي مَسَّنِيَ الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ﴾. لم يقل اشفِني، بل أثنى على رحمة ربه، فكانت الإجابة الفورية: ﴿فَاسْتَجَبْنَا لَهُ فَكَشَفْنَا مَا بِهِ مِن ضُرٍّ﴾."
+  },
+  {
+    title: "3. سطر واحد أتى لموسى عليه السلام بالدنيا والآخرة",
+    text: "دخل موسى عليه السلام مدين خائفاً طريداً، جائعاً بلا مأوى ولا زوجة ولا عمل. فجلس تحت الظل وقال بسطر واحد: ﴿رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ﴾. فجاءه الأمان، والرزق، والزوجة الصالحة، والنبوة بكاملها!"
+  },
+  {
+    title: "4. ثبات خليل الله إبراهيم عليه السلام في النار",
+    text: "عندما أُلقي إبراهيم في النار العظيمة، أتاه جبريل عليه السلام يسأله: هل لك من حاجة؟ فقال إبراهيم ببيقين العارفين: 'أما إليك فلا، وأما إلى الله فبلى'. فقال: 'حسبنا الله ونعم الوكيل'، فجاء الأمر الإلهي للجماد: ﴿يَا نَارُ كُونِي بَرْدًا وَسَلَامًا عَلَىٰ إِبْرَاهِيمَ﴾."
+  },
+  {
+    title: "5. يوسف عليه السلام والفرج بعد غيابات السجن",
+    text: "مكث يوسف في السجن بضع سنين وهو مظلوم، ولم يني في دعوة ربه ورعاية المساجين. ولما جاءت الرؤيا الملكية، خرج ليصبح عزيز مصر وعلى خزائن الأرض كلها، ليعلم المسلم أن التأخير في الفرج هو تدبير لتمكين أعظم."
+  },
+  {
+    title: "6. ثقة أم موسى عليه السلام بوعود الله",
+    text: "أمرها الله أن تطرح طفلها الرضيع في التابوت وفي أمواج النهر العاتية! وهو في ظاهره هلاك حتمي. لكن لأنها وثقت بقوله تعالى: ﴿إِنَّا رَادُّوهُ إِلَيْكِ وَجَاعِلُوهُ مِنَ الْمُرْسَلِينَ﴾، ردّه الله إلى أحضانها كي تقر عينها ولا تحزن."
+  },
+  {
+    title: "7. الهجرة وحسن ظن الصديق بالنبي ﷺ في الغار",
+    text: "عندما وقف المشركون على باب الغار حتى قال أبو بكر رضي الله عنه: 'لو نظر أحدهم تحت قدميه لرآنا'، تبسم النبي ﷺ بيقين السماء وقال: 'يا أبا بكر، ما ظنك باثنين الله ثالثهما؟ لا تحزن إن الله معنا'."
+  },
+  {
+    title: "8. دعاء العجوز الثكلى وشفاؤها باليقين",
+    text: "يُحكى أن امرأة صالحة أُصيب ابنها بمرض عُضال وأجمع الأطباء على هلاكه. فقامت في سحر ليلة ورفعت يديها توقن بيقين قاطع قائلة: 'يا من لا يخيب لديه الرجاء، اعصم بنيّ'، فما أشرقت شمس الصباح إلا والطفل يعود لصحته وكأنه لم يمسه سوء!"
+  },
+  {
+    title: "9. توكل هاجر عليها السلام في وادي غير ذي زرع",
+    text: "تركها إبراهيم عليه السلام مع طفلها الرضيع في صحراء مكة الجرداء. فقالت له: أالله أمرك بهذا؟ قال: نعم. قالت بكل يقين وإيمان: 'إذن لا يضيعنا'. فنبع ماء زمزم المبارك ليطعم ملايين البشر إلى يوم القيامة."
+  },
+  {
+    title: "10. توبة عمر بن الخطاب رضي الله عنه بالقرآن",
+    text: "خرج عمر متوشحاً سيفه يريد قتل النبي ﷺ، فدخل على أخته وسمع آيات من سورة طه: ﴿طه ۝ مَا أَنزَلْنَا عَلَيْكَ الْقُرْآنَ لِتَشْقَىٰ﴾، فاهتز كيانه وانشرح صدره للإسلام ليتحول من أشد أعداء الدين إلى فاروق الأمة."
+  },
+  {
+    title: "11. إخلاص الحارس ومناجاة الليل",
+    text: "كان جندي صالح يقف في حراسة الجيش بالليل، وبينما الناس نيام كان يستغل ظلام الليل في الصلاة والدموع تنهمر من عينيه يدعو بالنصر والفتح، فلما أصبح الجيش انتصروا ببركة دعاء وخبيئة هذا المخلص."
+  },
+  {
+    title: "12. صدفة أصحاب الغار والتوسل بالصالحات",
+    text: "انطبقت الصخرة العظيمة على ثلاثة نفر في غار فما نجاهم من الهلاك إلا توسل كل واحد منهم بأخلص عمل صالحة عمله لوجه الله تعالى (بر الوالدين، العفاف عن الحرام، وأداء أمانة الأجير)."
+  },
+  {
+    title: "13. يقين أم سلمة رضي الله عنها بدعاء المصيبة",
+    text: "لما مات زوجها الحبيب أبو سلمة، قالت الدعاء المأثور: 'اللهم أجرني في مصيبتي واخلف لي خيراً منها'، وتساءلت في نفسها: ومن خير من أبي سلمة؟ فخلف الله عليها برسول الله ﷺ ليتزوجها وتصبح أم المؤمنين."
+  },
+  {
+    title: "14. ثبات طفلة ماشطة ابنة فرعون",
+    text: "سقط الممشاط من يدها فقالت: 'بسم الله'، فغضب فرعون وأمر بإلقاء أولادها واحداً تلو الآخر في الزيت المغلي. ولما جاء الدور على طفلها الرضيع أنطقه الله ليقول لها: 'يا أماه اصبري فإنك على الحق'."
+  },
+  {
+    title: "15. ثبات الغلام وأصحاب الأخدود",
+    text: "آمن أهل المدينة كلهم بسبب ثبات هذا الغلام الذي لم يستطع الملك قتله إلا عندما قال: 'بسم الله رب الغلام'، فضحّى بنفسه ليدخل الناس جميعاً في دين الله والتوحيد."
+  },
+  {
+    title: "16. براءة جريج العابد باليقين واللجوء للصلاة",
+    text: "اتهمته امرأة بواتها كذباً، فقام وتوضأ وصلى ركعتين ثم أتى الطفل الرضيع وطعنه في بطنه قائلاً: 'من أبوك يا بابوس؟'، فأنطق الله الرضيع ليقول: 'أبي راعي الغنم'."
+  },
+  {
+    title: "17. الثلاثة الذين أُغلق عليهم الغار بصخرة",
+    text: "دعوا الله بأعمالهم الخالصة، فارتفعت الصخرة شيئاً فشيئاً حتى خرجوا يمشون في الشمس ببركة الإخلاص والدعاء."
+  },
+  {
+    title: "18. توبة الفضيل بن عياض بآية واحدة",
+    text: "كان الفضيل يتسلق جداراً لمعصية، فسمع قارئاً يقرأ: ﴿أَلَمْ يَأْنِ لِلَّذِينَ آمَنُوا أَن تَخْشَعَ قُلُوبُهُمْ لِذِكْرِ اللَّهِ﴾، فقال فوراً: 'بلى يا رب قد آن'، فصار من زُهاد وعُلماء الأمة."
+  },
+  {
+    title: "19. صلابة الإمام أحمد بن حنبل في محنة خلق القرآن",
+    text: "ثبت الإمام أحمد أمام الجلد والسجن والتعذيب لسنوات طويلة ولم يغير كلمة واحدة في عقيدة أهل السنة، فحفظ الله به الدين والأمة برفضه للمداهنة."
+  },
+  {
+    title: "20. شجاعة سعيد بن جبير وحسن ظنه عند الحجاج",
+    text: "وقف سعيد بن جبير يبتسم بثبات أمام سيف الحجاج، ولما قُتل قال: 'اللهم لا تسلطه على أحد بعدي'، فما عاش الحجاج بعده إلا أياماً معدودات وهو يصرخ في نومه: مالِي ولسعيد بن جبير!"
+  }
+];
+
+/* ---------- بناء القائمة والبحث ---------- */
+const storiesContainer = document.getElementById('storiesContainer');
+const storySearchInput = document.getElementById('storySearchInput');
+const searchCount = document.getElementById('searchCount');
+
+function renderStories(list = storiesData) {
+  if (!storiesContainer) return;
+  storiesContainer.innerHTML = list.map((story, index) => `
+    <div class="azkar-accordion" id="story_${index}">
+      <div class="accordion-header" onclick="toggleStory('story_${index}')">
+        <h3 class="accordion-title"><span>📖</span> ${story.title}</h3>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="accordion-body">
+          <p class="zkr-text" style="font-size: 1.15rem; line-height: 2; color: var(--text-main); font-family: 'Amiri', serif;">
+            ${story.text}
+          </p>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleStory(id) {
+  const acc = document.getElementById(id);
+  if (!acc) return;
+  const content = acc.querySelector('.accordion-content');
+  acc.classList.toggle('open');
+  if (acc.classList.contains('open')) {
+    content.style.maxHeight = content.scrollHeight + 'px';
+  } else {
+    content.style.maxHeight = '0';
+  }
+}
+
+if (storySearchInput) {
+  storySearchInput.addEventListener('input', () => {
+    const query = storySearchInput.value.trim().toLowerCase();
+    if (!query) {
+      renderStories();
+      if (searchCount) searchCount.textContent = '';
+      return;
+    }
+    const filtered = storiesData.filter(s => 
+      s.title.toLowerCase().includes(query) ||
+      s.text.toLowerCase().includes(query)
+    );
+    renderStories(filtered);
+    if (searchCount) searchCount.textContent = `تم العثور على ${filtered.length} قصة`;
+
+    document.querySelectorAll('.azkar-accordion').forEach(acc => {
+      const content = acc.querySelector('.accordion-content');
+      if (content) {
+        acc.classList.add('open');
+        content.style.maxHeight = '1000px';
+      }
+    });
+  });
+}
+
+/* ---------- خلفية النجوم ---------- */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function initStars() {
+  canvas.width = window.innerWidth;
+  canvas.height = Math.max(document.body.scrollHeight, window.innerHeight * 2);
+  stars = [];
+  const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.1 + 0.3,
+      a: Math.random(),
+      speed: Math.random() * 0.01 + 0.003
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#f0d9a8';
+  for (let i = 0; i < stars.length; i++) {
+    const s = stars[i];
+    s.a += s.speed;
+    ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', initStars);
+
+/* ===== تبديل الثيم والحفظ ===== */
+const themeBtn = document.getElementById('themeBtn');
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light');
+  if (themeBtn) themeBtn.textContent = '🌙';
+}
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light');
+    themeBtn.textContent = isLight ? '🌙' : '🌞';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+}
+
+/* ===== توقيت مكة والتاريخ الهجري فقط ===== */
+function updateMakkahTimeAndHijri() {
+  const now = new Date();
+  
+  // توقيت مكة المكرمة
+  try {
+    const timeFormatter = new Intl.DateTimeFormat('ar-SA', {
+      timeZone: 'Asia/Riyadh',
+      hour12: true,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const timeElem = document.getElementById('makkah-time-text');
+    if (timeElem) timeElem.textContent = `🕋 مكة: ${timeFormatter.format(now)}`;
+  } catch (e) {}
+
+  // التاريخ الهجري فقط
+  try {
+    const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    const hijriElem = document.getElementById('hijri-date-text');
+    if (hijriElem) hijriElem.textContent = `📅 ${hijriFormatter.format(now)} هـ`;
+  } catch (e) {}
+}
+
+updateMakkahTimeAndHijri();
+setInterval(updateMakkahTimeAndHijri, 1000);
+
+/* ===== فتح المساعد الرقمي من الشريط السفلي ===== */
+function toggleChat() {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) {
+    const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
+    chatWindow.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden && document.getElementById('chat-input')) {
+      document.getElementById('chat-input').focus();
+    }
+  }
+}
+
+document.getElementById('chat-close-btn')?.addEventListener('click', () => {
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) chatWindow.style.display = 'none';
+});
+
+/* ===== بنر تثبيت التطبيق ===== */
+function openAppInstallBanner() {
+  const banner = document.getElementById('smart-app-banner');
+  if (!banner) return;
+  const bannerText = document.getElementById('banner-text');
+  const apkBtn = document.getElementById('apk-download-btn');
+  const ua = navigator.userAgent.toLowerCase();
+  const isIOS = /iphone|ipad|ipod/.test(ua);
+
+  if (isIOS) {
+    if (bannerText) bannerText.innerHTML = 'للآيفون: اضغط <span style="color:#d6a85c; font-weight:bold;">مشاركة 📤</span> ثم اختر <span style="color:#d6a85c; font-weight:bold;">(إضافة إلى الشاشة الرئيسية)</span>';
+    if (apkBtn) apkBtn.style.display = 'none';
+  } else {
+    if (bannerText) bannerText.innerText = 'ثبّت تطبيق الأندرويد المباشر (APK) لتصفح أسرع وأسهل!';
+    if (apkBtn) apkBtn.style.display = 'inline-block';
+  }
+  banner.style.display = 'block';
+}
+function closeAppInstallBanner() {
+  const banner = document.getElementById('smart-app-banner');
+  if (banner) banner.style.display = 'none';
+}
+
+initStars();
+drawStars();
+renderStories();
+</script>
+
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>
