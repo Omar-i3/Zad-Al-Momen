@@ -36,46 +36,121 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* زر قناة الواتساب المطور أسفل اليمين ومتجاوب مع جميع الشاشات */
-    .whatsapp-channel-btn {
-      position: fixed;
-      bottom: calc(82px + env(safe-area-inset-bottom, 0px));
-      right: 16px;
-      z-index: 99990;
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: #ffffff !important;
-      padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
-      border-radius: 30px;
-      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-      display: flex;
-      align-items: center;
-      gap: clamp(6px, 1vw, 10px);
-      text-decoration: none !important;
-      font-family: 'Tajawal', sans-serif;
-      font-size: clamp(0.75rem, 1.2vw, 0.9rem);
-      font-weight: 700;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
+    /* ===== ودجت الواتساب الجانبي المنسحب (جهة اليسار) ===== */
+.wa-drawer {
+  position: fixed;
+  left: 0;
+  bottom: clamp(100px, 20vh, 180px);
+  z-index: 99995;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+  /* مطوي جهة اليسار خارج الشاشة بشكل افتراضي */
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-    .whatsapp-channel-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
-    }
+/* حالة الفتح عند النقر */
+.wa-drawer.active {
+  transform: translateX(0);
+}
 
-    .whatsapp-channel-btn:active {
-      transform: scale(0.96);
-    }
+/* الكرت المنسحب من اليسار */
+.wa-drawer-content {
+  width: 260px;
+  background: rgba(15, 23, 48, 0.96);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  border-left: none;
+  border-radius: 0 18px 18px 0;
+  padding: 14px 16px;
+  box-shadow: 6px 10px 30px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-    @media (max-width: 480px) {
-      .whatsapp-channel-btn {
-        bottom: calc(76px + env(safe-area-inset-bottom, 0px));
-        right: 12px;
-        padding: 8px 12px;
-      }
-    }
+/* مقبض السهم والواتساب الملتصق بحافة الشاشة */
+.wa-toggle-btn {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 50px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 5px 5px 20px rgba(37, 211, 102, 0.4);
+  gap: 2px;
+  padding: 0;
+}
+
+.wa-toggle-btn .wa-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.wa-drawer.active .wa-toggle-btn .wa-arrow {
+  transform: rotate(180deg);
+}
+
+.wa-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  color: #f0d9a8;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 6px;
+}
+
+.wa-close-btn {
+  background: none;
+  border: none;
+  color: #93a0c2;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.wa-drawer-text {
+  font-size: 0.82rem;
+  color: #d1d8e6;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wa-join-btn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wa-join-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
+}
+
+.wa-join-btn:active {
+  transform: scale(0.96);
+}
   </style>
 </head>
 <body>
@@ -83,11 +158,31 @@
   <canvas id="stars"></canvas>
   <button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
 
-  <!-- زر متابعة قناة الواتساب أسفل اليمين -->
-  <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
-    <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
-    <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
-  </a>
+  <!-- ودجت الواتساب الجانبي التفاعلي -->
+<div id="waSideDrawer" class="wa-drawer">
+  <!-- التبويب الظاهر على الحافة اليسرى بشعار الواتساب -->
+<button type="button" class="wa-toggle-btn" onclick="toggleWaDrawer()" aria-label="قناة الواتساب">
+  <!-- شعار واتساب SVG دقيق ونظيف -->
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" style="display: block;">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.573-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  </svg>
+  <span class="wa-arrow">❯</span>
+</button>
+
+  <!-- المحتوى الذي يظهر عند النقر -->
+  <div class="wa-drawer-content">
+    <div class="wa-drawer-header">
+      <span>📢 قناة زاد المؤمن</span>
+      <button type="button" class="wa-close-btn" onclick="toggleWaDrawer()">✕</button>
+    </div>
+    <p class="wa-drawer-text">
+      انضم لقناة زاد المؤمن على الواتساب للحصول على آخر التحديثات والمستجدات أولاً بأول! ✨
+    </p>
+    <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="wa-join-btn">
+      الانضمام للقناة الآن ↗
+    </a>
+  </div>
+</div>
 
   <div class="hero">
     <div class="moon"></div>
@@ -489,6 +584,15 @@
       document.getElementById('daily-hadith-meta').innerText = currentHadith.meta;
     }
   </script>
+  /* ===== فتح وإغلاق تبويب الواتساب الجانبي ===== */
+<script>
+function toggleWaDrawer() {
+  const drawer = document.getElementById('waSideDrawer');
+  if (drawer) {
+    drawer.classList.toggle('active');
+  }
+}
+</script>
 
   <!-- ربط السكربتات الأساسية المعتمدة -->
   <script src="notifications.js" defer></script>
