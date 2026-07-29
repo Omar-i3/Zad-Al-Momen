@@ -4,23 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>موسوعة زاد المؤمن — المعرفة والإيمان</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070b18">
   <link rel="stylesheet" href="app.css">
   <style>
-  /* ===== ودجت الواتساب الجانبي المنسحب (جهة اليسار) ===== */
+  /* ===== ودجت الواتساب الجانبي المنسحب الكامل (جهة اليمين) ===== */
 .wa-drawer {
   position: fixed;
-  left: 0;
+  right: 0;
+  left: auto;
   bottom: clamp(100px, 20vh, 180px);
   z-index: 99995;
   display: flex;
   align-items: center;
   direction: rtl;
-  /* مطوي جهة اليسار خارج الشاشة بشكل افتراضي */
-  transform: translateX(-100%);
+  /* مطوي جهة اليمين خارج الشاشة بشكل افتراضي */
+  transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -29,15 +31,15 @@
   transform: translateX(0);
 }
 
-/* الكرت المنسحب من اليسار */
+/* الكرت المنسحب من اليمين */
 .wa-drawer-content {
   width: 260px;
   background: rgba(15, 23, 48, 0.96);
   border: 1px solid rgba(37, 211, 102, 0.35);
-  border-left: none;
-  border-radius: 0 18px 18px 0;
+  border-right: none;
+  border-radius: 18px 0 0 18px;
   padding: 14px 16px;
-  box-shadow: 6px 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: -6px 10px 30px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   display: flex;
@@ -45,25 +47,26 @@
   gap: 10px;
 }
 
-/* مقبض السهم والواتساب الملتصق بحافة الشاشة */
+/* مقبض زر الواتساب الملتصق بحافة الكرت من اليسار */
 .wa-toggle-btn {
   position: absolute;
-  left: 100%;
+  right: 100%;
+  left: auto;
   top: 50%;
   transform: translateY(-50%);
   width: 46px;
   height: 50px;
   background: linear-gradient(135deg, #25D366, #128C7E);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-left: none;
-  border-radius: 0 16px 16px 0;
+  border-right: none;
+  border-radius: 16px 0 0 16px;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 5px 5px 20px rgba(37, 211, 102, 0.4);
+  box-shadow: -5px 5px 20px rgba(37, 211, 102, 0.4);
   gap: 2px;
   padding: 0;
 }
@@ -77,15 +80,17 @@
   transform: rotate(180deg);
 }
 
+/* هيدر الكرت وزر الإغلاق */
 .wa-drawer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   font-weight: 700;
   color: #f0d9a8;
   font-size: 0.88rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 6px;
+  padding-bottom: 8px;
 }
 
 .wa-close-btn {
@@ -94,8 +99,15 @@
   color: #93a0c2;
   font-size: 1.1rem;
   cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
 }
 
+.wa-close-btn:hover {
+  color: #ffffff;
+}
+
+/* نص الكرت */
 .wa-drawer-text {
   font-size: 0.82rem;
   color: #d1d8e6;
@@ -103,6 +115,7 @@
   margin: 0;
 }
 
+/* زر الانضمام الأخضر الفخم */
 .wa-join-btn {
   display: block;
   text-align: center;
@@ -111,10 +124,11 @@
   text-decoration: none !important;
   font-weight: 700;
   font-size: 0.85rem;
-  padding: 8px 12px;
+  padding: 10px 12px;
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 4px;
 }
 
 .wa-join-btn:hover {
@@ -291,7 +305,7 @@
 
   <footer>
     <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — موسوعة العلم والإيمان</div>
-    <div class="small">جميع الحقوق محفوظة © عمر</div>
+    <div class="small">جميع الحقوق محفوظة © عمر أفندي</div>
   </footer>
 
   <!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
@@ -439,33 +453,7 @@
       if (banner) banner.style.display = 'none';
     }
 
-    /* ===== توقيت مكة والتاريخ الهجري فقط ===== */
-    function updateMakkahTimeAndHijri() {
-      const now = new Date();
-      try {
-        const timeFormatter = new Intl.DateTimeFormat('ar-SA', {
-          timeZone: 'Asia/Riyadh',
-          hour12: true,
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        });
-        const timeElem = document.getElementById('makkah-time-text');
-        if (timeElem) timeElem.textContent = `🕋 مكة: ${timeFormatter.format(now)}`;
-      } catch (e) {}
-
-      try {
-        const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
-        const hijriElem = document.getElementById('hijri-date-text');
-        if (hijriElem) hijriElem.textContent = `📅 ${hijriFormatter.format(now)} هـ`;
-      } catch (e) {}
-    }
-    updateMakkahTimeAndHijri();
-    setInterval(updateMakkahTimeAndHijri, 1000);
+    
   </script>
 <script>
 function toggleWaDrawer() {

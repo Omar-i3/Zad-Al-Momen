@@ -51,9 +51,6 @@ async function requestNotificationPermissions() {
   }
 }
 
-/* --------------------------------------------------------------------------
-   3. تحديث توقيت مكة المكرمة والتاريخ الهجري العربي الصريح
-   -------------------------------------------------------------------------- */
 /* ===== توقيت مكة والتاريخ الهجري حسب أم القرى بدقة ===== */
 function updateMakkahTimeAndHijri() {
   const now = new Date();
@@ -71,7 +68,7 @@ function updateMakkahTimeAndHijri() {
     if (timeElem) timeElem.textContent = `🕋 مكة: ${timeFormatter.format(now)}`;
   } catch (e) {}
 
-  // 2. التاريخ الهجري حسب تقويم أم القرى الرسمي
+  // 2. التاريخ الهجري حسب تقويم أم القرى الرسمي المعتمد
   try {
     const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
       day: 'numeric',
