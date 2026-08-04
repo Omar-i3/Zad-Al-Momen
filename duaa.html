@@ -489,29 +489,63 @@
 <canvas id="stars"></canvas>
 <button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
 
-  <!-- ودجت الواتساب الجانبي التفاعلي -->
+  <!-- ودجت الخدمات والتواصل الجانبي المطور -->
 <div id="waSideDrawer" class="wa-drawer">
-  <!-- التبويب الظاهر على الحافة اليسرى بشعار الواتساب -->
-<button type="button" class="wa-toggle-btn" onclick="toggleWaDrawer()" aria-label="قناة الواتساب">
-  <!-- شعار واتساب SVG دقيق ونظيف -->
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" style="display: block;">
-    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.573-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-  </svg>
-  <span class="wa-arrow">❯</span>
-</button>
+  <!-- زر الفتح الصغير الشفاف -->
+  <button type="button" class="wa-toggle-btn" onclick="toggleWaDrawer()" aria-label="الخدمات والتواصل">
+    <span style="font-size: 1rem;">🔗</span>
+    <span class="wa-arrow" style="font-size: 0.65rem;">❯</span>
+  </button>
 
-  <!-- المحتوى الذي يظهر عند النقر -->
+  <!-- محتوى القائمة المنسحبة -->
   <div class="wa-drawer-content">
     <div class="wa-drawer-header">
-      <span>📢 قناة زاد المؤمن</span>
+      <span>✨ خدمات وتواصل زاد المؤمن</span>
       <button type="button" class="wa-close-btn" onclick="toggleWaDrawer()">✕</button>
     </div>
-    <p class="wa-drawer-text">
-      انضم لقناة زاد المؤمن على الواتساب للحصول على آخر التحديثات والمستجدات أولاً بأول! ✨
-    </p>
-    <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="wa-join-btn">
-      الانضمام للقناة الآن ↗
-    </a>
+
+    <!-- 1️⃣ قناة الواتساب -->
+    <div class="drawer-service-card">
+      <div class="drawer-service-title">
+        <span>📢</span>
+        <span>قناة زاد المؤمن على الواتساب</span>
+      </div>
+      <div class="drawer-service-desc">
+        انضم للقناة للحصول على التحديثات والأدعية اليومية.
+      </div>
+      <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="drawer-btn-link btn-wa-channel">
+        الانضمام للقناة ↗
+      </a>
+    </div>
+
+    <!-- 2️⃣ رابط بوت تبصرة -->
+    <div class="drawer-service-card">
+      <div class="drawer-service-title">
+        <span>🌙</span>
+        <span>مساعد تبصرة الرقمي</span>
+      </div>
+      <div class="drawer-service-desc">
+        تصفّح النسخة المباشرة الكاملة من مساعد تبصرة الشرعي الذكي.
+      </div>
+      <a href="https://omar-i3.github.io/Tabsera/" target="_blank" rel="noopener" class="drawer-btn-link btn-tabsera-bot">
+        زيارة موقع تبصرة ↗
+      </a>
+    </div>
+
+    <!-- 3️⃣ الدعم الفني والإقتراحات -->
+    <div class="drawer-service-card">
+      <div class="drawer-service-title">
+        <span>✉️</span>
+        <span>الدعم الفني والإقتراحات</span>
+      </div>
+      <div class="drawer-service-desc">
+        لأي استفسار أو إبلاغ عن مشكلة:
+        <span style="color: var(--gold-soft); font-weight: bold; display: block; margin-top: 2px; word-break: break-all;">support.zad.al.momen@gmail.com</span>
+      </div>
+      <a href="mailto:support.zad.al.momen@gmail.com" class="drawer-btn-link btn-email-support">
+        مراسلة الدعم 📧
+      </a>
+    </div>
   </div>
 </div>
 
@@ -617,8 +651,8 @@
 </div>
 
 <!-- ==================== شريط الملاحة السفلي ==================== -->
-<nav class="liquid-bottom-nav">
-  <a href="encyclopedia.html" class="liquid-nav-item">
+<nav class="liquid-bottom-nav encyclopedia-nav">
+    <a href="encyclopedia.html" class="liquid-nav-item">
     <span style="font-size: 1.2rem;">📚</span>
     <span>الموسوعة</span>
   </a>

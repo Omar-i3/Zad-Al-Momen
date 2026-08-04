@@ -1708,3 +1708,162 @@ footer {
   height: 100%;
   border: none;
 }
+/* ===== ودجت التواصل والخدمات الجانبي المطور ===== */
+.wa-drawer {
+  position: fixed;
+  right: 0;
+  bottom: clamp(120px, 25vh, 200px);
+  z-index: 99995;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wa-drawer.active {
+  transform: translateX(0);
+}
+
+/* زر الفتح الصغير الشفاف */
+.wa-toggle-btn {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 48px;
+  background: rgba(15, 23, 48, 0.85);
+  border: 1px solid rgba(214, 168, 92, 0.3);
+  border-right: none;
+  border-radius: 14px 0 0 14px;
+  color: var(--gold-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: -4px 4px 15px rgba(0, 0, 0, 0.4);
+  gap: 3px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0.82;
+  transition: opacity 0.25s ease, background 0.25s ease;
+}
+
+.wa-toggle-btn:hover {
+  opacity: 1;
+  background: rgba(20, 29, 61, 0.95);
+  border-color: var(--gold);
+}
+
+.wa-drawer.active .wa-toggle-btn .wa-arrow {
+  transform: rotate(180deg);
+}
+
+/* الكرت المنسحب أوسع وأنيق */
+.wa-drawer-content {
+  width: 290px;
+  max-width: 88vw;
+  background: rgba(15, 23, 48, 0.96);
+  border: 1px solid rgba(214, 168, 92, 0.35);
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  padding: 16px 18px;
+  box-shadow: -10px 15px 35px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wa-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  color: var(--gold-soft);
+  font-size: 0.92rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  font-family: 'Amiri', serif;
+}
+
+.wa-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* بطاقات الخدمات والروابط الداخلية */
+.drawer-service-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(214, 168, 92, 0.2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawer-service-card:hover {
+  border-color: var(--gold);
+  background: rgba(214, 168, 92, 0.06);
+}
+
+.drawer-service-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-soft);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drawer-service-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.drawer-btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 7px 10px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  margin-top: 2px;
+}
+
+.btn-wa-channel { background: linear-gradient(135deg, #25D366, #128C7E); color: #fff !important; }
+.btn-tabsera-bot { background: linear-gradient(135deg, #10b981, #059669); color: #fff !important; }
+.btn-email-support { background: rgba(214, 168, 92, 0.15); border: 1px solid var(--gold); color: var(--gold-soft) !important; }
+
+/* ===== ضبط شريط الملاحة الشفاف الفرعي ===== */
+.encyclopedia-nav {
+  gap: 2px !important;
+  padding: 0 4px !important;
+}
+
+.encyclopedia-nav .liquid-nav-item {
+  padding: 4px 6px !important;
+  min-width: 42px !important;
+  flex: 1 !important;
+}
+
+.encyclopedia-nav .liquid-nav-item span:first-child {
+  font-size: 1rem !important;
+}
+
+.encyclopedia-nav .liquid-nav-item span:last-child {
+  font-size: 0.55rem !important;
+}
