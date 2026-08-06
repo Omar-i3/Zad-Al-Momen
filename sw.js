@@ -1,24 +1,11 @@
-const CACHE_NAME = 'zad-al-momen-v2';
-const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './azkar.html',
-  './duaa.html',
-  './bot.js',
-  './notifications.js',
-  './check-update.js',
-  './manifest.json'
-];
+const CACHE_NAME = 'zad-momen-v2'; // 👈 غير رقم النسخة هنا عند كل تحديث جديد
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
-  );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (e) => {
+  // مسح جميع الكاشات والنسخ القديمة المخزنة عند الزوار
   e.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
@@ -30,12 +17,12 @@ self.addEventListener('activate', (e) => {
       );
     })
   );
+  return self.clients.claim();
 });
 
 self.addEventListener('fetch', (e) => {
+  // جلب الملفات المحدثة مباشرة من السيرفر
   e.respondWith(
-    caches.match(e.request).then((response) => {
-      return response || fetch(e.request);
-    })
+    fetch(e.request).catch(() => caches.match(e.request))
   );
 });
