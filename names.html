@@ -8,11 +8,16 @@
   <!-- 🚫 منع المتصفح من تخزين صفحة الـ HTML القديمة -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0"> 
-  
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+  <meta http-equiv="Expires" content="0">
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070b18">
@@ -251,6 +256,11 @@
     <div class="modal-head" style="justify-content: center; text-align: center; flex-direction: column;">
       <div id="modalNameTitle" class="amiri" style="font-size: 2.8rem; color: var(--gold-soft); margin-top: 10px;">الله</div>
       <div id="modalNameSub" style="font-size: 0.9rem; color: var(--gold); margin-bottom: 10px;">الاسم الأعظم</div>
+      <div style="display: flex; justify-content: center; margin-bottom: 14px;">
+        <button id="modalNameFavBtn" type="button" onclick="toggleCurrentNameFav()" style="background: rgba(255,255,255,0.06); border: 1px solid var(--gold); border-radius: 14px; padding: 6px 16px; color: var(--gold-soft); font-family: 'Tajawal', sans-serif; font-size: 0.85rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+          <span id="modalNameFavStar">⭐</span> <span id="modalNameFavText">حفظ في المفضلة</span>
+        </button>
+      </div>
     </div>
 
     <div class="modal-body" id="modalNameBody"></div>
@@ -262,41 +272,42 @@
   <div class="small">جميع الحقوق محفوظة © عمر</div>
 </footer>
 
-<!-- ==================== شريط الملاحة السفلي ==================== -->
-<nav class="liquid-bottom-nav encyclopedia-nav">
-  <a href="encyclopedia.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📚</span>
-    <span>الموسوعة</span>
-  </a>
-  <a href="duaa.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">🤲</span>
-    <span>الدعاء</span>
-  </a>
-  <a href="names.html" class="liquid-nav-item active">
-    <span style="font-size: 1.2rem;">✨</span>
-    <span>الأسماء</span>
-  </a>
-  <a href="sunnah.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">🌿</span>
-    <span>السنن</span>
-  </a>
-  <a href="stories.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📜</span>
-    <span>القصص</span>
-  </a>
-  <a href="books.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📖</span>
-    <span>المكتبة</span>
-  </a>
-  <a href="azkar.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📿</span>
-    <span>الأذكار</span>
-  </a>
-  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">💬</span>
-    <span>المساعد</span>
-  </a>
-</nav>
+<!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
+  <!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
+  <nav class="liquid-bottom-nav encyclopedia-nav">
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="azkar.html" class="liquid-nav-item">
+      <span>📿</span>
+      <span>الأذكار</span>
+    </a>
+    <a href="names.html" class="liquid-nav-item active">
+      <span>✨</span>
+      <span>الأسماء</span>
+    </a>
+    <a href="sunnah.html" class="liquid-nav-item">
+      <span>🌿</span>
+      <span>السنن</span>
+    </a>
+    <a href="stories.html" class="liquid-nav-item">
+      <span>📜</span>
+      <span>القصص</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span>💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
 
 <!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
 <div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
@@ -448,8 +459,44 @@ function renderNames(list = namesData) {
   });
 }
 
+let currentActiveName = null;
+function updateNameFavButton(item) {
+  currentActiveName = item;
+  const btn = document.getElementById('modalNameFavBtn');
+  const star = document.getElementById('modalNameFavStar');
+  const txt = document.getElementById('modalNameFavText');
+  if (!btn || !star || !txt || typeof ZadFavorites === 'undefined') return;
+  const favId = 'name_' + encodeURIComponent(item.name);
+  const isFav = ZadFavorites.isFavorited(favId);
+  if (isFav) {
+    btn.style.background = 'rgba(214,168,92,0.25)';
+    star.textContent = '🌟';
+    txt.textContent = 'محفوظ بالمفضلة';
+  } else {
+    btn.style.background = 'rgba(255,255,255,0.06)';
+    star.textContent = '⭐';
+    txt.textContent = 'حفظ في المفضلة';
+  }
+}
+
+window.toggleCurrentNameFav = function() {
+  if (!currentActiveName || typeof ZadFavorites === 'undefined') return;
+  const favId = 'name_' + encodeURIComponent(currentActiveName.name);
+  ZadFavorites.toggle({
+    id: favId,
+    title: 'اسم الله: ' + currentActiveName.name,
+    type: 'names',
+    categoryLabel: '✨ أسماء الله الحسنى',
+    icon: '✨',
+    snippet: currentActiveName.meaning,
+    link: 'names.html'
+  });
+  updateNameFavButton(currentActiveName);
+};
+
 function openNameDetails(item) {
   if (!modalNameTitle || !modalNameBody || !nameOverlay) return;
+  updateNameFavButton(item);
   modalNameTitle.textContent = item.name;
   modalNameSub.textContent = item.sub;
   modalNameBody.innerHTML = `
@@ -580,6 +627,7 @@ function toggleWaDrawer() {
 }
 </script>
 
+  <script src="favorites.js" defer></script>
   <script src="notifications.js" defer></script>
   <script src="bot.js" defer></script>
   <script src="check-update.js" defer></script>

@@ -1,5 +1,5 @@
 {
   "version": "1.2.0",
-  "apk_url": "zad-al-momen.apk",
-  "changelog": "إضافة اقسام كثيرة وتحسينات كبيرة"
+  "apk_url": "https://github.com/Omar-i3/Zad-Al-Momen/releases/download/apk1.0v/zad-al-momen.apk",
+  "changelog": "إضافة التقويم الهجري اليومي، تحسين دقة مواقيت الصلاة، وإصلاح بنر التثبيت"
 }

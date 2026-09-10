@@ -11,9 +11,15 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- أيقونة الموقع والخطوط الرسمية -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
   <!-- إعدادات تطبيق PWA -->
   <link rel="manifest" href="manifest.json">
@@ -190,17 +196,6 @@
       padding: 60px 20px 30px;
       text-align: center;
     }
-    .moon {
-      width: 110px; height: 110px; margin: 0 auto 20px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 55%, #8a6a34 100%);
-      box-shadow: 0 0 60px 10px rgba(214,168,92,0.45), 0 0 120px 40px rgba(214,168,92,0.15);
-      animation: breathe 5s ease-in-out infinite;
-    }
-    @keyframes breathe {
-      0%,100%{transform:scale(1);box-shadow:0 0 60px 10px rgba(214,168,92,0.45),0 0 120px 40px rgba(214,168,92,0.15);}
-      50%{transform:scale(1.06);box-shadow:0 0 80px 18px rgba(214,168,92,0.6),0 0 150px 55px rgba(214,168,92,0.22);}
-    }
     .hero h1 {
       font-size: clamp(2.4rem, 7vw, 4rem);
       margin: 0 0 8px; color: var(--gold-soft);
@@ -249,12 +244,13 @@
     #hijri-date-text { font-family: 'Amiri', serif !important; font-size: 0.9rem !important; color: #d6a85c !important; }
 
     /* ---------- شبكة خريطة الموضوعات الزجاجية ---------- */
-    .section-label { text-align: center; position: relative; z-index: 1; margin: 50px 0 20px; }
+    .section-label { text-align: center; position: relative; z-index: 1; margin: 50px auto 20px; width: 100%; display: block; }
     .section-label span {
+      display: inline-block;
       font-family: 'Amiri', serif; font-size: 1.65rem; color: var(--gold-soft);
       padding-bottom: 6px; border-bottom: 2px solid var(--border-glass);
     }
-    .section-sub { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 28px; }
+    .section-sub { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 28px; width: 100%; display: block; }
 
     .map {
       position: relative; z-index: 1;
@@ -288,6 +284,55 @@
     .node-icon { font-size: 1.7rem; }
     .node-title { font-weight: 700; font-size: 1rem; color: var(--text-main); line-height: 1.5; }
     .node-teaser { font-size: 0.78rem; color: var(--text-muted); }
+    .node-card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
+    }
+    .node-open-hint {
+      color: var(--teal);
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .node-quick-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(214, 168, 92, 0.16);
+      border: 1px solid rgba(214, 168, 92, 0.4);
+      color: var(--gold-soft);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 2;
+    }
+    .node-quick-card-btn:hover {
+      background: var(--gold);
+      color: #1a1200;
+      border-color: var(--gold);
+      transform: scale(1.06);
+    }
+    body.light .node-card-actions {
+      border-top-color: rgba(178, 122, 50, 0.15);
+    }
+    body.light .node-quick-card-btn {
+      background: rgba(178, 122, 50, 0.12);
+      border-color: rgba(178, 122, 50, 0.3);
+      color: var(--gold-soft);
+    }
+    body.light .node-quick-card-btn:hover {
+      background: var(--gold);
+      color: #ffffff;
+    }
     .node.hidden-search, .qa-item.hidden-search, .qa-cat.hidden-search { display: none !important; }
 
     /* ---------- النافذة المنبثقة للموضوع (Modal) ---------- */
@@ -338,6 +383,37 @@
     .modal-nav-btn-top:hover, .modal-nav-btn-bottom:hover { background: rgba(214,168,92,0.2); border-color: var(--gold); color: var(--text-main); }
     .modal-nav-btn-top:disabled, .modal-nav-btn-bottom:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
 
+    /* أزرار التبويبات الفئوية والأكشن */
+    .cat-tab-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass);
+      color: var(--text-muted); padding: 8px 16px; border-radius: 20px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s ease;
+    }
+    .cat-tab-btn:hover { background: rgba(214,168,92,0.15); color: var(--gold-soft); }
+    .cat-tab-btn.active { background: linear-gradient(135deg, #d6a85c, #9e6d24) !important; color: #ffffff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.6) !important; font-weight: 800; border-color: #ffd700; box-shadow: 0 4px 15px rgba(214,168,92,0.4); }
+
+    .modal-actions-bar {
+      display: flex; gap: 10px; margin: 10px 0 16px; flex-wrap: wrap;
+    }
+    .modal-action-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass);
+      color: var(--gold-soft); padding: 7px 14px; border-radius: 12px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .modal-action-btn:hover { background: rgba(214,168,92,0.2); border-color: var(--gold); color: #fff; }
+
+    .copy-btn-inline {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass);
+      color: var(--gold-soft); padding: 4px 10px; border-radius: 8px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.76rem;
+      cursor: pointer; transition: background 0.2s ease; margin-top: 8px;
+    }
+    .copy-btn-inline:hover { background: rgba(214,168,92,0.2); color: #fff; }
+
     /* ---------- الصناديق التوضيحية ---------- */
     .hadith-box {
       background: rgba(143, 201, 168, 0.08); border-inline-start: 3px solid var(--hadith);
@@ -365,10 +441,11 @@
     .khulasa { background: rgba(214, 168, 92, 0.12); border-radius: 12px; padding: 14px 16px; margin-top: 18px; font-weight: 500; }
 
     /* ---------- قسم الأسئلة والأجوبة ---------- */
-    .qa-wrap { max-width: 800px; margin: 0 auto; padding: 0 18px 40px; position: relative; z-index: 1; }
+    .qa-wrap { max-width: 800px; margin: 0 auto; padding: 0 18px 40px; position: relative; z-index: 1; display: block; width: 100%; }
     .qa-cat {
       background: rgba(15, 23, 48, 0.65); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--border-glass); border-radius: 18px; margin-bottom: 16px; overflow: hidden;
+      display: block; width: 100%;
     }
     .qa-cat-head {
       padding: 16px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px;
@@ -396,14 +473,189 @@
     .search-box input { flex: 1; background: none; border: none; outline: none; color: var(--text-main); font-family: 'Tajawal', sans-serif; font-size: 0.95rem; }
     .search-box input::placeholder { color: var(--text-muted); }
 
-    .theme-btn {
-      position: fixed; top: 16px; left: 16px; z-index: 60; width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); backdrop-filter: blur(10px);
-      display: flex; align-items: center; justify-content: center; font-size: 1.25rem; cursor: pointer; color: var(--text-main);
+    /* ---------- متغير ومحددات حجم الخط التفاعلي ---------- */
+    :root {
+      --content-font-scale: 1;
+    }
+    .node-desc,
+    .node-preview {
+      font-size: calc(0.85rem * var(--content-font-scale, 1)) !important;
+    }
+    .modal-body {
+      font-size: calc(0.96rem * var(--content-font-scale, 1)) !important;
+    }
+    .modal-body p {
+      font-size: calc(0.96rem * var(--content-font-scale, 1)) !important;
+      line-height: calc(1.85 * var(--content-font-scale, 1)) !important;
+    }
+    .hadith-box .txt {
+      font-size: calc(1.18rem * var(--content-font-scale, 1)) !important;
+      line-height: calc(1.8 * var(--content-font-scale, 1)) !important;
+    }
+    .verse-box {
+      font-size: calc(1.22rem * var(--content-font-scale, 1)) !important;
+    }
+    .example-box,
+    .note-box {
+      font-size: calc(0.92rem * var(--content-font-scale, 1)) !important;
+    }
+    .qa-q {
+      font-size: calc(1rem * var(--content-font-scale, 1)) !important;
+    }
+    .qa-a {
+      font-size: calc(0.94rem * var(--content-font-scale, 1)) !important;
+      line-height: calc(1.8 * var(--content-font-scale, 1)) !important;
+    }
+
+    /* ---------- شريط أدوات القراءة والمظهر العائم الفاخر ---------- */
+    .reader-floating-bar {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 48, 0.82);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 5px 8px;
+      border-radius: 28px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+      transition: all 0.3s ease;
+    }
+    .reader-floating-bar:hover {
+      border-color: rgba(214, 168, 92, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .reader-tool-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: var(--gold-soft);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+    .reader-tool-btn:hover {
+      border-color: var(--gold);
+      transform: scale(1.08);
+      background: rgba(214, 168, 92, 0.18);
+    }
+    .font-stepper-capsule {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px;
+      padding: 2px 4px;
+      gap: 2px;
+    }
+    .stepper-btn {
+      background: transparent;
+      border: none;
+      color: var(--gold-soft);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .stepper-btn:hover {
+      background: rgba(214, 168, 92, 0.25);
+      color: #ffffff;
+    }
+    .stepper-val {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 0 5px;
+      cursor: pointer;
+      user-select: none;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .stepper-val:hover {
+      color: var(--gold);
+    }
+    .card-studio-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.22), rgba(95, 214, 196, 0.18));
+      border: 1px solid rgba(214, 168, 92, 0.4);
+      color: var(--gold-soft);
+      padding: 5px 12px;
+      border-radius: 18px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .card-studio-trigger-btn:hover {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #1a1200;
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(214, 168, 92, 0.35);
+      transform: translateY(-1px);
+    }
+    .card-gen-btn {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.2), rgba(95, 214, 196, 0.15)) !important;
+      border-color: rgba(214, 168, 92, 0.4) !important;
+      color: var(--gold-soft) !important;
+    }
+    .card-gen-btn:hover {
+      background: var(--gold) !important;
+      color: #1a1200 !important;
+      border-color: var(--gold) !important;
+    }
+    .modal-font-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-inline-start: auto;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 3px 6px;
+    }
+    .modal-font-stepper button {
+      background: transparent;
+      border: none;
+      color: var(--gold-soft);
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .modal-font-stepper button:hover {
+      background: rgba(214, 168, 92, 0.2);
+      color: #ffffff;
+    }
+    .modal-font-stepper span {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 0 4px;
+      cursor: pointer;
     }
 
     body.light {
-      --bg-deep:#f6efe0; --bg-panel:#fffaf1; --bg-panel-2:#fdf3de; --gold:#b9803a; --gold-soft:#8a5a24; --teal:#1f8f7c; --text-main:#3a2f22; --text-muted:#7a6d58; --border-glass: rgba(185,128,58,0.32);
+      --bg-deep:#f8f4ec; --bg-panel:#ffffff; --bg-panel-2:#fffaf0; --gold:#b27a32; --gold-soft:#8c581e; --teal:#0f8573; --text-main:#2c2317; --text-muted:#6e5d48; --hadith:#1a6b48; --border-glass: rgba(178,122,50,0.22);
     }
 
     .hadith-search-wrap {
@@ -479,6 +731,46 @@
       font-size: 0.9rem;
     }
 
+    /* ---------- شارة المساهمة الفخمة (شكل حبر/ريشة) ---------- */
+    .contributor-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.16), rgba(15, 23, 48, 0.75));
+      border: 1px solid rgba(214, 168, 92, 0.38);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      color: var(--gold-soft);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      margin: 10px auto 14px;
+      width: fit-content;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .contributor-badge:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(214, 168, 92, 0.3);
+    }
+    .contributor-badge .ink-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(214, 168, 92, 0.22);
+      color: var(--gold);
+      font-size: 0.95rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .contributor-badge strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
     footer {
       text-align: center;
       padding: 40px 20px 40px;
@@ -487,12 +779,456 @@
       color: var(--text-muted);
       font-size: 0.85rem;
     }
+
+    /* ---------- نافذة استوديو توليد وتصميم البطاقات الدعوية (Modal) ---------- */
+    .card-studio-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      background: rgba(3, 5, 14, 0.92) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      display: none;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 100000000 !important;
+      padding: 16px !important;
+    }
+    .card-studio-overlay.open {
+      display: flex !important;
+    }
+    .card-studio-box {
+      background: linear-gradient(180deg, var(--bg-panel-2), var(--bg-panel));
+      border: 1px solid var(--border-glass);
+      border-radius: 26px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 94vh;
+      overflow-y: auto;
+      padding: 26px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+      position: relative;
+      animation: cardStudioPop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes cardStudioPop {
+      from { opacity: 0; transform: scale(0.95) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .card-studio-close {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      z-index: 4;
+    }
+    .card-studio-close:hover {
+      background: rgba(237, 76, 92, 0.2);
+      color: #ff6b6b;
+    }
+    .card-studio-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-glass);
+    }
+    .card-studio-head-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: rgba(214, 168, 92, 0.16);
+      border: 1px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .card-studio-head h3 {
+      margin: 0 0 4px;
+      font-size: 1.35rem;
+      color: var(--gold-soft);
+      font-family: 'Amiri', serif;
+    }
+    .card-studio-head p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .card-studio-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .card-studio-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .card-preview-container {
+        position: static !important;
+        top: auto !important;
+      }
+      .canvas-wrapper {
+        max-height: 48vh;
+      }
+      .card-studio-box {
+        padding: 20px 14px;
+      }
+    }
+    .card-preview-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    @media (min-width: 769px) {
+      .card-preview-container {
+        position: sticky;
+        top: 10px;
+      }
+    }
+    .canvas-wrapper {
+      width: 100%;
+      max-width: 440px;
+      max-height: 65vh;
+      border-radius: 18px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(214, 168, 92, 0.15);
+      border: 1px solid var(--border-glass);
+      background: #070b18;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) rgba(0,0,0,0.2);
+    }
+    #cardCanvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .preview-hint {
+      font-size: 0.74rem;
+      color: var(--gold);
+      opacity: 0.85;
+      text-align: center;
+    }
+    .card-mode-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .card-mode-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .card-mode-btn:hover {
+      background: rgba(214, 168, 92, 0.14);
+      border-color: var(--gold-soft);
+    }
+    .card-mode-btn.active {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.25), rgba(185, 128, 58, 0.25));
+      border-color: var(--gold);
+      color: var(--gold-soft);
+      font-weight: 700;
+    }
+    body.light .card-mode-btn {
+      background: #fdfaf3;
+      border-color: rgba(178, 122, 50, 0.25);
+      color: #2c2317;
+    }
+    body.light .card-mode-btn.active {
+      background: rgba(178, 122, 50, 0.15);
+      border-color: var(--gold);
+      color: #8c581e;
+    }
+    .card-controls-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: right;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .control-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .theme-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .card-theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-size: 0.78rem;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .card-theme-btn:hover {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.12);
+    }
+    .card-theme-btn.active {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.25);
+      color: var(--gold-soft);
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(214, 168, 92, 0.25);
+    }
+    .theme-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      flex-shrink: 0;
+    }
+    .swatch-andalusian {
+      background: linear-gradient(135deg, #070b18, #d6a85c);
+    }
+    .swatch-emerald {
+      background: linear-gradient(135deg, #061a14, #2ec4b6);
+    }
+    .swatch-dawn {
+      background: linear-gradient(135deg, #fdfaf3, #b9803a);
+    }
+    .card-controls-panel select,
+    .card-controls-panel input,
+    .card-controls-panel textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 9px 12px;
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease;
+    }
+    .card-controls-panel select:focus,
+    .card-controls-panel input:focus,
+    .card-controls-panel textarea:focus {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.06);
+    }
+    .card-controls-panel textarea {
+      resize: vertical;
+      line-height: 1.6;
+    }
+    .card-actions-grid {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .card-action-primary {
+      flex: 1 1 100%;
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #1a1200;
+      border: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(214, 168, 92, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .card-action-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(214, 168, 92, 0.48);
+    }
+    .card-action-secondary {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-glass);
+      color: var(--gold-soft);
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .card-action-secondary:hover {
+      background: rgba(214, 168, 92, 0.18);
+      border-color: var(--gold);
+      color: #ffffff;
+    }
+    .card-status-msg {
+      font-size: 0.82rem;
+      color: var(--teal);
+      text-align: center;
+      min-height: 18px;
+      font-weight: 600;
+    }
+
+    /* تخصيص الوضع النهاري للتحكم وأستوديو البطاقات */
+    body.light .reader-floating-bar {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(178, 122, 50, 0.28);
+      box-shadow: 0 8px 25px rgba(140, 88, 30, 0.12);
+    }
+    body.light .reader-tool-btn {
+      background: rgba(178, 122, 50, 0.1);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--gold-soft);
+    }
+    body.light .font-stepper-capsule {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.2);
+    }
+    body.light .stepper-btn {
+      color: var(--text-main);
+    }
+    body.light .stepper-btn:hover {
+      background: rgba(178, 122, 50, 0.2);
+      color: var(--gold-soft);
+    }
+    body.light .card-studio-trigger-btn {
+      background: linear-gradient(135deg, rgba(178, 122, 50, 0.14), rgba(15, 133, 115, 0.12));
+      border-color: rgba(178, 122, 50, 0.3);
+      color: var(--gold-soft);
+    }
+    body.light .card-studio-trigger-btn:hover {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #ffffff;
+    }
+    body.light .card-gen-btn {
+      background: rgba(178, 122, 50, 0.1) !important;
+      border-color: rgba(178, 122, 50, 0.3) !important;
+      color: var(--gold-soft) !important;
+    }
+    body.light .card-gen-btn:hover {
+      background: var(--gold) !important;
+      color: #ffffff !important;
+    }
+    body.light .modal-font-stepper {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.22);
+    }
+    body.light .modal-font-stepper button {
+      color: var(--gold-soft);
+    }
+    body.light .card-studio-overlay {
+      background: rgba(44, 35, 23, 0.65);
+    }
+    body.light .card-studio-box {
+      background: linear-gradient(180deg, #ffffff, #fdfaf3);
+      border-color: rgba(178, 122, 50, 0.3);
+      box-shadow: 0 20px 50px rgba(140, 88, 30, 0.2);
+    }
+    body.light .card-studio-close {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--text-main);
+    }
+    body.light .canvas-wrapper {
+      background: #fdfaf3;
+      border-color: rgba(178, 122, 50, 0.3);
+      box-shadow: 0 10px 30px rgba(140, 88, 30, 0.15);
+    }
+    body.light .card-theme-btn {
+      background: #ffffff;
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--text-main);
+    }
+    body.light .card-theme-btn.active {
+      background: rgba(178, 122, 50, 0.15);
+      border-color: var(--gold);
+      color: var(--gold-soft);
+    }
+    body.light .card-controls-panel select,
+    body.light .card-controls-panel input,
+    body.light .card-controls-panel textarea {
+      background: #ffffff;
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--text-main);
+    }
+    body.light .card-action-secondary {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--gold-soft);
+    }
+    body.light .card-action-secondary:hover {
+      background: rgba(178, 122, 50, 0.18);
+      color: var(--text-main);
+    }
   </style>
 </head>
 <body>
 
 <canvas id="stars"></canvas>
-<button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+<!-- شريط أدوات القراءة والمظهر العائم الفاخر -->
+<div class="reader-floating-bar" id="readerFloatingBar">
+  <button class="reader-tool-btn" id="themeBtn" aria-label="تبديل الوضع" title="تبديل الوضع النهاري / الليلي">🌞</button>
+  
+  <div class="font-stepper-capsule" title="التحكم بحجم الخط">
+    <button type="button" class="stepper-btn" onclick="changeFontSize(-0.10)" aria-label="تصغير الخط" title="تصغير الخط">A-</button>
+    <span class="stepper-val" id="fontSizeDisplay" onclick="resetFontSize()" title="اضغط لإعادة ضبط حجم الخط إلى 100%">100%</span>
+    <button type="button" class="stepper-btn" onclick="changeFontSize(0.10)" aria-label="تكبير الخط" title="تكبير الخط">A+</button>
+  </div>
+
+  <button type="button" class="card-studio-trigger-btn" onclick="openCardStudio()" title="توليد وتصميم بطاقة إيمانية كصورة">
+    <span>🖼️</span>
+    <span class="studio-btn-text">بطاقة</span>
+  </button>
+</div>
 
   <!-- ودجت الخدمات والتواصل الجانبي المطور -->
 <div id="waSideDrawer" class="wa-drawer">
@@ -563,6 +1299,12 @@
   <div class="moon"></div>
   <h1>خريطة الدعاء الشاملة</h1>
   <p class="tagline">هو الصلة المباشرة بين العبد وربه؛ معناه، علاقته بالقدر، اليقين، الإلحاح، وأسباب الاستجابة وموانعها.</p>
+  
+  <div class="contributor-badge">
+    <span class="ink-icon">✒️</span>
+    <span>مساهمة من <strong>عمر أفندي</strong></span>
+  </div>
+
   <div class="verse-strip">﴿وَقَالَ رَبُّكُمُ ادْعُونِي أَسْتَجِبْ لَكُمْ﴾</div>
   <div class="verse-source">سورة غافر — الآية 60</div>
   <div class="verse-strip" style="font-size:1.15rem; margin-top:8px;">﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ﴾</div>
@@ -585,13 +1327,20 @@
   <div class="search-count" id="searchCount" style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:8px;"></div>
 </div>
 
-<div class="section-label"><span>خريطة الموضوعات</span></div>
-<p class="section-sub">اضغط على أي نقطة لتفتح الموضوع كاملاً وتصفحه</p>
+<!-- Categorized Tabs -->
+<div class="category-tabs-wrap" style="display: flex; gap: 8px; justify-content: center; margin: 16px auto 24px; max-width: 600px; flex-wrap: wrap;">
+  <button class="cat-tab-btn active" data-tab="all">✨ الكل (المواضيع والأسئلة)</button>
+  <button class="cat-tab-btn" data-tab="topics">🤲 مواضيع الدعاء (18)</button>
+  <button class="cat-tab-btn" data-tab="qa">❓ الأسئلة والأحكام</button>
+</div>
+
+<div class="section-label topics-section-label"><span>خريطة الموضوعات</span></div>
+<p class="section-sub topics-section-sub">اضغط على أي نقطة لتفتح الموضوع كاملاً وتصفحه</p>
 
 <div class="map" id="mapGrid"></div>
 
-<div class="section-label"><span>أسئلة وأجوبة في عقيدة وآداب الدعاء</span></div>
-<p class="section-sub">الملحق الموحّد — مرتّب حسب المحور والاحتياجات الإيمانية</p>
+<div class="section-label qa-section-label"><span>أسئلة وأجوبة في عقيدة وآداب الدعاء</span></div>
+<p class="section-sub qa-section-sub">الملحق الموحّد — مرتّب حسب المحور والاحتياجات الإيمانية</p>
 <div class="qa-wrap" id="qaWrap"></div>
 
 <div class="section-label"><span>دقّق حديثاً</span></div>
@@ -623,12 +1372,173 @@
       <div class="modal-num" id="modalNum">١</div>
       <h2 id="modalTitle">عنوان الموضوع</h2>
     </div>
+
+    <div class="modal-actions-bar">
+      <button id="modalFavBtn" class="modal-action-btn fav-btn" type="button" onclick="toggleCurrentTopicFav()" title="إضافة أو إزالة من مفضلتي">
+        <span id="modalFavStar">⭐</span>
+        <span id="modalFavText">حفظ بالمفضلة</span>
+      </button>
+      <button id="modalCopyBtn" class="modal-action-btn" type="button">📋 نسخ الموضوع</button>
+      <button id="modalShareBtn" class="modal-action-btn" type="button">📤 مشاركة واتساب</button>
+      <button id="modalCardGenBtn" class="modal-action-btn card-gen-btn" type="button" onclick="window.openCardStudioForTopic && window.openCardStudioForTopic(typeof currentTopicIndex !== 'undefined' ? currentTopicIndex : (window.currentTopicIndex || 0))" title="توليد بطاقة كصورة لهذا الموضوع">
+        <span>🖼️</span>
+        <span>توليد بطاقة كصورة</span>
+      </button>
+      <div class="modal-font-stepper" title="التحكم بحجم الخط داخل الموضوع">
+        <button type="button" onclick="changeFontSize(-0.10)" title="تصغير الخط">A-</button>
+        <span id="modalFontPct" onclick="resetFontSize()" title="إعادة ضبط الحجم الافتراضي">100%</span>
+        <button type="button" onclick="changeFontSize(0.10)" title="تكبير الخط">A+</button>
+      </div>
+    </div>
     
     <div class="modal-body" id="modalBody"></div>
 
     <button type="button" class="modal-nav-btn-bottom" id="nextTopicBtn">
       الموضوع التالي ▼
     </button>
+  </div>
+</div>
+
+<!-- نافذة استوديو توليد وتصميم البطاقات الدعوية كصور (Card Studio Modal) -->
+<div class="card-studio-overlay" id="cardStudioOverlay" onclick="closeCardStudio(event)">
+  <div class="card-studio-box" onclick="event.stopPropagation()">
+    <button type="button" class="card-studio-close" onclick="closeCardStudio()" aria-label="إغلاق">✕</button>
+
+    <div class="card-studio-head">
+      <div class="card-studio-head-icon">🎨</div>
+      <div>
+        <h3>استوديو توليد وتصميم البطاقات الدعوية</h3>
+        <p>صمّم بطاقة إيمانية فاخرة عالية الدقة لمشاركتها في واتساب أو نشرها كـ Story</p>
+      </div>
+    </div>
+
+    <div class="card-studio-layout">
+      <!-- منطقة المعاينة الحية للبطاقة -->
+      <div class="card-preview-container">
+        <!-- شريط التبديل بين أجزاء الستوري عند توفر أكثر من جزء -->
+        <div id="storyPartSwitcher" class="story-part-switcher" style="display: none;">
+          <button type="button" class="story-tab active" id="storyPartBtnAll" onclick="switchStoryPart('all')">
+            <span>📱 ستوري كامل (النص كامل)</span>
+          </button>
+          <button type="button" class="story-tab" id="storyPartBtn1" onclick="switchStoryPart(1)">
+            <span>📱 ستوري ١ (الجزء الأول)</span>
+          </button>
+          <button type="button" class="story-tab" id="storyPartBtn2" onclick="switchStoryPart(2)">
+            <span>📱 ستوري ٢ (الجزء الثاني)</span>
+          </button>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas id="cardCanvas" width="1080" height="1080"></canvas>
+        </div>
+        <div class="preview-hint" id="previewHint">📐 دقة البطاقة: 1080 × 1080 بكسل (مربعة فائقة الوضوح)</div>
+      </div>
+
+      <!-- لوحة التحكم وتخصيص البطاقة -->
+      <div class="card-controls-panel">
+        <!-- اختيار النمط والمقاس -->
+        <div class="control-group">
+          <label class="control-label">نمط ومقاس الصورة:</label>
+          <div class="card-mode-grid">
+            <button type="button" class="card-mode-btn active" id="modeBtnInfographic" onclick="setCardMode('infographic')">
+              <span>📋</span>
+              <span>انفوجرافيك كامل</span>
+            </button>
+            <button type="button" class="card-mode-btn" id="modeBtnStory" onclick="setCardMode('story')">
+              <span>📱</span>
+              <span>ستوري (1080×1920)</span>
+            </button>
+            <button type="button" class="card-mode-btn" id="modeBtnQuote" onclick="setCardMode('quote')">
+              <span>🖼️</span>
+              <span>مقتطف (1080×1080)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- اختيار الثيم اللوني -->
+        <div class="control-group">
+          <label class="control-label">الألوان والثيم الملكي:</label>
+          <div class="theme-picker-grid">
+            <button type="button" class="card-theme-btn active" id="themeBtnAndalusian" onclick="setCardTheme('andalusian')">
+              <span class="theme-swatch swatch-andalusian"></span>
+              <span>الأندلسي</span>
+            </button>
+            <button type="button" class="card-theme-btn" id="themeBtnEmerald" onclick="setCardTheme('emerald')">
+              <span class="theme-swatch swatch-emerald"></span>
+              <span>الزمرد</span>
+            </button>
+            <button type="button" class="card-theme-btn" id="themeBtnDawn" onclick="setCardTheme('dawn')">
+              <span class="theme-swatch swatch-dawn"></span>
+              <span>نور الفجر</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- اختيار المحور -->
+        <div class="control-group">
+          <label for="cardTopicSelect" class="control-label">اختر موضوع الدعاء أو اكتب نصاً مخصصاً:</label>
+          <select id="cardTopicSelect" onchange="handleCardTopicChange(this.value)">
+            <!-- يتم ملؤها بالجافاسكربت -->
+          </select>
+        </div>
+
+        <!-- تعديل عنوان المحور -->
+        <div class="control-group">
+          <label for="cardCustomTitle" class="control-label">عنوان المحور:</label>
+          <input type="text" id="cardCustomTitle" oninput="renderCardCanvas()">
+        </div>
+
+        <!-- البيان والشرح الأساسي -->
+        <div class="control-group" id="cardIntroGroup">
+          <label for="cardCustomIntro" class="control-label">البيان والشرح الأساسي للمحور:</label>
+          <textarea id="cardCustomIntro" rows="3" oninput="renderCardCanvas()"></textarea>
+        </div>
+
+        <!-- تعديل نص الدليل الشرعي -->
+        <div class="control-group" id="cardQuoteGroup">
+          <label for="cardCustomQuote" class="control-label">الدليل الشرعي (الآية أو الحديث):</label>
+          <textarea id="cardCustomQuote" rows="2" oninput="renderCardCanvas()"></textarea>
+        </div>
+
+        <!-- تخريج ومصدر الدليل -->
+        <div class="control-group" id="cardMetaGroup">
+          <label for="cardCustomQuoteMeta" class="control-label">تخريج ومصدر الدليل (اسم السورة / الراوي والكتاب):</label>
+          <input type="text" id="cardCustomQuoteMeta" oninput="renderCardCanvas()">
+        </div>
+
+        <!-- النقاط والتفريعات أو الأمثلة -->
+        <div class="control-group" id="cardPointsGroup">
+          <label for="cardCustomPoints" class="control-label">النقاط والتفريعات أو الأمثلة الواقعية:</label>
+          <textarea id="cardCustomPoints" rows="3" oninput="renderCardCanvas()"></textarea>
+        </div>
+
+        <!-- تعديل الإضاءة الإيمانية والخلاصة -->
+        <div class="control-group" id="cardWisdomGroup">
+          <label for="cardCustomWisdom" class="control-label">الإضاءة الإيمانية والخلاصة التوجيهية:</label>
+          <textarea id="cardCustomWisdom" rows="2" oninput="renderCardCanvas()"></textarea>
+        </div>
+
+        <!-- أزرار التنزيل والمشاركة -->
+        <div class="card-actions-grid">
+          <button type="button" class="card-action-primary" id="cardDownloadBtn" onclick="downloadCardImage()">
+            <span>📥</span>
+            <span id="downloadBtnText">تحميل الصورة (PNG)</span>
+          </button>
+          <button type="button" class="card-action-primary" id="cardDownloadBothBtn" style="display: none; background: linear-gradient(135deg, #2ec4b6, #0f8573); grid-column: 1 / -1;" onclick="downloadBothStories()">
+            <span>📦</span>
+            <span>تحميل الستوريتين معاً (١ و ٢)</span>
+          </button>
+          <button type="button" class="card-action-secondary" onclick="shareCardImage()">
+            <span>📲</span>
+            <span>مشاركة سريعة</span>
+          </button>
+          <button type="button" class="card-action-secondary" onclick="copyCardImage()">
+            <span>📋</span>
+            <span>نسخ الصورة</span>
+          </button>
+        </div>
+        <div id="cardStatusMsg" class="card-status-msg"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -656,40 +1566,31 @@
 </div>
 
 <!-- ==================== شريط الملاحة السفلي ==================== -->
-<nav class="liquid-bottom-nav encyclopedia-nav">
+  <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+  <nav class="liquid-bottom-nav">
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item active">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
     <a href="encyclopedia.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📚</span>
-    <span>الموسوعة</span>
-  </a>
-  <a href="duaa.html" class="liquid-nav-item active">
-    <span style="font-size: 1.2rem;">🤲</span>
-    <span>الدعاء</span>
-  </a>
-  <a href="names.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">✨</span>
-    <span>الأسماء</span>
-  </a>
-  <a href="sunnah.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">🌿</span>
-    <span>السنن</span>
-  </a>
-  <a href="stories.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📜</span>
-    <span>القصص</span>
-  </a>
-  <a href="books.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📖</span>
-    <span>المكتبة</span>
-  </a>
-  <a href="azkar.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📿</span>
-    <span>الأذكار</span>
-  </a>
-  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">💬</span>
-    <span>المساعد</span>
-  </a>
-</nav>
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="books.html" class="liquid-nav-item">
+      <span>📖</span>
+      <span>المكتبة</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span>💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
 
 <script>
 /* ---------- بيانات موضوعات خريطة الدعاء الـ 18 كاملة ---------- */
@@ -926,7 +1827,18 @@ topics.forEach((t, i) => {
     <div class="node-icon">${t.icon}</div>
     <div class="node-title">${t.title}</div>
     <div class="node-teaser">${t.teaser}</div>
+    <div class="node-card-actions">
+      <span class="node-open-hint">استعراض الموضوع</span>
+      <button type="button" class="node-quick-card-btn" title="توليد وتصميم بطاقة كصورة لهذا الموضوع">
+        <span>🖼️</span>
+        <span>صورة</span>
+      </button>
+    </div>
   `;
+  el.querySelector('.node-quick-card-btn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openCardStudioForTopic(i);
+  });
   el.addEventListener('click', () => openTopic(i));
   mapGrid.appendChild(el);
 });
@@ -951,6 +1863,7 @@ function openTopic(i) {
   if (i < 0 || i >= topics.length) return;
   const t = topics[i];
   currentTopicIndex = i;
+  window.currentTopicIndex = i;
   modalNum.textContent = ORD[i];
   modalTitle.textContent = t.title;
   modalBody.innerHTML = t.body;
@@ -962,11 +1875,67 @@ function openTopic(i) {
   document.getElementById('prevTopicBtn').disabled = (i === 0);
   document.getElementById('nextTopicBtn').disabled = (i === topics.length - 1);
 
+  updateTopicFavButton(i);
+
   if (!visited.has(i)) {
     visited.add(i);
     mapGrid.children[i].classList.add('visited');
     updateProgress();
   }
+}
+
+window.updateTopicFavButton = function(i) {
+  if (typeof i === 'undefined' || i === null) i = currentTopicIndex;
+  const btn = document.getElementById('modalFavBtn');
+  const star = document.getElementById('modalFavStar');
+  const txt = document.getElementById('modalFavText');
+  if (!btn || !star || !txt || typeof ZadFavorites === 'undefined') return;
+
+  const topicId = 'duaa_' + (i + 1);
+  const isFav = ZadFavorites.isFavorited(topicId);
+  if (isFav) {
+    btn.classList.add('active');
+    star.textContent = '🌟';
+    txt.textContent = 'محفوظ بالمفضلة';
+  } else {
+    btn.classList.remove('active');
+    star.textContent = '⭐';
+    txt.textContent = 'حفظ بالمفضلة';
+  }
+};
+
+window.toggleCurrentTopicFav = function() {
+  if (currentTopicIndex === null || currentTopicIndex < 0 || currentTopicIndex >= topics.length) return;
+  const t = topics[currentTopicIndex];
+  const topicId = 'duaa_' + (currentTopicIndex + 1);
+  const firstP = modalBody.querySelector('p');
+  const snippet = firstP ? firstP.textContent.trim().slice(0, 120) + '...' : '';
+
+  if (typeof ZadFavorites !== 'undefined') {
+    ZadFavorites.toggle({
+      id: topicId,
+      title: 'الموضوع ' + ORD[currentTopicIndex] + ': ' + t.title,
+      type: 'duaa',
+      categoryLabel: '🤲 خريطة الدعاء',
+      icon: '🤲',
+      snippet: snippet,
+      link: 'duaa.html?open=' + (currentTopicIndex + 1)
+    });
+    updateTopicFavButton(currentTopicIndex);
+  }
+};
+
+function checkAutoOpenTopic() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const openNum = parseInt(urlParams.get('open'), 10);
+  if (!isNaN(openNum) && openNum >= 1 && openNum <= topics.length) {
+    setTimeout(() => openTopic(openNum - 1), 100);
+  }
+}
+if (document.readyState !== 'loading') {
+  checkAutoOpenTopic();
+} else {
+  document.addEventListener('DOMContentLoaded', checkAutoOpenTopic);
 }
 
 document.getElementById('prevTopicBtn').addEventListener('click', () => {
@@ -981,46 +1950,181 @@ function closeModal() {
   overlay.classList.remove('open');
   document.body.style.overflow = '';
   currentTopicIndex = null;
+  window.currentTopicIndex = null;
 }
 
 document.getElementById('closeBtn').addEventListener('click', closeModal);
 overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
 
-/* ---------- بناء قسم الأسئلة والأجوبة ---------- */
-const qaWrap = document.getElementById('qaWrap');
-qa.forEach((cat) => {
-  const catEl = document.createElement('div');
-  catEl.className = 'qa-cat';
-  const body = document.createElement('div');
-  body.className = 'qa-cat-body';
+  /* ---------- دوال الإشعارات والنسخ والمشاركة ---------- */
+  function showToast(msg) {
+    let toast = document.getElementById('app-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'app-toast';
+      toast.style.cssText = 'position:fixed; bottom:85px; left:50%; transform:translateX(-50%); background:rgba(20,29,61,0.95); border:1px solid #d6a85c; color:#f0d9a8; padding:10px 22px; border-radius:25px; z-index:999999; font-family:Tajawal,sans-serif; font-size:0.9rem; font-weight:bold; box-shadow:0 10px 30px rgba(0,0,0,0.5); backdrop-filter:blur(10px); transition:all 0.3s ease; opacity:0; pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(10px)';
+    }, 2200);
+  }
 
-  cat.items.forEach((item) => {
-    const qEl = document.createElement('div');
-    qEl.className = 'qa-item';
-    qEl.innerHTML = `
-      <div class="qa-q"><span>${item.q}</span><span class="plus">+</span></div>
-      <div class="qa-a"><div class="qa-a-inner">${item.a}</div></div>
-    `;
-    const qHead = qEl.querySelector('.qa-q');
-    const aBox = qEl.querySelector('.qa-a');
-    qHead.addEventListener('click', () => {
-      const isOpen = qEl.classList.toggle('open');
-      aBox.style.maxHeight = isOpen ? '1000px' : '0px';
+  document.getElementById('modalCopyBtn')?.addEventListener('click', () => {
+    if (currentTopicIndex === null) return;
+    const t = topics[currentTopicIndex];
+    const text = `🤲 زاد المؤمن — خريطة الدعاء الشاملة:\n\nالموضوع ${t.id}: ${t.title}\n\n${t.teaser}\n\n${modalBody.innerText}\n\n📲 عبر موقع وتطبيق زاد المؤمن`;
+    navigator.clipboard.writeText(text).then(() => showToast('✨ تم نسخ الموضوع بالكامل بنجاح!'));
+  });
+
+  document.getElementById('modalShareBtn')?.addEventListener('click', () => {
+    if (currentTopicIndex === null) return;
+    const t = topics[currentTopicIndex];
+    const text = `🤲 زاد المؤمن — خريطة الدعاء الشاملة:\n\nالموضوع ${t.id}: ${t.title}\n\n${t.teaser}\n\n📲 اقرأ المزيد عبر تطبيق زاد المؤمن`;
+    if (navigator.share) {
+      navigator.share({ title: t.title, text: text, url: window.location.href }).catch(() => {});
+    } else {
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + window.location.href)}`, '_blank');
+    }
+  });
+
+  // تفعيل وتشغيل زر توليد البطاقة كصورة داخل نافذة الموضوع
+  const modalCardGenBtn = document.getElementById('modalCardGenBtn');
+  if (modalCardGenBtn) {
+    modalCardGenBtn.onclick = function(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      const idx = (typeof currentTopicIndex === 'number' && currentTopicIndex >= 0) ? currentTopicIndex : (typeof window.currentTopicIndex === 'number' ? window.currentTopicIndex : 0);
+      openCardStudioForTopic(idx);
+    };
+    modalCardGenBtn.addEventListener('click', function(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      const idx = (typeof currentTopicIndex === 'number' && currentTopicIndex >= 0) ? currentTopicIndex : (typeof window.currentTopicIndex === 'number' ? window.currentTopicIndex : 0);
+      openCardStudioForTopic(idx);
     });
-    body.appendChild(qEl);
+  }
+
+  /* ---------- التبديل بين التبويبات الفئوية ---------- */
+  document.querySelectorAll('.cat-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      const topicsSection = document.getElementById('mapGrid');
+      const topicsLabel = document.querySelector('.topics-section-label');
+      const topicsSub = document.querySelector('.topics-section-sub');
+      const qaSection = document.getElementById('qaWrap');
+      const qaLabel = document.querySelector('.qa-section-label');
+      const qaSub = document.querySelector('.qa-section-sub');
+
+      if (tab === 'all') {
+        if (topicsSection) topicsSection.style.display = 'grid';
+        if (topicsLabel) topicsLabel.style.display = 'block';
+        if (topicsSub) topicsSub.style.display = 'block';
+        if (qaSection) qaSection.style.display = 'block';
+        if (qaLabel) qaLabel.style.display = 'block';
+        if (qaSub) qaSub.style.display = 'block';
+      } else if (tab === 'topics') {
+        if (topicsSection) topicsSection.style.display = 'grid';
+        if (topicsLabel) topicsLabel.style.display = 'block';
+        if (topicsSub) topicsSub.style.display = 'block';
+        if (qaSection) qaSection.style.display = 'none';
+        if (qaLabel) qaLabel.style.display = 'none';
+        if (qaSub) qaSub.style.display = 'none';
+      } else if (tab === 'qa') {
+        if (topicsSection) topicsSection.style.display = 'none';
+        if (topicsLabel) topicsLabel.style.display = 'none';
+        if (topicsSub) topicsSub.style.display = 'none';
+        if (qaSection) qaSection.style.display = 'block';
+        if (qaLabel) qaLabel.style.display = 'block';
+        if (qaSub) qaSub.style.display = 'block';
+      }
+    });
   });
 
-  catEl.innerHTML = `<div class="qa-cat-head"><span>${cat.cat}</span><span class="arrow">▼</span></div>`;
-  catEl.appendChild(body);
+  /* ---------- بناء قسم الأسئلة والأجوبة ---------- */
+  const qaWrap = document.getElementById('qaWrap');
+  qa.forEach((cat) => {
+    const catEl = document.createElement('div');
+    catEl.className = 'qa-cat';
+    const body = document.createElement('div');
+    body.className = 'qa-cat-body';
 
-  const head = catEl.querySelector('.qa-cat-head');
-  head.addEventListener('click', () => {
-    const isOpen = catEl.classList.toggle('open');
-    body.style.maxHeight = isOpen ? '5000px' : '0px';
+    cat.items.forEach((item) => {
+      const qEl = document.createElement('div');
+      qEl.className = 'qa-item';
+      qEl.innerHTML = `
+        <div class="qa-q"><span>${item.q}</span><span class="plus">+</span></div>
+        <div class="qa-a">
+          <div class="qa-a-inner">
+            ${item.a}
+            <div style="margin-top: 10px; display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap;">
+              <button class="copy-btn-inline fav-qa-btn" type="button">⭐ المفضلة</button>
+              <button class="copy-btn-inline" type="button">📋 نسخ السؤال والجواب</button>
+            </div>
+          </div>
+        </div>
+      `;
+      const qHead = qEl.querySelector('.qa-q');
+      const aBox = qEl.querySelector('.qa-a');
+      qHead.addEventListener('click', () => {
+        const isOpen = qEl.classList.toggle('open');
+        aBox.style.maxHeight = isOpen ? '1000px' : '0px';
+      });
+
+      const copyBtn = qEl.querySelector('.copy-btn-inline:not(.fav-qa-btn)');
+      copyBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const copyText = `سؤال: ${item.q}\n\nالجواب: ${item.a.replace(/<[^>]*>?/gm, '')}\n\n📲 عبر تطبيق زاد المؤمن`;
+        navigator.clipboard.writeText(copyText).then(() => showToast('✨ تم نسخ السؤال والإجابة بنجاح!'));
+      });
+
+      const favQaBtn = qEl.querySelector('.fav-qa-btn');
+      const qaId = 'qa_d_' + encodeURIComponent(item.q.slice(0, 25));
+      const syncFavQaBtn = () => {
+        if (typeof ZadFavorites !== 'undefined' && ZadFavorites.isFavorited(qaId)) {
+          favQaBtn.classList.add('active');
+          favQaBtn.textContent = '🌟 محفوظ بالمفضلة';
+        } else {
+          favQaBtn.classList.remove('active');
+          favQaBtn.textContent = '⭐ المفضلة';
+        }
+      };
+      syncFavQaBtn();
+
+      favQaBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (typeof ZadFavorites !== 'undefined') {
+          ZadFavorites.toggle({
+            id: qaId,
+            title: item.q,
+            type: 'qa',
+            categoryLabel: '❓ سؤال وجواب (الدعاء)',
+            icon: '❓',
+            snippet: item.a.replace(/<[^>]*>?/gm, '').slice(0, 120) + '...',
+            link: 'duaa.html#qaSection'
+          });
+          syncFavQaBtn();
+        }
+      });
+
+      body.appendChild(qEl);
+    });
+
+    catEl.innerHTML = `<div class="qa-cat-head"><span>${cat.cat}</span><span class="arrow">▼</span></div>`;
+    catEl.appendChild(body);
+
+    const head = catEl.querySelector('.qa-cat-head');
+    head.addEventListener('click', () => {
+      const isOpen = catEl.classList.toggle('open');
+      body.style.maxHeight = isOpen ? '5000px' : '0px';
+    });
+
+    qaWrap.appendChild(catEl);
   });
-
-  qaWrap.appendChild(catEl);
-});
 
 /* ---------- البحث المباشر السريع ---------- */
 const quickSearch = document.getElementById('quickSearch');
@@ -1073,6 +2177,36 @@ function drawStars() {
 
 window.addEventListener('resize', initStars);
 
+/* ===== نظام التحكم بحجم الخط وتذكره ===== */
+let currentFontScale = parseFloat(localStorage.getItem('user_font_scale')) || 1.0;
+
+function setFontScale(scale) {
+  currentFontScale = Math.max(0.70, Math.min(1.60, Math.round(scale * 10) / 10));
+  document.documentElement.style.setProperty('--content-font-scale', currentFontScale);
+  const pct = Math.round(currentFontScale * 100) + '%';
+  const displayEl = document.getElementById('fontSizeDisplay');
+  if (displayEl) displayEl.textContent = pct;
+  const modalFontPct = document.getElementById('modalFontPct');
+  if (modalFontPct) modalFontPct.textContent = pct;
+  try {
+    localStorage.setItem('user_font_scale', currentFontScale);
+  } catch (e) {}
+  if (navigator.vibrate) {
+    try { navigator.vibrate(12); } catch (e) {}
+  }
+}
+
+function changeFontSize(delta) {
+  setFontScale(currentFontScale + delta);
+}
+
+function resetFontSize() {
+  setFontScale(1.0);
+}
+
+// تطبيق الحجم المحفوظ عند الإقلاع
+setFontScale(currentFontScale);
+
 /* ===== كود تشغيل وتفعيل زر الوضع الليلي/الفاتح وتذكره ===== */
 const themeBtn = document.getElementById('themeBtn');
 
@@ -1086,7 +2220,1045 @@ if (themeBtn) {
     const isLight = document.body.classList.toggle('light');
     themeBtn.textContent = isLight ? '🌙' : '🌞';
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    if (document.getElementById('cardStudioOverlay')?.classList.contains('open')) {
+      setCardTheme(isLight ? 'dawn' : 'andalusian');
+    }
   });
+}
+
+/* ===== استوديو توليد البطاقات والانفوجرافيك الدعوي لخريطة الدعاء (HTML5 Canvas) ===== */
+let currentCardTheme = 'andalusian';
+let currentCardMode = 'infographic'; // 'infographic' | 'story' | 'quote'
+const cardCanvas = document.getElementById('cardCanvas');
+const cardCtx = cardCanvas ? cardCanvas.getContext('2d') : null;
+let returnToTopicModalOnStudioClose = false;
+
+// المحتوى الشامل والكامل لموضوعات الدعاء الـ 18 (الشرح، الدليل، التخريج، التفصيل، والإضاءة)
+const cardTopicsData = [
+  {
+    "title": "ما هو الدعاء؟",
+    "intro": "الدعاء هو توجّه العبد إلى الله بطلب الخير، أو دفع الشر، أو سؤال الرحمة والمغفرة والهداية وغير ذلك.\n\nوالدعاء نوعان:",
+    "quote": "«الدعاء هو العبادة»",
+    "quoteMeta": "الراوي: النعمان بن بشير | صحيح الأدب المفرد",
+    "points": "• 1. دعاء المسألة: وهو طلب شيء معيّن، مثل: «اللهم ارزقني، اللهم اشفني»، «اللهم وفقني، اللهم اهدني».\n• 2. دعاء العبادة: وهو كل عبادة يتقرّب بها العبد إلى الله، مثل: الصلاة، الصيام، الذكر، قراءة القرآن.",
+    "wisdom": "💡 إضاءة: الدعاء عبادة مذهلة؛ لأنه يجمع بين عبادة الباطن (يقين القلب وتوكّله) وعبادة الظاهر (حركة اللسان والبدن). وفوق هذا، هو العبادة الوحيدة التي لا تُتعب الجوارح وأجرها عظيم عند الله."
+  },
+  {
+    "title": "لماذا الدعاء مهم؟",
+    "intro": "الدعاء يجمع أعظم معاني العبودية والتوحيد في قلب المؤمن:",
+    "quote": "«كلما كان العبد أتمّ افتقاراً إلى الله وأعظم لجوءاً إليه، كان أقرب إلى الإجابة»",
+    "quoteMeta": "ابن تيمية — مجموع الفتاوى",
+    "points": "• التوحيد: لا تدعو إلا الله، ولا تستغيث إلا به.\n• التوكّل: تفويض الأمر كله لله مع الثقة بتدبيره.\n• الرجاء والخوف: طمع في رحمة الله مع خشية عقابه.\n• الاعتراف بالفقر: إظهار الضعف البشري أمام القدرة الإلهية المطلقة.",
+    "wisdom": ""
+  },
+  {
+    "title": "ما علاقة الدعاء بالقدر؟",
+    "intro": "من أكثر الأسئلة التي تُطرح: إذا كان كل شيء مكتوباً، فلماذا أدعو؟\n\nالجواب: لأن الله كتب النتائج، وكتب الأسباب المؤدية إلى النتائج. فكما أن الله كتب النجاح وكتب له سبباً وهو الدراسة، وكتب الرزق وكتب له سبباً وهو السعي، فقد كتب كثيراً من الخيرات وجعل لها سبباً اسمه الدعاء.\n\nإذن: الدعاء ليس خارج القدر, بل الدعاء نفسه من القدر.",
+    "quote": "«الدعاء من أنفع الأدوية، وهو عدو البلاء»",
+    "quoteMeta": "ابن القيّم — كتاب الداء والدواء",
+    "points": "",
+    "wisdom": ""
+  },
+  {
+    "title": "القدر المبرم والقدر المعلَّق",
+    "intro": "فالتغيير الذي يقع إنما هو في صحف الملائكة، أما علم الله الأزلي الشامل فلا يتغير.",
+    "quote": "«لا يردّ القدر إلا الدعاء»",
+    "quoteMeta": "رواه الترمذي وابن ماجه",
+    "points": "• القدر المبرم: هو ما قضاه الله تعالى في علمه الأزلي وكتبه في اللوح المحفوظ، وهذا لا يتغيّر ولا يتبدّل.\n• القدر المعلَّق: هو ما يُظهره الله للملائكة معلَّقاً على أسباب معيّنة؛ فقد يُكتب عند الملك أن فلاناً إذا دعا رفع الله عنه البلاء، وإذا لم يدعُ بقي البلاء عليه.\n﴿وَعِندَهُ أُمُّ الْكِتَابِ﴾ [سورة الرعد — الآية 39]",
+    "wisdom": "💡 إضاءة: الفرق بين ما لا يتغيّر وما يُعلَّق بالأسباب"
+  },
+  {
+    "title": "هل الدعاء يغيّر القدر؟",
+    "intro": "ومعنى الحديث أن الدعاء قد يكون سبباً شرعياً في دفع بلاء أو جلب خير، وكل ذلك داخل تحت مشيئة الله وقدره السابق.",
+    "quote": "«لا يردّ القدر إلا الدعاء»",
+    "quoteMeta": "رواه الترمذي",
+    "points": "",
+    "wisdom": "💡 إضاءة: قد يكون سبباً في دفع البلاء أو جلب الخير"
+  },
+  {
+    "title": "هل الدعاء علامة خير؟",
+    "intro": "نعم. فمن أعظم نِعم الله على العبد أن يوفّقه للدعاء والابتهال إليه.",
+    "quote": "«إذا فتح الله لك باب الدعاء فقد فتح لك باب الرحمة»",
+    "quoteMeta": "مأثور عن السلف الصالح",
+    "points": "",
+    "wisdom": "💡 إضاءة: توفيق العبد للدعاء من أعظم النعم"
+  },
+  {
+    "title": "ما هو اليقين في الدعاء؟",
+    "intro": "اليقين لا يعني: أن تكون متأكداً أن الله سيعطيك الأمر بنفس الشروط والتفاصيل التي تطلبها.\n\nبل يعني: أن تؤمن أن الله يسمعك، وأنه قادر على كل شيء، وأنه أرحم بك من نفسك، وسيختار لك الأفضل.",
+    "quote": "«ادعوا الله وأنتم موقنون بالإجابة»",
+    "quoteMeta": "رواه الترمذي",
+    "points": "",
+    "wisdom": "💡 إضاءة: ليس التأكد من صورة الإجابة، بل الثقة بالله"
+  },
+  {
+    "title": "ما هو الإلحاح في الدعاء؟",
+    "intro": "الإلحاح هو: تكرار الدعاء، والمواظبة عليه، وعدم تركه بسبب تأخّر الإجابة.",
+    "quote": "«ومن أنفع الأدوية الإلحاح في الدعاء»",
+    "quoteMeta": "ابن القيّم — الداء والدواء",
+    "points": "",
+    "wisdom": "💡 إضاءة: تكرار الدعاء وعدم تركه رغم تأخّر الإجابة"
+  },
+  {
+    "title": "الدعاء بأسماء الله الحسنى",
+    "intro": "التوسل بأسماء الله الحسنى هو أعظم أبواب القبول والدعاء المستجاب.\n\nادعُ كل حاجة باسم الله المناسب لها: \"يا رزاق ارزقني\"، \"يا غفور اغفر لي\"، \"يا شافي اشفني\".",
+    "quote": "﴿وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا﴾",
+    "quoteMeta": "سورة الأعراف — الآية 180",
+    "points": "",
+    "wisdom": "💡 إضاءة: من أعظم آداب الدعاء"
+  },
+  {
+    "title": "التوكّل والأخذ بالأسباب",
+    "intro": "التوكّل الصحيح هو الاعتماد على الله بالدعاء والقلب مع الأخذ بالأسباب المادية المشروعة.",
+    "quote": "«احرص على ما ينفعك، واستعن بالله ولا تعجز»",
+    "quoteMeta": "رواه مسلم",
+    "points": "",
+    "wisdom": "💡 إضاءة: الدعاء وحده لا يكفي دون عمل"
+  },
+  {
+    "title": "آداب الدعاء",
+    "intro": "الإخلاص، الحمد، استقبال القبلة، وحضور القلب",
+    "quote": "«إن ربكم حييّ كريم يستحي من عبده إذا رفع يديه إليه أن يردّهما صفراً»",
+    "quoteMeta": "رواه أبو داود والترمذي",
+    "points": "• الإخلاص لله تعالى في المسألة.\n• البدء بحمد الله والثناء عليه ثم الصلاة على النبي ﷺ.\n• استقبال القبلة ورفع اليدين.\n• حضور القلب وحسن الظن بالله.",
+    "wisdom": ""
+  },
+  {
+    "title": "أسباب استجابة الدعاء",
+    "intro": "الإخلاص، اليقين، الإلحاح، أكل الحلال، وأوقات الإجابة",
+    "quote": "",
+    "quoteMeta": "",
+    "points": "• الإخلاص واليقين التام بالله.\n• طيب المطعم والمشرب والابتعاد عن الحرام.\n• تحري أوقات الإجابة الشريفة (كالسجود، والثلث الأخير من الليل).",
+    "wisdom": ""
+  },
+  {
+    "title": "موانع إجابة الدعاء",
+    "intro": "من موانع الاستجابة:",
+    "quote": "",
+    "quoteMeta": "",
+    "points": "• أكل الحرام والكسب المشبوه.\n• الدعاء بإثم أو قطيعة رحم.\n• استعجال الإجابة كأن يقول: \"دعوت فلم يستجب لي\".\n• غفلة القلب أثناء الدعاء.",
+    "wisdom": "💡 إضاءة: الحرام، الإثم، الاستعجال، وغفلة القلب"
+  },
+  {
+    "title": "لماذا تتأخر الإجابة أحياناً؟",
+    "intro": "تأخر الإجابة فيه حكم بالغة: إما ليدخر الله لك الأجر العظيم في الآخرة، أو ليدفع عنك شراً أكبر، أو ليرى صدق افتفارك ولجوئك إليه.",
+    "quote": "",
+    "quoteMeta": "",
+    "points": "",
+    "wisdom": "💡 إضاءة: الاستجابة تسبق الدعاء دائماً"
+  },
+  {
+    "title": "كيف كان النبي ﷺ يدعو؟",
+    "intro": "كان النبي ﷺ يبدأ دعاءه بالحمد والثناء والصلاة على نفسه، وكان يحب جوامع الدعاء ويكرر دعاءه ثلاثاً.",
+    "quote": "﴿رَبَّنا آتِنا فِي الدُّنْيا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنا عَذابَ النَّارِ﴾",
+    "quoteMeta": "",
+    "points": "",
+    "wisdom": "💡 إضاءة: حمد الله، الصلاة عليه ﷺ، وجوامع الدعاء"
+  },
+  {
+    "title": "هل كل دعاء مستجاب؟",
+    "intro": "المؤمن رابح في جميع الأحوال: إما أن يُعجل له ما طلب، أو يُصرف عنه من السوء مثلها، أو يُدخر له ثوابها في الآخرة.",
+    "quote": "",
+    "quoteMeta": "",
+    "points": "",
+    "wisdom": "💡 إضاءة: ثلاث خصال، لا يضيع الدعاء أبداً"
+  },
+  {
+    "title": "تحويل الشر إلى خير",
+    "intro": "الله قادر على أن يغير الأحوال ويبدل العسر يسراً. ومن أفضل الأدعية التفويض كدعاء الاستخارة النبوي.",
+    "quote": "",
+    "quoteMeta": "",
+    "points": "",
+    "wisdom": "💡 إضاءة: الله قادر على تبديل الأحوال"
+  },
+  {
+    "title": "أشهر أخطاء الناس في الدعاء",
+    "intro": "استعجال، يأس، وسوء ظن",
+    "quote": "",
+    "quoteMeta": "",
+    "points": "• استعجال الإجابة والترك.\n• تكلّف السجع المبالغ فيه.\n• ترك الأسباب المشروعة.",
+    "wisdom": ""
+  }
+];
+
+function initCardStudioSelect() {
+  const select = document.getElementById('cardTopicSelect');
+  if (!select || select.options.length > 0) return;
+
+  cardTopicsData.forEach((t, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = `${idx + 1}: ${t.title}`;
+    select.appendChild(opt);
+  });
+
+  const customOpt = document.createElement('option');
+  customOpt.value = 'custom';
+  customOpt.textContent = '✍️ نص مخصص (اكتب بطاقتك بنفسك)';
+  select.appendChild(customOpt);
+}
+
+let currentStoryPart = 'all';
+
+function updateStoryPartsUI() {
+  const switcher = document.getElementById('storyPartSwitcher');
+  const downloadBothBtn = document.getElementById('cardDownloadBothBtn');
+  const downloadBtnText = document.getElementById('downloadBtnText');
+  const hint = document.getElementById('previewHint');
+
+  const selectVal = document.getElementById('cardTopicSelect')?.value;
+  let hasMulti = false;
+  if (selectVal !== 'custom' && selectVal !== undefined && selectVal !== '') {
+    const idx = parseInt(selectVal, 10);
+    const t = cardTopicsData[idx];
+    if (t && t.hasMultiStory) {
+      hasMulti = true;
+    }
+  }
+
+  if (currentCardMode === 'story') {
+    if (hasMulti) {
+      if (switcher) switcher.style.display = 'flex';
+      if (downloadBothBtn) downloadBothBtn.style.display = 'flex';
+      if (downloadBtnText) {
+        if (currentStoryPart === 'all') {
+          downloadBtnText.textContent = 'تحميل الستوري (النص كامل) 📦';
+        } else {
+          downloadBtnText.textContent = `تحميل ستوري ${currentStoryPart} (PNG)`;
+        }
+      }
+    } else {
+      if (switcher) switcher.style.display = 'none';
+      if (downloadBothBtn) downloadBothBtn.style.display = 'none';
+      if (downloadBtnText) downloadBtnText.textContent = 'تحميل الستوري (النص كامل) 📦';
+    }
+    if (hint) hint.textContent = '📱 دقة الستوري: أبعاد عمودية فائقة الدقة (1080 بكسل) مع كامل النص الأصلي دون أي اقتطاع';
+  } else {
+    if (switcher) switcher.style.display = 'none';
+    if (downloadBothBtn) downloadBothBtn.style.display = 'none';
+    if (downloadBtnText) downloadBtnText.textContent = 'تحميل الصورة (PNG)';
+    if (hint) {
+      if (currentCardMode === 'quote') {
+        hint.textContent = '📐 دقة المقتطف: 1080 × 1080 بكسل (مربعة فائقة الوضوح)';
+      } else {
+        hint.textContent = '📋 نمط الانفوجرافيك الكامل (أبعاد ديناميكية فائقة الدقة لكامل المحتوى)';
+      }
+    }
+  }
+}
+
+function switchStoryPart(part) {
+  currentStoryPart = part;
+  document.getElementById('storyPartBtnAll')?.classList.toggle('active', part === 'all');
+  document.getElementById('storyPartBtn1')?.classList.toggle('active', part === 1);
+  document.getElementById('storyPartBtn2')?.classList.toggle('active', part === 2);
+
+  const downloadBtnText = document.getElementById('downloadBtnText');
+  if (downloadBtnText) {
+    if (part === 'all') {
+      downloadBtnText.textContent = 'تحميل الستوري (النص كامل) 📦';
+    } else {
+      downloadBtnText.textContent = `تحميل ستوري ${part} (PNG)`;
+    }
+  }
+
+  const selectVal = document.getElementById('cardTopicSelect')?.value;
+  if (selectVal !== 'custom') {
+    const idx = parseInt(selectVal, 10);
+    const t = cardTopicsData[idx];
+    if (t) {
+      if (part === 'all' || !t.hasMultiStory) {
+        // استعادة كامل محتوى الموضوع الأصلي بدون أي حذف أو اجتزاء
+        if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = t.intro || '';
+        if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = t.quote || '';
+        if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = t.quoteMeta || '';
+        if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = t.points || '';
+        if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = t.wisdom || '';
+      } else {
+        const s = (part === 1) ? t.story1 : t.story2;
+        if (s) {
+          if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = s.intro || '';
+          if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = s.quote || '';
+          if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = s.quoteMeta || '';
+          if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = s.points || '';
+          if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = s.wisdom || '';
+        }
+      }
+    }
+  }
+  renderCardCanvas();
+}
+
+function setCardMode(mode) {
+  currentCardMode = mode;
+  ['modeBtnInfographic', 'modeBtnStory', 'modeBtnQuote'].forEach(id => {
+    document.getElementById(id)?.classList.remove('active');
+  });
+  if (mode === 'infographic') document.getElementById('modeBtnInfographic')?.classList.add('active');
+  if (mode === 'story') document.getElementById('modeBtnStory')?.classList.add('active');
+  if (mode === 'quote') document.getElementById('modeBtnQuote')?.classList.add('active');
+
+  const introGroup = document.getElementById('cardIntroGroup');
+  const metaGroup = document.getElementById('cardMetaGroup');
+  const pointsGroup = document.getElementById('cardPointsGroup');
+  const isQuoteOnly = (mode === 'quote');
+  if (introGroup) introGroup.style.display = isQuoteOnly ? 'none' : 'flex';
+  if (metaGroup) metaGroup.style.display = isQuoteOnly ? 'none' : 'flex';
+  if (pointsGroup) pointsGroup.style.display = isQuoteOnly ? 'none' : 'flex';
+
+  const selectVal = document.getElementById('cardTopicSelect')?.value;
+  if (selectVal !== 'custom') {
+    const idx = parseInt(selectVal, 10);
+    const t = cardTopicsData[idx];
+    if (t) {
+      if (mode === 'story') {
+        switchStoryPart('all');
+      } else {
+        // استعادة البيانات الكاملة للإنفوجرافيك أو المقتطف
+        if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = t.intro || '';
+        if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = t.quote || '';
+        if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = t.quoteMeta || '';
+        if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = t.points || '';
+        if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = t.wisdom || '';
+      }
+    }
+  }
+
+  updateStoryPartsUI();
+  renderCardCanvas();
+}
+
+function openCardStudio() {
+  initCardStudioSelect();
+  const studioOverlay = document.getElementById('cardStudioOverlay');
+  if (studioOverlay) {
+    studioOverlay.classList.add('open');
+    const idx = (typeof currentTopicIndex === 'number' && currentTopicIndex >= 0) ? currentTopicIndex : (typeof window.currentTopicIndex === 'number' ? window.currentTopicIndex : 0);
+    handleCardTopicChange(idx);
+    if (document.body.classList.contains('light')) {
+      setCardTheme('dawn');
+    } else {
+      setCardTheme('andalusian');
+    }
+  }
+}
+
+function openCardStudioForTopic(idx) {
+  // إخفاء نافذة الموضوع المفتوحة مؤقتاً لتظهر بطاقة الاستوديو في المقدمة التامة
+  const topicModalOverlay = document.getElementById('overlay');
+  if (topicModalOverlay && (topicModalOverlay.classList.contains('open') || topicModalOverlay.style.display === 'flex')) {
+    returnToTopicModalOnStudioClose = true;
+    topicModalOverlay.style.display = 'none';
+  } else {
+    returnToTopicModalOnStudioClose = false;
+  }
+
+  initCardStudioSelect();
+  const studioOverlay = document.getElementById('cardStudioOverlay');
+  if (studioOverlay) {
+    studioOverlay.classList.add('open');
+    let targetIdx = 0;
+    if (typeof idx === 'number' && !isNaN(idx) && idx >= 0 && idx < cardTopicsData.length) {
+      targetIdx = idx;
+    } else if (typeof currentTopicIndex === 'number' && currentTopicIndex >= 0 && currentTopicIndex < cardTopicsData.length) {
+      targetIdx = currentTopicIndex;
+    } else if (typeof window.currentTopicIndex === 'number' && window.currentTopicIndex >= 0 && window.currentTopicIndex < cardTopicsData.length) {
+      targetIdx = window.currentTopicIndex;
+    }
+    handleCardTopicChange(targetIdx);
+    if (document.body.classList.contains('light')) {
+      setCardTheme('dawn');
+    } else {
+      setCardTheme('andalusian');
+    }
+  }
+}
+
+window.openCardStudio = openCardStudio;
+window.openCardStudioForTopic = openCardStudioForTopic;
+
+function closeCardStudio(e) {
+  const studioOverlay = document.getElementById('cardStudioOverlay');
+  if (studioOverlay) studioOverlay.classList.remove('open');
+  showCardStatus('');
+
+  // إعادة إظهار نافذة الموضوع إن كان المستخدم قد فتح التوليد من داخلها
+  if (returnToTopicModalOnStudioClose) {
+    const topicModalOverlay = document.getElementById('overlay');
+    if (topicModalOverlay) {
+      topicModalOverlay.style.display = 'flex';
+      topicModalOverlay.classList.add('open');
+    }
+    returnToTopicModalOnStudioClose = false;
+  }
+}
+
+function setCardTheme(theme) {
+  currentCardTheme = theme;
+  ['themeBtnAndalusian', 'themeBtnEmerald', 'themeBtnDawn'].forEach(id => {
+    document.getElementById(id)?.classList.remove('active');
+  });
+  if (theme === 'andalusian') document.getElementById('themeBtnAndalusian')?.classList.add('active');
+  if (theme === 'emerald') document.getElementById('themeBtnEmerald')?.classList.add('active');
+  if (theme === 'dawn') document.getElementById('themeBtnDawn')?.classList.add('active');
+
+  renderCardCanvas();
+}
+
+function handleCardTopicChange(val) {
+  const select = document.getElementById('cardTopicSelect');
+  if (select) select.value = val;
+
+  currentStoryPart = 1;
+
+  if (val !== 'custom') {
+    const idx = parseInt(val, 10);
+    const data = cardTopicsData[idx];
+    if (data) {
+      if (document.getElementById('cardCustomTitle')) document.getElementById('cardCustomTitle').value = data.title || '';
+      if (currentCardMode === 'story' && data.hasMultiStory && data.story1) {
+        if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = data.story1.intro || '';
+        if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = data.story1.quote || '';
+        if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = data.story1.quoteMeta || '';
+        if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = data.story1.points || '';
+        if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = data.story1.wisdom || '';
+      } else {
+        if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = data.intro || '';
+        if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = data.quote || '';
+        if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = data.quoteMeta || '';
+        if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = data.points || '';
+        if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = data.wisdom || '';
+      }
+    }
+  }
+  updateStoryPartsUI();
+  renderCardCanvas();
+}
+
+// قياس النص وحساب الأسطر بدقة متناهية
+function measureWrappedLines(ctx, text, maxWidth) {
+  if (!text) return [];
+  const paragraphs = text.split('\n');
+  const allLines = [];
+  paragraphs.forEach(para => {
+    const pTrim = para.trim();
+    if (!pTrim) {
+      allLines.push('');
+      return;
+    }
+    const words = pTrim.split(/\s+/);
+    let line = '';
+    for (let n = 0; n < words.length; n++) {
+      const testLine = line + (line ? ' ' : '') + words[n];
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > maxWidth && n > 0) {
+        allLines.push(line);
+        line = words[n];
+      } else {
+        line = testLine;
+      }
+    }
+    if (line) allLines.push(line);
+  });
+  return allLines;
+}
+
+// رسم صندوق قسم متكامل مع شارة العنوان والنص
+function drawContentPanel(ctx, x, y, w, badgeText, badgeIcon, lines, lineHeight, panelBg, panelBorder, badgeColor, textColor) {
+  const padX = 36;
+  const topPad = 52;
+  const botPad = 24;
+  const textH = lines.length * lineHeight;
+  const panelH = topPad + textH + botPad;
+
+  // خلفية الصندوق
+  ctx.fillStyle = panelBg;
+  roundRect(ctx, x, y, w, panelH, 18);
+  ctx.fill();
+
+  ctx.strokeStyle = panelBorder;
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  // شارة عنوان القسم
+  ctx.fillStyle = badgeColor;
+  ctx.font = 'bold 22px "Tajawal", sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(`${badgeIcon} ${badgeText}`, x + w - padX, y + 34);
+
+  // خط زخرفي فاصل ناعم تحت الشارة
+  ctx.strokeStyle = panelBorder;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(x + padX, y + 44);
+  ctx.lineTo(x + w - padX, y + 44);
+  ctx.stroke();
+
+  // نصوص المحتوى
+  ctx.fillStyle = textColor;
+  ctx.textAlign = 'right';
+  let lineY = y + topPad + lineHeight * 0.72;
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i]) {
+      ctx.fillText(lines[i], x + w - padX, lineY);
+    }
+    lineY += lineHeight;
+  }
+
+  return panelH;
+}
+
+// رسم وتوليد الانفوجرافيك أو البطاقة على Canvas بدقة فائقة
+function renderCardCanvas() {
+  if (!cardCanvas || !cardCtx) return;
+  const ctx = cardCtx;
+  const w = 1080;
+
+  // قراءة البيانات من الحقول
+  const title = document.getElementById('cardCustomTitle')?.value || 'خريطة الدعاء الشاملة';
+  const intro = document.getElementById('cardCustomIntro')?.value || '';
+  const quote = document.getElementById('cardCustomQuote')?.value || '';
+  const quoteMeta = document.getElementById('cardCustomQuoteMeta')?.value || '';
+  const points = document.getElementById('cardCustomPoints')?.value || '';
+  const wisdom = document.getElementById('cardCustomWisdom')?.value || '';
+
+  // تحديد ما إذا كان الموضوع الحالي ستوري متعدد الأجزاء
+  const selectVal = document.getElementById('cardTopicSelect')?.value;
+  let activeTopicData = null;
+  if (selectVal !== 'custom' && selectVal !== undefined && selectVal !== '') {
+    activeTopicData = cardTopicsData[parseInt(selectVal, 10)];
+  }
+  const isMultiStory = (currentCardMode === 'story' && activeTopicData && activeTopicData.hasMultiStory);
+
+  // 1. تحديد تدرجات الألوان حسب الثيم
+  let bgGradient;
+  let frameColor, innerFrameColor;
+  let headerColor, titleColor, panelBg, panelBorder, quoteBoxBg, quoteBoxBorder, quoteColor, badgeColor, textColor, metaColor, footerColor;
+
+  if (currentCardTheme === 'emerald') {
+    bgGradient = ctx.createLinearGradient(0, 0, w, 2000);
+    bgGradient.addColorStop(0, '#03140e');
+    bgGradient.addColorStop(0.5, '#08291e');
+    bgGradient.addColorStop(1, '#04150f');
+
+    frameColor = 'rgba(214, 168, 92, 0.45)';
+    innerFrameColor = 'rgba(46, 196, 182, 0.35)';
+    headerColor = '#2ec4b6';
+    titleColor = '#f5dfb8';
+    panelBg = 'rgba(10, 36, 28, 0.75)';
+    panelBorder = 'rgba(46, 196, 182, 0.28)';
+    quoteBoxBg = 'rgba(46, 196, 182, 0.12)';
+    quoteBoxBorder = 'rgba(214, 168, 92, 0.45)';
+    quoteColor = '#ffffff';
+    badgeColor = '#2ec4b6';
+    textColor = '#e2f7f3';
+    metaColor = '#d6a85c';
+    footerColor = 'rgba(214, 168, 92, 0.85)';
+  } else if (currentCardTheme === 'dawn') {
+    bgGradient = ctx.createLinearGradient(0, 0, w, 2000);
+    bgGradient.addColorStop(0, '#fdfbf6');
+    bgGradient.addColorStop(0.5, '#f7efe1');
+    bgGradient.addColorStop(1, '#ece0ca');
+
+    frameColor = 'rgba(178, 122, 50, 0.45)';
+    innerFrameColor = 'rgba(15, 133, 115, 0.3)';
+    headerColor = '#0f8573';
+    titleColor = '#2c2317';
+    panelBg = 'rgba(255, 255, 255, 0.9)';
+    panelBorder = 'rgba(178, 122, 50, 0.25)';
+    quoteBoxBg = 'rgba(255, 255, 255, 0.95)';
+    quoteBoxBorder = 'rgba(178, 122, 50, 0.45)';
+    quoteColor = '#1a5c3e';
+    badgeColor = '#8c581e';
+    textColor = '#2c2317';
+    metaColor = '#0f8573';
+    footerColor = '#8c581e';
+  } else { // andalusian (default)
+    bgGradient = ctx.createLinearGradient(0, 0, w, 2000);
+    bgGradient.addColorStop(0, '#060914');
+    bgGradient.addColorStop(0.5, '#0f1c3d');
+    bgGradient.addColorStop(1, '#070b18');
+
+    frameColor = 'rgba(214, 168, 92, 0.45)';
+    innerFrameColor = 'rgba(214, 168, 92, 0.25)';
+    headerColor = '#d6a85c';
+    titleColor = '#fdfaf0';
+    panelBg = 'rgba(18, 26, 54, 0.78)';
+    panelBorder = 'rgba(214, 168, 92, 0.25)';
+    quoteBoxBg = 'rgba(214, 168, 92, 0.09)';
+    quoteBoxBorder = 'rgba(214, 168, 92, 0.45)';
+    quoteColor = '#ffffff';
+    badgeColor = '#5fd6c4';
+    textColor = '#e9ecf5';
+    metaColor = '#d6a85c';
+    footerColor = 'rgba(214, 168, 92, 0.85)';
+  }
+
+  // 2. حساب أبعاد النصوص والأقسام لتحديد الارتفاع المطلوب للـ Canvas ديناميكياً
+  const padX = 64;
+  const boxW = w - padX * 2; // 952px
+  const textMaxWidth = boxW - 72; // 880px
+
+  let h;
+  if (currentCardMode === 'quote') {
+    h = 1080;
+  } else {
+    ctx.font = '24px "Tajawal", sans-serif';
+    const introLinesEst = intro ? measureWrappedLines(ctx, intro, textMaxWidth) : [];
+    ctx.font = 'bold 28px "Amiri", serif';
+    const quoteLinesEst = quote ? measureWrappedLines(ctx, quote, textMaxWidth) : [];
+    ctx.font = '23px "Tajawal", sans-serif';
+    const pointsLinesEst = points ? measureWrappedLines(ctx, points, textMaxWidth) : [];
+    const wisdomLinesEst = wisdom ? measureWrappedLines(ctx, wisdom, textMaxWidth) : [];
+
+    let calcH = 290;
+    if (introLinesEst.length) calcH += (52 + introLinesEst.length * 39 + 24) + 24;
+    if (quoteLinesEst.length) calcH += (52 + quoteLinesEst.length * 48 + (quoteMeta ? 40 : 0) + 26) + 24;
+    if (pointsLinesEst.length) calcH += (52 + pointsLinesEst.length * 37 + 24) + 24;
+    if (wisdomLinesEst.length) calcH += (52 + wisdomLinesEst.length * 39 + 24) + 24;
+    calcH += 130;
+
+    if (currentCardMode === 'story') {
+      // نمط الستوري: يبدأ من 1920 كحد أدنى (النسبة العمودية 9:16)، ويتمدد تلقائياً إذا كان النص غنياً وكاملاً حتى يظهر كل المحتوى دون أي اقتطاع!
+      h = Math.max(1920, calcH);
+    } else {
+      h = Math.max(1450, calcH);
+    }
+  }
+
+  cardCanvas.width = w;
+  cardCanvas.height = h;
+  ctx.save();
+  ctx.clearRect(0, 0, w, h);
+
+  // رسم الخلفية
+  ctx.fillStyle = bgGradient;
+  ctx.fillRect(0, 0, w, h);
+
+  // توهج دائري مركزي ناعم
+  const radial = ctx.createRadialGradient(w/2, h/2, 120, w/2, h/2, Math.max(w, h));
+  radial.addColorStop(0, currentCardTheme === 'dawn' ? 'rgba(255, 255, 255, 0.45)' : 'rgba(214, 168, 92, 0.08)');
+  radial.addColorStop(1, 'transparent');
+  ctx.fillStyle = radial;
+  ctx.fillRect(0, 0, w, h);
+
+  // رسم الإطارات والزخارف الإسلامية
+  ctx.strokeStyle = frameColor;
+  ctx.lineWidth = 2.5;
+  ctx.strokeRect(32, 32, w - 64, h - 64);
+
+  ctx.strokeStyle = innerFrameColor;
+  ctx.lineWidth = 1;
+  ctx.strokeRect(44, 44, w - 88, h - 88);
+
+  drawIslamicCorners(ctx, frameColor, w, h);
+
+  // 3. الترويسة والشعار
+  ctx.textAlign = 'center';
+  ctx.fillStyle = headerColor;
+  ctx.font = 'bold 24px "Amiri", serif';
+  ctx.fillText('« زَادُ الْمُؤْمِنِ — خَرِيطَةُ الدُّعَاءِ الشَّامِلَةِ »', w / 2, 92);
+
+  ctx.font = '19px "Tajawal", sans-serif';
+  ctx.fillStyle = currentCardTheme === 'dawn' ? '#6e5d48' : '#93a0c2';
+  ctx.fillText('الصلة المباشرة بين العبد وربه — مفتاح كل خير وبركة', w / 2, 122);
+
+  drawCardDivider(ctx, frameColor, 150, 420);
+
+  // 4. عنوان المحور مع ضبط ذكي
+  ctx.fillStyle = titleColor;
+  const titleFontSize = title.length > 34 ? 36 : 42;
+  ctx.font = 'bold ' + titleFontSize + 'px "Amiri", serif';
+  const titleEndY = drawWrappedText(ctx, title, w / 2, 204, 880, titleFontSize * 1.25, true);
+
+  let curY = Math.max(250, titleEndY + 14);
+
+  // شارة وتمييز نمط الستوري
+  if (currentCardMode === 'story') {
+    ctx.fillStyle = badgeColor;
+    ctx.font = 'bold 22px "Tajawal", sans-serif';
+    ctx.textAlign = 'center';
+    let partBadge = '📱 ستوري — كامل المحتوى';
+    if (isMultiStory) {
+      if (currentStoryPart === 1) partBadge = '✨ ستوري ١ من ٢ (الجزء الأول)';
+      else if (currentStoryPart === 2) partBadge = '✨ ستوري ٢ من ٢ (الجزء الثاني)';
+      else partBadge = '✨ ستوري كامل — كامل المحتوى الأصلي';
+    }
+    ctx.fillText(partBadge, w / 2, curY + 6);
+    curY += 34;
+
+    if (isMultiStory && (currentStoryPart === 1 || currentStoryPart === 2)) {
+      const sub = (currentStoryPart === 1) ? activeTopicData.story1?.subtitle : activeTopicData.story2?.subtitle;
+      if (sub) {
+        ctx.font = '19px "Tajawal", sans-serif';
+        ctx.fillStyle = currentCardTheme === 'dawn' ? '#6e5d48' : '#93a0c2';
+        ctx.fillText(sub, w / 2, curY + 2);
+        curY += 26;
+      }
+    }
+  }
+
+  drawCardDivider(ctx, innerFrameColor, curY, 260);
+  curY += 24;
+
+  // في نمط الستوري، حساب الفراغ المتبقي لتوسيط الأقسام عمودياً بجمالية متناسقة
+  if (currentCardMode === 'story' && h <= 1920) {
+    ctx.font = '24px "Tajawal", sans-serif';
+    const iLines = intro ? measureWrappedLines(ctx, intro, textMaxWidth) : [];
+    ctx.font = 'bold 28px "Amiri", serif';
+    const qLines = quote ? measureWrappedLines(ctx, quote, textMaxWidth) : [];
+    ctx.font = '23px "Tajawal", sans-serif';
+    const pLines = points ? measureWrappedLines(ctx, points, textMaxWidth) : [];
+    const wLines = wisdom ? measureWrappedLines(ctx, wisdom, textMaxWidth) : [];
+
+    let contentH = 0;
+    if (iLines.length) contentH += (52 + iLines.length * 39 + 24) + 28;
+    if (qLines.length) contentH += (52 + qLines.length * 48 + (quoteMeta ? 40 : 0) + 26) + 28;
+    if (pLines.length) contentH += (52 + pLines.length * 37 + 24) + 28;
+    if (wLines.length) contentH += (52 + wLines.length * 39 + 24) + 28;
+
+    const availableSpace = (h - 120) - (curY + contentH);
+    if (availableSpace > 40) {
+      curY += Math.min(80, Math.floor(availableSpace * 0.3));
+    }
+  }
+
+  // 5. رسم الأقسام حسب النمط المختار
+  if (currentCardMode === 'quote') {
+    // نمط المقتطف الموجز المربع (1080×1080)
+    ctx.font = 'bold 30px "Amiri", serif';
+    const quoteLines = measureWrappedLines(ctx, quote, textMaxWidth);
+    const quoteH = 50 + quoteLines.length * 48 + (quoteMeta ? 38 : 0) + 26;
+
+    ctx.fillStyle = quoteBoxBg;
+    roundRect(ctx, padX, curY, boxW, quoteH, 20);
+    ctx.fill();
+    ctx.strokeStyle = quoteBoxBorder;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.fillStyle = quoteColor;
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 30px "Amiri", serif';
+    let qY = curY + 60;
+    quoteLines.forEach(l => {
+      ctx.fillText(l, w / 2, qY);
+      qY += 48;
+    });
+
+    if (quoteMeta) {
+      ctx.fillStyle = metaColor;
+      ctx.font = 'bold 20px "Tajawal", sans-serif';
+      ctx.fillText(`🏷️ ${quoteMeta}`, w / 2, qY + 4);
+    }
+
+    curY += quoteH + 34;
+
+    ctx.font = '24px "Tajawal", sans-serif';
+    const wisdomLines = measureWrappedLines(ctx, wisdom, textMaxWidth);
+    drawContentPanel(ctx, padX, curY, boxW, 'الإضاءة الإيمانية وخلاصة المحور', '💡', wisdomLines, 40, panelBg, panelBorder, badgeColor, textColor);
+  } else {
+    // نمط الانفوجرافيك الكامل والستوري: رسم كافة المعلومات التفصيلية
+    const gap = (currentCardMode === 'story') ? 28 : 22;
+
+    // 1) الشرح والبيان
+    if (intro) {
+      ctx.font = '24px "Tajawal", sans-serif';
+      const introLines = measureWrappedLines(ctx, intro, textMaxWidth);
+      const pH = drawContentPanel(ctx, padX, curY, boxW, 'البيان والشرح الأساسي', '📖', introLines, 39, panelBg, panelBorder, badgeColor, textColor);
+      curY += pH + gap;
+    }
+
+    // 2) الدليل الشرعي والتخريج
+    if (quote) {
+      ctx.font = 'bold 28px "Amiri", serif';
+      const quoteLines = measureWrappedLines(ctx, quote, textMaxWidth);
+      const padBoxH = 52 + quoteLines.length * 48 + (quoteMeta ? 40 : 0) + 26;
+
+      ctx.fillStyle = quoteBoxBg;
+      roundRect(ctx, padX, curY, boxW, padBoxH, 18);
+      ctx.fill();
+      ctx.strokeStyle = quoteBoxBorder;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = badgeColor;
+      ctx.font = 'bold 22px "Tajawal", sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('📜 الدليل الشرعي والتخريج', padX + boxW - 36, curY + 34);
+
+      ctx.strokeStyle = quoteBoxBorder;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padX + 36, curY + 44);
+      ctx.lineTo(padX + boxW - 36, curY + 44);
+      ctx.stroke();
+
+      ctx.fillStyle = quoteColor;
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 28px "Amiri", serif';
+      let qY = curY + 52 + 36;
+      quoteLines.forEach(l => {
+        ctx.fillText(l, w / 2, qY);
+        qY += 48;
+      });
+
+      if (quoteMeta) {
+        ctx.fillStyle = metaColor;
+        ctx.font = 'bold 20px "Tajawal", sans-serif';
+        ctx.fillText(`🏷️ ${quoteMeta}`, w / 2, qY + 6);
+      }
+
+      curY += padBoxH + gap;
+    }
+
+    // 3) النقاط والأمثلة العملية (إن وُجدت)
+    if (points) {
+      ctx.font = '23px "Tajawal", sans-serif';
+      const pointsLines = measureWrappedLines(ctx, points, textMaxWidth);
+      const pnlH = drawContentPanel(ctx, padX, curY, boxW, 'التفصيل والنقاط والأمثلة', '💎', pointsLines, 37, panelBg, panelBorder, badgeColor, textColor);
+      curY += pnlH + gap;
+    }
+
+    // 4) الإضاءة الإيمانية والخلاصة
+    if (wisdom) {
+      ctx.font = '24px "Tajawal", sans-serif';
+      const wisdomLines = measureWrappedLines(ctx, wisdom, textMaxWidth);
+      const wH = drawContentPanel(ctx, padX, curY, boxW, 'الإضاءة الإيمانية والخلاصة', '💡', wisdomLines, 39, panelBg, panelBorder, badgeColor, textColor);
+      curY += wH + gap;
+    }
+  }
+
+  // 6. التذييل والخاتمة في أسفل التصميم دائماً
+  const footerDividerY = h - 85;
+  drawCardDivider(ctx, frameColor, footerDividerY, 580);
+
+  if (isMultiStory && currentStoryPart === 1) {
+    ctx.font = 'bold 22px "Tajawal", sans-serif';
+    ctx.fillStyle = '#ffd700';
+    ctx.textAlign = 'center';
+    ctx.fillText('تابع الجزء الثاني ⬅️ | زاد المؤمن', w / 2, h - 48);
+  } else {
+    ctx.font = '22px "Tajawal", sans-serif';
+    ctx.fillStyle = footerColor;
+    ctx.textAlign = 'right';
+    ctx.fillText('✒️ مساهمة من عمر أفندي', w - 90, h - 48);
+
+    ctx.textAlign = 'left';
+    ctx.fillText('🌙 زاد المؤمن — صدقة جارية', 90, h - 48);
+  }
+
+  ctx.restore();
+}
+
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, isCentered) {
+  if (!text) return y;
+  const paragraphs = text.split('\n');
+  let curY = y;
+
+  paragraphs.forEach(para => {
+    const words = para.trim().split(/\s+/);
+    let line = '';
+
+    for (let n = 0; n < words.length; n++) {
+      const testLine = line + (line ? ' ' : '') + words[n];
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > maxWidth && n > 0) {
+        ctx.fillText(line, x, curY);
+        line = words[n];
+        curY += lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+    if (line) {
+      ctx.fillText(line, x, curY);
+      curY += lineHeight;
+    }
+    curY += lineHeight * 0.15;
+  });
+
+  return curY;
+}
+
+function drawIslamicCorners(ctx, color, w, h) {
+  const margin = 48;
+  const size = 38;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2.5;
+
+  drawCornerUnit(ctx, margin, margin, size, 1, 1);
+  drawCornerUnit(ctx, w - margin, margin, size, -1, 1);
+  drawCornerUnit(ctx, margin, h - margin, size, 1, -1);
+  drawCornerUnit(ctx, w - margin, h - margin, size, -1, -1);
+}
+
+function drawCornerUnit(ctx, x, y, s, dirX, dirY) {
+  ctx.beginPath();
+  ctx.moveTo(x, y + dirY * s);
+  ctx.lineTo(x, y);
+  ctx.lineTo(x + dirX * s, y);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(x + dirX * 14, y + dirY * 14, 3.5, 0, Math.PI * 2);
+  ctx.fillStyle = ctx.strokeStyle;
+  ctx.fill();
+}
+
+function drawCardDivider(ctx, color, y, width) {
+  const cx = 540;
+  const startX = cx - width / 2;
+  const endX = cx + width / 2;
+
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.5;
+
+  ctx.beginPath();
+  ctx.moveTo(startX, y);
+  ctx.lineTo(cx - 24, y);
+  ctx.moveTo(cx + 24, y);
+  ctx.lineTo(endX, y);
+  ctx.stroke();
+
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(cx, y - 7);
+  ctx.lineTo(cx + 9, y);
+  ctx.lineTo(cx, y + 7);
+  ctx.lineTo(cx - 9, y);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function showCardStatus(msg) {
+  const el = document.getElementById('cardStatusMsg');
+  if (el) el.textContent = msg;
+}
+
+function downloadCardImage() {
+  if (!cardCanvas) return;
+  const link = document.createElement('a');
+  const title = document.getElementById('cardCustomTitle')?.value || 'الدعاء';
+  const cleanTitle = title.replace(/[\s\/:*?"<>|]+/g, '-');
+
+  let suffix = currentCardMode;
+  const selectVal = document.getElementById('cardTopicSelect')?.value;
+  if (currentCardMode === 'story') {
+    if (selectVal !== 'custom' && selectVal !== undefined && selectVal !== '') {
+      const t = cardTopicsData[parseInt(selectVal, 10)];
+      if (t && t.hasMultiStory) {
+        suffix = (currentStoryPart === 'all') ? 'ستوري-كامل' : `ستوري-جزء-${currentStoryPart}`;
+      } else {
+        suffix = 'ستوري-كامل';
+      }
+    } else {
+      suffix = 'ستوري-مخصص';
+    }
+  }
+
+  link.download = `زاد-المؤمن-${cleanTitle}-${suffix}.png`;
+  link.href = cardCanvas.toDataURL('image/png');
+  link.click();
+  showCardStatus('تم تحميل الصورة بنجاح! 📥');
+}
+
+async function downloadBothStories() {
+  if (!cardCanvas) return;
+  const title = document.getElementById('cardCustomTitle')?.value || 'الدعاء';
+  const cleanTitle = title.replace(/[\s\/:*?"<>|]+/g, '-');
+
+  showCardStatus('⏳ جاري تصدير ستوري ١ (الجزء الأول)...');
+  switchStoryPart(1);
+  await new Promise(r => setTimeout(r, 140));
+
+  const link1 = document.createElement('a');
+  link1.download = `زاد-المؤمن-${cleanTitle}-ستوري-الجزء-1.png`;
+  link1.href = cardCanvas.toDataURL('image/png');
+  link1.click();
+
+  showCardStatus('⏳ جاري تصدير ستوري ٢ (الجزء الثاني)...');
+  setTimeout(async () => {
+    switchStoryPart(2);
+    await new Promise(r => setTimeout(r, 140));
+
+    const link2 = document.createElement('a');
+    link2.download = `زاد-المؤمن-${cleanTitle}-ستوري-الجزء-2.png`;
+    link2.href = cardCanvas.toDataURL('image/png');
+    link2.click();
+
+    showCardStatus('✅ تم تنزيل كلتا الستوريتين بنجاح!');
+    setTimeout(() => {
+      switchStoryPart('all');
+      showCardStatus('');
+    }, 1500);
+  }, 600);
+}
+
+async function shareCardImage() {
+  if (!cardCanvas) return;
+  const title = document.getElementById('cardCustomTitle')?.value || 'خريطة الدعاء';
+  showCardStatus('جاري تجهيز المشاركة...');
+
+  if (navigator.share && navigator.canShare) {
+    try {
+      cardCanvas.toBlob(async (blob) => {
+        if (!blob) {
+          downloadCardImage();
+          return;
+        }
+        const file = new File([blob], 'zad-al-momen-duaa.png', { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: `زاد المؤمن — ${title}`,
+            text: `${title}\nعبر تطبيق وموقع زاد المؤمن:`,
+            files: [file]
+          });
+          showCardStatus('تمت المشاركة بنجاح! 📲');
+          return;
+        }
+        downloadCardImage();
+      }, 'image/png');
+      return;
+    } catch (err) {
+      console.log('Share error:', err);
+    }
+  }
+  downloadCardImage();
+  showCardStatus('تم حفظ الصورة لجهازك لمشاركتها مباشرة 📲');
+}
+
+async function copyCardImage() {
+  if (!cardCanvas) return;
+  try {
+    cardCanvas.toBlob(async (blob) => {
+      if (!blob) return;
+      if (navigator.clipboard && navigator.clipboard.write) {
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+        showCardStatus('تم نسخ الصورة للحافظة بنجاح! 📋');
+      } else {
+        showCardStatus('المتصفح لا يدعم نسخ الصور، يمكنك استخدام زر التحميل.');
+      }
+    }, 'image/png');
+  } catch (e) {
+    showCardStatus('المتصفح لا يدعم نسخ الصور، يمكنك استخدام زر التحميل.');
+  }
+}
+
+if (window.location.hash === '#cardStudio') {
+  setTimeout(openCardStudio, 350);
 }
 
 function toggleChat() {
@@ -1107,51 +3279,17 @@ document.getElementById('chat-close-btn')?.addEventListener('click', () => {
 
 /* ===== كود بحث دقق حديثاً في الدرر السنية لصفحة duaa.html ===== */
 const hadithQuery = document.getElementById('hadithQuery');
-const hadithResults = document.getElementById('hadithResults');
+const hadithSearchForm = document.getElementById('hadithSearchForm');
 
 function runDorarSearch() {
   if (!hadithQuery) return;
   const q = hadithQuery.value.trim();
   if (!q) return;
 
-  hadithResults.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:16px;">جارٍ البحث في الدرر السنية...</div>';
-
-  const cbName = 'dorarCb_' + Date.now();
-  const cleanup = () => {
-    delete window[cbName];
-    const s = document.getElementById(cbName);
-    if (s) s.remove();
-  };
-
-  const timeoutId = setTimeout(() => {
-    hadithResults.innerHTML = `
-      <div style="text-align:center; color:var(--text-muted); padding:10px;">تعذّر تحميل النتائج المباشرة.</div>
-      <a href="https://dorar.net/hadith/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="display:block; text-align:center; color:var(--gold); font-weight:bold; margin-top:8px;">اضغط هنا للبحث المباشر في موقع الدرر السنية ↗</a>`;
-    cleanup();
-  }, 4500);
-
-  window[cbName] = function(data) {
-    clearTimeout(timeoutId);
-    const list = (data && data.ahadith) ? data.ahadith : [];
-    if (!list.length) {
-      hadithResults.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:12px;">لا توجد نتائج مطابقة لـ "${q}".</div>`;
-    } else {
-      hadithResults.innerHTML = list.slice(0, 8).map(item => `
-        <div class="hadith-result-item" style="background:rgba(0,0,0,0.25); border-right:3px solid var(--gold); border-radius:12px; padding:12px 16px; margin-bottom:10px; font-size:0.92rem; line-height:1.8;">
-          ${item.th || ''}
-        </div>
-      `).join('') + `<a href="https://dorar.net/hadith/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="display:block; text-align:center; color:var(--teal); margin-top:10px; font-size:0.85rem; font-weight:bold;">تصفّح الموسوعة الحديثية كاملة في الدرر السنية ↗</a>`;
-    }
-    cleanup();
-  };
-
-  const script = document.createElement('script');
-  script.id = cbName;
-  script.src = `https://dorar.net/dorar_api.json?skey=${encodeURIComponent(q)}&callback=${cbName}`;
-  document.head.appendChild(script);
+  const dorarUrl = `https://dorar.net/hadith/search?q=${encodeURIComponent(q)}`;
+  window.open(dorarUrl, '_blank', 'noopener,noreferrer');
 }
 
-const hadithSearchForm = document.getElementById('hadithSearchForm');
 if (hadithSearchForm) {
   hadithSearchForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -1172,6 +3310,7 @@ function toggleWaDrawer() {
   }
 }
 </script>
+  <script src="favorites.js" defer></script>
   <script src="notifications.js" defer></script>
   <script src="bot.js" defer></script>
   <script src="check-update.js" defer></script>

@@ -10,7 +10,13 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
@@ -288,11 +294,11 @@
 
   <!-- شبكة أقسام الموسوعة -->
   <div class="main-grid">
-    <div class="portal-card" onclick="window.location.href='duaa.html'">
-      <div class="portal-icon">🤲</div>
-      <div class="portal-title">خريطة الدعاء الشاملة</div>
-      <div class="portal-desc">المواضيع الـ 18 الكاملة: مفهوم الدعاء، علاقته بالقدر، الموانع والمفاتيح.</div>
-      <div class="portal-btn">دخول خريطة الدعاء ↗</div>
+    <div class="portal-card" onclick="window.location.href='topics.html'">
+      <div class="portal-icon">📑</div>
+      <div class="portal-title">المواضيع الإيمانية</div>
+      <div class="portal-desc">خريطة الدعاء الشاملة (18 موضوعاً) واليقين بالله تعالى (10 محاور) والأسئلة.</div>
+      <div class="portal-btn">دخول المواضيع ↗</div>
     </div>
     <div class="portal-card" onclick="window.location.href='names.html'">
       <div class="portal-icon">✨</div>
@@ -326,22 +332,7 @@
     </div>
   </div>
 
-  <!-- بنر تثبيت التطبيق الذكي -->
-  <div id="smart-app-banner" style="display: none; position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); z-index: 9998; width: 92%; max-width: 480px; background: linear-gradient(135deg, #0f1730, #141d3d); border: 1px solid rgba(214, 168, 92, 0.4); border-radius: 18px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); backdrop-filter: blur(12px); color: #f3efe3; font-family: 'Tajawal', sans-serif;">
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 2rem;">🌙</span>
-              <div>
-                  <div style="font-weight: bold; color: #f0d9a8; font-size: 0.95rem;">تطبيق "زاد المؤمن"</div>
-                  <div id="banner-text" style="font-size: 0.8rem; color: #93a0c2; line-height: 1.4; margin-top: 2px;"></div>
-              </div>
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-              <a id="apk-download-btn" href="zad-al-momen.apk" download style="display: none; background: linear-gradient(135deg, #d6a85c, #b9803a); color: #1a1200; font-weight: bold; padding: 8px 14px; border-radius: 10px; text-decoration: none; font-size: 0.82rem; white-space: nowrap;">تحميل APK 📲</a>
-              <button type="button" onclick="closeAppInstallBanner()" style="background: none; border: none; color: #93a0c2; font-size: 1.2rem; cursor: pointer; padding: 4px;">✕</button>
-          </div>
-      </div>
-  </div>
+
 
   <footer>
     <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — موسوعة العلم والإيمان</div>
@@ -371,38 +362,39 @@
     </div>
   </div>
 
-  <!-- ==================== شريط الملاحة السفلي (الفرعي للموسوعة) ==================== -->
+  <!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
+    <!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
   <nav class="liquid-bottom-nav encyclopedia-nav">
-    <a href="index.html" class="liquid-nav-item" style="border-left: 1px solid rgba(214,168,92,0.2);">
-      <span style="font-size: 1.2rem;">↩️</span>
-      <span>رجوع</span>
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
     </a>
-    <a href="duaa.html" class="liquid-nav-item">
-      <span style="font-size: 1.2rem;">🤲</span>
-      <span>الدعاء</span>
+    <a href="topics.html" class="liquid-nav-item">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item active">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="azkar.html" class="liquid-nav-item">
+      <span>📿</span>
+      <span>الأذكار</span>
     </a>
     <a href="names.html" class="liquid-nav-item">
-      <span style="font-size: 1.2rem;">✨</span>
+      <span>✨</span>
       <span>الأسماء</span>
     </a>
     <a href="sunnah.html" class="liquid-nav-item">
-      <span style="font-size: 1.2rem;">🌿</span>
+      <span>🌿</span>
       <span>السنن</span>
     </a>
     <a href="stories.html" class="liquid-nav-item">
-      <span style="font-size: 1.2rem;">📜</span>
+      <span>📜</span>
       <span>القصص</span>
     </a>
-    <a href="books.html" class="liquid-nav-item">
-      <span style="font-size: 1.2rem;">📖</span>
-      <span>المكتبة</span>
-    </a>
-    <a href="azkar.html" class="liquid-nav-item">
-      <span style="font-size: 1.2rem;">📿</span>
-      <span>الأذكار</span>
-    </a>
     <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
-      <span style="font-size: 1.2rem;">💬</span>
+      <span>💬</span>
       <span>المساعد</span>
     </a>
   </nav>
@@ -504,6 +496,7 @@ function toggleWaDrawer() {
 }
 </script>
 
+  <script src="favorites.js" defer></script>
   <script src="notifications.js" defer></script>
   <script src="bot.js" defer></script>
   <script src="check-update.js" defer></script>

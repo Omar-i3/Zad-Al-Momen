@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>بوابة زاد المؤمن</title>
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  <!-- 🚫 منع المتصفح من تخزين صفحة الـ HTML القديمة -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
@@ -14,6 +23,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 
   <link rel="stylesheet" href="app.css">
 
@@ -36,46 +46,134 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* زر قناة الواتساب المطور أسفل اليمين ومتجاوب مع جميع الشاشات */
-    .whatsapp-channel-btn {
-      position: fixed;
-      bottom: calc(82px + env(safe-area-inset-bottom, 0px));
-      right: 16px;
-      z-index: 99990;
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: #ffffff !important;
-      padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
-      border-radius: 30px;
-      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-      display: flex;
-      align-items: center;
-      gap: clamp(6px, 1vw, 10px);
-      text-decoration: none !important;
-      font-family: 'Tajawal', sans-serif;
-      font-size: clamp(0.75rem, 1.2vw, 0.9rem);
-      font-weight: 700;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
+/* ===== ودجت الواتساب الجانبي المنسحب الكامل (جهة اليمين) ===== */
+.wa-drawer {
+  position: fixed;
+  right: 0;
+  left: auto;
+  bottom: clamp(100px, 20vh, 180px);
+  z-index: 99995;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+  /* مطوي جهة اليمين خارج الشاشة بشكل افتراضي */
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-    .whatsapp-channel-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
-    }
+/* حالة الفتح عند النقر */
+.wa-drawer.active {
+  transform: translateX(0);
+}
 
-    .whatsapp-channel-btn:active {
-      transform: scale(0.96);
-    }
+/* الكرت المنسحب من اليمين */
+.wa-drawer-content {
+  width: 260px;
+  background: rgba(15, 23, 48, 0.96);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  border-right: none;
+  border-radius: 18px 0 0 18px;
+  padding: 14px 16px;
+  box-shadow: -6px 10px 30px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-    @media (max-width: 480px) {
-      .whatsapp-channel-btn {
-        bottom: calc(76px + env(safe-area-inset-bottom, 0px));
-        right: 12px;
-        padding: 8px 12px;
-      }
-    }
+/* مقبض زر الواتساب الملتصق بحافة الكرت من اليسار */
+.wa-toggle-btn {
+  position: absolute;
+  right: 100%;
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 50px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+  border-radius: 16px 0 0 16px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: -5px 5px 20px rgba(37, 211, 102, 0.4);
+  gap: 2px;
+  padding: 0;
+}
+
+.wa-toggle-btn .wa-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.wa-drawer.active .wa-toggle-btn .wa-arrow {
+  transform: rotate(180deg);
+}
+
+/* هيدر الكرت وزر الإغلاق */
+.wa-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: 700;
+  color: #f0d9a8;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.wa-close-btn {
+  background: none;
+  border: none;
+  color: #93a0c2;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.wa-close-btn:hover {
+  color: #ffffff;
+}
+
+/* نص الكرت */
+.wa-drawer-text {
+  font-size: 0.82rem;
+  color: #d1d8e6;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* زر الانضمام الأخضر الفخم */
+.wa-join-btn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 4px;
+}
+
+.wa-join-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
+}
+
+.wa-join-btn:active {
+  transform: scale(0.96);
+}
   </style>
 </head>
 <body>
@@ -83,11 +181,65 @@
   <canvas id="stars"></canvas>
   <button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
 
-  <!-- زر متابعة قناة الواتساب أسفل اليمين -->
-  <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="whatsapp-channel-btn" title="تابع قناة زاد المؤمن على الواتساب">
-    <span style="font-size: 1.15rem; line-height: 1;">🟢</span>
-    <span class="btn-text">تابع قناة زاد المؤمن على الواتساب</span>
-  </a>
+  <!-- ودجت الخدمات والتواصل الجانبي المطور -->
+<div id="waSideDrawer" class="wa-drawer">
+  <!-- زر الفتح الصغير الشفاف -->
+  <button type="button" class="wa-toggle-btn" onclick="toggleWaDrawer()" aria-label="الخدمات والتواصل">
+    <span style="font-size: 1rem;">🔗</span>
+    <span class="wa-arrow" style="font-size: 0.65rem;">❯</span>
+  </button>
+
+  <!-- محتوى القائمة المنسحبة -->
+  <div class="wa-drawer-content">
+    <div class="wa-drawer-header">
+      <span>✨ خدمات وتواصل زاد المؤمن</span>
+      <button type="button" class="wa-close-btn" onclick="toggleWaDrawer()">✕</button>
+    </div>
+
+    <!-- 1️⃣ قناة الواتساب -->
+    <div class="drawer-service-card">
+      <div class="drawer-service-title">
+        <span>📢</span>
+        <span>قناة زاد المؤمن على الواتساب</span>
+      </div>
+      <div class="drawer-service-desc">
+        انضم للقناة للحصول على التحديثات والأدعية اليومية.
+      </div>
+      <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="drawer-btn-link btn-wa-channel">
+        الانضمام للقناة ↗
+      </a>
+    </div>
+
+    <!-- 2️⃣ رابط بوت تبصرة -->
+    <div class="drawer-service-card">
+      <div class="drawer-service-title">
+        <span>🌙</span>
+        <span>مساعد تبصرة الرقمي</span>
+      </div>
+      <div class="drawer-service-desc">
+        تصفّح النسخة المباشرة الكاملة من مساعد تبصرة الشرعي الذكي.
+      </div>
+      <a href="https://omar-i3.github.io/Tabsera/" target="_blank" rel="noopener" class="drawer-btn-link btn-tabsera-bot">
+        زيارة موقع تبصرة ↗
+      </a>
+    </div>
+
+    <!-- 3️⃣ الدعم الفني والإقتراحات -->
+    <div class="drawer-service-card">
+      <div class="drawer-service-title">
+        <span>✉️</span>
+        <span>الدعم الفني والإقتراحات</span>
+      </div>
+      <div class="drawer-service-desc">
+        لأي استفسار أو إبلاغ عن مشكلة:
+        <span style="color: var(--gold-soft); font-weight: bold; display: block; margin-top: 2px; word-break: break-all;">support.zad.al.momen@gmail.com</span>
+      </div>
+      <a href="mailto:support.zad.al.momen@gmail.com" class="drawer-btn-link btn-email-support">
+        مراسلة الدعم 📧
+      </a>
+    </div>
+  </div>
+</div>
 
   <div class="hero">
     <div class="moon"></div>
@@ -102,30 +254,93 @@
   </div>
 
   <!-- كارت مواقيت الصلاة (يعتمد على notifications.js) -->
-  <div id="prayer-times-card" style="position: relative; z-index: 1; background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)); border: 1px solid var(--border-glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 20px; padding: 20px; margin: 0 auto 26px; max-width: 600px; text-align: center;">
-    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px;">
-      <h3 style="margin: 0; color: var(--gold-soft); font-size: 1.25rem; font-family: 'Amiri', serif;">🕌 مواقيت الصلاة اليوم</h3>
-      <button type="button" onclick="openAdhanSettings()" style="background: rgba(214,168,92,0.12); border: 1px solid rgba(214,168,92,0.3); color: #f0d9a8; padding: 4px 12px; border-radius: 16px; font-size: 0.7rem; cursor: pointer; font-family: 'Tajawal', sans-serif;">تخصيص</button>
+  <div id="prayer-times-card" style="position: relative; z-index: 1; background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)); border: 1px solid var(--border-glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 24px; padding: 22px 18px; margin: 0 auto 26px; max-width: 620px; text-align: center; box-shadow: 0 12px 35px rgba(0,0,0,0.35);">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding: 0 4px;">
+      <h3 style="margin: 0; color: var(--gold-soft); font-size: 1.25rem; font-family: 'Amiri', serif; display: flex; align-items: center; gap: 8px;">
+        <span>🕌</span> مواقيت الصلاة
+      </h3>
+      <button type="button" onclick="openAdhanSettings()" style="background: rgba(214,168,92,0.12); border: 1px solid rgba(214,168,92,0.35); color: #f0d9a8; padding: 5px 14px; border-radius: 16px; font-size: 0.75rem; cursor: pointer; font-family: 'Tajawal', sans-serif; display: flex; align-items: center; gap: 5px; transition: all 0.2s ease;">
+        <span>⚙️</span> <span>تخصيص التنبيهات</span>
+      </button>
     </div>
-    <div id="prayer-loading" style="color: var(--text-muted); font-size: 0.9rem;">جاري جلب مواقيت الصلاة حسب موقعك...</div>
+
+    <!-- ودجت العد التنازلي المباشر للصلاة القادمة (Next Prayer Countdown Hero) -->
+    <div id="next-prayer-hero" class="next-prayer-hero">
+      <div class="np-top-bar">
+        <div class="np-badge-pill">
+          <span class="np-live-dot"></span>
+          <span id="np-badge-text">الصلاة القادمة</span>
+        </div>
+        <div class="np-target-name">
+          <span class="np-icon" id="np-icon">⏳</span>
+          <span id="np-name">جاري الحساب...</span>
+        </div>
+      </div>
+
+      <div class="np-countdown-boxes">
+        <div class="np-digit-block">
+          <span class="np-digit-val" id="np-hours">--</span>
+          <span class="np-digit-sub">ساعة</span>
+        </div>
+        <span class="np-sep-dots">:</span>
+        <div class="np-digit-block">
+          <span class="np-digit-val" id="np-minutes">--</span>
+          <span class="np-digit-sub">دقيقة</span>
+        </div>
+        <span class="np-sep-dots">:</span>
+        <div class="np-digit-block">
+          <span class="np-digit-val" id="np-seconds">--</span>
+          <span class="np-digit-sub">ثانية</span>
+        </div>
+      </div>
+
+      <div class="np-exact-adhan">
+        <span>موعد الأذان:</span>
+        <strong id="np-exact-time">--:-- --</strong>
+      </div>
+
+      <!-- شريط تقدم الوقت بين الصلاتين -->
+      <div class="np-progress-section">
+        <div class="np-progress-header">
+          <span id="np-prev-label">السابقة</span>
+          <span id="np-percent-label">--%</span>
+          <span id="np-next-label">القادمة</span>
+        </div>
+        <div class="np-progress-track">
+          <div class="np-progress-fill" id="np-progress-bar" style="width: 0%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="prayer-loading" style="color: var(--text-muted); font-size: 0.9rem; padding: 12px 0;">جاري جلب مواقيت الصلاة وتحديد موقعك...</div>
     <div id="prayer-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; display: none;"></div>
   </div>
 
   <!-- آية اليوم والحديث النبوي (متغيرين يومياً تلقائياً) -->
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto 26px; padding: 0 20px; position: relative; z-index: 1;">
     <div style="background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)); border: 1px solid var(--border-glass); backdrop-filter: blur(14px); border-radius: 20px; padding: 20px; text-align: right;">
-      <h3 style="margin: 0 0 10px; color: var(--gold-soft); font-size: 1.15rem; font-family: 'Amiri', serif; display: flex; align-items: center; gap: 8px;">
-        <span>📖</span> آية وتدبر اليوم
-      </h3>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+        <h3 style="margin: 0; color: var(--gold-soft); font-size: 1.15rem; font-family: 'Amiri', serif; display: flex; align-items: center; gap: 8px;">
+          <span>📖</span> آية وتدبر اليوم
+        </h3>
+        <button type="button" onclick="toggleDailyAyahFav()" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); border-radius: 12px; padding: 4px 10px; color: var(--gold-soft); cursor: pointer; font-size: 0.82rem; font-family: 'Tajawal', sans-serif; display: flex; align-items: center; gap: 4px;" title="حفظ الآية في المفضلة">
+          <span id="favAyahStar">⭐</span> <span>حفظ بالمفضلة</span>
+        </button>
+      </div>
       <p id="daily-ayah-text" style="font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--text-main); line-height: 1.9; margin: 0 0 8px;"></p>
       <div id="daily-ayah-meta" style="font-size: 0.8rem; color: var(--gold-soft); text-align: left;"></div>
       <div id="daily-ayah-note" style="font-size: 0.82rem; color: var(--gold-soft); margin-top: 10px; line-height: 1.6; background: rgba(214,168,92,0.1); padding: 8px 12px; border-radius: 10px;"></div>
     </div>
 
     <div style="background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)); border: 1px solid var(--border-glass); backdrop-filter: blur(14px); border-radius: 20px; padding: 20px; text-align: right;">
-      <h3 style="margin: 0 0 10px; color: var(--gold-soft); font-size: 1.15rem; font-family: 'Amiri', serif; display: flex; align-items: center; gap: 8px;">
-        <span>📜</span> حديث اليوم النبوي
-      </h3>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+        <h3 style="margin: 0; color: var(--gold-soft); font-size: 1.15rem; font-family: 'Amiri', serif; display: flex; align-items: center; gap: 8px;">
+          <span>📜</span> حديث اليوم النبوي
+        </h3>
+        <button type="button" onclick="toggleDailyHadithFav()" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); border-radius: 12px; padding: 4px 10px; color: var(--gold-soft); cursor: pointer; font-size: 0.82rem; font-family: 'Tajawal', sans-serif; display: flex; align-items: center; gap: 4px;" title="حفظ الحديث في المفضلة">
+          <span id="favHadithStar">⭐</span> <span>حفظ بالمفضلة</span>
+        </button>
+      </div>
       <p id="daily-hadith-text" style="font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--text-main); line-height: 1.9; margin: 0 0 10px;"></p>
       <div id="daily-hadith-meta" style="font-size: 0.8rem; color: var(--teal); text-align: left;"></div>
     </div>
@@ -136,7 +351,7 @@
     <div class="search-box">
       <span>🔎</span>
       <form id="sectionSearchForm" style="flex:1;display:contents;">
-        <input type="text" id="sectionSearch" enterkeyhint="search" autocomplete="off" placeholder="ابحث في أقسام البوابة (خريطة الدعاء، الأذكار)...">
+        <input type="text" id="sectionSearch" enterkeyhint="search" autocomplete="off" placeholder="ابحث في أقسام البوابة (المواضيع الإيمانية، الموسوعة، المكتبة)...">
       </form>
     </div>
     <div class="search-count" id="searchCount"></div>
@@ -151,11 +366,11 @@
       <div class="portal-btn">دخول القسم ←</div>
     </div>
 
-    <div class="portal-card" onclick="window.location.href='azkar.html'">
-      <div class="portal-icon">📿</div>
-      <div class="portal-title">ركن الأذكار اليومية</div>
-      <div class="portal-desc">أذكار الصباح والمساء، أذكار الصلاة، والأدعية المأثورة عن النبي ﷺ.</div>
-      <div class="portal-btn">دخول القسم ←</div>
+    <div class="portal-card" onclick="window.location.href='topics.html'">
+      <div class="portal-icon">📑</div>
+      <div class="portal-title">المواضيع الإيمانية</div>
+      <div class="portal-desc">خريطة الدعاء الشاملة واليقين بالله ومراتبه وتجلياته وبنك الأسئلة الإيمانية.</div>
+      <div class="portal-btn">استكشف المواضيع ←</div>
     </div>
 
     <div class="portal-card" onclick="window.location.href='books.html'">
@@ -239,28 +454,31 @@
   </div>
 
  <!-- ==================== شريط الملاحة السفلي (الرئيسية) ==================== -->
-<nav class="liquid-bottom-nav">
-  <a href="index.html" class="liquid-nav-item active">
-    <span style="font-size: 1.2rem;">🏠</span>
-    <span>الرئيسية</span>
-  </a>
-  <a href="encyclopedia.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📚</span>
-    <span>الموسوعة</span>
-  </a>
-  <a href="azkar.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📿</span>
-    <span>الأذكار</span>
-  </a>
-  <a href="javascript:void(0)" onclick="openAppModal()" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📱</span>
-    <span>تطبيق</span>
-  </a>
-  <a href="javascript:void(0)" onclick="openAiChat()" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">💬</span>
-    <span>المساعد</span>
-  </a>
-</nav>
+  <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+  <nav class="liquid-bottom-nav">
+    <a href="index.html" class="liquid-nav-item active">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="books.html" class="liquid-nav-item">
+      <span>📖</span>
+      <span>المكتبة</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span>💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
 
   <!-- ==================== السكربتات البرمجية ==================== -->
   <script>
@@ -365,39 +583,12 @@
 
     /* ===== الدرر السنية ===== */
     const hadithQuery = document.getElementById('hadithQuery');
-    const hadithResults = document.getElementById('hadithResults');
-    function renderDorarFallback(message, q) {
-      if (!hadithResults) return;
-      hadithResults.innerHTML = `
-        <div class="hadith-empty" style="text-align:center; color:var(--text-muted); padding:10px;">${message}</div>
-        <a href="https://dorar.net/hadith/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="display:block; text-align:center; color:var(--gold); font-weight:bold; margin-top:8px;">
-          اضغط هنا للانتقال للبحث المباشر في موقع الدرر السنية ↗
-        </a>`;
-    }
     function runDorarSearch() {
       if (!hadithQuery) return;
       const q = hadithQuery.value.trim();
       if (!q) return;
-      if (hadithResults) hadithResults.innerHTML = '<div class="hadith-loading" style="text-align:center; padding:12px;">جارٍ البحث في الدرر السنية...</div>';
-      const cbName = 'dorarCb_' + Date.now();
-      const cleanup = () => { delete window[cbName]; const s = document.getElementById(cbName); if (s) s.remove(); };
-      const timeoutId = setTimeout(() => { renderDorarFallback('تعذّر الوصول للنتائج المباشرة.', q); cleanup(); }, 4500);
-      window[cbName] = function(data) {
-        clearTimeout(timeoutId);
-        const list = (data && data.ahadith) ? data.ahadith : [];
-        if (!list.length) { renderDorarFallback('لا توجد نتائج مطابقة.', q); }
-        else {
-          if (hadithResults) {
-            hadithResults.innerHTML = list.slice(0, 8).map(item => `<div class="hadith-result-item" style="background:rgba(0,0,0,0.25); border-right:3px solid var(--gold); border-radius:12px; padding:12px 16px; margin-bottom:10px; font-size:0.92rem; line-height:1.8;">${item.th || ''}</div>`).join('') +
-              `<a class="hadith-source-link" href="https://dorar.net/hadith/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="display:block; text-align:center; color:var(--teal); margin-top:10px; font-weight:bold;">تصفّح الموسوعة الحديثية كاملة ↗</a>`;
-          }
-        }
-        cleanup();
-      };
-      const script = document.createElement('script');
-      script.id = cbName;
-      script.src = `https://dorar.net/dorar_api.json?skey=${encodeURIComponent(q)}&callback=${cbName}`;
-      document.head.appendChild(script);
+      const dorarUrl = `https://dorar.net/hadith/search?q=${encodeURIComponent(q)}`;
+      window.open(dorarUrl, '_blank', 'noopener,noreferrer');
     }
     document.getElementById('hadithSearchForm')?.addEventListener('submit', (e) => { e.preventDefault(); runDorarSearch(); });
 
@@ -488,9 +679,71 @@
       document.getElementById('daily-hadith-text').innerText = currentHadith.text;
       document.getElementById('daily-hadith-meta').innerText = currentHadith.meta;
     }
+
+    /* ===== دوال المفضلة للآية والحديث اليومي ===== */
+    function updateDailyFavButtons() {
+      if (typeof ZadFavorites === 'undefined') return;
+      const ayahId = 'daily_ayah_' + dayIndex;
+      const hadithId = 'daily_hadith_' + dayIndex;
+      const isAyahFav = ZadFavorites.isFavorited(ayahId);
+      const isHadithFav = ZadFavorites.isFavorited(hadithId);
+
+      const ayahStar = document.getElementById('favAyahStar');
+      const hadithStar = document.getElementById('favHadithStar');
+      if (ayahStar) ayahStar.textContent = isAyahFav ? '🌟' : '⭐';
+      if (hadithStar) hadithStar.textContent = isHadithFav ? '🌟' : '⭐';
+    }
+
+    window.toggleDailyAyahFav = function() {
+      if (typeof ZadFavorites === 'undefined') {
+        if (typeof showToast === 'function') showToast('جاري تحميل نظام المفضلة...');
+        return;
+      }
+      const ayahId = 'daily_ayah_' + dayIndex;
+      const isAdded = ZadFavorites.toggle({
+        id: ayahId,
+        title: 'آية وتدبر: ' + currentAyah.meta,
+        type: 'daily',
+        categoryLabel: '📖 آية وحديث',
+        icon: '📖',
+        snippet: currentAyah.text,
+        link: 'index.html'
+      });
+      updateDailyFavButtons();
+    };
+
+    window.toggleDailyHadithFav = function() {
+      if (typeof ZadFavorites === 'undefined') {
+        if (typeof showToast === 'function') showToast('جاري تحميل نظام المفضلة...');
+        return;
+      }
+      const hadithId = 'daily_hadith_' + dayIndex;
+      const isAdded = ZadFavorites.toggle({
+        id: hadithId,
+        title: 'حديث اليوم: ' + currentHadith.meta,
+        type: 'daily',
+        categoryLabel: '📖 آية وحديث',
+        icon: '📜',
+        snippet: currentHadith.text,
+        link: 'index.html'
+      });
+      updateDailyFavButtons();
+    };
+
+    document.addEventListener('DOMContentLoaded', updateDailyFavButtons);
+    setTimeout(updateDailyFavButtons, 400);
   </script>
+<script>
+function toggleWaDrawer() {
+  const drawer = document.getElementById('waSideDrawer');
+  if (drawer) {
+    drawer.classList.toggle('active');
+  }
+}
+</script>
 
   <!-- ربط السكربتات الأساسية المعتمدة -->
+  <script src="favorites.js" defer></script>
   <script src="notifications.js" defer></script>
   <script src="bot.js" defer></script>
   <script src="check-update.js" defer></script>

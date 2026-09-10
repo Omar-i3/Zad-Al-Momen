@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>المواضيع الإيمانية — زاد المؤمن</title>
+
+  <!-- 🚫 منع المتصفح من تخزين صفحة الـ HTML القديمة -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- أيقونة الموقع والخطوط الرسمية -->
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+  <!-- إعدادات تطبيق PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
+  <link rel="stylesheet" href="app.css">
+
+  <style>
+/* ===== ودجت الواتساب الجانبي المنسحب الكامل (جهة اليمين) ===== */
+.wa-drawer {
+  position: fixed;
+  right: 0;
+  left: auto;
+  bottom: clamp(100px, 20vh, 180px);
+  z-index: 99995;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wa-drawer.active {
+  transform: translateX(0);
+}
+
+.wa-drawer-content {
+  width: 260px;
+  background: rgba(15, 23, 48, 0.96);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  border-right: none;
+  border-radius: 18px 0 0 18px;
+  padding: 14px 16px;
+  box-shadow: -6px 10px 30px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wa-toggle-btn {
+  position: absolute;
+  right: 100%;
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 50px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+  border-radius: 16px 0 0 16px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: -5px 5px 20px rgba(37, 211, 102, 0.4);
+  gap: 2px;
+  padding: 0;
+}
+
+.wa-toggle-btn .wa-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.wa-drawer.active .wa-toggle-btn .wa-arrow {
+  transform: rotate(180deg);
+}
+
+.wa-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: 700;
+  color: #f0d9a8;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.wa-close-btn {
+  background: none;
+  border: none;
+  color: #93a0c2;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.wa-close-btn:hover {
+  color: #ffffff;
+}
+
+.wa-drawer-text {
+  font-size: 0.82rem;
+  color: #d1d8e6;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wa-join-btn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 4px;
+}
+
+.wa-join-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
+}
+
+.wa-join-btn:active {
+  transform: scale(0.96);
+}
+</style>
+
+  <style>
+    :root {
+      --bg-deep: #070b18;
+      --bg-panel: #0f1730;
+      --bg-panel-2: #141d3d;
+      --gold: #d6a85c;
+      --gold-soft: #f0d9a8;
+      --teal: #5fd6c4;
+      --text-main: #f3efe3;
+      --text-muted: #93a0c2;
+      --border-glass: rgba(214, 168, 92, 0.28);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background:
+        radial-gradient(ellipse at 20% -10%, rgba(95,214,196,0.12), transparent 45%),
+        radial-gradient(ellipse at 80% 0%, rgba(214,168,92,0.14), transparent 40%),
+        var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding-bottom: 120px;
+    }
+
+    #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    h1, h2, h3, .amiri { font-family: 'Amiri', serif; }
+
+    /* ---------- الهيرو الرئيسي ---------- */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 60px 20px 30px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      margin: 0 0 8px; color: var(--gold-soft);
+      letter-spacing: 1px;
+    }
+    .hero .tagline {
+      font-size: 1.1rem; color: var(--text-muted);
+      max-width: 650px; margin: 0 auto 20px; line-height: 1.8;
+    }
+
+    /* ---------- كبسولة توقيت مكة والتاريخ ---------- */
+    #time-hijri-container {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      margin: 12px auto 18px !important;
+      padding: 8px 16px !important;
+      width: fit-content !important;
+      max-width: 92% !important;
+      background: rgba(15, 23, 42, 0.7) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border: 1px solid rgba(214, 168, 92, 0.3) !important;
+      border-radius: 30px !important;
+      position: relative !important; z-index: 10 !important;
+    }
+    #makkah-time-text { font-family: 'Tajawal', sans-serif !important; font-size: 0.82rem !important; font-weight: 700 !important; color: #f0d9a8 !important; }
+    #hijri-date-text { font-family: 'Amiri', serif !important; font-size: 0.9rem !important; color: #d6a85c !important; }
+
+    /* ---------- شريط الإحصائيات السريعة ---------- */
+    .stats-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 800px;
+      margin: 10px auto 30px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .stat-badge {
+      background: rgba(15, 23, 48, 0.7);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .stat-badge strong {
+      color: var(--gold-soft);
+      font-family: 'Amiri', serif;
+      font-size: 1.15rem;
+    }
+
+    /* ---------- شبكة الكروت الكبرى للمواضيع (Grand Topics Grid) ---------- */
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topic-hero-card {
+      background: linear-gradient(160deg, rgba(20, 29, 61, 0.85), rgba(15, 23, 48, 0.9));
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .topic-hero-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(214,168,92,0.1) 0%, transparent 60%);
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      opacity: 0.5;
+    }
+
+    .topic-hero-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(214,168,92,0.25);
+    }
+
+    .topic-hero-card.yaqeen-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(95,214,196,0.25);
+    }
+
+    .topic-badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold-soft);
+      background: rgba(214, 168, 92, 0.15);
+      border: 1px solid rgba(214, 168, 92, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      width: fit-content;
+      margin-bottom: 14px;
+    }
+
+    .topic-hero-card.yaqeen-card .topic-badge-tag {
+      color: #a5f3fc;
+      background: rgba(95, 214, 196, 0.15);
+      border-color: rgba(95, 214, 196, 0.3);
+    }
+
+    .topic-contributor-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--gold-soft);
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.14), rgba(15, 23, 48, 0.6));
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      padding: 3px 10px;
+      border-radius: 16px;
+      margin-top: 6px;
+      width: fit-content;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .topic-hero-card.yaqeen-card .topic-contributor-tag {
+      color: #a5f3fc;
+      background: linear-gradient(135deg, rgba(95, 214, 196, 0.14), rgba(15, 23, 48, 0.6));
+      border-color: rgba(95, 214, 196, 0.35);
+    }
+
+    .topic-header-flex {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .topic-big-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .topic-title-box h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      color: var(--gold-soft);
+      line-height: 1.3;
+    }
+
+    .topic-hero-card.yaqeen-card .topic-title-box h2 {
+      color: #e0f2fe;
+    }
+
+    .topic-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .topic-features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .topic-features-list li {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topic-features-list li span {
+      color: var(--teal);
+      font-weight: bold;
+    }
+
+    .topic-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #1a1200 !important;
+      text-decoration: none !important;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(214, 168, 92, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
+      text-align: center;
+    }
+
+    .topic-hero-card.yaqeen-card .topic-action-btn {
+      background: linear-gradient(135deg, var(--teal), #0d9488);
+      color: #042f2e !important;
+      box-shadow: 0 6px 18px rgba(95, 214, 196, 0.3);
+    }
+
+    .topic-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(214, 168, 92, 0.5);
+    }
+
+    .topic-hero-card.yaqeen-card .topic-action-btn:hover {
+      box-shadow: 0 10px 25px rgba(95, 214, 196, 0.5);
+    }
+
+    /* ---------- مقارنة سريعة / جدول المحاور ---------- */
+    .section-label { text-align: center; position: relative; z-index: 1; margin: 40px 0 16px; }
+    .section-label span {
+      font-family: 'Amiri', serif; font-size: 1.65rem; color: var(--gold-soft);
+      padding-bottom: 6px; border-bottom: 2px solid var(--border-glass);
+    }
+    .section-sub { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 28px; }
+
+    .quick-nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      max-width: 900px;
+      margin: 0 auto 30px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill-link {
+      background: rgba(15, 23, 48, 0.65);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 8px 16px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    .pill-link:hover {
+      background: rgba(214, 168, 92, 0.2);
+      border-color: var(--gold);
+      color: var(--gold-soft);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- متغير ومحددات حجم الخط التفاعلي ---------- */
+    :root {
+      --content-font-scale: 1;
+    }
+    .topic-hero-card p,
+    .topic-hero-card li,
+    .suggest-hero-banner p,
+    .pill-link {
+      font-size: calc(0.86rem * var(--content-font-scale, 1)) !important;
+    }
+
+    /* ---------- شريط أدوات القراءة والمظهر العائم الفاخر ---------- */
+    .reader-floating-bar {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 48, 0.82);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 5px 8px;
+      border-radius: 28px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+      transition: all 0.3s ease;
+    }
+    .reader-floating-bar:hover {
+      border-color: rgba(214, 168, 92, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .reader-tool-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: var(--gold-soft);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+    .reader-tool-btn:hover {
+      border-color: var(--gold);
+      transform: scale(1.08);
+      background: rgba(214, 168, 92, 0.18);
+    }
+    .font-stepper-capsule {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px;
+      padding: 2px 4px;
+      gap: 2px;
+    }
+    .stepper-btn {
+      background: transparent;
+      border: none;
+      color: var(--gold-soft);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .stepper-btn:hover {
+      background: rgba(214, 168, 92, 0.25);
+      color: #ffffff;
+    }
+    .stepper-val {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 0 5px;
+      cursor: pointer;
+      user-select: none;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .stepper-val:hover {
+      color: var(--gold);
+    }
+    .card-studio-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.22), rgba(95, 214, 196, 0.18));
+      border: 1px solid rgba(214, 168, 92, 0.4);
+      color: var(--gold-soft);
+      padding: 5px 12px;
+      border-radius: 18px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .card-studio-trigger-btn:hover {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #1a1200;
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(214, 168, 92, 0.35);
+      transform: translateY(-1px);
+    }
+
+    body.light {
+      --bg-deep: #f8f4ec;
+      --bg-panel: #ffffff;
+      --bg-panel-2: #fffaf0;
+      --gold: #b27a32;
+      --gold-soft: #8c581e;
+      --teal: #0f8573;
+      --text-main: #2c2317;
+      --text-muted: #6e5d48;
+      --border-glass: rgba(178, 122, 50, 0.22);
+    }
+
+    body.light .stat-badge {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(178, 122, 50, 0.22);
+      box-shadow: 0 4px 15px rgba(140, 88, 30, 0.06);
+    }
+
+    body.light .topic-hero-card {
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(253, 248, 238, 0.95));
+      border-color: rgba(178, 122, 50, 0.25);
+      box-shadow: 0 15px 35px rgba(140, 88, 30, 0.08);
+    }
+
+    body.light .topic-hero-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 20px 45px rgba(140, 88, 30, 0.14), 0 0 25px rgba(178, 122, 50, 0.15);
+    }
+
+    body.light .topic-hero-card.yaqeen-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 20px 45px rgba(15, 133, 115, 0.14), 0 0 25px rgba(15, 133, 115, 0.15);
+    }
+
+    body.light .topic-contributor-tag {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.2), rgba(255, 255, 255, 0.85));
+      border-color: rgba(178, 122, 50, 0.3);
+      color: var(--gold-soft);
+    }
+
+    body.light .topic-hero-card.yaqeen-card .topic-contributor-tag {
+      background: linear-gradient(135deg, rgba(15, 133, 115, 0.15), rgba(255, 255, 255, 0.85));
+      border-color: rgba(15, 133, 115, 0.3);
+      color: #0f8573;
+    }
+
+    body.light .topic-big-icon {
+      background: rgba(255, 255, 255, 0.8);
+      border-color: rgba(178, 122, 50, 0.2);
+    }
+
+    body.light .topic-hero-card.yaqeen-card .topic-title-box h2 {
+      color: #0f8573;
+    }
+
+    body.light .pill-link {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(178, 122, 50, 0.2);
+      color: var(--text-main);
+      box-shadow: 0 2px 8px rgba(140, 88, 30, 0.05);
+    }
+
+    body.light .pill-link:hover {
+      background: rgba(178, 122, 50, 0.12);
+      border-color: var(--gold);
+      color: var(--gold-soft);
+    }
+
+    /* ---------- شريط دعوة إضافة موضوع في المنتصف (Hero Banner) ---------- */
+    .suggest-hero-banner-wrap {
+      max-width: 820px;
+      margin: 0 auto 34px;
+      padding: 0 18px;
+      position: relative;
+      z-index: 2;
+    }
+    .suggest-hero-banner {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.14), rgba(15, 23, 48, 0.88));
+      border: 1px solid rgba(214, 168, 92, 0.38);
+      border-radius: 22px;
+      padding: 18px 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      cursor: pointer;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .suggest-hero-banner:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+      box-shadow: 0 14px 38px rgba(214, 168, 92, 0.22);
+    }
+    .suggest-banner-top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--gold-soft);
+      background: rgba(214, 168, 92, 0.18);
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      padding: 3px 12px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+    }
+    .suggest-banner-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .suggest-banner-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(214, 168, 92, 0.15);
+      border: 1px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .suggest-banner-text {
+      flex: 1;
+      min-width: 260px;
+    }
+    .suggest-banner-text h3 {
+      margin: 0 0 4px;
+      font-size: 1.25rem;
+      color: var(--gold-soft);
+      font-family: 'Amiri', serif;
+    }
+    .suggest-banner-text p {
+      margin: 0;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .suggest-banner-btn {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      border: none;
+      color: #1a1200 !important;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(214, 168, 92, 0.3);
+      font-family: 'Tajawal', sans-serif;
+      white-space: nowrap;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .suggest-banner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(214, 168, 92, 0.45);
+    }
+    .suggest-banner-email-strip {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: center;
+    }
+    .suggest-banner-email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--gold-soft);
+      text-decoration: none !important;
+      padding: 5px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      transition: all 0.2s ease;
+      flex-wrap: wrap;
+    }
+    .suggest-banner-email-link:hover {
+      background: rgba(214, 168, 92, 0.16);
+      border-color: var(--gold);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .suggest-banner-email-link .email-auto-badge {
+      background: rgba(214, 168, 92, 0.18);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      color: var(--gold);
+      border: 1px solid rgba(214, 168, 92, 0.25);
+    }
+
+    /* ---------- نافذة استوديو اقتراح موضوع جديد (Modal) ---------- */
+    .suggest-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 5, 14, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999999;
+      padding: 16px;
+    }
+    .suggest-modal-overlay.open {
+      display: flex !important;
+    }
+    .suggest-modal-box {
+      background: linear-gradient(180deg, var(--bg-panel-2), var(--bg-panel));
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 26px 22px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      position: relative;
+      animation: suggestModalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes suggestModalPop {
+      from { opacity: 0; transform: scale(0.94) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .suggest-modal-close {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      z-index: 3;
+    }
+    .suggest-modal-close:hover {
+      background: rgba(237, 76, 92, 0.2);
+      color: #ff6b6b;
+    }
+    .suggest-modal-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-glass);
+    }
+    .suggest-modal-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: rgba(214, 168, 92, 0.15);
+      border: 1px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .suggest-modal-head h3 {
+      margin: 0 0 4px;
+      font-size: 1.35rem;
+      color: var(--gold-soft);
+      font-family: 'Amiri', serif;
+    }
+    .suggest-modal-head p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .suggest-field-group {
+      margin-bottom: 14px;
+      text-align: right;
+    }
+    .suggest-field-group label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .suggest-field-group label .optional-tag {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+    .suggest-field-group label .required-tag {
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    .suggest-field-group input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 14px;
+      padding: 10px 14px;
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      box-sizing: border-box;
+    }
+    .suggest-field-group input:focus {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.06);
+    }
+    .suggest-field-group input::placeholder {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* أزرار التبديل بين محرر النصوص ورفع PDF */
+    .suggest-tab-bar {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0 12px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 4px;
+      border-radius: 14px;
+      border: 1px solid var(--border-glass);
+    }
+    .suggest-tab-btn {
+      flex: 1;
+      padding: 9px 12px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Tajawal', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .suggest-tab-btn.active {
+      background: var(--gold);
+      color: #1a1200;
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(214, 168, 92, 0.3);
+    }
+
+    /* شريط أدوات التحبير والتنسيق */
+    .inking-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      border-bottom: none;
+      border-radius: 14px 14px 0 0;
+      padding: 8px 10px;
+    }
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .toolbar-label {
+      font-size: 0.74rem;
+      color: var(--gold-soft);
+      font-weight: 700;
+      margin-inline-end: 2px;
+    }
+    .pen-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border-glass);
+      background: rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .pen-btn:hover {
+      transform: scale(1.15);
+      border-color: var(--gold);
+    }
+    .pen-clear {
+      width: auto;
+      padding: 0 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: 'Tajawal', sans-serif;
+    }
+    .toolbar-separator {
+      width: 1px;
+      height: 20px;
+      background: var(--border-glass);
+      margin: 0 4px;
+    }
+    .tool-btn {
+      padding: 4px 8px;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border-glass);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .tool-btn:hover {
+      background: rgba(214, 168, 92, 0.18);
+      border-color: var(--gold);
+      color: #ffffff;
+    }
+
+    /* مربع الكتابة التفاعلي */
+    .rich-editor-box {
+      min-height: 120px;
+      max-height: 200px;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: 0 0 14px 14px;
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      text-align: right;
+      outline: none;
+      box-sizing: border-box;
+      direction: rtl;
+    }
+    .rich-editor-box:focus {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.04);
+    }
+    .rich-editor-box:empty:before {
+      content: attr(data-placeholder);
+      color: var(--text-muted);
+      opacity: 0.75;
+      pointer-events: none;
+    }
+    .editor-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* منطقة رفع ملف PDF */
+    .pdf-upload-dropzone {
+      border: 2px dashed var(--border-glass);
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .pdf-upload-dropzone:hover, .pdf-upload-dropzone.dragover {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.08);
+      transform: translateY(-2px);
+    }
+    .dropzone-icon {
+      font-size: 2.4rem;
+    }
+    .dropzone-text strong {
+      display: block;
+      color: var(--gold-soft);
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+    .dropzone-text span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+    .dropzone-select-btn {
+      background: rgba(214, 168, 92, 0.15);
+      border: 1px solid var(--border-glass);
+      color: var(--gold-soft);
+      padding: 6px 16px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .dropzone-select-btn:hover {
+      background: var(--gold);
+      color: #1a1200;
+    }
+    .pdf-selected-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(214, 168, 92, 0.12);
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-top: 10px;
+    }
+    .pdf-file-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pdf-file-info .pdf-icon {
+      font-size: 1.4rem;
+    }
+    .pdf-file-info strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--gold-soft);
+      word-break: break-all;
+    }
+    .pdf-file-info span {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+    .pdf-remove-btn {
+      background: rgba(237, 76, 92, 0.2);
+      border: none;
+      color: #ff6b6b;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-remove-btn:hover {
+      background: #e74c3c;
+      color: #ffffff;
+    }
+    .pdf-email-instruction {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: rgba(95, 214, 196, 0.08);
+      border: 1px solid rgba(95, 214, 196, 0.3);
+      border-radius: 12px;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    /* أزرار الإرسال والمراسلة */
+    .suggest-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #1a1200;
+      border: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(214, 168, 92, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-family: 'Tajawal', sans-serif;
+      margin-top: 18px;
+    }
+    .suggest-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(214, 168, 92, 0.45);
+    }
+    .suggest-modal-divider {
+      text-align: center;
+      position: relative;
+      margin: 16px 0 12px;
+    }
+    .suggest-modal-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--border-glass);
+    }
+    .suggest-modal-divider span {
+      position: relative;
+      background: var(--bg-panel);
+      padding: 0 12px;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .suggest-modal-direct-email {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      color: var(--gold-soft);
+      font-size: 0.82rem;
+      text-decoration: none !important;
+      transition: all 0.2s ease;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .suggest-modal-direct-email:hover {
+      background: rgba(214, 168, 92, 0.15);
+      border-color: var(--gold);
+      color: #ffffff;
+    }
+    .suggest-modal-direct-email .auto-subject-hint {
+      font-size: 0.72rem;
+      color: var(--gold);
+      opacity: 0.9;
+    }
+
+    /* تخصيص الوضع النهاري للشريط الأوسط واستوديو الكتابة */
+    body.light .suggest-hero-banner {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(253, 248, 238, 0.98));
+      border-color: rgba(178, 122, 50, 0.3);
+      box-shadow: 0 10px 30px rgba(140, 88, 30, 0.08);
+    }
+    body.light .suggest-hero-banner:hover {
+      border-color: var(--gold);
+      box-shadow: 0 14px 35px rgba(140, 88, 30, 0.14);
+    }
+    body.light .suggest-banner-top-badge {
+      background: rgba(178, 122, 50, 0.12);
+      color: var(--gold-soft);
+      border-color: rgba(178, 122, 50, 0.25);
+    }
+    body.light .suggest-banner-icon {
+      background: rgba(178, 122, 50, 0.1);
+      border-color: rgba(178, 122, 50, 0.2);
+    }
+    body.light .suggest-banner-email-strip {
+      border-top-color: rgba(178, 122, 50, 0.15);
+    }
+    body.light .suggest-banner-email-link {
+      background: rgba(178, 122, 50, 0.06);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--gold-soft);
+    }
+    body.light .suggest-banner-email-link:hover {
+      background: rgba(178, 122, 50, 0.14);
+      color: var(--text-main);
+    }
+    body.light .suggest-banner-email-link .email-auto-badge {
+      background: rgba(178, 122, 50, 0.12);
+      color: var(--gold-soft);
+      border-color: rgba(178, 122, 50, 0.25);
+    }
+    body.light .suggest-modal-overlay {
+      background: rgba(44, 35, 23, 0.6);
+    }
+    body.light .suggest-modal-box {
+      background: linear-gradient(180deg, #ffffff, #fdfaf3);
+      border-color: rgba(178, 122, 50, 0.3);
+      box-shadow: 0 20px 50px rgba(140, 88, 30, 0.2);
+    }
+    body.light .suggest-modal-close {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--text-main);
+    }
+    body.light .suggest-field-group input {
+      background: #ffffff;
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--text-main);
+    }
+    body.light .suggest-tab-bar {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.2);
+    }
+    body.light .suggest-tab-btn.active {
+      background: var(--gold);
+      color: #ffffff;
+    }
+    body.light .inking-toolbar {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(178, 122, 50, 0.22);
+    }
+    body.light .tool-btn, body.light .pen-btn {
+      background: #ffffff;
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--text-main);
+    }
+    body.light .rich-editor-box {
+      background: #ffffff;
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--text-main);
+    }
+    body.light .pdf-upload-dropzone {
+      background: #ffffff;
+      border-color: rgba(178, 122, 50, 0.3);
+    }
+    body.light .pdf-selected-card {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.3);
+    }
+    body.light .pdf-email-instruction {
+      background: rgba(15, 133, 115, 0.06);
+      border-color: rgba(15, 133, 115, 0.25);
+      color: var(--text-main);
+    }
+    body.light .suggest-modal-divider span {
+      background: #ffffff;
+    }
+    body.light .suggest-modal-direct-email {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--gold-soft);
+    }
+    body.light .suggest-modal-direct-email:hover {
+      background: rgba(178, 122, 50, 0.18);
+      color: var(--text-main);
+    }
+    body.light .reader-floating-bar {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(178, 122, 50, 0.28);
+      box-shadow: 0 8px 25px rgba(140, 88, 30, 0.12);
+    }
+    body.light .reader-tool-btn {
+      background: rgba(178, 122, 50, 0.1);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--gold-soft);
+    }
+    body.light .font-stepper-capsule {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.2);
+    }
+    body.light .stepper-btn {
+      color: var(--text-main);
+    }
+    body.light .stepper-btn:hover {
+      background: rgba(178, 122, 50, 0.2);
+      color: var(--gold-soft);
+    }
+    body.light .card-studio-trigger-btn {
+      background: linear-gradient(135deg, rgba(178, 122, 50, 0.14), rgba(15, 133, 115, 0.12));
+      border-color: rgba(178, 122, 50, 0.3);
+      color: var(--gold-soft);
+    }
+    body.light .card-studio-trigger-btn:hover {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars"></canvas>
+
+  <!-- شريط أدوات القراءة والمظهر العائم الفاخر -->
+  <div class="reader-floating-bar" id="readerFloatingBar">
+    <button class="reader-tool-btn" id="themeBtn" aria-label="تبديل الوضع" title="تبديل الوضع النهاري / الليلي">🌞</button>
+    
+    <div class="font-stepper-capsule" title="التحكم بحجم الخط">
+      <button type="button" class="stepper-btn" onclick="changeFontSize(-0.10)" aria-label="تصغير الخط" title="تصغير الخط">A-</button>
+      <span class="stepper-val" id="fontSizeDisplay" onclick="resetFontSize()" title="اضغط لإعادة ضبط حجم الخط إلى 100%">100%</span>
+      <button type="button" class="stepper-btn" onclick="changeFontSize(0.10)" aria-label="تكبير الخط" title="تكبير الخط">A+</button>
+    </div>
+
+    <a href="yaqeen.html#cardStudio" class="card-studio-trigger-btn" style="text-decoration:none;" title="توليد وتصميم بطاقة إيمانية كصورة">
+      <span>🖼️</span>
+      <span class="studio-btn-text">بطاقة</span>
+    </a>
+  </div>
+
+  <!-- ودجت الخدمات والتواصل الجانبي المطور -->
+  <div id="waSideDrawer" class="wa-drawer">
+    <button type="button" class="wa-toggle-btn" onclick="toggleWaDrawer()" aria-label="الخدمات والتواصل">
+      <span style="font-size: 1rem;">🔗</span>
+      <span class="wa-arrow" style="font-size: 0.65rem;">❯</span>
+    </button>
+
+    <div class="wa-drawer-content">
+      <div class="wa-drawer-header">
+        <span>✨ خدمات وتواصل زاد المؤمن</span>
+        <button type="button" class="wa-close-btn" onclick="toggleWaDrawer()">✕</button>
+      </div>
+
+      <div class="drawer-service-card">
+        <div class="drawer-service-title">
+          <span>📢</span>
+          <span>قناة زاد المؤمن على الواتساب</span>
+        </div>
+        <div class="drawer-service-desc">انضم للقناة للحصول على التحديثات والأدعية والفوائد اليومية.</div>
+        <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="drawer-btn-link btn-wa-channel">
+          الانضمام للقناة ↗
+        </a>
+      </div>
+
+      <div class="drawer-service-card">
+        <div class="drawer-service-title">
+          <span>🌙</span>
+          <span>مساعد تبصرة الرقمي</span>
+        </div>
+        <div class="drawer-service-desc">تصفّح النسخة المباشرة الكاملة من مساعد تبصرة الشرعي الذكي.</div>
+        <a href="https://omar-i3.github.io/Tabsera/" target="_blank" rel="noopener" class="drawer-btn-link btn-tabsera-bot">
+          زيارة موقع تبصرة ↗
+        </a>
+      </div>
+
+      <div class="drawer-service-card">
+        <div class="drawer-service-title">
+          <span>✉️</span>
+          <span>الدعم الفني والإقتراحات</span>
+        </div>
+        <div class="drawer-service-desc">
+          لأي استفسار أو إبلاغ عن مشكلة:
+          <span style="color: var(--gold-soft); font-weight: bold; display: block; margin-top: 2px; word-break: break-all;">support.zad.al.momen@gmail.com</span>
+        </div>
+        <a href="mailto:support.zad.al.momen@gmail.com" class="drawer-btn-link btn-email-support">
+          مراسلة الدعم 📧
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 توقيت مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+  </div>
+
+  <div class="hero">
+    <div class="moon"></div>
+    <h1>المواضيع الإيمانية</h1>
+    <p class="tagline">منظومة معرفية وتربوية جامعة لأصول العبادة القلبية — استكشف خريطة الدعاء الشاملة ورسوخ اليقين بالله تعالى وتجلياتهما في حياة المؤمن.</p>
+  </div>
+
+  <!-- شريط الإحصائيات السريعة -->
+  <div class="stats-strip">
+    <div class="stat-badge"><span>📚</span><span>المجموع: <strong>28</strong> موضوعاً تفاعلياً</span></div>
+    <div class="stat-badge"><span>❓</span><span>بنك الأسئلة: <strong>70+</strong> سؤالاً وجواباً</span></div>
+    <div class="stat-badge"><span>✨</span><span>الأدلة: <strong>موثقة</strong> من الكتاب والسنة</span></div>
+  </div>
+
+  <!-- شريط دعوة إضافة موضوع جديد في المنتصف وبارز فور الدخول -->
+  <div class="suggest-hero-banner-wrap">
+    <div class="suggest-hero-banner" onclick="openSuggestTopicModal()">
+      <div class="suggest-banner-top-badge">✨ شارك في نشر العلم — وثّق مساهمتك باسمك</div>
+      <div class="suggest-banner-main">
+        <div class="suggest-banner-icon">💡</div>
+        <div class="suggest-banner-text">
+          <h3>هل تود إضافة واقتراح موضوع جديد باسمك؟</h3>
+          <p>اكتب موضوعك وحَبّر نصوصه ومحاوره، أو ارفع ملف PDF ليتم اعتماده وتوثيقه باسمك في زاد المؤمن بعد المراجعة الشرعية.</p>
+        </div>
+        <div class="suggest-banner-cta">
+          <button type="button" class="suggest-banner-btn" onclick="openSuggestTopicModal(event)">
+            <span>إضافة واقتراح موضوع</span>
+            <span>✍️</span>
+          </button>
+        </div>
+      </div>
+      <div class="suggest-banner-email-strip" onclick="event.stopPropagation()">
+        <a href="mailto:support.zad.al.momen@gmail.com?subject=%D8%A5%D8%B6%D8%A7%D9%81%D8%A9%20%D9%85%D9%88%D8%B6%D9%88%D8%B9" class="suggest-banner-email-link" title="مراسلة مباشرة عبر البريد بموضوع إضافة موضوع">
+          <span>📧 مراسلة فورية: support.zad.al.momen@gmail.com</span>
+          <span class="email-auto-badge">الموضوع التلقائي: إضافة موضوع</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- شبكة الكروت الرئيسية للمواضيع -->
+  <div class="topics-grid">
+    
+    <!-- 1️⃣ كرت خريطة الدعاء -->
+    <div class="topic-hero-card" onclick="window.location.href='duaa.html'">
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+          <div class="topic-badge-tag">🤲 العبادة والصلة برب العالمين</div>
+          <div class="topic-contributor-tag"><span>✒️</span> مساهمة من <strong>عمر أفندي</strong></div>
+        </div>
+        <div class="topic-header-flex">
+          <div class="topic-big-icon">🤲</div>
+          <div class="topic-title-box">
+            <h2>خريطة الدعاء الشاملة</h2>
+            <div style="font-size: 0.85rem; color: var(--gold);">18 موضوعاً تفاعلياً + الأسئلة والأجوبة</div>
+          </div>
+        </div>
+        <p class="topic-desc">
+          الصلة المباشرة بين العبد وربه؛ معناه، علاقته بالقدر المبرم والمعلَّق، أسباب استجابة الدعاء، موانع الإجابة، وآداب الدعاء المأثورة عن النبي ﷺ.
+        </p>
+        <ul class="topic-features-list">
+          <li><span>✓</span> 18 محطة تفاعلية مع شرح تفصيلي وأدلة صحيحة</li>
+          <li><span>✓</span> بنك الأسئلة الفقهية والإيمانية حول الدعاء والقدر</li>
+          <li><span>✓</span> خدمة البحث اللحظي وتتبع الإنجاز والقراءة</li>
+        </ul>
+      </div>
+      <a href="duaa.html" class="topic-action-btn">
+        دخول خريطة الدعاء ←
+      </a>
+    </div>
+
+    <!-- 2️⃣ كرت اليقين بالله -->
+    <div class="topic-hero-card yaqeen-card" onclick="window.location.href='yaqeen.html'">
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+          <div class="topic-badge-tag">💎 روح الإيمان وسكينة القلوب</div>
+          <div class="topic-contributor-tag"><span>✒️</span> مساهمة من <strong>عمر أفندي</strong></div>
+        </div>
+        <div class="topic-header-flex">
+          <div class="topic-big-icon" style="border-color: rgba(95,214,196,0.3);">💎</div>
+          <div class="topic-title-box">
+            <h2>اليقين بالله تعالى</h2>
+            <div style="font-size: 0.85rem; color: var(--teal);">10 محاور كبرى + بنك الـ 50 سؤالاً</div>
+          </div>
+        </div>
+        <p class="topic-desc">
+          حقيقة اليقين، مراتبه الثلاث (علم، عين، وحق اليقين)، اليقين في الرزق والقدر والدعاء، ونفي الخوف وعزة المؤمن وتجليات اليقين في سير الأنبياء.
+        </p>
+        <ul class="topic-features-list">
+          <li><span>✓</span> 10 محاور كبرى مستخلصة بأعلى معايير الإتقان</li>
+          <li><span>✓</span> بنك الأسئلة الشامل (50 سؤالاً وجواباً لجميع الأبواب)</li>
+          <li><span>✓</span> لفتات شفهية عميقة وأمثلة عملية للواقع المعاش</li>
+        </ul>
+      </div>
+      <a href="yaqeen.html" class="topic-action-btn">
+        دخول قسم اليقين ←
+      </a>
+    </div>
+
+  </div>
+
+  <!-- روابط سريعة للمحاور -->
+  <div class="section-label"><span>تصفّح سريع للمحاور المشتركة</span></div>
+  <p class="section-sub">اضغط للانتقال المباشر لأي محور في خريطة الدعاء أو اليقين</p>
+
+  <div class="quick-nav-pills">
+    <a href="duaa.html?open=1" class="pill-link">🤲 ما هو الدعاء وحقيقته؟</a>
+    <a href="yaqeen.html?open=1" class="pill-link">💎 ما هو اليقين ومنزلته؟</a>
+    <a href="duaa.html?open=2" class="pill-link">⚖️ القدر المبرم والمعلَّق</a>
+    <a href="yaqeen.html?open=2" class="pill-link">🪜 مراتب اليقين الثلاث</a>
+    <a href="duaa.html?open=3" class="pill-link">🔑 أسباب استجابة الدعاء</a>
+    <a href="yaqeen.html?open=5" class="pill-link">🌾 اليقين في الرزق والكفاية</a>
+    <a href="duaa.html?open=4" class="pill-link">🚫 موانع إجابة الدعاء</a>
+    <a href="yaqeen.html?open=4" class="pill-link">🌊 تجليات اليقين عند الأنبياء</a>
+    <a href="yaqeen.html?open=6" class="pill-link">🛡️ التحرر من الخوف ورسوخ العزة</a>
+    <a href="duaa.html?open=10" class="pill-link">💎 هل كل دعاء مستجاب؟</a>
+    <a href="duaa.html?open=5" class="pill-link">🤲 اسم الله الأعظم وسر الإجابة</a>
+    <a href="yaqeen.html?open=3" class="pill-link">🌟 ثمار اليقين في القلب</a>
+  </div>
+
+  <footer>
+    <div class="amiri" style="font-size: 1.15rem; color: var(--gold-soft); line-height: 2; margin-bottom: 8px;">«وَاعْبُدْ رَبَّكَ حَتَّىٰ يَأْتِيَكَ الْيَقِينُ» — زاد المؤمن لطريق الهداية والسكينة.</div>
+    <div class="small" style="color: var(--text-muted);">جميع الحقوق محفوظة © عمر</div>
+  </footer>
+
+  <!-- صندوق الشات الذكي التفاعلي -->
+  <div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+    <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+      <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.3rem;">🌙</span>
+          <div>
+            <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+            <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلة من السنة الصحيحة</div>
+          </div>
+        </div>
+        <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+      </div>
+
+      <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+      <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+        <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+        <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- شريط الملاحة السفلي (Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+  <nav class="liquid-bottom-nav">
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item active">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="books.html" class="liquid-nav-item">
+      <span>📖</span>
+      <span>المكتبة</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span>💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
+
+  <script>
+    /* ---------- خلفية النجوم التفاعلية ---------- */
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function initStars() {
+      canvas.width = window.innerWidth;
+      canvas.height = Math.max(document.body.scrollHeight, window.innerHeight * 2);
+      stars = [];
+      const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+          r: Math.random() * 1.1 + 0.3, a: Math.random(), speed: Math.random() * 0.01 + 0.003
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#f0d9a8';
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i]; s.a += s.speed;
+        ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(drawStars);
+    }
+
+    window.addEventListener('resize', initStars);
+    initStars();
+    drawStars();
+
+    /* ===== نظام التحكم بحجم الخط وتذكره ===== */
+    let currentFontScale = parseFloat(localStorage.getItem('user_font_scale')) || 1.0;
+
+    function setFontScale(scale) {
+      currentFontScale = Math.max(0.70, Math.min(1.60, Math.round(scale * 10) / 10));
+      document.documentElement.style.setProperty('--content-font-scale', currentFontScale);
+      const pct = Math.round(currentFontScale * 100) + '%';
+      const displayEl = document.getElementById('fontSizeDisplay');
+      if (displayEl) displayEl.textContent = pct;
+      try {
+        localStorage.setItem('user_font_scale', currentFontScale);
+      } catch (e) {}
+      if (navigator.vibrate) {
+        try { navigator.vibrate(12); } catch (e) {}
+      }
+    }
+
+    function changeFontSize(delta) {
+      setFontScale(currentFontScale + delta);
+    }
+
+    function resetFontSize() {
+      setFontScale(1.0);
+    }
+
+    setFontScale(currentFontScale);
+
+    /* ===== كود تشغيل وتفعيل زر الوضع الليلي/الفاتح وتذكره ===== */
+    const themeBtn = document.getElementById('themeBtn');
+
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+      if (themeBtn) themeBtn.textContent = '🌙';
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        themeBtn.textContent = isLight ? '🌙' : '🌞';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+    }
+
+    function toggleChat() {
+      const chatWindow = document.getElementById('chat-window');
+      if (chatWindow) {
+        const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
+        chatWindow.style.display = isHidden ? 'flex' : 'none';
+        if (isHidden && document.getElementById('chat-input')) {
+          document.getElementById('chat-input').focus();
+        }
+      }
+    }
+
+    document.getElementById('chat-close-btn')?.addEventListener('click', () => {
+      const chatWindow = document.getElementById('chat-window');
+      if (chatWindow) chatWindow.style.display = 'none';
+    });
+
+    function toggleWaDrawer() {
+      const drawer = document.getElementById('waSideDrawer');
+      if (drawer) {
+        drawer.classList.toggle('active');
+      }
+    }
+
+    /* ---------- وظائف استوديو إضافة واقتراح موضوع جديد ---------- */
+    let currentSuggestMode = 'write';
+    let selectedPdfFile = null;
+
+    function openSuggestTopicModal() {
+      const modal = document.getElementById('suggestTopicModalOverlay');
+      if (modal) {
+        modal.classList.add('open');
+        setTimeout(() => {
+          document.getElementById('suggestAuthorName')?.focus();
+        }, 150);
+      }
+    }
+
+    function closeSuggestTopicModal(e) {
+      const modal = document.getElementById('suggestTopicModalOverlay');
+      if (modal) {
+        modal.classList.remove('open');
+      }
+    }
+
+    function switchSuggestMode(mode) {
+      currentSuggestMode = mode;
+      const btnWrite = document.getElementById('btnModeWrite');
+      const btnPdf = document.getElementById('btnModePdf');
+      const writeSection = document.getElementById('suggestWriteContainer');
+      const pdfSection = document.getElementById('suggestPdfContainer');
+
+      if (mode === 'write') {
+        btnWrite?.classList.add('active');
+        btnPdf?.classList.remove('active');
+        if (writeSection) writeSection.style.display = 'block';
+        if (pdfSection) pdfSection.style.display = 'none';
+      } else {
+        btnPdf?.classList.add('active');
+        btnWrite?.classList.remove('active');
+        if (pdfSection) pdfSection.style.display = 'block';
+        if (writeSection) writeSection.style.display = 'none';
+      }
+    }
+
+    /* تطبيق التحبير (Inking / Highlighting) على النص المحدد */
+    function applyInking(color) {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+        alert('يرجى تحديد (تظليل) النص الذي ترغب في تحبيره أولاً.');
+        return;
+      }
+
+      // محاولة استخدام الأمر القياسي hiliteColor أولاً
+      document.execCommand('styleWithCSS', false, true);
+      const ok = document.execCommand('hiliteColor', false, color);
+      if (!ok) {
+        document.execCommand('backColor', false, color);
+      }
+      // إرجاع التركيز لمربع المحرر
+      document.getElementById('suggestRichEditor')?.focus();
+    }
+
+    /* مسح التحبير والتنسيق */
+    function clearInking() {
+      document.execCommand('removeFormat', false, null);
+      document.execCommand('hiliteColor', false, 'transparent');
+      document.getElementById('suggestRichEditor')?.focus();
+    }
+
+    /* تنفيذ تنسيقات الخط القياسية */
+    function execFormat(command) {
+      document.execCommand(command, false, null);
+      document.getElementById('suggestRichEditor')?.focus();
+    }
+
+    /* إدراج علامات الآيات والأحاديث */
+    function insertQuote(type) {
+      const selection = window.getSelection();
+      const editor = document.getElementById('suggestRichEditor');
+      if (!editor) return;
+
+      if (selection && selection.rangeCount > 0 && !selection.isCollapsed) {
+        const text = selection.toString();
+        const replacement = type === 'verse' ? `﴿ ${text} ﴾` : `« ${text} »`;
+        document.execCommand('insertText', false, replacement);
+      } else {
+        const placeholder = type === 'verse' ? ' ﴿ اكتب الآية هنا ﴾ ' : ' « اكتب الحديث هنا » ';
+        document.execCommand('insertText', false, placeholder);
+      }
+      editor.focus();
+    }
+
+    /* معالجة اختيار وسحب ملف PDF */
+    function handlePdfSelected(e) {
+      const files = e.target.files;
+      if (files && files.length > 0) {
+        processSelectedPdf(files[0]);
+      }
+    }
+
+    function handlePdfDragOver(e) {
+      e.preventDefault();
+      document.getElementById('pdfDropzone')?.classList.add('dragover');
+    }
+
+    function handlePdfDragLeave(e) {
+      e.preventDefault();
+      document.getElementById('pdfDropzone')?.classList.remove('dragover');
+    }
+
+    function handlePdfDrop(e) {
+      e.preventDefault();
+      document.getElementById('pdfDropzone')?.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files && files.length > 0) {
+        processSelectedPdf(files[0]);
+      }
+    }
+
+    function processSelectedPdf(file) {
+      selectedPdfFile = file;
+      const card = document.getElementById('pdfSelectedCard');
+      const nameEl = document.getElementById('pdfFileName');
+      const sizeEl = document.getElementById('pdfFileSize');
+      const dropzone = document.getElementById('pdfDropzone');
+
+      if (nameEl) nameEl.textContent = file.name;
+      if (sizeEl) {
+        const sizeKb = Math.round(file.size / 1024);
+        sizeEl.textContent = sizeKb > 1024 ? `${(sizeKb / 1024).toFixed(1)} MB` : `${sizeKb} KB`;
+      }
+      if (card) card.style.display = 'flex';
+      if (dropzone) dropzone.style.display = 'none';
+    }
+
+    function removeSelectedPdf(e) {
+      if (e) e.stopPropagation();
+      selectedPdfFile = null;
+      const input = document.getElementById('suggestPdfInput');
+      if (input) input.value = '';
+      const card = document.getElementById('pdfSelectedCard');
+      const dropzone = document.getElementById('pdfDropzone');
+      if (card) card.style.display = 'none';
+      if (dropzone) dropzone.style.display = 'flex';
+    }
+
+    /* إعداد نقطة الرفع السحابي (Google Apps Script) المعتمدة - إيميل دعم زاد المؤمن */
+    const ZAD_CLOUD_UPLOAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbx3CvPrH9QgVQMsVwmETJk0vjEbt1bdo-GcORpohTBhV7KolLFHkSji2N2o-cuwDbw/exec";
+
+    /* إرسال النموذج سحابياً مع الدعم الكامل لملفات PDF والبريد البديل */
+    async function handleSuggestTopicSubmit(e) {
+      e.preventDefault();
+      const author = document.getElementById('suggestAuthorName')?.value.trim() || 'فاعل خير (يرغب في الأجر)';
+      const topicTitle = document.getElementById('suggestTopicTitle')?.value.trim() || 'موضوع جديد';
+      const editor = document.getElementById('suggestRichEditor');
+      const editorText = editor?.innerText?.trim() || '';
+      const submitBtn = document.getElementById('btnSubmitSuggest');
+
+      if (!editorText && !selectedPdfFile) {
+        alert('يرجى كتابة نص الموضوع أو اختيار ملف PDF قبل الإرسال.');
+        return;
+      }
+
+      // محاولة الرفع السحابي المباشر إذا كان الرابط مهيأ
+      const isConfiguredEndpoint = ZAD_CLOUD_UPLOAD_ENDPOINT && 
+                                   !ZAD_CLOUD_UPLOAD_ENDPOINT.includes('REPLACE_WITH_DEPLOYMENT_ID') &&
+                                   ZAD_CLOUD_UPLOAD_ENDPOINT.startsWith('https://script.google.com');
+
+      if (isConfiguredEndpoint) {
+        try {
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>جاري الرفع السحابي والإرسال... ⏳</span>';
+            submitBtn.style.opacity = '0.7';
+          }
+
+          let fileBase64 = null;
+          let fileName = null;
+          let fileType = null;
+
+          if (selectedPdfFile) {
+            fileBase64 = await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result.split(',')[1]);
+              reader.onerror = reject;
+              reader.readAsDataURL(selectedPdfFile);
+            });
+            fileName = selectedPdfFile.name;
+            fileType = selectedPdfFile.type || 'application/pdf';
+          }
+
+          const payload = {
+            author: author,
+            title: topicTitle,
+            content: editorText,
+            fileName: fileName,
+            fileType: fileType,
+            fileBase64: fileBase64
+          };
+
+          // إرسال كـ text/plain لتفادي مشاكل الـ CORS Preflight في Google Apps Script
+          const response = await fetch(ZAD_CLOUD_UPLOAD_ENDPOINT, {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          if (result && (result.status === 'success' || result.success)) {
+            alert('✨ تم رفع موضوعك وملف الـ PDF سحابياً بنجاح! سيصل إلى الإدارة للمراجعة والاعتماد.');
+            document.getElementById('suggestAuthorName').value = '';
+            document.getElementById('suggestTopicTitle').value = '';
+            if (editor) editor.innerHTML = '';
+            removeSelectedPdf();
+            closeSuggestTopicModal();
+            return;
+          } else {
+            throw new Error(result?.message || 'فشل استلام الخادم للطلب');
+          }
+        } catch (uploadErr) {
+          console.warn('Cloud upload error, falling back:', uploadErr);
+          const fallback = confirm('تعذر الرفع السحابي المباشر حالياً. هل ترغب في فتح تطبيق البريد (Gmail) لإرسال الموضوع كبديل؟');
+          if (!fallback) {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<span>إرسال الموضوع والملف سحابياً</span> <span>☁️</span>';
+              submitBtn.style.opacity = '1';
+            }
+            return;
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>إرسال الموضوع والملف سحابياً</span> <span>☁️</span>';
+            submitBtn.style.opacity = '1';
+          }
+        }
+      }
+
+      // الخيار البديل التلقائي: تطبيق البريد الإلكتروني (Mailto)
+      let contentSummary = '';
+      if (selectedPdfFile) {
+        contentSummary += `📎 مرفق مع هذه الرسالة ملف مستند/PDF باسم:\n[ ${selectedPdfFile.name} ]\n(نرجو مراجعة المرفق المرفق مع البريد).\n\n`;
+      }
+
+      if (editorText) {
+        contentSummary += `📝 نص ومحاور الموضوع:\n${editorText}\n\n`;
+      }
+
+      const bodyText = `السلام عليكم ورحمة الله وبركاته،\n\nأود إضافة واقتراح موضوع جديد في تطبيق وموقع زاد المؤمن:\n\n👤 اسم المساهم (لتوثيق الموضوع باسمي):\n${author}\n\n📖 عنوان الموضوع المقترح:\n${topicTitle}\n\n${contentSummary}--------------------------------------------------\nمرسل عبر زاد المؤمن — قسم المواضيع`;
+
+      if (selectedPdfFile) {
+        alert(`📎 تنبيه مهم جداً:\n\nتم تجهيز بيانات الموضوع وسيتم الآن فتح تطبيق البريد (Gmail).\n\n⚠️ نظراً لقيود الخصوصية والأمان في أنظمة الجوال، يُرجى الضغط على أيقونة المشبك/الدبوس (📎) داخل تطبيق البريد واختيار ملفك [ ${selectedPdfFile.name} ] لكي يُرسل كمرفق مع الرسالة.`);
+      }
+
+      // الرابط التلقائي المباشر مع بريد دعم زاد المؤمن الرسمي
+      const mailtoUrl = `mailto:support.zad.al.momen@gmail.com?subject=${encodeURIComponent('إضافة موضوع — ' + topicTitle)}&body=${encodeURIComponent(bodyText)}`;
+
+      window.location.href = mailtoUrl;
+
+      closeSuggestTopicModal();
+    }
+  </script>
+
+  <!-- نافذة منبثقة تفاعلية: استوديو كتابة وتحبير واقتراح موضوع جديد -->
+  <div class="suggest-modal-overlay" id="suggestTopicModalOverlay" onclick="closeSuggestTopicModal(event)">
+    <div class="suggest-modal-box" onclick="event.stopPropagation()">
+      <button type="button" class="suggest-modal-close" onclick="closeSuggestTopicModal()" aria-label="إغلاق">✕</button>
+      
+      <div class="suggest-modal-head">
+        <div class="suggest-modal-icon">💡</div>
+        <div>
+          <h3>إضافة واقتراح موضوع جديد</h3>
+          <p>اكتب موضوعك وحَبّره أو ارفع ملف PDF ليتم اعتماده وتوثيقه باسمك بعد المراجعة الشرعية</p>
+        </div>
+      </div>
+
+      <form id="suggestTopicForm" onsubmit="handleSuggestTopicSubmit(event)">
+        <!-- حقل اسم المساهم -->
+        <div class="suggest-field-group">
+          <label for="suggestAuthorName">
+            <span>👤 اسمك أو لقبك</span>
+            <span class="optional-tag">(اختياري — لتوثيق المساهمة باسمك في التطبيق والموقع)</span>
+          </label>
+          <input type="text" id="suggestAuthorName" placeholder="مثال: محب للخير، أو فاعل خير، أو طالب علم..." autocomplete="name">
+        </div>
+
+        <!-- حقل عنوان الموضوع -->
+        <div class="suggest-field-group">
+          <label for="suggestTopicTitle">
+            <span>📖 عنوان أو فكرة الموضوع المقترح</span>
+            <span class="required-tag">* مطلوب</span>
+          </label>
+          <input type="text" id="suggestTopicTitle" placeholder="مثال: الصبر والرضا بالقضاء، التوكل على الله، فضل قيام الليل..." required>
+        </div>
+
+        <!-- أزرار التبديل بين كتابة النص أو رفع ملف PDF -->
+        <div class="suggest-tab-bar">
+          <button type="button" class="suggest-tab-btn active" id="btnModeWrite" onclick="switchSuggestMode('write')">
+            <span>✍️ كتابة وتحبير الموضوع</span>
+          </button>
+          <button type="button" class="suggest-tab-btn" id="btnModePdf" onclick="switchSuggestMode('pdf')">
+            <span>📄 رفع ملف PDF أو مستند</span>
+          </button>
+        </div>
+
+        <!-- 1️⃣ قسم الكتابة والتحبير والتنسيق -->
+        <div id="suggestWriteContainer" class="suggest-mode-section">
+          <div class="inking-toolbar">
+            <div class="toolbar-group">
+              <span class="toolbar-label">أقلام التحبير:</span>
+              <button type="button" class="pen-btn" onclick="applyInking('#ffd166')" title="تحبير بلون ذهبي أصفر">🟡</button>
+              <button type="button" class="pen-btn" onclick="applyInking('#5fd6c4')" title="تحبير بلون فيروزي">🔵</button>
+              <button type="button" class="pen-btn" onclick="applyInking('#2ec4b6')" title="تحبير بلون زمردي">🟢</button>
+              <button type="button" class="pen-btn" onclick="applyInking('#ff9f43')" title="تحبير بلون عنبري">🟠</button>
+              <button type="button" class="pen-btn pen-clear" onclick="clearInking()" title="مسح التحبير والتظليل">🧹 مسح</button>
+            </div>
+            <div class="toolbar-separator"></div>
+            <div class="toolbar-group">
+              <button type="button" class="tool-btn" onclick="execFormat('bold')" title="خط عريض"><b>B</b></button>
+              <button type="button" class="tool-btn" onclick="execFormat('italic')" title="خط مائل"><i>I</i></button>
+              <button type="button" class="tool-btn" onclick="execFormat('underline')" title="تسطير"><u>U</u></button>
+              <button type="button" class="tool-btn" onclick="execFormat('insertUnorderedList')" title="قائمة نقطية">• قائمة</button>
+              <button type="button" class="tool-btn" onclick="insertQuote('verse')" title="إدراج قوس آية">﴿ ﴾</button>
+              <button type="button" class="tool-btn" onclick="insertQuote('hadith')" title="إدراج علامتي حديث">« »</button>
+            </div>
+          </div>
+
+          <div id="suggestRichEditor" class="rich-editor-box" contenteditable="true" data-placeholder="اكتب نص الموضوع هنا.. حدد أي عبارة ترغب في تظليلها واضغط على أقلام التحبير الملونة بالأعلى..."></div>
+          <div class="editor-hint">💡 حدد أي كلمة أو جملة بالماوس أو الإصبع واضغط على أقلام التحبير لتظليلها ولفت الانتباه إليها.</div>
+        </div>
+
+        <!-- 2️⃣ قسم رفع وإرفاق ملف PDF -->
+        <div id="suggestPdfContainer" class="suggest-mode-section" style="display: none;">
+          <div class="pdf-upload-dropzone" id="pdfDropzone" onclick="document.getElementById('suggestPdfInput').click()" ondragover="handlePdfDragOver(event)" ondragleave="handlePdfDragLeave(event)" ondrop="handlePdfDrop(event)">
+            <div class="dropzone-icon">📄</div>
+            <div class="dropzone-text">
+              <strong>اضغط لاختيار ملف PDF من جهازك أو اسحبه هنا</strong>
+              <span>الملفات المدعومة: PDF, DOC, DOCX, TXT (حتى 25 ميجابايت)</span>
+            </div>
+            <button type="button" class="dropzone-select-btn">اختيار ملف من الجهاز</button>
+            <input type="file" id="suggestPdfInput" accept=".pdf,.doc,.docx,.txt" style="display: none;" onchange="handlePdfSelected(event)">
+          </div>
+
+          <div id="pdfSelectedCard" class="pdf-selected-card" style="display: none;">
+            <div class="pdf-file-info">
+              <span class="pdf-icon">📕</span>
+              <div>
+                <strong id="pdfFileName">ملف.pdf</strong>
+                <span id="pdfFileSize">0 KB</span>
+              </div>
+            </div>
+            <button type="button" class="pdf-remove-btn" onclick="removeSelectedPdf(event)" title="إزالة الملف">✕</button>
+          </div>
+
+          <div class="pdf-email-instruction" style="background: rgba(255, 180, 0, 0.12); border: 1.5px dashed #ffd166; border-radius: 12px; padding: 12px 14px; margin-top: 10px; color: #ffe8a3;">
+            <span style="font-size: 1.3rem;">⚠️</span>
+            <span style="font-size: 0.88rem; line-height: 1.6;"><strong>تنبيه ضروري لمستخدمي الجوال:</strong> عند الضغط على زر الإرسال، سيفتح تطبيق البريد (Gmail) وتتم تعبئة البيانات تلقائياً، ولكن نظام الجوال يتطلب منك الضغط على أيقونة الدبوس <strong>(📎 إرفاق ملف)</strong> واختيار ملف الـ PDF من هاتفك ليصلنا كاملاً.</span>
+          </div>
+        </div>
+
+        <!-- زر الإرسال والمراسلة المباشرة -->
+        <button type="submit" id="btnSubmitSuggest" class="suggest-submit-btn">
+          <span>إرسال الموضوع والملف سحابياً</span>
+          <span>☁️</span>
+        </button>
+
+        <div class="suggest-modal-divider"><span>أو اضغط للمراسلة المباشرة</span></div>
+
+        <a href="mailto:support.zad.al.momen@gmail.com?subject=%D8%A5%D8%B6%D8%A7%D9%81%D8%A9%20%D9%85%D9%88%D8%B6%D9%88%D8%B9" class="suggest-modal-direct-email" title="فتح البريد الإلكتروني بموضوع إضافة موضوع">
+          <span>📧 support.zad.al.momen@gmail.com</span>
+          <span class="auto-subject-hint">(الموضوع تلقائي: إضافة موضوع)</span>
+        </a>
+      </form>
+    </div>
+  </div>
+  <script src="favorites.js" defer></script>
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>

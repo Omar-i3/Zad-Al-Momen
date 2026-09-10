@@ -1,23 +1,13 @@
 /* ==========================================================================
-   🌙 زاد المؤمن - نظام الإشعارات الشامل ومواقيت الصلاة وشريط الملاحة (notifications.js)
+   🌙 زاد المؤمن - نظام الإشعارات الشامل والتنبيهات المباشرة (notifications.js)
    تطوير وتصميم: عمر
-   الإصدار: 3.0 المكتمل بالكامل
+   الإصدار: 3.1 المطور والموسع
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   1. الإعدادات العامة والتخزين المحلي (Settings & LocalStorage Keys)
-   -------------------------------------------------------------------------- */
 const DEFAULT_ADHAN_SETTINGS = {
-  fajr: true,
-  dhuhr: true,
-  asr: true,
-  maghrib: true,
-  isha: true,
-  sabahAzkar: true,
-  masaaAzkar: true,
-  duhaRemind: true,
-  sleepAzkar: true,
-  qiyamRemind: true
+  fajr: true, dhuhr: true, asr: true, maghrib: true, isha: true,
+  sabahAzkar: true, masaaAzkar: true, duhaRemind: true, sleepAzkar: true,
+  qiyamRemind: true, quranReadRemind: true, salawatRemind: true, kahfRemind: true
 };
 
 let adhanSettings = JSON.parse(localStorage.getItem('zad_adhan_settings')) || DEFAULT_ADHAN_SETTINGS;
@@ -25,114 +15,142 @@ let prayerTimings = null;
 let playedAdhansToday = JSON.parse(localStorage.getItem('zad_played_adhans') || '{}');
 let scheduledAzkarToday = JSON.parse(localStorage.getItem('zad_scheduled_azkar') || '{}');
 
-/* --------------------------------------------------------------------------
-   2. فحص ودعم نظام Capacitor للتطبيق المباشر على الأندرويد (Android APK)
-   -------------------------------------------------------------------------- */
 const isCapacitorAvailable = typeof window.Capacitor !== 'undefined';
 
+// 1. طلب الصلاحيات
 async function requestNotificationPermissions() {
-  // أ) طلب الإذن عبر Capacitor للأندرويد إن وجد
   if (isCapacitorAvailable && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications) {
     try {
-      const perm = await window.Capacitor.Plugins.LocalNotifications.requestPermissions();
-      console.log('صلاحيات إشعارات Capacitor:', perm);
+      await window.Capacitor.Plugins.LocalNotifications.requestPermissions();
     } catch (err) {
-      console.error('خطأ في طلب صلاحيات Capacitor:', err);
+      console.error('خطأ صلاحيات Capacitor:', err);
     }
   }
 
-  // ب) طلب الإذن عبر المتصفح العادي (Web API)
   if ('Notification' in window && Notification.permission === 'default') {
     try {
       await Notification.requestPermission();
     } catch (err) {
-      console.error('خطأ في طلب صلاحيات إشعارات المتصفح:', err);
+      console.error('خطأ صلاحيات المتصفح:', err);
     }
   }
 }
 
-/* ===== توقيت مكة والتاريخ الهجري حسب أم القرى بدقة ===== */
+// 2. معالجة زر العودة المادي للأندرويد (Hardware Back Button)
+function setupAndroidBackButton() {
+  if (isCapacitorAvailable && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+    window.Capacitor.Plugins.App.addListener('backButton', ({ canGoBack }) => {
+      // إغلاق أي مودال أو نافذة منبثقة إن كانت مفتوحة
+      const openModal = document.querySelector('.overlay.open, .pdf-modal-overlay.open, .adhan-modal-overlay.open, #app-info-modal[style*="flex"]');
+      if (openModal) {
+        if (openModal.id === 'app-info-modal') {
+          openModal.style.display = 'none';
+        } else {
+          openModal.classList.remove('open');
+        }
+        document.body.style.overflow = '';
+        return;
+      }
+
+      // إغلاق الشات إن كان مفتوحاً
+      const chatWin = document.getElementById('chat-window');
+      if (chatWin && chatWin.style.display === 'flex') {
+        chatWin.style.display = 'none';
+        return;
+      }
+
+      if (canGoBack) {
+        window.history.back();
+      } else {
+        window.Capacitor.Plugins.App.exitApp();
+      }
+    });
+  }
+}
+
+// 3. توقيت مكة والتاريخ الهجري
 function updateMakkahTimeAndHijri() {
   const now = new Date();
-  
-  // 1. توقيت مكة المكرمة
   try {
     const timeFormatter = new Intl.DateTimeFormat('ar-SA', {
-      timeZone: 'Asia/Riyadh',
-      hour12: true,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
+      timeZone: 'Asia/Riyadh', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit'
     });
     const timeElem = document.getElementById('makkah-time-text');
     if (timeElem) timeElem.textContent = `🕋 مكة: ${timeFormatter.format(now)}`;
   } catch (e) {}
 
-  // 2. التاريخ الهجري حسب تقويم أم القرى الرسمي المعتمد
   try {
     const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+      day: 'numeric', month: 'long', year: 'numeric'
     });
     const hijriElem = document.getElementById('hijri-date-text');
     if (hijriElem) hijriElem.textContent = `📅 ${hijriFormatter.format(now)} هـ`;
   } catch (e) {}
 }
 
-updateMakkahTimeAndHijri();
-setInterval(updateMakkahTimeAndHijri, 1000);
+// 4. جلب مواقيت الصلاة والعد التنازلي المباشر
+let prayerCountdownInterval = null;
 
-/* --------------------------------------------------------------------------
-   4. محرك مواقيت الصلاة والجغرافيا (Prayer Times Engine)
-   -------------------------------------------------------------------------- */
 async function fetchPrayerTimes() {
   const prayerLoading = document.getElementById('prayer-loading');
   const prayerGrid = document.getElementById('prayer-grid');
 
+  // استرجاع الكاش الفوري إن وجد لمنع أي تأخير في العرض
   try {
-    let latitude = 21.4225; // مكة المكرمة كخط عرض افتراضي
-    let longitude = 39.8262; // مكة المكرمة كخط طول افتراضي
+    const cached = localStorage.getItem('cached_prayer_timings');
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      if (parsed && parsed.Fajr) {
+        prayerTimings = parsed;
+        renderPrayerGrid(prayerTimings);
+        initPrayerCountdown(prayerTimings);
+        if (prayerLoading) prayerLoading.style.display = 'none';
+        if (prayerGrid) prayerGrid.style.display = 'grid';
+      }
+    }
+  } catch (e) {}
 
-    // تحديد الموقع الجغرافي الدقيق للمستخدم
+  try {
+    let lat = 21.4225, lng = 39.8262; // مكة المكرمة كافتراضي
+
     if (navigator.geolocation) {
       try {
-        const position = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 6000 });
+        const position = await new Promise((res, rej) => {
+          navigator.geolocation.getCurrentPosition(res, rej, { timeout: 6000 });
         });
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-      } catch (geoErr) {
-        console.log('استخدام إحداثيات مكة المكرمة الافتراضية.');
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+      } catch (e) {
+        console.log('استخدام إحداثيات مكة الافتراضية.');
       }
     }
 
     const dateObj = new Date();
-    const response = await fetch(`https://api.aladhan.com/v1/timings/${Math.floor(dateObj.getTime() / 1000)}?latitude=${latitude}&longitude=${longitude}&method=4`);
-    const data = await response.json();
+    const res = await fetch(`https://api.aladhan.com/v1/timings/${Math.floor(dateObj.getTime() / 1000)}?latitude=${lat}&longitude=${lng}&method=4`);
+    const data = await res.json();
 
     if (data && data.data && data.data.timings) {
       prayerTimings = data.data.timings;
+      try {
+        localStorage.setItem('cached_prayer_timings', JSON.stringify(prayerTimings));
+      } catch (e) {}
+
       renderPrayerGrid(prayerTimings);
+      initPrayerCountdown(prayerTimings);
+
       if (prayerLoading) prayerLoading.style.display = 'none';
       if (prayerGrid) prayerGrid.style.display = 'grid';
 
-      // جدولة إشعارات الأذان اليومية
       scheduleAllDailyNotifications(prayerTimings);
-    } else {
-      throw new Error('بيانات المواقيت غير مكتملة من المزود.');
     }
   } catch (err) {
-    console.error('خطأ في جلب مواقيت الصلاة:', err);
-    if (prayerLoading) {
-      prayerLoading.textContent = 'تعذّر جلب مواقيت الصلاة تلقائياً. تأكد من اتصالك بالإنترنت.';
-    }
+    console.error('خطأ في جلب المواقيت:', err);
   }
 }
 
 function renderPrayerGrid(timings) {
   const prayerGrid = document.getElementById('prayer-grid');
-  if (!prayerGrid) return;
+  if (!prayerGrid || !timings) return;
 
   const prayers = [
     { key: 'Fajr', name: 'الفجر', icon: '🌅' },
@@ -143,16 +161,12 @@ function renderPrayerGrid(timings) {
     { key: 'Isha', name: 'العشاء', icon: '🌙' }
   ];
 
-  prayerGrid.innerHTML = prayers.map(p => {
-    const rawTime = timings[p.key];
-    const formattedTime = formatTime12(rawTime);
-    return `
-      <div class="prayer-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: 14px; padding: 10px 6px; text-align: center;">
-        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">${p.icon} ${p.name}</div>
-        <div style="font-family: 'Tajawal', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--gold-soft);">${formattedTime}</div>
-      </div>
-    `;
-  }).join('');
+  prayerGrid.innerHTML = prayers.map(p => `
+    <div class="prayer-card" data-prayer-key="${p.key}" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: 14px; padding: 12px 6px; text-align: center; transition: all 0.3s ease;">
+      <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">${p.icon} ${p.name}</div>
+      <div style="font-family: 'Tajawal', sans-serif; font-size: 1.08rem; font-weight: 700; color: var(--gold-soft);">${formatTime12(timings[p.key])}</div>
+    </div>
+  `).join('');
 }
 
 function formatTime12(time24) {
@@ -165,32 +179,148 @@ function formatTime12(time24) {
   return `${h}:${m} ${ampm}`;
 }
 
-/* --------------------------------------------------------------------------
-   5. فحص وتشغيل أذان الصلوات الحية والتنبيهات
-   -------------------------------------------------------------------------- */
+// ==========================================
+// ودجت العد التنازلي المباشر للصلاة القادمة
+// ==========================================
+function initPrayerCountdown(timings) {
+  if (!timings) return;
+  updatePrayerCountdown(timings);
+  if (prayerCountdownInterval) clearInterval(prayerCountdownInterval);
+  prayerCountdownInterval = setInterval(() => {
+    updatePrayerCountdown(timings);
+  }, 1000);
+}
+window.initPrayerCountdown = initPrayerCountdown;
+
+function updatePrayerCountdown(timings) {
+  const npHero = document.getElementById('next-prayer-hero');
+  if (!npHero || !timings) return;
+
+  const now = new Date();
+  const prayerList = [
+    { key: 'Fajr', name: 'صلاة الفجر', icon: '🌅' },
+    { key: 'Sunrise', name: 'شروق الشمس', icon: '☀️' },
+    { key: 'Dhuhr', name: 'صلاة الظهر', icon: '🌕' },
+    { key: 'Asr', name: 'صلاة العصر', icon: '🌤️' },
+    { key: 'Maghrib', name: 'صلاة المغرب', icon: '🌆' },
+    { key: 'Isha', name: 'صلاة العشاء', icon: '🌙' }
+  ];
+
+  function parseTime(timeStr, dayOffset = 0) {
+    if (!timeStr) return new Date();
+    const [h, m] = timeStr.split(':').map(Number);
+    const d = new Date(now);
+    d.setDate(d.getDate() + dayOffset);
+    d.setHours(h, m, 0, 0);
+    return d;
+  }
+
+  const schedule = prayerList.map(p => ({
+    ...p,
+    timeDate: parseTime(timings[p.key], 0),
+    timeStr: timings[p.key]
+  }));
+
+  let nextPrayer = null;
+  let prevPrayer = null;
+
+  for (let i = 0; i < schedule.length; i++) {
+    if (now < schedule[i].timeDate) {
+      nextPrayer = schedule[i];
+      prevPrayer = i === 0
+        ? { ...schedule[schedule.length - 1], timeDate: parseTime(timings.Isha, -1) }
+        : schedule[i - 1];
+      break;
+    }
+  }
+
+  // بعد صلاة العشاء ننتقل لفجر الغد
+  if (!nextPrayer) {
+    nextPrayer = {
+      ...schedule[0],
+      timeDate: parseTime(timings.Fajr, 1)
+    };
+    prevPrayer = schedule[schedule.length - 1];
+  }
+
+  const diffMs = Math.max(0, nextPrayer.timeDate - now);
+  const totalMs = Math.max(1, nextPrayer.timeDate - prevPrayer.timeDate);
+  const elapsedMs = Math.max(0, now - prevPrayer.timeDate);
+  const percent = Math.min(100, Math.max(0, Math.round((elapsedMs / totalMs) * 100)));
+
+  const hours = Math.floor(diffMs / 3600000);
+  const minutes = Math.floor((diffMs % 3600000) / 60000);
+  const seconds = Math.floor((diffMs % 60000) / 1000);
+
+  // هل وقت الصلاة قائم الآن؟ (أول 20 دقيقة من وقت الصلاة السابقة)
+  const isAdhanNow = (now - prevPrayer.timeDate) >= 0 && (now - prevPrayer.timeDate) < (20 * 60 * 1000) && prevPrayer.key !== 'Sunrise';
+
+  const badgeText = document.getElementById('np-badge-text');
+  const npIcon = document.getElementById('np-icon');
+  const npName = document.getElementById('np-name');
+  const npHours = document.getElementById('np-hours');
+  const npMinutes = document.getElementById('np-minutes');
+  const npSeconds = document.getElementById('np-seconds');
+  const npExactTime = document.getElementById('np-exact-time');
+  const npPrevLabel = document.getElementById('np-prev-label');
+  const npPercentLabel = document.getElementById('np-percent-label');
+  const npNextLabel = document.getElementById('np-next-label');
+  const npProgressBar = document.getElementById('np-progress-bar');
+
+  if (isAdhanNow) {
+    if (badgeText) badgeText.textContent = '🕌 حان الآن وقت';
+    if (npName) npName.textContent = prevPrayer.name;
+    if (npIcon) npIcon.textContent = prevPrayer.icon;
+  } else {
+    if (badgeText) badgeText.textContent = 'الصلاة القادمة';
+    if (npName) npName.textContent = nextPrayer.name;
+    if (npIcon) npIcon.textContent = nextPrayer.icon;
+  }
+
+  if (npHours) npHours.textContent = String(hours).padStart(2, '0');
+  if (npMinutes) npMinutes.textContent = String(minutes).padStart(2, '0');
+  if (npSeconds) npSeconds.textContent = String(seconds).padStart(2, '0');
+
+  if (npExactTime) npExactTime.textContent = formatTime12(nextPrayer.timeStr);
+  if (npPrevLabel) npPrevLabel.textContent = prevPrayer.name.replace('صلاة ', '');
+  if (npNextLabel) npNextLabel.textContent = nextPrayer.name.replace('صلاة ', '');
+  if (npPercentLabel) npPercentLabel.textContent = `${percent}%`;
+  if (npProgressBar) npProgressBar.style.width = `${percent}%`;
+
+  // تمييز الكارد القادم في جدول الصلوات
+  document.querySelectorAll('.prayer-card').forEach(card => {
+    card.classList.remove('is-next-prayer');
+  });
+  const targetCard = document.querySelector(`.prayer-card[data-prayer-key="${nextPrayer.key}"]`);
+  if (targetCard) {
+    targetCard.classList.add('is-next-prayer');
+  }
+}
+window.updatePrayerCountdown = updatePrayerCountdown;
+
+// 5. فحص الأذان والإشعارات الموسعة الحية
 function checkPrayerAdhan() {
   if (!prayerTimings) return;
 
   const now = new Date();
   const currentHHMM = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
   const todayKey = now.toISOString().split('T')[0];
+  const dayOfWeek = now.getDay(); // 5 تعني يوم الجمعة
 
-  if (playedAdhansToday.date !== todayKey) {
-    playedAdhansToday = { date: todayKey };
-  }
+  if (playedAdhansToday.date !== todayKey) playedAdhansToday = { date: todayKey };
+  if (scheduledAzkarToday.date !== todayKey) scheduledAzkarToday = { date: todayKey };
 
-  const prayersToCheck = [
-    { key: 'Fajr', name: 'أذان الفجر', settingKey: 'fajr' },
-    { key: 'Dhuhr', name: 'أذان الظهر', settingKey: 'dhuhr' },
-    { key: 'Asr', name: 'أذان العصر', settingKey: 'asr' },
-    { key: 'Maghrib', name: 'أذان المغرب', settingKey: 'maghrib' },
-    { key: 'Isha', name: 'أذان العشاء', settingKey: 'isha' }
+  const prayers = [
+    { key: 'Fajr', name: 'أذان الفجر', setting: 'fajr' },
+    { key: 'Dhuhr', name: 'أذان الظهر', setting: 'dhuhr' },
+    { key: 'Asr', name: 'أذان العصر', setting: 'asr' },
+    { key: 'Maghrib', name: 'أذان المغرب', setting: 'maghrib' },
+    { key: 'Isha', name: 'أذان العشاء', setting: 'isha' }
   ];
 
-  prayersToCheck.forEach(p => {
-    const prayerTime = prayerTimings[p.key];
-    if (prayerTime && prayerTime.substring(0, 5) === currentHHMM) {
-      if (!playedAdhansToday[p.key] && adhanSettings[p.settingKey]) {
+  prayers.forEach(p => {
+    if (prayerTimings[p.key] && prayerTimings[p.key].substring(0, 5) === currentHHMM) {
+      if (!playedAdhansToday[p.key] && adhanSettings[p.setting]) {
         playedAdhansToday[p.key] = true;
         localStorage.setItem('zad_played_adhans', JSON.stringify(playedAdhansToday));
         triggerAdhanNotification(p.name);
@@ -198,103 +328,94 @@ function checkPrayerAdhan() {
     }
   });
 
-  // فحص أذكار الصباح والمساء والسنن
-  checkAzkarAndSunnahReminders(currentHHMM, todayKey);
+  // --- جدول الإشعارات والتنبيهات المضافة ---
+
+  // 1. أذكار الصباح (بعد الفجر بـ 20 دقيقة)
+  if (prayerTimings.Fajr && adhanSettings.sabahAzkar && !scheduledAzkarToday['sabah']) {
+    if (addMinutesToTime(prayerTimings.Fajr, 20) === currentHHMM) {
+      scheduledAzkarToday['sabah'] = true;
+      sendCustomReminder('📿 أذكار الصباح', 'أصبحنا وأصبح الملك لله.. حان وقت قراءة أذكار الصباح لحفظك وحصنك اليومي.');
+    }
+  }
+
+  // 2. صلاة الضحى (بعد الشروق بـ 20 دقيقة)
+  if (prayerTimings.Sunrise && adhanSettings.duhaRemind && !scheduledAzkarToday['duha']) {
+    if (addMinutesToTime(prayerTimings.Sunrise, 20) === currentHHMM) {
+      scheduledAzkarToday['duha'] = true;
+      sendCustomReminder('☀️ صلاة الأوابين (الضحى)', 'ركعتا الضحى تجزئ عن 360 صدقة عن كل مفصل في جسدك.');
+    }
+  }
+
+  // 3. أذكار المساء (بعد العصر بـ 20 دقيقة)
+  if (prayerTimings.Asr && adhanSettings.masaaAzkar && !scheduledAzkarToday['masaa']) {
+    if (addMinutesToTime(prayerTimings.Asr, 20) === currentHHMM) {
+      scheduledAzkarToday['masaa'] = true;
+      sendCustomReminder('🌆 أذكار المساء', 'أمسينا وأمسى الملك لله.. أقبل على أذكار المساء لتحفظ نفسك وأهلك.');
+    }
+  }
+
+  // 4. ورد قراءة القرآن اليومي (الساعة 6:00 مساءً)
+  if (adhanSettings.quranReadRemind && !scheduledAzkarToday['quran_read'] && currentHHMM === '18:00') {
+    scheduledAzkarToday['quran_read'] = true;
+    sendCustomReminder('📖 ورد القرآن الكريم', 'لا تجعل يومك يمر دون قراءة صفحة أو جزء من كتاب الله.');
+  }
+
+  // 5. التذكير بالصلاة على النبي والتسبيح (الساعة 8:30 مساءً)
+  if (adhanSettings.salawatRemind && !scheduledAzkarToday['salawat'] && currentHHMM === '20:30') {
+    scheduledAzkarToday['salawat'] = true;
+    sendCustomReminder('✨ الصلاة على النبي والتسبيح', 'إن الله وملائكته يصلون على النبي.. صلّ على حبيبك ورطب لسانك بالذكر.');
+  }
+
+  // 6. أذكار النوم وسورة الملك (الساعة 10:30 مساءً)
+  if (adhanSettings.sleepAzkar && !scheduledAzkarToday['sleep'] && currentHHMM === '22:30') {
+    scheduledAzkarToday['sleep'] = true;
+    sendCustomReminder('🌙 سورة الملك وأذكار النوم', 'لا تنم حتى تقرأ سورة الملك وتتوضأ وتذكر ربك.');
+  }
+
+  // 7. صلاة قيام الليل والاستغفار في السحر (الساعة 2:00 صباحاً)
+  if (adhanSettings.qiyamRemind && !scheduledAzkarToday['qiyam'] && currentHHMM === '02:00') {
+    scheduledAzkarToday['qiyam'] = true;
+    sendCustomReminder('🌌 قيام الليل والاستغفار', 'ينزل ربنا إلى السماء الدنيا فيقول: هل من داعٍ فأستجيب له؟ هل من مستغفر فأغفر له؟');
+  }
+
+  // 8. التذكير بسورة الكهف والصلاة على النبي يوم الجمعة (الساعة 10:00 صباحاً)
+  if (dayOfWeek === 5 && adhanSettings.kahfRemind && !scheduledAzkarToday['kahf'] && currentHHMM === '10:00') {
+    scheduledAzkarToday['kahf'] = true;
+    sendCustomReminder('🕌 نور ما بين الجمعتين', 'جمعة مباركة! لا تنسَ قراءة سورة الكهف والصلاة والسلام على رسول الله.');
+  }
+
+  localStorage.setItem('zad_scheduled_azkar', JSON.stringify(scheduledAzkarToday));
 }
 
 function triggerAdhanNotification(prayerName) {
-  // أ) إظهار التوست العلوي
-  if (typeof window.showToast === 'function') {
-    window.showToast(`🕌 حان الآن وقت ${prayerName}`);
-  }
+  if (typeof window.showToast === 'function') window.showToast(`🕌 حان الآن وقت ${prayerName}`);
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
 
-  // ب) الاهتزاز عند التفاعل اللمسي
-  if (navigator.vibrate) {
-    navigator.vibrate([100, 50, 100, 50, 200]);
-  }
-
-  // ج) تشغيل صوت الأذان في المتصفح
   try {
     const adhanAudio = new Audio('https://cdn.islamicfinder.org/audio/makkah.mp3');
-    adhanAudio.play().catch(e => console.log('يتطلب تشغيل صوت الأذان ضغطة تفاعلية سابقة من المستخدم.'));
-  } catch (e) {
-    console.error('خطأ في تشغيل صوت الأذان:', e);
-  }
+    adhanAudio.play().catch(e => console.log('يحتاج تفاعل سابق لتشغيل الصوت'));
+  } catch (e) {}
 
-  // د) إرسال إشعار المتصفح
   if ('Notification' in window && Notification.permission === 'granted') {
     new Notification('زاد المؤمن — مواقيت الصلاة', {
-      body: `حان الآن وقت ${prayerName} حسب توقيتك المحلي.`,
-      icon: 'icon-192.png'
+      body: `حان الآن وقت ${prayerName} حسب توقيتك المحلي.`, icon: 'icon-192.png'
     });
   }
 
-  // هـ) إرسال إشعار الأندرويد المباشر عبر Capacitor
   if (isCapacitorAvailable && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications) {
     window.Capacitor.Plugins.LocalNotifications.schedule({
       notifications: [{
         title: 'زاد المؤمن — مواقيت الصلاة',
         body: `حان الآن وقت ${prayerName} حسب توقيتك المحلي.`,
         id: Math.floor(Math.random() * 100000),
-        schedule: { at: new Date(Date.now() + 100) },
-        sound: 'makkah.mp3',
-        smallIcon: 'ic_stat_icon'
+        schedule: { at: new Date(Date.now() + 100) }, sound: 'makkah.mp3'
       }]
     });
   }
 }
 
-/* --------------------------------------------------------------------------
-   6. جدولة إشعارات الأذكار والسنن اليومية
-   -------------------------------------------------------------------------- */
-function checkAzkarAndSunnahReminders(currentHHMM, todayKey) {
-  if (scheduledAzkarToday.date !== todayKey) {
-    scheduledAzkarToday = { date: todayKey };
-  }
-
-  // أذكار الصباح (بعد أذان الفجر بـ 20 دقيقة)
-  if (prayerTimings.Fajr && adhanSettings.sabahAzkar && !scheduledAzkarToday['sabah']) {
-    const sababTime = addMinutesToTime(prayerTimings.Fajr, 20);
-    if (sababTime === currentHHMM) {
-      scheduledAzkarToday['sabah'] = true;
-      localStorage.setItem('zad_scheduled_azkar', JSON.stringify(scheduledAzkarToday));
-      sendCustomReminder('📿 أذكار الصباح', 'أصبحنا وأصبح الملك لله.. حان وقت قراءة أذكار الصباح لحفظك وحصنك اليومي.');
-    }
-  }
-
-  // صلاة الضحى (بعد الشروق بـ 20 دقيقة)
-  if (prayerTimings.Sunrise && adhanSettings.duhaRemind && !scheduledAzkarToday['duha']) {
-    const duhaTime = addMinutesToTime(prayerTimings.Sunrise, 20);
-    if (duhaTime === currentHHMM) {
-      scheduledAzkarToday['duha'] = true;
-      localStorage.setItem('zad_scheduled_azkar', JSON.stringify(scheduledAzkarToday));
-      sendCustomReminder('☀️ صلاة الأوابين (الضحى)', 'ركعتا الضحى تجزئ عن 360 صدقة عن كل مفصل في جسدك.');
-    }
-  }
-
-  // أذكار المساء (بعد أذان العصر بـ 20 دقيقة)
-  if (prayerTimings.Asr && adhanSettings.masaaAzkar && !scheduledAzkarToday['masaa']) {
-    const masaaTime = addMinutesToTime(prayerTimings.Asr, 20);
-    if (masaaTime === currentHHMM) {
-      scheduledAzkarToday['masaa'] = true;
-      localStorage.setItem('zad_scheduled_azkar', JSON.stringify(scheduledAzkarToday));
-      sendCustomReminder('🌆 أذكار المساء', 'أمسينا وأمسى الملك لله.. أقبل على أذكار المساء لتحفظ نفسك وأهلك.');
-    }
-  }
-
-  // أذكار النوم وسورة الملك (الساعة 10:30 مساءً)
-  if (adhanSettings.sleepAzkar && !scheduledAzkarToday['sleep'] && currentHHMM === '22:30') {
-    scheduledAzkarToday['sleep'] = true;
-    localStorage.setItem('zad_scheduled_azkar', JSON.stringify(scheduledAzkarToday));
-    sendCustomReminder('📖 سورة الملك وأذكار النوم', 'لا تنم حتى تقرأ سورة الملك وتتوضأ وتذكر ربك.');
-  }
-}
-
 function sendCustomReminder(title, message) {
-  if (typeof window.showToast === 'function') {
-    window.showToast(`${title}: ${message}`);
-  }
-
+  if (typeof window.showToast === 'function') window.showToast(`${title}: ${message}`);
   if ('Notification' in window && Notification.permission === 'granted') {
     new Notification(title, { body: message, icon: 'icon-192.png' });
   }
@@ -302,8 +423,7 @@ function sendCustomReminder(title, message) {
   if (isCapacitorAvailable && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications) {
     window.Capacitor.Plugins.LocalNotifications.schedule({
       notifications: [{
-        title: title,
-        body: message,
+        title: title, body: message,
         id: Math.floor(Math.random() * 100000),
         schedule: { at: new Date(Date.now() + 100) }
       }]
@@ -311,11 +431,11 @@ function sendCustomReminder(title, message) {
   }
 }
 
-function addMinutesToTime(time24, minutesToAdd) {
+function addMinutesToTime(time24, mins) {
   if (!time24) return '00:00';
   const [h, m] = time24.split(':').map(Number);
   const d = new Date();
-  d.setHours(h, m + minutesToAdd, 0);
+  d.setHours(h, m + mins, 0);
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 }
 
@@ -324,15 +444,11 @@ function scheduleAllDailyNotifications(timings) {
 
   try {
     window.Capacitor.Plugins.LocalNotifications.cancel({ notifications: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }] });
-
-    const notificationsList = [];
+    const list = [];
     const now = new Date();
-
     const prayers = [
-      { id: 1, key: 'Fajr', title: 'أذان الفجر' },
-      { id: 2, key: 'Dhuhr', title: 'أذان الظهر' },
-      { id: 3, key: 'Asr', title: 'أذان العصر' },
-      { id: 4, key: 'Maghrib', title: 'أذان المغرب' },
+      { id: 1, key: 'Fajr', title: 'أذان الفجر' }, { id: 2, key: 'Dhuhr', title: 'أذان الظهر' },
+      { id: 3, key: 'Asr', title: 'أذان العصر' }, { id: 4, key: 'Maghrib', title: 'أذان المغرب' },
       { id: 5, key: 'Isha', title: 'أذان العشاء' }
     ];
 
@@ -342,30 +458,25 @@ function scheduleAllDailyNotifications(timings) {
         const [h, m] = t.split(':').map(Number);
         const pDate = new Date();
         pDate.setHours(h, m, 0);
-
         if (pDate > now) {
-          notificationsList.push({
-            id: p.id,
-            title: `زاد المؤمن — ${p.title}`,
+          list.push({
+            id: p.id, title: `زاد المؤمن — ${p.title}`,
             body: `حان الآن وقت ${p.title} حسب توقيتك المحلي.`,
-            schedule: { at: pDate },
-            sound: 'makkah.mp3'
+            schedule: { at: pDate }, sound: 'makkah.mp3'
           });
         }
       }
     });
 
-    if (notificationsList.length > 0) {
-      window.Capacitor.Plugins.LocalNotifications.schedule({ notifications: notificationsList });
+    if (list.length > 0) {
+      window.Capacitor.Plugins.LocalNotifications.schedule({ notifications: list });
     }
   } catch (err) {
-    console.error('خطأ في جدولة إشعارات Capacitor:', err);
+    console.error('خطأ في جدولة الإشعارات:', err);
   }
 }
 
-/* --------------------------------------------------------------------------
-   7. التحكم بنافذة تخصيص الأذان والإعدادات
-   -------------------------------------------------------------------------- */
+// 6. التحكم بنافذة التخصيص
 window.openAdhanSettings = function() {
   const modal = document.getElementById('adhanModal');
   if (modal) {
@@ -386,113 +497,69 @@ window.closeAdhanSettings = function() {
     });
     localStorage.setItem('zad_adhan_settings', JSON.stringify(adhanSettings));
     modal.classList.remove('open');
-    if (typeof window.showToast === 'function') {
-      window.showToast('تم حفظ تفضيلات الأذان والإشعارات بنجاح ✨');
-    }
+    if (typeof window.showToast === 'function') window.showToast('تم حفظ التفضيلات والإشعارات بنجاح ✨');
   }
 };
 
-/* --------------------------------------------------------------------------
-   8. إعانة تفعيل فتح وإغلاق الشات المساعد الموحد
-   -------------------------------------------------------------------------- */
-window.toggleChat = function() {
-  const chatWindow = document.getElementById('chat-window');
-  if (chatWindow) {
-    const isHidden = chatWindow.style.display === 'none' || chatWindow.style.display === '';
-    chatWindow.style.display = isHidden ? 'flex' : 'none';
-    if (isHidden && document.getElementById('chat-input')) {
-      document.getElementById('chat-input').focus();
-    }
-  }
-};
+// 7. تحديث مظهر الجرم السماوي (الشمس والقمر والشفق) بحسب الوقت الفعلي
+function updateCelestialBody() {
+  const now = new Date();
+  const timeDec = now.getHours() + now.getMinutes() / 60;
 
-/* --------------------------------------------------------------------------
-   9. إعانة إطلاق بنر تثبيت التطبيق الذكي
-   -------------------------------------------------------------------------- */
-window.openAppInstallBanner = function() {
-  const banner = document.getElementById('smart-app-banner');
-  if (!banner) return;
-  const bannerText = document.getElementById('banner-text');
-  const apkBtn = document.getElementById('apk-download-btn');
-  const ua = navigator.userAgent.toLowerCase();
-  const isIOS = /iphone|ipad|ipod/.test(ua);
+  // 1. الفجر إلى الضحى (5:00 ص - 7:00 ص) -> شروق الصباح
+  // 2. الضحى إلى الظهر (7:00 ص - 12:30 م) -> شمس قوية وساطعة
+  // 3. الظهر إلى العصر (12:30 م - 4:30 م) -> شمس أهدأ وأدفأ
+  // 4. العصر إلى المغرب (4:30 م - 6:45 م) -> شفق الغروب الساحر
+  // 5. المغرب إلى الفجر (6:45 م - 5:00 ص) -> قمر الليل المنير
 
-  if (isIOS) {
-    if (bannerText) bannerText.innerHTML = 'للآيفون: اضغط <span style="color:#d6a85c; font-weight:bold;">مشاركة 📤</span> ثم اختر <span style="color:#d6a85c; font-weight:bold;">(إضافة إلى الشاشة الرئيسية)</span>';
-    if (apkBtn) apkBtn.style.display = 'none';
+  let celestialClass = 'celestial-night';
+  let titleText = '🌙 قمر الليل المنير — زاد المؤمن';
+
+  if (timeDec >= 5.0 && timeDec < 7.0) {
+    celestialClass = 'celestial-dawn';
+    titleText = '🌅 شروق الفجر والصباح — زاد المؤمن';
+  } else if (timeDec >= 7.0 && timeDec < 12.5) {
+    celestialClass = 'celestial-duha';
+    titleText = '☀️ شمس الضحى الساطعة والقوية — زاد المؤمن';
+  } else if (timeDec >= 12.5 && timeDec < 16.5) {
+    celestialClass = 'celestial-afternoon';
+    titleText = '🌤️ شمس الظهيرة والعصر الدافئة — زاد المؤمن';
+  } else if (timeDec >= 16.5 && timeDec < 18.75) {
+    celestialClass = 'celestial-shafaq';
+    titleText = '🌇 شفق الغروب الساحر — زاد المؤمن';
   } else {
-    if (bannerText) bannerText.innerText = 'ثبّت تطبيق الأندرويد المباشر (APK) لتصفح أسرع وأسهل!';
-    if (apkBtn) apkBtn.style.display = 'inline-block';
+    celestialClass = 'celestial-night';
+    titleText = '🌙 قمر الليل المنير — زاد المؤمن';
   }
-  banner.style.display = 'block';
-};
 
-window.closeAppInstallBanner = function() {
-  const banner = document.getElementById('smart-app-banner');
-  if (banner) banner.style.display = 'none';
-};
+  const elements = document.querySelectorAll('.moon');
+  elements.forEach(el => {
+    el.classList.remove(
+      'celestial-dawn',
+      'celestial-duha',
+      'celestial-afternoon',
+      'celestial-shafaq',
+      'celestial-night'
+    );
+    el.classList.add(celestialClass);
+    el.setAttribute('title', titleText);
+  });
+}
+window.updateCelestialBody = updateCelestialBody;
 
-/* --------------------------------------------------------------------------
-   10. الأحداث التشغيلية التلقائية عند فتح أي صفحة
-   -------------------------------------------------------------------------- */
-document.addEventListener('DOMContentLoaded', () => {
+function initZadNotifications() {
   requestNotificationPermissions();
-
+  setupAndroidBackButton();
   updateMakkahTimeAndHijri();
   setInterval(updateMakkahTimeAndHijri, 1000);
-
+  updateCelestialBody();
+  setInterval(updateCelestialBody, 15000);
   fetchPrayerTimes();
-  setInterval(checkPrayerAdhan, 15000); // فحص الأذان والسنن كل 15 ثانية
-});
-/* ==========================================================================
-   11. نافذة معلومات وتثبيت التطبيق الذكية (App Install & Info Modal)
-   ========================================================================== */
-window.openAppModal = function() {
-    let modal = document.getElementById('app-info-modal');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'app-info-modal';
-        modal.style.cssText = "display: none; position: fixed; inset: 0; z-index: 9999999; background: rgba(3, 5, 14, 0.82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px;";
-        document.body.appendChild(modal);
-    }
+  setInterval(checkPrayerAdhan, 15000);
+}
 
-    const ua = navigator.userAgent.toLowerCase();
-    const isIOS = /iphone|ipad|ipod/.test(ua);
-
-    let contentHTML = isIOS ? `
-        <div style="font-weight: bold; color: #f0d9a8; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-            <span>📱</span> تطبيق "زاد المؤمن"
-        </div>
-        <div style="font-size: 0.9rem; color: #93a0c2; line-height: 1.8; margin-bottom: 20px;">
-            التطبيق متوفر للاندرويد فقط وليس على الايفون بسبب سياساتهم 🧐<br><br>
-            <strong>لتثبيته على الآيفون / الآيباد:</strong><br>
-            1. افتح الموقع من متصفح <strong>سفاري (Safari)</strong>.<br>
-            2. اضغط على زر <strong>المشاركة 📤</strong> بالأسفل.<br>
-            3. اختر <strong>(إضافة إلى الشاشة الرئيسية 🏠)</strong> ليعمل معك بالكامل!
-        </div>
-    ` : `
-        <div style="font-weight: bold; color: #f0d9a8; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-            <span>📱</span> تطبيق "زاد المؤمن"
-        </div>
-        <div style="font-size: 0.9rem; color: #93a0c2; line-height: 1.8; margin-bottom: 20px;">
-            حمل تطبيق الأندرويد المباشر (APK) لتستمتع بأداء أسرع، مواقيت صلاة دقيقة، وتنبيهات الأذكار تعمل في الخلفية بكفاءة عالية وأوفلاين!
-        </div>
-        <div style="text-align: center; margin-bottom: 15px;">
-            <a href="zad-al-momen.apk" download style="display: inline-block; background: linear-gradient(135deg, #d6a85c, #b9803a); color: #1a1200; font-weight: bold; padding: 12px 24px; border-radius: 12px; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(214,168,92,0.3);">تحميل تطبيق APK 📲</a>
-        </div>
-    `;
-
-    modal.innerHTML = `
-        <div style="background: linear-gradient(135deg, #0f1730, #141d3d); border: 1px solid rgba(214, 168, 92, 0.4); border-radius: 22px; padding: 24px; width: 100%; max-width: 400px; color: #f3efe3; font-family: 'Tajawal', sans-serif; box-shadow: 0 15px 40px rgba(0,0,0,0.7); text-align: right;">
-            ${contentHTML}
-            <button type="button" onclick="closeAppModal()" style="width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(214,168,92,0.3); color: #f3efe3; padding: 10px; border-radius: 12px; font-weight: bold; cursor: pointer; font-family: 'Tajawal', sans-serif;">إغلاق</button>
-        </div>
-    `;
-
-    modal.style.display = 'flex';
-};
-
-window.closeAppModal = function() {
-    const modal = document.getElementById('app-info-modal');
-    if (modal) modal.style.display = 'none';
-};
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initZadNotifications);
+} else {
+  initZadNotifications();
+}

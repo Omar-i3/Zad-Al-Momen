@@ -10,10 +10,16 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- أيقونة الموقع والخطوط الرسمية -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📿</text></svg>">
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <!-- إعدادات تطبيق PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070b18">
@@ -188,17 +194,6 @@
       position: relative; z-index: 1;
       padding: 60px 20px 10px;
       text-align: center;
-    }
-    .moon {
-      width: 110px; height: 110px; margin: 0 auto 22px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 55%, #8a6a34 100%);
-      box-shadow: 0 0 60px 10px rgba(214,168,92,0.45), 0 0 120px 40px rgba(214,168,92,0.15);
-      animation: breathe 5s ease-in-out infinite;
-    }
-    @keyframes breathe {
-      0%,100%{transform:scale(1);box-shadow:0 0 60px 10px rgba(214,168,92,0.45),0 0 120px 40px rgba(214,168,92,0.15);}
-      50%{transform:scale(1.06);box-shadow:0 0 80px 18px rgba(214,168,92,0.6),0 0 150px 55px rgba(214,168,92,0.22);}
     }
     .hero h1 {
       font-size: clamp(2.2rem, 6vw, 3.5rem);
@@ -508,6 +503,7 @@
             <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 3 مرات</span></div>
             <div class="counter-actions">
               <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="toggleZkrItemFav(this)" title="حفظ الذكر في المفضلة" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⭐</button>
               <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
               <div class="counter-screen">0 / 3</div>
               <button class="btn-plus" onclick="countUp(this, 3)">+</button>
@@ -523,6 +519,7 @@
             <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 3 مرات</span></div>
             <div class="counter-actions">
               <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="toggleZkrItemFav(this)" title="حفظ الذكر في المفضلة" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⭐</button>
               <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
               <div class="counter-screen">0 / 3</div>
               <button class="btn-plus" onclick="countUp(this, 3)">+</button>
@@ -536,6 +533,7 @@
             <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 7 مرات</span></div>
             <div class="counter-actions">
               <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="toggleZkrItemFav(this)" title="حفظ الذكر في المفضلة" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⭐</button>
               <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
               <div class="counter-screen">0 / 7</div>
               <button class="btn-plus" onclick="countUp(this, 7)">+</button>
@@ -589,6 +587,7 @@
             <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 33 مرة لكل ذكر</span></div>
             <div class="counter-actions">
               <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="toggleZkrItemFav(this)" title="حفظ الذكر في المفضلة" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⭐</button>
               <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
               <div class="counter-screen">0 / 33</div>
               <button class="btn-plus" onclick="countUp(this, 33)">+</button>
@@ -615,6 +614,7 @@
             <div class="zkr-hint"><span class="zkr-badge">التكرار</span><span>قلها 3 مرات</span></div>
             <div class="counter-actions">
               <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="toggleZkrItemFav(this)" title="حفظ الذكر في المفضلة" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⭐</button>
               <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
               <div class="counter-screen">0 / 3</div>
               <button class="btn-plus" onclick="countUp(this, 3)">+</button>
@@ -667,6 +667,7 @@
             <div class="zkr-hint"><span class="zkr-badge">الحرز اليومي</span><span>كررها 100 مرة للحفظ المكتمل</span></div>
             <div class="counter-actions">
               <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="toggleZkrItemFav(this)" title="حفظ الذكر في المفضلة" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⭐</button>
               <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
               <div class="counter-screen">0 / 100</div>
               <button class="btn-plus" onclick="countUp(this, 100)">+</button>
@@ -680,6 +681,7 @@
             <div class="zkr-hint"><span class="zkr-badge">الرحمن</span><span>خفيفتان على اللسان، ثقيلتان في الميزان</span></div>
             <div class="counter-actions">
               <button class="btn-reset" onclick="resetCounter(this)">🔄</button>
+              <button type="button" onclick="toggleZkrItemFav(this)" title="حفظ الذكر في المفضلة" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⭐</button>
               <button type="button" onclick="copyZkrText(this)" title="نسخ الذكر" style="background: none; border: 1px solid rgba(214,168,92,0.3); color: var(--gold-soft); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">📋</button>
               <div class="counter-screen">0 / 100</div>
               <button class="btn-plus" onclick="countUp(this, 100)">+</button>
@@ -739,28 +741,44 @@
 </div>
 
  <!-- ==================== شريط الملاحة السفلي (الأذكار) ==================== -->
-<nav class="liquid-bottom-nav">
-  <a href="index.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">🏠</span>
-    <span>الرئيسية</span>
-  </a>
-  <a href="encyclopedia.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📚</span>
-    <span>الموسوعة</span>
-  </a>
-  <a href="azkar.html" class="liquid-nav-item active">
-    <span style="font-size: 1.2rem;">📿</span>
-    <span>الأذكار</span>
-  </a>
-  <a href="javascript:void(0)" onclick="openAppModal()" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📱</span>
-    <span>تطبيق</span>
-  </a>
-  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">💬</span>
-    <span>المساعد</span>
-  </a>
-</nav>
+  <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
+  <nav class="liquid-bottom-nav encyclopedia-nav">
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="azkar.html" class="liquid-nav-item active">
+      <span>📿</span>
+      <span>الأذكار</span>
+    </a>
+    <a href="names.html" class="liquid-nav-item">
+      <span>✨</span>
+      <span>الأسماء</span>
+    </a>
+    <a href="sunnah.html" class="liquid-nav-item">
+      <span>🌿</span>
+      <span>السنن</span>
+    </a>
+    <a href="stories.html" class="liquid-nav-item">
+      <span>📜</span>
+      <span>القصص</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span>💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
 
 <!-- ==================== السكربتات البرمجية ==================== -->
 <script>
@@ -890,6 +908,26 @@ function copyZkrText(btn) {
     });
 }
 
+function toggleZkrItemFav(btn) {
+    if (typeof ZadFavorites === 'undefined') return;
+    const item = btn.closest('.zkr-item');
+    if (!item) return;
+    const textEl = item.querySelector('.zkr-text');
+    const text = textEl ? textEl.innerText.trim() : 'ذكر مأثور';
+    const cleanId = 'zkr_' + Math.abs(text.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0));
+    const isAdded = ZadFavorites.toggle({
+        id: cleanId,
+        title: 'ذكر: ' + text.slice(0, 45) + (text.length > 45 ? '...' : ''),
+        type: 'azkar',
+        categoryLabel: '📿 الأذكار النبوية',
+        icon: '📿',
+        snippet: text,
+        link: 'azkar.html'
+    });
+    btn.innerHTML = isAdded ? '🌟' : '⭐';
+    btn.style.color = isAdded ? '#ffd700' : 'var(--gold-soft)';
+}
+
 /* ===== خلفية النجوم ===== */
 const canvas = document.getElementById('stars');
 const ctx = canvas.getContext('2d');
@@ -968,7 +1006,8 @@ function toggleWaDrawer() {
   }
 }
 </script>
-<script src="notifications.js" defer></script>
+<script src="favorites.js" defer></script>
+  <script src="notifications.js" defer></script>
 <script src="bot.js" defer></script>
 <script src="check-update.js" defer></script>
 </body>

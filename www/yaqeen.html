@@ -1,0 +1,3748 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>اليقين بالله تعالى — زاد المؤمن</title>
+
+  <!-- 🚫 منع المتصفح من تخزين صفحة الـ HTML القديمة -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- أيقونة الموقع والخطوط الرسمية -->
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+  <!-- إعدادات تطبيق PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
+  <link rel="stylesheet" href="app.css">
+
+  <style>
+/* ===== ودجت الواتساب الجانبي المنسحب الكامل (جهة اليمين) ===== */
+.wa-drawer {
+  position: fixed;
+  right: 0;
+  left: auto;
+  bottom: clamp(100px, 20vh, 180px);
+  z-index: 99995;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wa-drawer.active {
+  transform: translateX(0);
+}
+
+.wa-drawer-content {
+  width: 260px;
+  background: rgba(15, 23, 48, 0.96);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  border-right: none;
+  border-radius: 18px 0 0 18px;
+  padding: 14px 16px;
+  box-shadow: -6px 10px 30px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wa-toggle-btn {
+  position: absolute;
+  right: 100%;
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 50px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+  border-radius: 16px 0 0 16px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: -5px 5px 20px rgba(37, 211, 102, 0.4);
+  gap: 2px;
+  padding: 0;
+}
+
+.wa-toggle-btn .wa-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.wa-drawer.active .wa-toggle-btn .wa-arrow {
+  transform: rotate(180deg);
+}
+
+.wa-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: 700;
+  color: #f0d9a8;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.wa-close-btn {
+  background: none;
+  border: none;
+  color: #93a0c2;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.wa-close-btn:hover {
+  color: #ffffff;
+}
+
+.wa-drawer-text {
+  font-size: 0.82rem;
+  color: #d1d8e6;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wa-join-btn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 4px;
+}
+
+.wa-join-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
+}
+
+.wa-join-btn:active {
+  transform: scale(0.96);
+}
+</style>
+
+  <style>
+    :root {
+      --bg-deep: #070b18;
+      --bg-panel: #0f1730;
+      --bg-panel-2: #141d3d;
+      --gold: #d6a85c;
+      --gold-soft: #f0d9a8;
+      --teal: #5fd6c4;
+      --text-main: #f3efe3;
+      --text-muted: #93a0c2;
+      --hadith: #8fc9a8;
+      --border-glass: rgba(214, 168, 92, 0.28);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background:
+        radial-gradient(ellipse at 20% -10%, rgba(95,214,196,0.10), transparent 45%),
+        radial-gradient(ellipse at 80% 0%, rgba(214,168,92,0.12), transparent 40%),
+        var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding-bottom: 120px;
+    }
+
+    #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    h1, h2, h3, .amiri { font-family: 'Amiri', serif; }
+
+    /* ---------- الهيرو الرئيسي ---------- */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 60px 20px 30px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      margin: 0 0 8px; color: var(--gold-soft);
+      letter-spacing: 1px;
+    }
+    .hero .tagline {
+      font-size: 1.05rem; color: var(--text-muted);
+      max-width: 620px; margin: 0 auto 20px; line-height: 1.8;
+    }
+    .verse-strip {
+      max-width: 680px; margin: 0 auto 6px;
+      font-family: 'Amiri', serif; font-size: 1.25rem; color: var(--gold-soft);
+      line-height: 2;
+    }
+    .verse-source { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; }
+
+    .progress-wrap {
+      max-width: 340px; margin: 20px auto 0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px; padding: 10px 18px;
+      font-size: 0.85rem; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .progress-bar-track { flex: 1; height: 6px; border-radius: 6px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--teal), var(--gold)); transition: width 0.5s ease; }
+
+    /* ---------- كبسولة توقيت مكة والتاريخ ---------- */
+    #time-hijri-container {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      margin: 12px auto 18px !important;
+      padding: 8px 16px !important;
+      width: fit-content !important;
+      max-width: 92% !important;
+      background: rgba(15, 23, 42, 0.7) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border: 1px solid rgba(214, 168, 92, 0.3) !important;
+      border-radius: 30px !important;
+      position: relative !important; z-index: 10 !important;
+    }
+    #makkah-time-text { font-family: 'Tajawal', sans-serif !important; font-size: 0.82rem !important; font-weight: 700 !important; color: #f0d9a8 !important; }
+    #hijri-date-text { font-family: 'Amiri', serif !important; font-size: 0.9rem !important; color: #d6a85c !important; }
+
+    /* ---------- شبكة خريطة الموضوعات الزجاجية ---------- */
+    .section-label { text-align: center; position: relative; z-index: 1; margin: 50px auto 20px; width: 100%; display: block; }
+    .section-label span {
+      display: inline-block;
+      font-family: 'Amiri', serif; font-size: 1.65rem; color: var(--gold-soft);
+      padding-bottom: 6px; border-bottom: 2px solid var(--border-glass);
+    }
+    .section-sub { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 28px; width: 100%; display: block; }
+
+    .map {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto; padding: 0 18px 40px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .node {
+      position: relative;
+      background: rgba(15, 23, 48, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px; padding: 20px 16px 18px;
+      cursor: pointer; text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      min-height: 155px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    .node:hover {
+      transform: translateY(-4px);
+      border-color: var(--teal);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 24px rgba(95,214,196,0.25);
+    }
+    .node.visited { border-color: rgba(95,214,196,0.6); background: rgba(15, 28, 48, 0.75); }
+    .node.visited .node-num { color: var(--teal); background: rgba(95, 214, 196, 0.15); border-color: var(--teal); }
+    .node-num {
+      font-family: 'Amiri', serif; font-weight: 700; font-size: 0.8rem; color: var(--gold);
+      background: rgba(214,168,92,0.12); border: 1px solid var(--border-glass);
+      width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .node-icon { font-size: 1.7rem; }
+    .node-title { font-weight: 700; font-size: 1rem; color: var(--text-main); line-height: 1.5; }
+    .node-teaser { font-size: 0.78rem; color: var(--text-muted); }
+    .node-card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
+    }
+    .node-open-hint {
+      color: var(--teal);
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .node-quick-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(214, 168, 92, 0.16);
+      border: 1px solid rgba(214, 168, 92, 0.4);
+      color: var(--gold-soft);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 2;
+    }
+    .node-quick-card-btn:hover {
+      background: var(--gold);
+      color: #1a1200;
+      border-color: var(--gold);
+      transform: scale(1.06);
+    }
+    body.light .node-card-actions {
+      border-top-color: rgba(178, 122, 50, 0.15);
+    }
+    body.light .node-quick-card-btn {
+      background: rgba(178, 122, 50, 0.12);
+      border-color: rgba(178, 122, 50, 0.3);
+      color: var(--gold-soft);
+    }
+    body.light .node-quick-card-btn:hover {
+      background: var(--gold);
+      color: #ffffff;
+    }
+    .node.hidden-search, .qa-item.hidden-search, .qa-cat.hidden-search { display: none !important; }
+
+    /* ---------- النافذة المنبثقة للموضوع (Modal) ---------- */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(3,5,14,0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 99999; padding: 16px;
+    }
+    .overlay.open { display: flex !important; }
+    .modal {
+      background: linear-gradient(180deg, var(--bg-panel-2), var(--bg-panel));
+      border: 1px solid var(--border-glass);
+      width: 100%; max-width: 700px; max-height: 84vh; overflow-y: auto;
+      border-radius: 24px; padding: 26px 22px 34px;
+      position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    }
+    .modal-close {
+      position: sticky; top: 0; float: left;
+      background: rgba(255,255,255,0.08); border: 1px solid var(--border-glass);
+      color: var(--text-main); width: 34px; height: 34px; border-radius: 50%;
+      font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      z-index: 3; transition: background 0.2s ease;
+    }
+    .modal-close:hover { background: rgba(237,76,92,0.2); color: #ff6b6b; }
+    .modal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .modal-num {
+      font-family: 'Amiri', serif; color: var(--gold); border: 1px solid var(--border-glass);
+      background: rgba(214,168,92,0.1); width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 700;
+    }
+    .modal h2 { margin: 0; font-size: 1.45rem; color: var(--gold-soft); line-height: 1.4; }
+    .modal-body { margin-top: 18px; line-height: 2; font-size: 1rem; color: var(--text-main); }
+    .modal-body p { margin-bottom: 12px; }
+    .modal-body ul, .modal-body ol { padding-inline-start: 20px; margin-bottom: 14px; }
+
+    /* أزرار التنقل داخل الكرت */
+    .modal-nav-btn-top, .modal-nav-btn-bottom {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-glass); color: var(--gold-soft);
+      padding: 10px 14px; border-radius: 14px; cursor: pointer;
+      font-family: 'Tajawal', sans-serif; font-size: 0.88rem; font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .modal-nav-btn-top { margin-bottom: 16px; clear: both; }
+    .modal-nav-btn-bottom { margin-top: 22px; background: linear-gradient(135deg, rgba(95,214,196,0.15), rgba(214,168,92,0.08)); }
+    .modal-nav-btn-top:hover, .modal-nav-btn-bottom:hover { background: rgba(214,168,92,0.2); border-color: var(--gold); color: var(--text-main); }
+    .modal-nav-btn-top:disabled, .modal-nav-btn-bottom:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+
+    /* أزرار التبويبات الفئوية والأكشن */
+    .cat-tab-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass);
+      color: var(--text-muted); padding: 8px 16px; border-radius: 20px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s ease;
+    }
+    .cat-tab-btn:hover { background: rgba(214,168,92,0.15); color: var(--gold-soft); }
+    .cat-tab-btn.active { background: linear-gradient(135deg, #d6a85c, #9e6d24) !important; color: #ffffff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.6) !important; font-weight: 800; border-color: #ffd700; box-shadow: 0 4px 15px rgba(214,168,92,0.4); }
+
+    .modal-actions-bar {
+      display: flex; gap: 10px; margin: 10px 0 16px; flex-wrap: wrap;
+    }
+    .modal-action-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass);
+      color: var(--gold-soft); padding: 7px 14px; border-radius: 12px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .modal-action-btn:hover { background: rgba(214,168,92,0.2); border-color: var(--gold); color: #fff; }
+
+    .copy-btn-inline {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass);
+      color: var(--gold-soft); padding: 4px 10px; border-radius: 8px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.76rem;
+      cursor: pointer; transition: background 0.2s ease; margin-top: 8px;
+    }
+    .copy-btn-inline:hover { background: rgba(214,168,92,0.2); color: #fff; }
+
+    /* ---------- الصناديق التوضيحية ---------- */
+    .hadith-box {
+      background: rgba(143, 201, 168, 0.08); border-inline-start: 3px solid var(--hadith);
+      border-radius: 10px; padding: 14px 16px; margin: 16px 0;
+    }
+    .hadith-box .txt { font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--gold-soft); line-height: 2; }
+    .hadith-box .meta { font-size: 0.78rem; color: var(--hadith); margin-top: 6px; }
+
+    .verse-box {
+      background: rgba(214, 168, 92, 0.08); border-inline-start: 3px solid var(--gold);
+      border-radius: 10px; padding: 14px 16px; margin: 16px 0;
+      font-family: 'Amiri', serif; font-size: 1.2rem; color: var(--gold-soft); line-height: 2.1;
+    }
+    .verse-box .meta { font-family: 'Tajawal', sans-serif; font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+
+    .note-box {
+      background: rgba(95, 214, 196, 0.08); border: 1px dashed rgba(95, 214, 196, 0.4);
+      border-radius: 14px; padding: 14px 16px; margin: 16px 0; font-size: 0.92rem; color: var(--text-main);
+    }
+
+    .lafata-box {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.12), rgba(95, 214, 196, 0.08));
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      border-inline-start: 4px solid var(--gold);
+      border-radius: 14px; padding: 14px 18px; margin: 16px 0;
+      font-size: 0.95rem; line-height: 1.9; color: var(--text-main);
+    }
+    .lafata-box .title {
+      font-weight: 700; color: var(--gold-soft); font-size: 0.88rem; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+    }
+
+    .example-box {
+      background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass);
+      border-radius: 12px; padding: 12px 16px; margin: 14px 0; font-size: 0.92rem;
+    }
+    .example-box .lbl { color: var(--gold); font-weight: 700; font-size: 0.82rem; margin-bottom: 6px; display: block; }
+    .khulasa { background: rgba(214, 168, 92, 0.12); border-radius: 12px; padding: 14px 16px; margin-top: 18px; font-weight: 500; }
+
+    /* ---------- قسم الأسئلة والأجوبة ---------- */
+    .qa-wrap { max-width: 850px; margin: 0 auto; padding: 0 18px 40px; position: relative; z-index: 1; display: block; width: 100%; }
+    .qa-cat {
+      background: rgba(15, 23, 48, 0.65); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-glass); border-radius: 18px; margin-bottom: 16px; overflow: hidden;
+      display: block; width: 100%;
+    }
+    .qa-cat-head {
+      padding: 16px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--gold-soft); user-select: none;
+    }
+    .qa-cat-head .arrow { transition: transform 0.3s ease; color: var(--gold); }
+    .qa-cat.open .qa-cat-head .arrow { transform: rotate(180deg); }
+    .qa-cat-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .qa-item { border-top: 1px solid rgba(255, 255, 255, 0.06); }
+    .qa-q {
+      padding: 14px 20px; cursor: pointer; font-weight: 500; display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; font-size: 0.95rem;
+    }
+    .qa-q .plus { color: var(--teal); flex-shrink: 0; transition: transform 0.3s ease; }
+    .qa-item.open .qa-q .plus { transform: rotate(45deg); }
+    .qa-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 20px; }
+    .qa-a-inner { padding-bottom: 16px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.9; }
+
+    /* ---------- أشرطة البحث ---------- */
+    .search-wrap { max-width: 480px; margin: 20px auto 26px; position: relative; z-index: 1; padding: 0 18px; }
+    .search-box {
+      display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass); border-radius: 16px; padding: 10px 16px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .search-box input { flex: 1; background: none; border: none; outline: none; color: var(--text-main); font-family: 'Tajawal', sans-serif; font-size: 0.95rem; }
+    .search-box input::placeholder { color: var(--text-muted); }
+
+    /* ---------- متغير ومحددات حجم الخط التفاعلي ---------- */
+    :root {
+      --content-font-scale: 1;
+    }
+    .node-desc,
+    .node-preview {
+      font-size: calc(0.85rem * var(--content-font-scale, 1)) !important;
+    }
+    .modal-body {
+      font-size: calc(0.96rem * var(--content-font-scale, 1)) !important;
+    }
+    .modal-body p {
+      font-size: calc(0.96rem * var(--content-font-scale, 1)) !important;
+      line-height: calc(1.85 * var(--content-font-scale, 1)) !important;
+    }
+    .hadith-box .txt {
+      font-size: calc(1.18rem * var(--content-font-scale, 1)) !important;
+      line-height: calc(1.8 * var(--content-font-scale, 1)) !important;
+    }
+    .verse-box .txt {
+      font-size: calc(1.22rem * var(--content-font-scale, 1)) !important;
+    }
+    .lafata-box {
+      font-size: calc(0.92rem * var(--content-font-scale, 1)) !important;
+    }
+    .qa-q {
+      font-size: calc(1rem * var(--content-font-scale, 1)) !important;
+    }
+    .qa-a {
+      font-size: calc(0.94rem * var(--content-font-scale, 1)) !important;
+      line-height: calc(1.8 * var(--content-font-scale, 1)) !important;
+    }
+
+    /* ---------- شريط أدوات القراءة والمظهر العائم الفاخر ---------- */
+    .reader-floating-bar {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 48, 0.82);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 5px 8px;
+      border-radius: 28px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+      transition: all 0.3s ease;
+    }
+    .reader-floating-bar:hover {
+      border-color: rgba(214, 168, 92, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .reader-tool-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: var(--gold-soft);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+    .reader-tool-btn:hover {
+      border-color: var(--gold);
+      transform: scale(1.08);
+      background: rgba(214, 168, 92, 0.18);
+    }
+    .font-stepper-capsule {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px;
+      padding: 2px 4px;
+      gap: 2px;
+    }
+    .stepper-btn {
+      background: transparent;
+      border: none;
+      color: var(--gold-soft);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .stepper-btn:hover {
+      background: rgba(214, 168, 92, 0.25);
+      color: #ffffff;
+    }
+    .stepper-val {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 0 5px;
+      cursor: pointer;
+      user-select: none;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .stepper-val:hover {
+      color: var(--gold);
+    }
+    .card-studio-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.22), rgba(95, 214, 196, 0.18));
+      border: 1px solid rgba(214, 168, 92, 0.4);
+      color: var(--gold-soft);
+      padding: 5px 12px;
+      border-radius: 18px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .card-studio-trigger-btn:hover {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #1a1200;
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(214, 168, 92, 0.35);
+      transform: translateY(-1px);
+    }
+    .card-gen-btn {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.2), rgba(95, 214, 196, 0.15)) !important;
+      border-color: rgba(214, 168, 92, 0.4) !important;
+      color: var(--gold-soft) !important;
+    }
+    .card-gen-btn:hover {
+      background: var(--gold) !important;
+      color: #1a1200 !important;
+      border-color: var(--gold) !important;
+    }
+    .modal-font-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-inline-start: auto;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 3px 6px;
+    }
+    .modal-font-stepper button {
+      background: transparent;
+      border: none;
+      color: var(--gold-soft);
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .modal-font-stepper button:hover {
+      background: rgba(214, 168, 92, 0.2);
+      color: #ffffff;
+    }
+    .modal-font-stepper span {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 0 4px;
+      cursor: pointer;
+    }
+
+    body.light {
+      --bg-deep: #f8f4ec;
+      --bg-panel: #ffffff;
+      --bg-panel-2: #fffaf0;
+      --gold: #b27a32;
+      --gold-soft: #8c581e;
+      --teal: #0f8573;
+      --text-main: #2c2317;
+      --text-muted: #6e5d48;
+      --hadith: #1a6b48;
+      --border-glass: rgba(178, 122, 50, 0.22);
+    }
+
+    /* ---------- شارة المساهمة الفخمة (شكل حبر/ريشة) ---------- */
+    .contributor-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.16), rgba(15, 23, 48, 0.75));
+      border: 1px solid rgba(214, 168, 92, 0.38);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      color: var(--gold-soft);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      margin: 10px auto 14px;
+      width: fit-content;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .contributor-badge:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(214, 168, 92, 0.3);
+    }
+    .contributor-badge .ink-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(214, 168, 92, 0.22);
+      color: var(--gold);
+      font-size: 0.95rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .contributor-badge strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .hadith-search-wrap {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 0 18px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hadith-search-box {
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 10px;
+      margin-bottom: 16px;
+    }
+
+    .hadith-search-box input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.95rem;
+      padding: 6px 10px;
+    }
+
+    .hadith-search-box button {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      border: none;
+      color: #1a1200;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .hadith-hint {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* ==========================================================================
+       الوضع النهاري المتناسق والفخم (Luxury Light Mode)
+       ========================================================================== */
+    body.light {
+      background:
+        radial-gradient(ellipse at 20% -10%, rgba(15, 133, 115, 0.08), transparent 45%),
+        radial-gradient(ellipse at 80% 0%, rgba(178, 122, 50, 0.10), transparent 40%),
+        var(--bg-deep);
+      color: var(--text-main);
+    }
+
+    /* إخفاء نجوم الليل في وضح النهار */
+    body.light #stars {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    /* كبسولة توقيت مكة والتقويم الهجري نهاراً */
+    body.light #time-hijri-container {
+      background: rgba(255, 255, 255, 0.88) !important;
+      border: 1px solid rgba(178, 122, 50, 0.28) !important;
+      box-shadow: 0 4px 18px rgba(140, 88, 30, 0.08) !important;
+    }
+    body.light #makkah-time-text {
+      color: #8c581e !important;
+    }
+    body.light #hijri-date-text {
+      color: #b27a32 !important;
+    }
+
+    /* شارة المساهمة الفخمة نهاراً */
+    body.light .contributor-badge {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.2), rgba(255, 255, 255, 0.9));
+      border: 1px solid rgba(178, 122, 50, 0.32);
+      box-shadow: 0 4px 18px rgba(140, 88, 30, 0.08);
+      color: var(--gold-soft);
+    }
+    body.light .contributor-badge strong {
+      color: var(--text-main);
+    }
+    body.light .contributor-badge .ink-icon {
+      background: rgba(178, 122, 50, 0.18);
+      color: var(--gold-soft);
+      box-shadow: 0 1px 4px rgba(140, 88, 30, 0.12);
+    }
+
+    /* شريط تقدم القراءة */
+    body.light .progress-wrap {
+      background: rgba(255, 255, 255, 0.8);
+      border-color: rgba(178, 122, 50, 0.22);
+      box-shadow: 0 2px 10px rgba(140, 88, 30, 0.05);
+    }
+    body.light .progress-bar-track {
+      background: rgba(178, 122, 50, 0.12);
+    }
+
+    /* صناديق البحث */
+    body.light .search-box,
+    body.light .hadith-search-box {
+      background: rgba(255, 255, 255, 0.88);
+      border-color: rgba(178, 122, 50, 0.25);
+      box-shadow: 0 4px 16px rgba(140, 88, 30, 0.06);
+    }
+    body.light .search-box input,
+    body.light .hadith-search-box input {
+      color: var(--text-main);
+    }
+    body.light .search-box input::placeholder,
+    body.light .hadith-search-box input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* أزرار التبويبات الفئوية */
+    body.light .cat-tab-btn {
+      background: rgba(255, 255, 255, 0.8);
+      border-color: rgba(178, 122, 50, 0.2);
+      color: var(--text-muted);
+    }
+    body.light .cat-tab-btn:hover {
+      background: rgba(178, 122, 50, 0.12);
+      color: var(--gold-soft);
+    }
+    body.light .cat-tab-btn.active {
+      background: var(--gold);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(178, 122, 50, 0.28);
+    }
+
+    /* زر تبديل الوضع */
+    body.light .theme-btn {
+      background: rgba(255, 255, 255, 0.88);
+      border-color: rgba(178, 122, 50, 0.28);
+      color: var(--text-main);
+      box-shadow: 0 4px 15px rgba(140, 88, 30, 0.1);
+    }
+
+    /* بطاقات خريطة الموضوعات (Nodes) في النهار */
+    body.light .node {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(178, 122, 50, 0.22);
+      box-shadow: 0 4px 20px rgba(140, 88, 30, 0.07);
+    }
+    body.light .node:hover {
+      background: #ffffff;
+      border-color: var(--teal);
+      box-shadow: 0 10px 28px rgba(15, 133, 115, 0.15), 0 0 20px rgba(15, 133, 115, 0.12);
+    }
+    body.light .node.visited {
+      background: rgba(240, 250, 248, 0.9);
+      border-color: rgba(15, 133, 115, 0.4);
+    }
+    body.light .node-num {
+      background: rgba(178, 122, 50, 0.1);
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--gold-soft);
+    }
+    body.light .node.visited .node-num {
+      background: rgba(15, 133, 115, 0.12);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    /* بنك الأسئلة والأجوبة نهاراً */
+    body.light .qa-cat {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(178, 122, 50, 0.22);
+      box-shadow: 0 4px 18px rgba(140, 88, 30, 0.06);
+    }
+    body.light .qa-item {
+      border-top: 1px solid rgba(178, 122, 50, 0.12);
+    }
+    body.light .qa-q:hover {
+      background: rgba(178, 122, 50, 0.04);
+    }
+
+    /* النافذة المنبثقة وصناديق الشرح في النهار */
+    body.light .overlay {
+      background: rgba(44, 35, 23, 0.6);
+    }
+    body.light .modal {
+      background: linear-gradient(180deg, var(--bg-panel-2), var(--bg-panel));
+      border-color: rgba(178, 122, 50, 0.3);
+      box-shadow: 0 20px 50px rgba(140, 88, 30, 0.2);
+    }
+    body.light .modal-close {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--text-main);
+    }
+    body.light .modal-close:hover {
+      background: rgba(237, 76, 92, 0.15);
+      color: #d63031;
+    }
+    body.light .modal-nav-btn-top,
+    body.light .modal-nav-btn-bottom {
+      background: rgba(178, 122, 50, 0.07);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--gold-soft);
+    }
+    body.light .modal-nav-btn-top:hover,
+    body.light .modal-nav-btn-bottom:hover {
+      background: rgba(178, 122, 50, 0.16);
+      border-color: var(--gold);
+      color: var(--text-main);
+    }
+    body.light .modal-action-btn {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--gold-soft);
+    }
+    body.light .modal-action-btn:hover {
+      background: rgba(178, 122, 50, 0.18);
+      border-color: var(--gold);
+      color: var(--text-main);
+    }
+    body.light .copy-btn-inline {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--gold-soft);
+    }
+    body.light .copy-btn-inline:hover {
+      background: rgba(178, 122, 50, 0.18);
+      color: var(--text-main);
+    }
+
+    /* صناديق الأحاديث والآيات واللفتات نهاراً */
+    body.light .hadith-box {
+      background: rgba(26, 107, 72, 0.08);
+      border-inline-start: 4px solid var(--hadith);
+    }
+    body.light .hadith-box .txt {
+      color: var(--text-main);
+    }
+    body.light .hadith-box .meta {
+      color: var(--hadith);
+      font-weight: 600;
+    }
+    body.light .verse-box {
+      background: rgba(178, 122, 50, 0.08);
+      border-inline-start: 4px solid var(--gold);
+    }
+    body.light .verse-box .txt,
+    body.light .verse-strip {
+      color: var(--gold-soft);
+    }
+    body.light .note-box {
+      background: rgba(15, 133, 115, 0.07);
+      border: 1px dashed rgba(15, 133, 115, 0.4);
+      color: var(--text-main);
+    }
+    body.light .lafata-box {
+      background: linear-gradient(135deg, rgba(178, 122, 50, 0.1), rgba(15, 133, 115, 0.06));
+      border: 1px solid rgba(178, 122, 50, 0.28);
+      border-inline-start: 4px solid var(--gold);
+      color: var(--text-main);
+    }
+    body.light .example-box {
+      background: rgba(255, 255, 255, 0.7);
+      border-color: rgba(178, 122, 50, 0.2);
+    }
+    body.light .khulasa {
+      background: rgba(178, 122, 50, 0.12);
+      color: var(--text-main);
+    }
+
+    /* قائمة الخدمات والتواصل الجانبية (WhatsApp Drawer) */
+    body.light .wa-drawer-content {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      border-right: none;
+      box-shadow: -6px 10px 30px rgba(140, 88, 30, 0.12);
+    }
+    body.light .wa-drawer-header {
+      color: var(--gold-soft);
+      border-bottom: 1px solid rgba(178, 122, 50, 0.15);
+    }
+    body.light .wa-close-btn {
+      color: var(--text-muted);
+    }
+    body.light .wa-close-btn:hover {
+      color: var(--text-main);
+    }
+    body.light .wa-drawer-text {
+      color: var(--text-muted);
+    }
+    body.light .drawer-service-card {
+      background: rgba(178, 122, 50, 0.05);
+      border: 1px solid rgba(178, 122, 50, 0.18);
+    }
+    body.light .drawer-service-card:hover {
+      border-color: var(--gold);
+      background: rgba(178, 122, 50, 0.1);
+    }
+    body.light .drawer-service-title {
+      color: var(--gold-soft);
+    }
+    body.light .drawer-service-desc {
+      color: var(--text-muted);
+    }
+    body.light .btn-email-support {
+      background: rgba(178, 122, 50, 0.12);
+      border-color: var(--gold);
+      color: var(--gold-soft) !important;
+    }
+
+    /* شباك الشات الذكي (مساعد تبصرة) */
+    body.light #chat-window {
+      background: linear-gradient(180deg, #ffffff, #fdfbf7) !important;
+      border-color: rgba(178, 122, 50, 0.28) !important;
+      box-shadow: 0 12px 40px rgba(140, 88, 30, 0.16) !important;
+    }
+    body.light #chat-window > div:first-child {
+      background: rgba(178, 122, 50, 0.08) !important;
+      border-bottom-color: rgba(178, 122, 50, 0.15) !important;
+    }
+    body.light #chat-window [style*="color: #f0d9a8"],
+    body.light #chat-window [style*="color:#f0d9a8"] {
+      color: #8c581e !important;
+    }
+    body.light #chat-window [style*="color: #5fd6c4"],
+    body.light #chat-window [style*="color:#5fd6c4"] {
+      color: #0f8573 !important;
+    }
+    body.light #chat-close-btn {
+      color: var(--text-muted) !important;
+    }
+    body.light #chat-close-btn:hover {
+      color: var(--text-main) !important;
+    }
+    body.light #chat-form {
+      background: rgba(178, 122, 50, 0.05) !important;
+      border-top-color: rgba(178, 122, 50, 0.15) !important;
+    }
+    body.light #chat-input {
+      background: #ffffff !important;
+      border-color: rgba(178, 122, 50, 0.25) !important;
+      color: var(--text-main) !important;
+    }
+    body.light #chat-input::placeholder {
+      color: var(--text-muted) !important;
+    }
+
+    /* شريط الملاحة السفلي الشفاف نهاراً */
+    body.light .liquid-bottom-nav {
+      background: rgba(255, 255, 255, 0.92) !important;
+      border-color: rgba(178, 122, 50, 0.28) !important;
+      box-shadow: 0 10px 30px rgba(140, 88, 30, 0.12) !important;
+    }
+    body.light .liquid-nav-item {
+      color: var(--text-muted) !important;
+    }
+    body.light .liquid-nav-item:hover {
+      color: var(--gold-soft) !important;
+    }
+    body.light .liquid-nav-item.active {
+      color: var(--gold-soft) !important;
+      background: rgba(178, 122, 50, 0.14) !important;
+    }
+
+    /* ---------- نافذة استوديو توليد وتصميم البطاقات الدعوية (Modal) ---------- */
+    .card-studio-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      background: rgba(3, 5, 14, 0.92) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      display: none;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 100000000 !important;
+      padding: 16px !important;
+    }
+    .card-studio-overlay.open {
+      display: flex !important;
+    }
+    .card-studio-box {
+      background: linear-gradient(180deg, var(--bg-panel-2), var(--bg-panel));
+      border: 1px solid var(--border-glass);
+      border-radius: 26px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 94vh;
+      overflow-y: auto;
+      padding: 26px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+      position: relative;
+      animation: cardStudioPop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes cardStudioPop {
+      from { opacity: 0; transform: scale(0.95) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .card-studio-close {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      z-index: 4;
+    }
+    .card-studio-close:hover {
+      background: rgba(237, 76, 92, 0.2);
+      color: #ff6b6b;
+    }
+    .card-studio-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-glass);
+    }
+    .card-studio-head-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: rgba(214, 168, 92, 0.16);
+      border: 1px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .card-studio-head h3 {
+      margin: 0 0 4px;
+      font-size: 1.35rem;
+      color: var(--gold-soft);
+      font-family: 'Amiri', serif;
+    }
+    .card-studio-head p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .card-studio-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .card-studio-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .card-preview-container {
+        position: static !important;
+        top: auto !important;
+      }
+      .canvas-wrapper {
+        max-height: 48vh;
+      }
+      .card-studio-box {
+        padding: 20px 14px;
+      }
+    }
+    .card-preview-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    @media (min-width: 769px) {
+      .card-preview-container {
+        position: sticky;
+        top: 10px;
+      }
+    }
+    .canvas-wrapper {
+      width: 100%;
+      max-width: 440px;
+      max-height: 65vh;
+      border-radius: 18px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(214, 168, 92, 0.15);
+      border: 1px solid var(--border-glass);
+      background: #070b18;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) rgba(0,0,0,0.2);
+    }
+    #cardCanvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .preview-hint {
+      font-size: 0.74rem;
+      color: var(--gold);
+      opacity: 0.85;
+      text-align: center;
+    }
+    .card-mode-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .card-mode-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .card-mode-btn:hover {
+      background: rgba(214, 168, 92, 0.14);
+      border-color: var(--gold-soft);
+    }
+    .card-mode-btn.active {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.25), rgba(185, 128, 58, 0.25));
+      border-color: var(--gold);
+      color: var(--gold-soft);
+      font-weight: 700;
+    }
+    body.light .card-mode-btn {
+      background: #fdfaf3;
+      border-color: rgba(178, 122, 50, 0.25);
+      color: #2c2317;
+    }
+    body.light .card-mode-btn.active {
+      background: rgba(178, 122, 50, 0.15);
+      border-color: var(--gold);
+      color: #8c581e;
+    }
+    .card-controls-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: right;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .control-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .theme-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .card-theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-size: 0.78rem;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .card-theme-btn:hover {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.12);
+    }
+    .card-theme-btn.active {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.25);
+      color: var(--gold-soft);
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(214, 168, 92, 0.25);
+    }
+    .theme-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      flex-shrink: 0;
+    }
+    .swatch-andalusian {
+      background: linear-gradient(135deg, #070b18, #d6a85c);
+    }
+    .swatch-emerald {
+      background: linear-gradient(135deg, #061a14, #2ec4b6);
+    }
+    .swatch-dawn {
+      background: linear-gradient(135deg, #fdfaf3, #b9803a);
+    }
+    .card-controls-panel select,
+    .card-controls-panel input,
+    .card-controls-panel textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 9px 12px;
+      color: var(--text-main);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease;
+    }
+    .card-controls-panel select:focus,
+    .card-controls-panel input:focus,
+    .card-controls-panel textarea:focus {
+      border-color: var(--gold);
+      background: rgba(214, 168, 92, 0.06);
+    }
+    .card-controls-panel textarea {
+      resize: vertical;
+      line-height: 1.6;
+    }
+    .card-actions-grid {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .card-action-primary {
+      flex: 1 1 100%;
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #1a1200;
+      border: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(214, 168, 92, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .card-action-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(214, 168, 92, 0.48);
+    }
+    .card-action-secondary {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-glass);
+      color: var(--gold-soft);
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .card-action-secondary:hover {
+      background: rgba(214, 168, 92, 0.18);
+      border-color: var(--gold);
+      color: #ffffff;
+    }
+    .card-status-msg {
+      font-size: 0.82rem;
+      color: var(--teal);
+      text-align: center;
+      min-height: 18px;
+      font-weight: 600;
+    }
+
+    /* تخصيص الوضع النهاري للتحكم وأستوديو البطاقات */
+    body.light .reader-floating-bar {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(178, 122, 50, 0.28);
+      box-shadow: 0 8px 25px rgba(140, 88, 30, 0.12);
+    }
+    body.light .reader-tool-btn {
+      background: rgba(178, 122, 50, 0.1);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--gold-soft);
+    }
+    body.light .font-stepper-capsule {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.2);
+    }
+    body.light .stepper-btn {
+      color: var(--text-main);
+    }
+    body.light .stepper-btn:hover {
+      background: rgba(178, 122, 50, 0.2);
+      color: var(--gold-soft);
+    }
+    body.light .card-studio-trigger-btn {
+      background: linear-gradient(135deg, rgba(178, 122, 50, 0.14), rgba(15, 133, 115, 0.12));
+      border-color: rgba(178, 122, 50, 0.3);
+      color: var(--gold-soft);
+    }
+    body.light .card-studio-trigger-btn:hover {
+      background: linear-gradient(135deg, var(--gold), #b9803a);
+      color: #ffffff;
+    }
+    body.light .card-gen-btn {
+      background: rgba(178, 122, 50, 0.1) !important;
+      border-color: rgba(178, 122, 50, 0.3) !important;
+      color: var(--gold-soft) !important;
+    }
+    body.light .card-gen-btn:hover {
+      background: var(--gold) !important;
+      color: #ffffff !important;
+    }
+    body.light .modal-font-stepper {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.22);
+    }
+    body.light .modal-font-stepper button {
+      color: var(--gold-soft);
+    }
+    body.light .card-studio-overlay {
+      background: rgba(44, 35, 23, 0.65);
+    }
+    body.light .card-studio-box {
+      background: linear-gradient(180deg, #ffffff, #fdfaf3);
+      border-color: rgba(178, 122, 50, 0.3);
+      box-shadow: 0 20px 50px rgba(140, 88, 30, 0.2);
+    }
+    body.light .card-studio-close {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--text-main);
+    }
+    body.light .canvas-wrapper {
+      background: #fdfaf3;
+      border-color: rgba(178, 122, 50, 0.3);
+      box-shadow: 0 10px 30px rgba(140, 88, 30, 0.15);
+    }
+    body.light .card-theme-btn {
+      background: #ffffff;
+      border-color: rgba(178, 122, 50, 0.22);
+      color: var(--text-main);
+    }
+    body.light .card-theme-btn.active {
+      background: rgba(178, 122, 50, 0.15);
+      border-color: var(--gold);
+      color: var(--gold-soft);
+    }
+    body.light .card-controls-panel select,
+    body.light .card-controls-panel input,
+    body.light .card-controls-panel textarea {
+      background: #ffffff;
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--text-main);
+    }
+    body.light .card-action-secondary {
+      background: rgba(178, 122, 50, 0.08);
+      border-color: rgba(178, 122, 50, 0.25);
+      color: var(--gold-soft);
+    }
+    body.light .card-action-secondary:hover {
+      background: rgba(178, 122, 50, 0.18);
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars"></canvas>
+
+  <!-- شريط أدوات القراءة والمظهر العائم الفاخر -->
+  <div class="reader-floating-bar" id="readerFloatingBar">
+    <button class="reader-tool-btn" id="themeBtn" aria-label="تبديل الوضع" title="تبديل الوضع النهاري / الليلي">🌞</button>
+    
+    <div class="font-stepper-capsule" title="التحكم بحجم الخط">
+      <button type="button" class="stepper-btn" onclick="changeFontSize(-0.10)" aria-label="تصغير الخط" title="تصغير الخط">A-</button>
+      <span class="stepper-val" id="fontSizeDisplay" onclick="resetFontSize()" title="اضغط لإعادة ضبط حجم الخط إلى 100%">100%</span>
+      <button type="button" class="stepper-btn" onclick="changeFontSize(0.10)" aria-label="تكبير الخط" title="تكبير الخط">A+</button>
+    </div>
+
+    <button type="button" class="card-studio-trigger-btn" onclick="openCardStudio()" title="توليد وتصميم بطاقة إيمانية كصورة">
+      <span>🖼️</span>
+      <span class="studio-btn-text">بطاقة</span>
+    </button>
+  </div>
+
+  <!-- ودجت الخدمات والتواصل الجانبي المطور -->
+  <div id="waSideDrawer" class="wa-drawer">
+    <button type="button" class="wa-toggle-btn" onclick="toggleWaDrawer()" aria-label="الخدمات والتواصل">
+      <span style="font-size: 1rem;">🔗</span>
+      <span class="wa-arrow" style="font-size: 0.65rem;">❯</span>
+    </button>
+
+    <div class="wa-drawer-content">
+      <div class="wa-drawer-header">
+        <span>✨ خدمات وتواصل زاد المؤمن</span>
+        <button type="button" class="wa-close-btn" onclick="toggleWaDrawer()">✕</button>
+      </div>
+
+      <div class="drawer-service-card">
+        <div class="drawer-service-title">
+          <span>📢</span>
+          <span>قناة زاد المؤمن على الواتساب</span>
+        </div>
+        <div class="drawer-service-desc">انضم للقناة للحصول على التحديثات والأدعية والفوائد اليومية.</div>
+        <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="drawer-btn-link btn-wa-channel">
+          الانضمام للقناة ↗
+        </a>
+      </div>
+
+      <div class="drawer-service-card">
+        <div class="drawer-service-title">
+          <span>🌙</span>
+          <span>مساعد تبصرة الرقمي</span>
+        </div>
+        <div class="drawer-service-desc">تصفّح النسخة المباشرة الكاملة من مساعد تبصرة الشرعي الذكي.</div>
+        <a href="https://omar-i3.github.io/Tabsera/" target="_blank" rel="noopener" class="drawer-btn-link btn-tabsera-bot">
+          زيارة موقع تبصرة ↗
+        </a>
+      </div>
+
+      <div class="drawer-service-card">
+        <div class="drawer-service-title">
+          <span>✉️</span>
+          <span>الدعم الفني والإقتراحات</span>
+        </div>
+        <div class="drawer-service-desc">
+          لأي استفسار أو إبلاغ عن مشكلة:
+          <span style="color: var(--gold-soft); font-weight: bold; display: block; margin-top: 2px; word-break: break-all;">support.zad.al.momen@gmail.com</span>
+        </div>
+        <a href="mailto:support.zad.al.momen@gmail.com" class="drawer-btn-link btn-email-support">
+          مراسلة الدعم 📧
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 توقيت مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+  </div>
+
+  <div class="hero">
+    <div class="moon"></div>
+    <h1>اليقين بالله تعالى</h1>
+    <p class="tagline">حقيقته، مراتبه، تجلياته، وثمراته في حياة المسلم — سكون القلوب وثبات الأقدام أمام عواصف الشبهات والشهوات.</p>
+    
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 10px auto 14px;">
+      <a href="mailto:support.zad.al.momen@gmail.com?subject=%D8%A5%D8%B6%D8%A7%D9%81%D8%A9%20%D9%85%D9%88%D8%B6%D9%88%D8%B9" class="contributor-badge" style="text-decoration:none;" title="هل تود إضافة موضوع جديد ليوثق باسمك؟ اضغط لمراسلتنا عبر البريد">
+        <span class="ink-icon">✒️</span>
+        <span>مساهمة من <strong>عمر أفندي</strong></span>
+      </a>
+      <a href="mailto:support.zad.al.momen@gmail.com?subject=%D8%A5%D8%B6%D8%A7%D9%81%D8%A9%20%D9%85%D9%88%D8%B6%D9%88%D8%B9" style="display:inline-flex; align-items:center; gap:5px; font-size:0.75rem; color:var(--gold); text-decoration:none; opacity:0.85; transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
+        <span>💡</span><span>تود إضافة موضوع وتوثيقه باسمك؟ راسلنا ↗</span>
+      </a>
+    </div>
+    
+    <div class="verse-strip">﴿إِنَّمَا الْمُؤْمِنُونَ الَّذِينَ آمَنُوا بِاللَّهِ وَرَسُولِهِ ثُمَّ لَمْ يَرْتَابُوا وَجَاهَدُوا بِأَمْوَالِهِمْ وَأَنفُسِهِمْ فِي سَبِيلِ اللَّهِ ۚ أُولَٰئِكَ هُمُ الصَّادِقُونَ﴾</div>
+    <div class="verse-source">سورة الحجرات — الآية 15</div>
+
+    <div class="progress-wrap">
+      <span>استكشفت:</span>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+      <span id="progressText" style="font-weight: 700; color: var(--gold-soft);">0 / 10</span>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <span>🔍</span>
+      <form id="quickSearchForm" style="flex:1; display:contents;">
+        <input type="text" id="quickSearch" enterkeyhint="search" autocomplete="off" placeholder="ابحث في محاور اليقين والـ 50 سؤالاً...">
+      </form>
+    </div>
+    <div class="search-count" id="searchCount" style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:8px;"></div>
+  </div>
+
+  <!-- Categorized Tabs -->
+  <div class="category-tabs-wrap" style="display: flex; gap: 8px; justify-content: center; margin: 16px auto 24px; max-width: 600px; flex-wrap: wrap;">
+    <button class="cat-tab-btn active" data-tab="all">✨ الكل (المحاور والأسئلة)</button>
+    <button class="cat-tab-btn" data-tab="topics">🧭 المحاور العشرة (10)</button>
+    <button class="cat-tab-btn" data-tab="qa">❓ بنك الأسئلة (50)</button>
+  </div>
+
+  <div class="section-label topics-section-label"><span>المحاور العشرة الكبرى لليقين</span></div>
+  <p class="section-sub topics-section-sub">اضغط على أي محور لتستعرض الشرح التفصيلي والأدلة واللفتات الإيمانية</p>
+
+  <div class="map" id="mapGrid"></div>
+
+  <div class="section-label qa-section-label"><span>بنك الأسئلة الشامل في اليقين (50 سؤالاً وجواباً)</span></div>
+  <p class="section-sub qa-section-sub">الملحق الشامل لجميع الأبواب والمحاور الإيمانية والعملية</p>
+  <div class="qa-wrap" id="qaWrap"></div>
+
+  <div class="section-label"><span>دقّق حديثاً</span></div>
+  <p class="section-sub">بحث مباشر في الموسوعة الحديثية بموقع الدرر السنية</p>
+  <div class="hadith-search-wrap">
+    <form id="hadithSearchForm" class="hadith-search-box" style="display:flex; gap:8px;">
+      <input type="text" id="hadithQuery" enterkeyhint="search" autocomplete="off" placeholder="اكتب جزءاً من نص الحديث للتحقق...">
+      <button type="submit" id="hadithSearchBtn">بحث</button>
+    </form>
+    <div class="hadith-hint">نحاول جلب النتائج مباشرة من dorar.net؛ إذا تعذّر ذلك، ننقلك للبحث هناك مباشرة</div>
+    <div class="hadith-results" id="hadithResults"></div>
+  </div>
+
+  <footer>
+    <div class="amiri" style="font-size: 1.15rem; color: var(--gold-soft); line-height: 2; margin-bottom: 8px;">اليقين بالله هو البوصلة التي تضبط حركة القلب ومشاعره؛ فبه تهون الشدائد، وتُطرد المخاوف، ويسكن القلق من المستقبل.</div>
+    <div class="small" style="color: var(--text-muted);">زاد المؤمن — جميع الحقوق محفوظة © عمر</div>
+  </footer>
+
+  <!-- النافذة المنبثقة للاستعراض والتنقل (Modal) -->
+  <div class="overlay" id="overlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="closeBtn" aria-label="إغلاق">✕</button>
+      
+      <button type="button" class="modal-nav-btn-top" id="prevTopicBtn">
+        ▲ المحور السابق
+      </button>
+
+      <div class="modal-head">
+        <div class="modal-num" id="modalNum">١</div>
+        <h2 id="modalTitle">عنوان المحور</h2>
+      </div>
+
+      <div class="modal-actions-bar">
+        <button id="modalFavBtn" class="modal-action-btn fav-btn" type="button" onclick="toggleCurrentTopicFav()" title="إضافة أو إزالة من مفضلتي">
+          <span id="modalFavStar">⭐</span>
+          <span id="modalFavText">حفظ بالمفضلة</span>
+        </button>
+        <button id="modalCopyBtn" class="modal-action-btn" type="button">📋 نسخ المحور</button>
+        <button id="modalShareBtn" class="modal-action-btn" type="button">📤 مشاركة واتساب</button>
+        <button id="modalCardGenBtn" class="modal-action-btn card-gen-btn" type="button" onclick="window.openCardStudioForTopic && window.openCardStudioForTopic(typeof currentTopicIndex !== 'undefined' ? currentTopicIndex : (window.currentTopicIndex || 0))" title="توليد بطاقة كصورة لهذا المحور">
+          <span>🖼️</span>
+          <span>توليد بطاقة كصورة</span>
+        </button>
+        <div class="modal-font-stepper" title="التحكم بحجم الخط داخل المحور">
+          <button type="button" onclick="changeFontSize(-0.10)" title="تصغير الخط">A-</button>
+          <span id="modalFontPct" onclick="resetFontSize()" title="إعادة ضبط الحجم الافتراضي">100%</span>
+          <button type="button" onclick="changeFontSize(0.10)" title="تكبير الخط">A+</button>
+        </div>
+      </div>
+      
+      <div class="modal-body" id="modalBody"></div>
+
+      <button type="button" class="modal-nav-btn-bottom" id="nextTopicBtn">
+        المحور التالي ▼
+      </button>
+    </div>
+  </div>
+
+  <!-- نافذة استوديو توليد وتصميم البطاقات الدعوية كصور (Card Studio Modal) -->
+  <div class="card-studio-overlay" id="cardStudioOverlay" onclick="closeCardStudio(event)">
+    <div class="card-studio-box" onclick="event.stopPropagation()">
+      <button type="button" class="card-studio-close" onclick="closeCardStudio()" aria-label="إغلاق">✕</button>
+
+      <div class="card-studio-head">
+        <div class="card-studio-head-icon">🎨</div>
+        <div>
+          <h3>استوديو توليد وتصميم البطاقات الدعوية</h3>
+          <p>صمّم بطاقة إيمانية فاخرة عالية الدقة لمشاركتها في واتساب أو نشرها كـ Story</p>
+        </div>
+      </div>
+
+      <div class="card-studio-layout">
+        <!-- منطقة المعاينة الحية للبطاقة -->
+        <div class="card-preview-container">
+          <!-- شريط التبديل بين أجزاء الستوري عند توفر أكثر من جزء -->
+          <div id="storyPartSwitcher" class="story-part-switcher" style="display: none;">
+            <button type="button" class="story-tab active" id="storyPartBtnAll" onclick="switchStoryPart('all')">
+              <span>📱 ستوري كامل (النص كامل)</span>
+            </button>
+            <button type="button" class="story-tab" id="storyPartBtn1" onclick="switchStoryPart(1)">
+              <span>📱 ستوري ١ (الجزء الأول)</span>
+            </button>
+            <button type="button" class="story-tab" id="storyPartBtn2" onclick="switchStoryPart(2)">
+              <span>📱 ستوري ٢ (الجزء الثاني)</span>
+            </button>
+          </div>
+          <div class="canvas-wrapper">
+            <canvas id="cardCanvas" width="1080" height="1080"></canvas>
+          </div>
+          <div class="preview-hint" id="previewHint">📐 دقة البطاقة: 1080 × 1080 بكسل (مربعة فائقة الوضوح)</div>
+        </div>
+
+        <!-- لوحة التحكم وتخصيص البطاقة -->
+        <div class="card-controls-panel">
+          <!-- اختيار النمط والمقاس -->
+          <div class="control-group">
+            <label class="control-label">نمط ومقاس الصورة:</label>
+            <div class="card-mode-grid">
+              <button type="button" class="card-mode-btn active" id="modeBtnInfographic" onclick="setCardMode('infographic')">
+                <span>📋</span>
+                <span>انفوجرافيك كامل</span>
+              </button>
+              <button type="button" class="card-mode-btn" id="modeBtnStory" onclick="setCardMode('story')">
+                <span>📱</span>
+                <span>ستوري (1080×1920)</span>
+              </button>
+              <button type="button" class="card-mode-btn" id="modeBtnQuote" onclick="setCardMode('quote')">
+                <span>🖼️</span>
+                <span>مقتطف (1080×1080)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- اختيار الثيم اللوني -->
+          <div class="control-group">
+            <label class="control-label">الألوان والثيم الملكي:</label>
+            <div class="theme-picker-grid">
+              <button type="button" class="card-theme-btn active" id="themeBtnAndalusian" onclick="setCardTheme('andalusian')">
+                <span class="theme-swatch swatch-andalusian"></span>
+                <span>الأندلسي</span>
+              </button>
+              <button type="button" class="card-theme-btn" id="themeBtnEmerald" onclick="setCardTheme('emerald')">
+                <span class="theme-swatch swatch-emerald"></span>
+                <span>الزمرد</span>
+              </button>
+              <button type="button" class="card-theme-btn" id="themeBtnDawn" onclick="setCardTheme('dawn')">
+                <span class="theme-swatch swatch-dawn"></span>
+                <span>نور الفجر</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- اختيار المحور -->
+          <div class="control-group">
+            <label for="cardTopicSelect" class="control-label">اختر المحور الإيماني أو اكتب نصاً مخصصاً:</label>
+            <select id="cardTopicSelect" onchange="handleCardTopicChange(this.value)">
+              <!-- يتم ملؤها بالجافاسكربت -->
+            </select>
+          </div>
+
+          <!-- تعديل عنوان المحور -->
+          <div class="control-group">
+            <label for="cardCustomTitle" class="control-label">عنوان المحور:</label>
+            <input type="text" id="cardCustomTitle" oninput="renderCardCanvas()">
+          </div>
+
+          <!-- البيان والشرح الأساسي -->
+          <div class="control-group" id="cardIntroGroup">
+            <label for="cardCustomIntro" class="control-label">البيان والشرح الأساسي للمحور:</label>
+            <textarea id="cardCustomIntro" rows="3" oninput="renderCardCanvas()"></textarea>
+          </div>
+
+          <!-- تعديل نص الدليل الشرعي -->
+          <div class="control-group" id="cardQuoteGroup">
+            <label for="cardCustomQuote" class="control-label">الدليل الشرعي (الآية أو الحديث):</label>
+            <textarea id="cardCustomQuote" rows="2" oninput="renderCardCanvas()"></textarea>
+          </div>
+
+          <!-- تخريج ومصدر الدليل -->
+          <div class="control-group" id="cardMetaGroup">
+            <label for="cardCustomQuoteMeta" class="control-label">تخريج ومصدر الدليل (اسم السورة / الراوي والكتاب):</label>
+            <input type="text" id="cardCustomQuoteMeta" oninput="renderCardCanvas()">
+          </div>
+
+          <!-- النقاط والتفريعات أو الأمثلة -->
+          <div class="control-group" id="cardPointsGroup">
+            <label for="cardCustomPoints" class="control-label">النقاط والتفريعات أو الأمثلة الواقعية:</label>
+            <textarea id="cardCustomPoints" rows="3" oninput="renderCardCanvas()"></textarea>
+          </div>
+
+          <!-- تعديل اللفتة الإيمانية والخلاصة -->
+          <div class="control-group" id="cardWisdomGroup">
+            <label for="cardCustomWisdom" class="control-label">اللفتة الإيمانية والخلاصة التوجيهية:</label>
+            <textarea id="cardCustomWisdom" rows="2" oninput="renderCardCanvas()"></textarea>
+          </div>
+
+          <!-- أزرار التنزيل والمشاركة -->
+          <div class="card-actions-grid">
+            <button type="button" class="card-action-primary" id="cardDownloadBtn" onclick="downloadCardImage()">
+              <span>📥</span>
+              <span id="downloadBtnText">تحميل الصورة (PNG)</span>
+            </button>
+            <button type="button" class="card-action-primary" id="cardDownloadBothBtn" style="display: none; background: linear-gradient(135deg, #2ec4b6, #0f8573); grid-column: 1 / -1;" onclick="downloadBothStories()">
+              <span>📦</span>
+              <span>تحميل الستوريتين معاً (١ و ٢)</span>
+            </button>
+            <button type="button" class="card-action-secondary" onclick="shareCardImage()">
+              <span>📲</span>
+              <span>مشاركة سريعة</span>
+            </button>
+            <button type="button" class="card-action-secondary" onclick="copyCardImage()">
+              <span>📋</span>
+              <span>نسخ الصورة</span>
+            </button>
+          </div>
+          <div id="cardStatusMsg" class="card-status-msg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- صندوق الشات الذكي التفاعلي -->
+  <div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+    <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+      <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.3rem;">🌙</span>
+          <div>
+            <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+            <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلة من السنة الصحيحة</div>
+          </div>
+        </div>
+        <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+      </div>
+
+      <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+
+      <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+        <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي حول اليقين هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+        <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- شريط الملاحة السفلي (Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+    <!-- شريط الملاحة السفلي الموحد (Unified Liquid Bottom Nav) -->
+  <nav class="liquid-bottom-nav">
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item active">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="books.html" class="liquid-nav-item">
+      <span>📖</span>
+      <span>المكتبة</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span>💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
+
+  <script>
+  /* ---------- بيانات محاور اليقين الـ 10 المستخرجة من الكتاب ---------- */
+  const topics = [
+    {
+      icon: '💎',
+      title: 'ما هو اليقين ومنزلته في القلب؟',
+      teaser: 'استقرار العلم الجازم التام وغاية الإيمان ونهايته',
+      body: `
+        <p><strong>اليقين:</strong> هو استقرار العلم الجازم التام في القلب بحيث تنعدم معه كل شوائب الشك والتردد والريب. وهو غاية الإيمان ونهايته؛ فإذا كان الإيمان العام تصديقاً مجملاً، فاليقين هو الإيمان المفصل الذي يُورث الطمأنينة الكاملة والانقياد التام.</p>
+        
+        <div class="hadith-box">
+          <div class="txt">«الصَّبْرُ نِصْفُ الإِيمَانِ، وَالْيَقِينُ الإِيمَانُ كُلُّهُ»</div>
+          <div class="meta">عبد الله بن مسعود رضي الله عنه | رواه الطبراني والبيهقي</div>
+        </div>
+
+        <div class="example-box">
+          <span class="lbl">دفع الوساوس والخواطر العابرة</span>
+          اليقين لا تعكره الخواطر والوساوس العابرة التي يكرهها القلب ويدافعها؛ لقوله صلى الله عليه وسلم:
+          <div style="color: var(--gold-soft); font-family: 'Amiri', serif; font-size: 1.1rem; margin-top: 4px;">«ذَاكَ صَرِيحُ الإِيمَانِ»</div>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "اليقين ليس معناه أنك معصوم من هجوم الأفكار المشوشة؛ الشيطان وظيفته أن يوسوس ويشكك، لكن الموقن أول ما تطرأ عليه الخاطرة يستعذب ردّها ويكرهها، وهذه المدافعة بحد ذاتها برهان على حياة قلبك ونقاء إيمانك!"
+        </div>
+      `
+    },
+    {
+      icon: '🪜',
+      title: 'مراتب اليقين الثلاث في الوحي',
+      teaser: 'علم اليقين، عين اليقين، وحق اليقين',
+      body: `
+        <p>تتفاوت درجات اليقين في النفس وتتدرج عبر ثلاث مراتب تصاعدية:</p>
+        <ol>
+          <li><strong>علم اليقين:</strong> المعرفة الجازمة القائمة على الدليل والخبر الصادق (كإيماننا بالجنة والنار والبعث تصديقاً لنصوص الوحي).</li>
+          <li><strong>عين اليقين:</strong> ارتقاء المعرفة لتصبح كالمشاهدة الحية بالبصيرة، باستشعار عظمة الله ودلائل قدرته في الآفاق والأنفس.</li>
+          <li><strong>حق اليقين:</strong> أعلى المراتب وأكملها؛ وهي المعايشة التامة والذوق الوجداني المباشر، كدخول أهل الجنة إلى نعيمها واقعاً ومباشرته.</li>
+        </ol>
+
+        <div class="verse-box">
+          ﴿كَلَّا لَوْ تَعْلَمُونَ عِلْمَ الْيَقِينِ﴾ [التكاثر: 5]<br>
+          ﴿ثُمَّ لَتَرَوُنَّهَا عَيْنَ الْيَقِينِ﴾ [التكاثر: 7]<br>
+          ﴿إِنَّ هَٰذَا لَهُوَ حَقُّ الْيَقِينِ﴾ [الواقعة: 95]
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "بالمثال يتضح المقال: لو قال لك شخص ثقة عندي عسل أصلي، فهذا (علم يقين)، ولو فتح الإناء ورأيته بعينك، فهذا (عين يقين)، فإذا غرفت منه وتذوقت طعمه، فهذا (حق يقين)! وهكذا يتدرج العبد في عبادته ومناجاته حتى يذوق حلاوة القرب والأنس بربه."
+        </div>
+      `
+    },
+    {
+      icon: '🌾',
+      title: 'اليقين في الرزق والكفاية',
+      teaser: 'خزائن الله ملأى وعزة واستغناء يمنعان القلق',
+      body: `
+        <p>استقرار الطمأنينة التامة بأن خزائن السماوات والأرض بيد الله وحده، وأن الرزق والأجل مقدران لا يملكهما بشر. هذا اليقين يقتلع الخوف من الفقر والقلق المستقبلي المنهك، ويمنح الإنسان عزة واستغناءً يمنعه من التنازل عن مبادئه أو التذلل للمخلوقين.</p>
+
+        <div class="verse-box">
+          ﴿وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ * فَوَرَبِّ السَّمَاءِ وَالْأَرْضِ إِنَّهُ لَحَقٌّ مِّثْلَ مَا أَنَّكُمْ تَنطِقُونَ﴾
+          <div class="meta">سورة الذاريات — الآيات 22-23</div>
+        </div>
+
+        <div class="hadith-box">
+          <div class="txt">«إِنَّ نَفْسًا لَنْ تَمُوتَ حَتَّى تَسْتَوْفِيَ رِزْقَهَا، فَاتَّقُوا اللَّهَ وَأَجْمِلُوا فِي الطَّلَبِ»</div>
+          <div class="meta">رواه ابن ماجه وصححه الألباني</div>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "تأمل في قوله صلى الله عليه وسلم: (وأجملوا في الطلب)! يعني اسعَ واجتهد وأبدع، لكن بوقار وهدوء دون هلع، ولا تذل نفسك لأحد؛ لأن الرزق المكتوب لك سيبحث عنك ويأتيك كما يبحث عنك أجلك تماماً."
+        </div>
+      `
+    },
+    {
+      icon: '⚖️',
+      title: 'الفرق بين اليقين بالله وحسن الظن بالله',
+      teaser: 'اليقين رسوخ وتصديق، وحسن الظن رجاء وثقة بالرحمة والحكمة',
+      body: `
+        <p><strong>اليقين بالله وحسن الظن به:</strong> من أعمال القلوب العظيمة، وبينهما علاقة وثيقة، لكنهما ليسا بمعنى واحد. فاليقين هو رسوخ الإيمان والتصديق بالله تعالى وبأسمائه وصفاته ووعده وقدرته وحكمته، حتى يطمئن القلب ولا يتزعزع بالشكوك والاضطرابات.</p>
+        
+        <p>أما <strong>حسن الظن بالله:</strong> فهو أن يعتقد العبد بربه ما يليق بجلاله وكماله من الرحمة والفضل والحكمة، وأن يرجو منه الخير، ويحمل أقداره وأفعاله على ما يليق بحكمته ورحمته، مع القيام بما أمر الله به من الطاعات والأسباب.</p>
+
+        <div class="verse-box">
+          ﴿وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا﴾
+          <div class="meta">سورة الأعراف — الآية 180 | فمعرفة أسماء الله الحسنى وصفاته تزيد العبد يقيناً بربه، وتعينه على حسن الظن به؛ فمن عرف أن الله رحيم وحكيم ولطيف، أحسن الظن بتدبيره وأقداره.</div>
+        </div>
+
+        <div class="verse-box">
+          ﴿وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ ۖ وَعَسَىٰ أَن تُحِبُّوا شَيْئًا وَهُوَ شَرٌّ لَّكُمْ ۗ وَاللَّهُ يَعْلَمُ وَأَنتُمْ لَا تَعْلَمُونَ﴾
+          <div class="meta">سورة البقرة — الآية 216 | تبين هذه الآية أن المؤمن قد يجهل الحكمة فيما يقع له، لكنه يثق بعلم الله وحكمته، فيسلّم لأمره ويحسن الظن بتدبيره.</div>
+        </div>
+
+        <div class="hadith-box">
+          <div class="txt">«أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، فَلْيَظُنَّ بِي مَا شَاءَ»</div>
+          <div class="meta">حديث قدسي | رواه أحمد وصححه الألباني</div>
+        </div>
+
+        <div class="hadith-box">
+          <div class="txt">«لَا يَمُوتَنَّ أَحَدُكُمْ إِلَّا وَهُوَ يُحْسِنُ الظَّنَّ بِاللَّهِ»</div>
+          <div class="meta">رواه مسلم عن جابر رضي الله عنه | وهذان الحديثان يدلان على عظيم شأن حسن الظن بالله، وأن المسلم ينبغي أن يمتلئ قلبه رجاءً بالله وثقةً برحمته وفضله.</div>
+        </div>
+
+        <div class="example-box">
+          <span class="lbl">✨ فما الفرق بينهما؟</span>
+          <ul style="margin: 0; padding-inline-start: 18px; line-height: 1.9;">
+            <li><strong>اليقين بالله:</strong> رسوخ التصديق والإيمان في القلب، بحيث يثبت العبد على إيمانه بالله ووعده وقدرته وحكمته، ولا يتزعزع عند الشدائد.</li>
+            <li><strong>حسن الظن بالله:</strong> رجاء الخير من الله، واعتقاد رحمته وفضله وحكمته، وعدم حمل أفعاله وأقداره على السوء.</li>
+            <li><strong>العلاقة بينهما:</strong> اليقين أصل أوسع، وحسن الظن بالله من آثاره وثمراته؛ فكلما ازداد يقين العبد بالله وأسمائه وصفاته وحكمته، ازداد حسن ظنه به.</li>
+          </ul>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>💡</span> مثال يوضح الفرق</div>
+          "إذا تأخرت إجابة الدعاء، فإن اليقين يجعل العبد يعلم أن الله قادر على الإجابة، وأنه لا يعجزه شيء، أما حسن الظن فيجعله يرجو أن يكون تأخير الإجابة لحكمة، وأن الله يختار له ما هو خير، فيستمر في الدعاء دون يأس أو سوء ظن."
+        </div>
+
+        <div class="note-box" style="background: rgba(237,76,92,0.08); border-color: rgba(237,76,92,0.35);">
+          <strong style="color: #ff8b8b;">⚠️ تنبيه مهم:</strong> حسن الظن بالله لا يعني ترك العمل أو الاستمرار في المعصية بحجة الثقة برحمة الله، بل حسن الظن الصحيح يكون مع الطاعة والتوبة والأخذ بالأسباب.
+        </div>
+      `
+    },
+    {
+      icon: '🤲',
+      title: 'اليقين في الدعاء ومعوقاته الخفية',
+      teaser: 'معوقات خمسة يلقيها الشيطان لإفساد قلبك',
+      body: `
+        <p>الدعاء عبادة قلبية رفيعة تتطلب حضوراً وتهيؤاً روحياً؛ فإذا تحركت في قلبك رغبة في المناجاة، فهذه رسالة توفيق وإذن بالإقبال. لكن حذارِ من معوقات اليقين في الدعاء التي يلقيها الشيطان لإفساد قلبك:</p>
+        
+        <ul>
+          <li><strong>1. الشك في الاستحقاق بسبب الذنوب:</strong> يوسوس لك: (من أنت حتى يستجيب الله لك؟ انظر لتقصيرك!)، والرد: نحن ندعو الله لأنه أهل للرحمة والجود والإجابة، لا لأننا نستحق بأعمالنا؛ والله يجيب المضطر ولو كان مذنباً.</li>
+          <li><strong>2. الانشغال بكيفية الاستجابة ورسم الطريق:</strong> إياك أن ترسم لله سيناريو الفرج وتحدد الباب الذي يأتيك منه الرزق؛ فالحل عند الله ليس محصوراً في حساباتك، وهو يرزقك ﴿مِنْ حَيْثُ لَا يَحْتَسِبُ﴾.</li>
+          <li><strong>3. الشك في القدرة وتصغير المسألة:</strong> لا تُسقط عجزك البشري على قدرة الله فترى حاجتك "كبيرة أو مستحيلة"؛ كبّر مسألتك، فالذي خلق السماوات والأرض لا يعجزه شيء.</li>
+          <li><strong>4. مقارنة قصتك بقصص الآخرين:</strong> يوسوس الشيطان: (فلان دعا سنين وما تيسر له، لماذا تستمر؟)، والجواب: لا تقِس علاقتك بالله على تجارب غيرك؛ أنت لا تعلم بواطن قلوبهم، ولك قصتك الخاصة مع ربك الرحيم.</li>
+          <li><strong>5. فخ كلمة "لكن":</strong> أن تقول: (أنا واثق بربي.. لكن الظروف صعبة! لكن الواقع مقفل!)؛ فاعلم أن كل ما بعد كلمة "لكن" هو تشويش شيطاني يخدش كمال يقينك.</li>
+        </ul>
+
+        <div class="verse-box">
+          ﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ﴾
+          <div class="meta">سورة البقرة — الآية 186</div>
+        </div>
+
+        <div class="hadith-box">
+          <div class="txt">«ادْعُوا اللَّهَ وَأَنْتُمْ مُوقِنُونَ بِالإِجَابَةِ، وَاعْلَمُوا أَنَّ اللَّهَ لاَ يَسْتَجِيبُ دُعَاءً مِنْ قَلْبٍ غَافِلٍ لَاهٍ»</div>
+          <div class="meta">رواه الترمذي وحسنه الألباني</div>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "هندسة الدعاء تبدأ من طريقة دخولك على الله: هل يعقل أن تدخل على ملك الملوك وأنت شارد الذهن أو مشغول بهاتفك؟ ادخل بقلب كسرته الحاجة، واستعذ بالله من وساوس الشيطان، ولا ترسم لله كيف يفرجها، اترك تدبير الكيفية لربك وتفرغ أنت لصدق الافتقار!"
+        </div>
+      `
+    },
+    {
+      icon: '🛡️',
+      title: 'التحرر من الخوف ورسوخ عزة المؤمن',
+      teaser: 'هيبة الله في القلب تمحو الخوف من المخلوقين',
+      body: `
+        <p>امتلاء القلب بهيبة الله يمحو الخوف من المخلوقين؛ لعلم العبد أن نواصي الخلق كلهم بقبضة الله، وأن أحداً لا يملك نفعاً ولا ضراً إلا بإذنه. هذا الرسوخ يمنح المؤمن شجاعة وثباتاً واستقلالاً نفسياً، فلا ينحني أمام تهديد، ولا يداهن على حساب دينه وقيمه.</p>
+
+        <div class="verse-box">
+          ﴿إِنَّمَا ذَٰلِكُمُ الشَّيْطَانُ يُخَوِّفُ أَوْلِيَاءَهُ فَلَا تَخَافُوهُمْ وَخَافُونِ إِن كُنتُم مُّؤْمِنِينَ﴾
+          <div class="meta">سورة آل عمران — الآية 175</div>
+        </div>
+
+        <div class="hadith-box">
+          <div class="txt">«وَاعْلَمْ أَنَّ الأُمَّةَ لَوِ اجْتَمَعَتْ عَلَى أَنْ يَنْفَعُوكَ بِشَيْءٍ لَمْ يَنْفَعُوكَ إِلاَّ بِشَيْءٍ قَدْ كَتَبَهُ اللَّهُ لَكَ، وَلَوِ اجْتَمَعُوا عَلَى أَنْ يَضُرُّوكَ بِشَيْءٍ لَمْ يَضُرُّوكَ إِلاَّ بِشَيْءٍ قَدْ كَتَبَهُ اللَّهُ عَلَيْكَ»</div>
+          <div class="meta">رواه الترمذي وقال: حديث حسن صحيح</div>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "إذا استقر في قلبك أن البشر كلهم أسباب مسخرة لا يملكون مثقال ذرة من نفع أو ضر بدون إذن الله، ستعيش حراً، مرفوع الرأس، لا يكسرك تهديد ولا يغريك تملق!"
+        </div>
+      `
+    },
+    {
+      icon: '🌊',
+      title: 'تجليات اليقين في سير الأنبياء عند انقطاع الأسباب',
+      teaser: 'موسى عليه السلام أمام البحر والنبي ﷺ في الغار',
+      body: `
+        <p>يظهر معدن اليقين الحقيقي حين تنغلق المنافذ المادية وتتلاشى الحسابات الأرضية؛ فالأنبياء واجهوا أعتى المخاطر باتكاء روحي مطلق على معية الله:</p>
+        
+        <ul>
+          <li><strong>موسى عليه السلام:</strong> حين قال أصحابه ﴿إِنَّا لَمُدْرَكُونَ﴾، أجاب بلسان اليقين الحاسم: ﴿كَلَّا ۖ إِنَّ مَعِيَ رَبِّي سَيَهْدِينِ﴾.</li>
+          <li><strong>النبي ﷺ في الغار:</strong> حين وقف المشركون على فوهته، ثبّت صاحبه قائلاً: ﴿لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا﴾.</li>
+        </ul>
+
+        <div class="hadith-box">
+          <div class="txt">«مَا ظَنُّكَ يَا أَبَا بَكْرٍ بِاثْنَيْنِ اللَّهُ ثَالِثُهُمَا؟»</div>
+          <div class="meta">متفق عليه عن أبي بكر الصديق رضي الله عنه</div>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "أصحاب موسى نظروا بعين السبب المادي فقالوا (إنا لمدركون): البحر أمامنا والعدو خلفنا! لكن موسى نظر بعين مسبب الأسباب فقال (كلا إن معي ربي)! اليقين هو أن تبصر النجاة بقلبك قبل أن ينفلق البحر أمام عينك."
+        </div>
+      `
+    },
+    {
+      icon: '🕊️',
+      title: 'اليقين عند نزول المصائب وضبط المشاعر',
+      teaser: 'خط الدفاع الأول ضد الصدمات ومشروعية الدمع الفطري',
+      body: `
+        <p>اليقين هو خط الدفاع الأول ضد الصدمات؛ فالموقن يستقبل البلاء بثبات لعلمه أن ما أصابه مقدر ومكتوب، وأن خلفه تكفيراً للسيئات ورفعة للدرجات وعوضاً عظيماً. واليقين لا ينفي الحزن الطبيعي أو دمع العين الفطري، بل يمنع الجزع واللطم والتسخط على أقدار الله.</p>
+
+        <div class="verse-box">
+          ﴿الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ * أُولَٰئِكَ عَلَيْهِمْ صَلَوَاتٌ مِّن رَّبِّهِمْ وَرَحْمَةٌ ۖ وَأُولَٰئِكَ هُمُ الْمُهْتَدُونَ﴾
+          <div class="meta">سورة البقرة — الآيات 156-157</div>
+        </div>
+
+        <div class="hadith-box">
+          <div class="txt">«إِنَّ العَيْنَ تَدْمَعُ، وَالقَلْبَ يَحْزَنُ، وَلاَ نَقُولُ إِلاَّ مَا يَرْضَى رَبُّنَا»</div>
+          <div class="meta">رواه البخاري ومسلم عند وفاة ابنه إبراهيم عليه السلام</div>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "الإسلام دين الفطرة والرحمة، لا يطلب منك أن تكون جماداً بليد الإحساس! ابكِ وتألم، فهذا تفريغ طبيعي لضعف الإنسان، لكن اضبط لسانك وقلبك عن الاعتراض على حكمة العزيز الحكيم."
+        </div>
+      `
+    },
+    {
+      icon: '🧭',
+      title: 'التلازم بين صدق اليقين وبذل الأسباب',
+      teaser: 'الجوارح تعمل والأفئدة تتوكل',
+      body: `
+        <p>يضع المنهج الإسلامي حداً فاصلاً بين التوكل واليقين، وبين التواكل والكسل؛ فالقاعدة الكبرى في باب الأسباب:</p>
+        
+        <ul>
+          <li><strong>الجوارح تعمل والأفئدة تتوكل:</strong> تبذل أقصى جهد في السبب وكأن الأسباب هي كل شيء، وقلبك متجرد تماماً من التعلق بها.</li>
+          <li><strong>طلاقة القدرة الإلهية:</strong> اعلم يقيناً أن «الله يعطي بالسبب، وبانعدام السبب، وبعكس السبب»؛ يعطي بالسبب كالدواء والعمل، وبانعدام السبب كما نبع الماء لإسماعيل من تحت قدمه، وبعكس السبب كما جعل النار المحرقة برداً وسلاماً على إبراهيم.</li>
+        </ul>
+
+        <div class="hadith-box">
+          <div class="txt">سأل رجل النبي ﷺ عن ناقته: أيعقلها أم يتوكل؟ فقال له: «اعْقِلْهَا وَتَوَكَّلْ»</div>
+          <div class="meta">رواه الترمذي وحسنه الألباني</div>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "التوكل الصحيح كالمزارع الذي يحرث ويسقي ويتعب، لكنه يعلم أن إخراج النبتة وحمايتها من الآفات بيد الله وحده! من علق قلبه بالمدير أو الواسطة أو الوظيفة سقط في الشرك الخفي، ومن ترك العمل سقط في الجهل والكسل."
+        </div>
+      `
+    },
+    {
+      icon: '👑',
+      title: 'كيف يصل العبد إلى أعلى مراتب اليقين وثمراته؟',
+      teaser: 'مسار تربوي، تدبر القرآن، ونيل الإمامة في الدين',
+      body: `
+        <p>الوصول إلى مقام اليقين العالي مسار تربوي ورياضة روحية متواصلة:</p>
+        <ol>
+          <li><strong>التفكر في عظمة الخلق والنفس:</strong> تأمل ملكوت السماوات، واختلاف الليل والنهار، ودقة خلق النفس ﴿وَفِي أَنفُسِكُمْ ۚ أَفَلَا تُبْصِرُونَ﴾؛ فهذا التفكر يرفع رصيد اليقين فوراً.</li>
+          <li><strong>تدبر القرآن الكريم:</strong> والتعرف الحي على أسماء الله الحسنى (الحكيم، الوكيل، الفتاح، القريب، اللطيف).</li>
+          <li><strong>تصفية القلب والابتعاد عن الفضول:</strong> تجنب فضول الكلام والطعام والخلطة، والمداومة على خبيئة صالحة في السر.</li>
+          <li><strong>استحضار ألطاف الله السابقة:</strong> تذكر الأزمات القديمة التي فرجها الله عنك لبناء ثقة تراكمية تصمد أمام الشدائد الجديدة.</li>
+        </ol>
+
+        <div class="verse-box">
+          ﴿وَجَعَلْنَا مِنْهُمْ أَئِمَّةً يَهْدُونَ بِأَمْرِنَا لَمَّا صَبَرُوا ۖ وَكَانُوا بِآيَاتِنَا يُوقِنُونَ﴾
+          <div class="meta">سورة السجدة — الآية 24 (الثمرة الكبرى: نيل الإمامة في الدين والسلام الداخلي)</div>
+        </div>
+
+        <div class="lafata-box">
+          <div class="title"><span>🎙️</span> لفتة شفهية للحضور</div>
+          "بالصبر تُدفع الشهوات، وباليقين تُدفع الشبهات! وإذا اجتمع في قلب العبد الصبر واليقين نال الإمامة والشرف في الدنيا والآخرة."
+        </div>
+
+        <div class="khulasa">
+          🌟 <strong>الخاتمة:</strong> اليقين بالله هو البوصلة التي تضبط حركة القلب ومشاعره في كل مراحل الحياة؛ فبه تهون الشدائد، وتُطرد المخاوف، ويسكن القلق من المستقبل، ويتحرر الإنسان من التعلق بالمخلوقين. والمؤمن الحق يعيش بين بذل السبب والرضا بالقدر، موقناً برحمة ربه وحكمته في كل شأن.
+        </div>
+      `
+    }
+  ];
+
+  /* ---------- بنك الأسئلة الشامل الـ 50 سؤالاً وإجابة ---------- */
+  const qa = [
+    {
+      cat: 'أولاً: أسئلة المفهوم والمنزلة',
+      items: [
+        { q: 'ما الفرق الدقيق بين الإيمان واليقين؟', a: 'الإيمان هو أصل التصديق الجازم، أما اليقين فهو كمال هذا التصديق ورسوخه في القلب حتى تنعدم معه الشكوك تماماً وتستقر السكينة.' },
+        { q: 'هل اليقين يزيد وينقص في قلب المؤمن؟', a: 'نعم، يزيد بالطاعات وتدبر القرآن والتفكر، وينقص بالغفلة والمعاصي والانهماك في الماديات.' },
+        { q: 'هل هجوم الوساوس العابرة يقدح في أصل اليقين؟', a: 'لا؛ فالخواطر التي يكرهها العبد ويدافعها دليل على يقظة القلب وصحة الإيمان؛ لقوله صلى الله عليه وسلم: «ذَاكَ صَرِيحُ الإِيمَانِ».' },
+        { q: 'كيف يعرف العبد أنه على يقين تام بربه في واقعه؟', a: 'بثبات قلبه عند الصدمة الأولى، وغياب الهلع من المستقبل، والاستغناء عن التذلل للخلق، ورفع اليدين بالدعاء بثقة دون تردد.' },
+        { q: 'ما الثمرة العاجلة لليقين في الدنيا؟', a: 'السكينة القلبية، والتحرر من القلق المستنزف بشأن الرزق والمستقبل، وثبات الجنان عند تقلبات الأحوال.' }
+      ]
+    },
+    {
+      cat: 'ثانياً: أسئلة مراتب اليقين',
+      items: [
+        { q: 'ما هو المثال المقرب للفروق بين المراتب الثلاث؟', a: 'إذا أخبرك ثقة أن معه عسلاً فهذا (علم اليقين)، فإذا رأيته بعينك فهذا (عين اليقين)، فإذا ذقته وطعمت حلاوته فهذا (حق اليقين).' },
+        { q: 'هل يمكن للمؤمن أن يجمع هذه المراتب في عبادته؟', a: 'نعم؛ فكلما ازداد علماً وتأملاً وذاق حلاوة الطاعة ومناجاة الخلوات، ارتقى من مجرد العلم إلى المعايشة والذوق الوجداني.' },
+        { q: 'ما أعلى مثال لطلب طمأنينة القلب في القرآن؟', a: 'طلب الخليل إبراهيم عليه السلام حين قال: ﴿رَبِّ أَرِنِي كَيْفَ تُحْيِي الْمَوْتَىٰ ۖ قَالَ أَوَلَمْ تُؤْمِن ۖ قَالَ بَلَىٰ وَلَٰكِن لِّيَطْمَئِنَّ قَلْبِي﴾.' },
+        { q: 'ما علامة وصول العبد إلى درجة حق اليقين في تعامله مع الدنيا؟', a: 'أن يستوي عنده بريق الدنيا أمام وعد الله وما عنده، فيؤثر الباقية على العاجلة دون تردد أو حسرة.' },
+        { q: 'هل يتفاضل ثواب المؤمنين في الآخرة على قدر يقينهم؟', a: 'نعم، فالأعمال تتفاضل بما في القلوب من اليقين والإخلاص، وبه نال الصدّيقون أعلى الدرجات والإمامة في الدين.' }
+      ]
+    },
+    {
+      cat: 'ثالثاً: أسئلة اليقين في الرزق',
+      items: [
+        { q: 'هل السعي والتخطيط المالي ينافيان اليقين في الرزق؟', a: 'لا ينافيانه؛ فالأخذ بالأسباب طاعة وسنة كونية، واليقين يتعلق باعتقاد القلب أن الرازق هو الله وحده وليس السبب المجرد.' },
+        { q: 'كيف نوفق بين كون الرزق مكتوباً وبين الأمر بالعمل؟', a: 'المكتوب قُدّر بأسبابه؛ فعلم الله السابق بالرزق لا يلغي العمل بل يوجبه، لأن السعي هو الباب الشرعي لتحصيل المقسوم.' },
+        { q: 'يسعى الإنسان كثيراً ولا يرى زيادة في ماله، فكيف يفهم ذلك بيقين؟', a: 'الرزق لا ينحصر في المال؛ فقد يكون صحة، أو بركة في الوقت، أو صرف سوء خفي، أو راحة بال، أو أجراً مدخراً في الآخرة.' },
+        { q: 'ما حقيقة "البركة" في الرزق؟', a: 'البركة هي نماء الشيء وكفايته وطيب أثره؛ قال صلى الله عليه وسلم: «لَيْسَ الغِنَى عَنْ كَثْرَةِ العَرَضِ، وَلَكِنَّ الغِنَى غِنَى النَّفْسِ».' },
+        { q: 'هل وردت أعمال صالحة تزيد الرزق؟', a: 'نعم، منها صلة الرحم لقوله صلى الله عليه وسلم: «مَنْ سَرَّهُ أَنْ يُبْسَطَ لَهُ فِي رِزْقِهِ... فَلْيَصِلْ رَحِمَهُ»، وكثرة الاستغفار وتقوى الله.' }
+      ]
+    },
+    {
+      cat: 'رابعاً: أسئلة الفرق بين اليقين وحسن الظن بالله',
+      items: [
+        { q: 'ما الفرق بين اليقين بالله وحسن الظن بالله؟', a: 'اليقين هو رسوخ التصديق والإيمان بالله تعالى ووعده وقدرته وحكمته في القلب، أما حسن الظن بالله فهو اعتقاد رحمته وفضله وحكمته، وتوقع الخير منه وحمل أقداره على ما يليق به سبحانه.' },
+        { q: 'ما العلاقة بين اليقين وحسن الظن بالله؟', a: 'العلاقة بينهما وثيقة؛ فكلما قوي يقين العبد بالله وأسمائه وصفاته وحكمته، ازداد حسن ظنه به، ولذلك يعد حسن الظن بالله من آثار قوة اليقين وثمراته.' },
+        { q: 'هل حسن الظن بالله يعني أن الإنسان يتوقع حصول ما يريد دائماً؟', a: 'لا؛ حسن الظن بالله لا يعني أن يقع الأمر وفق ما يتمناه العبد، وإنما يعني أن يثق بحكمة الله ورحمته، ويعتقد أن اختيار الله له خير من اختياره لنفسه، وإن لم يدرك الحكمة في الحال.' },
+        { q: 'كيف يظهر اليقين وحسن الظن بالله عند تأخر إجابة الدعاء؟', a: 'اليقين يجعل العبد يعلم أن الله قادر على الإجابة ولا يعجزه شيء، وحسن الظن يجعله يرجو أن يكون التأخير لحكمة، فيستمر في الدعاء ولا ييأس من رحمة الله.' },
+        { q: 'هل حسن الظن بالله يغني عن العمل والطاعة؟', a: 'لا؛ حسن الظن الصحيح لا يكون مع ترك الطاعات أو الإصرار على المعاصي، بل يجتمع مع التوبة والعمل الصالح والأخذ بالأسباب، كما أن اليقين الصحيح يدفع صاحبه إلى العمل ولا يقوده إلى التواكل.' }
+      ]
+    },
+    {
+      cat: 'خامساً: أسئلة اليقين في الدعاء ومعوقاته',
+      items: [
+        { q: 'كيف يتخلص الداعي من فخ الشك في الاستحقاق بسبب ذنوبه وتقصيره؟', a: 'يستحضر أن الله يُدعى لرحمته وكرمه لا لاستحقاق العبد؛ فالله يجيب المضطر ولو كان مذنباً، والاعتراف بالذنب قمة الافتقار.' },
+        { q: 'ما خطورة الانشغال بكيفية الاستجابة ورسم سيناريو للفرج؟', a: 'خطورته أنه يحصر قدرة الله في الأسباب المادية المحدودة؛ والواجب أن تدعو وتترك الكيفية لله الذي يرزق ﴿مِنْ حَيْثُ لَا يَحْتَسِبُ﴾.' },
+        { q: 'ماذا يفعل الداعي إذا وسوس له الشيطان بتجارب وقصص من لم يُستجب لهم؟', a: 'يعلم أنه لا يبني علاقته بربه على حكايات وتجارب الناس؛ فهو لا يعلم بواطن قلوبهم ولا موانعهم، وله قصته الخاصة مع ربه الكريم.' },
+        { q: 'ما هو أثر كلمة "لكن" على يقين الداعي؟', a: 'كلمة "لكن" هي مدخل الشك؛ فقولك (أنا واثق بربي.. لكن الواقع صعب) يعكس التفات القلب للأسباب وضعف استناده إلى مسبب الأسباب.' },
+        { q: 'ما هي الصور الثلاث لاستجابة الدعاء؟', a: 'إما بتعجيل عين المسألة، أو بصرف سوء مماثل عنها، أو بادخار الأجر كاملاً يوم القيامة.' }
+      ]
+    },
+    {
+      cat: 'سادساً: أسئلة عزة المؤمن ونفي الخوف',
+      items: [
+        { q: 'ما هو الضابط بين الخوف المحمود والخوف المذموم؟', a: 'المحمود هو خشية الله التي تدفع للعمل وتمنع من المعصية، والمذموم هو الخوف من المخلوق الذي يحمل على ترك واجب أو فعل محرم.' },
+        { q: 'كيف يتخلص الإنسان من رهبة الناس وضغوطهم؟', a: 'بتعميق التوحيد، وتذكر أن الخلق كلهم ضعفاء عاجزون لا يملكون موتاً ولا حياة ولا نشوراً، وأن العزة لله وحده.' },
+        { q: 'هل الخوف من المجهول أو الغد يُعد ضعفاً في اليقين؟', a: 'يُعد نقصاً في التوكل؛ لأن الغد بيد الله اللطيف الخبير، والواجب السعي اليومي وتسليم النتائج لله.' },
+        { q: 'ما هو أثر التوكل وعدم الخوف من الناس في حياة المؤمن؟', a: 'نيل التأييد الإلهي والسلام الداخلي؛ قال تعالى: ﴿فَانقَلَبُوا بِنِعْمَةٍ مِّنَ اللَّهِ وَفَضْلٍ لَّمْ يَمْسَسْهُمْ سُوءٌ﴾.' },
+        { q: 'ما هي الشجاعة الحقيقية، وهل هي مكتسبة؟', a: 'الشجاعة هي ثبات القلب ورباطة الجأش عند ورود المخاوف، وهي خُلق يُكتسب ويقوى باليقين في حفظ الله وقضائه.' }
+      ]
+    },
+    {
+      cat: 'سابعاً: أسئلة مواقف الأنبياء واليقين',
+      items: [
+        { q: 'كيف نستلهم من قصص الأنبياء زيادة اليقين في همومنا المعاصرة؟', a: 'بإدراك أن سنن الله لا تتبدل؛ فالذي نجى الرسل في أحلك المضائق قادر على تفريج كروبك مهما بدت مستحيلة بمقاييس البشر.' },
+        { q: 'لماذا كان النبي صلى الله عليه وسلم يربي الصحابة على استحضار المعية الإلهية في الشدائد؟', a: 'لأن استشعار المعية الإلهية الخاصة يثبت القلوب، ويطرد الجزع، ويجعل الفئة القليلة تغلب الفئة الكثيرة بإذن الله.' },
+        { q: 'كيف كان يقين النبي صلى الله عليه وسلم في قضايا المعاش والكفاية؟', a: 'كان أعظم الناس توكلاً وأزهدهم في حطام الدنيا؛ وكان يقول: «لَوْ أَنَّكُمْ تَوَكَّلْتُمْ عَلَى اللَّهِ حَقَّ تَوَكُّلِهِ لَرُزِقْتُمْ كَمَا يُرْزَقُ الطَّيْرُ».' },
+        { q: 'لماذا نجا بعض الأنبياء بالمعجزات بينما استشهد آخرون صابرين؟', a: 'لأن النصر الحقيقي هو الثبات على التوحيد، والدنيا دار ابتلاء وليست دار جزاء، ومنازل الشهادة أعلى مراتب الفوز.' },
+        { q: 'ما القصة النبوية الأقوى كمدخل مؤثر للحديث عن اليقين؟', a: 'موقف موسى عليه السلام أمام البحر حين قال قومه: ﴿إِنَّا لَمُدْرَكُونَ﴾؛ لبيان الفارق بين النظرة القاصرة للأسباب واليقين بمسبب الأسباب.' }
+      ]
+    },
+    {
+      cat: 'ثامناً: أسئلة المصائب وضبط المشاعر',
+      items: [
+        { q: 'هل البكاء عند فقد الأحبة ينافي الصبر واليقين؟', a: 'لا ينافي أبداً؛ فالبكاء رحمة فطرية، والمنهي عنه شرعاً هو النياحة ولطم الخدود وشق الجيوب والتسخط.' },
+        { q: 'لماذا يُبتلى المؤمن المستقيم بالأمراض والشدائد؟', a: 'لتمحيص ذنوبه، ورفع درجاته، وإظهار صدق عبوديته؛ فأشد الناس بلاءً الأنبياء ثم الأمثل فالأمثل.' },
+        { q: 'ما حكم استعمال كلمة "لو" عند وقوع الأقدار المكروهة؟', a: 'نهى النبي صلى الله عليه وسلم عن "لو" التي تفتح عمل الشيطان وتورث الحسرة، والمشروع أن يقول: «قَدَّرَ اللَّهُ وَمَا شَاءَ فَعَلَ».' },
+        { q: 'كيف نواسي من ابتلي بمرض مزمن أو مصيبة ثقيلة؟', a: 'بتذكيره بعظيم أجر الصابرين، وبأن المحنة في باطنها منحة وتطهير، مع إعانته مادياً ومعنوياً وإحياء الأمل في نفسه.' },
+        { q: 'ما الضابط الشرعي للبُكاء الجائز على الميت؟', a: 'أن يكون دمعاً مجرداً بلا صوت نياحة ولا اعتراض؛ لقوله صلى الله عليه وسلم: «إِنَّ اللَّهَ لاَ يُعَذِّبُ بِدَمْعِ العَيْنِ... وَلَكِنْ يُعَذِّبُ بِهَذَا -وأشار للسانه- أَوْ يَرْحَمُ».' }
+      ]
+    },
+    {
+      cat: 'تاسعاً: أسئلة بذل الأسباب والتوكل',
+      items: [
+        { q: 'ما معنى أن الله يعطي بالسبب وبانعدام السبب وبعكس السبب؟', a: 'يعني طلاقة القدرة الإلهية؛ فالسبب لا يعمل بذاته بل بمشيئة الله؛ فقد يعطيك بالسبب المعتاد، أو يخلق النتيجة دون أسباب، أو يجعل ما يُظن سبباً للهلاك سبباً للنجاة.' },
+        { q: 'هل الجد والاجتهاد في الدراسة والعمل يتعارضان مع التوكل؟', a: 'لا، بل هما من صلب التوكل؛ فالأسباب مأمور بها، والمسلم يعلم أن التوفيق النهائي من الله وحده.' },
+        { q: 'ما الفرق الجوهري بين التوكل والتواكل؟', a: 'التوكل: عمل واجتهاد بالجوارح مع اعتماد قلبي على الله (كالفلاح يزرع ثم يتوكل). التواكل: كسل وتفريط مع ادعاء الثقة بالله.' },
+        { q: 'هل الاعتماد على السبب المادي يُعد قادحاً في التوحيد؟', a: 'نعم، إن كان القلب يعتقد أن السبب ينفع أو يضر بذاته؛ أما اتخاذه مجرد وسيلة مع تعليق النفع بالله فهو عين التوحيد.' },
+        { q: 'ما هو الذكر النبوي الجامع بين الأخذ بالأسباب وتفويض الأمر لله؟', a: 'دعاء الخروج من المنزل: «بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ».' }
+      ]
+    },
+    {
+      cat: 'عاشراً: أسئلة بلوغ أعلى مراتب اليقين وثمراته',
+      items: [
+        { q: 'كيف يتدرج المسلم عملياً للوصول إلى أعلى درجات اليقين؟', a: 'بالتفكر المستمر في عظمة خلق الله ونفسه، وتطهير القلب بالاستعاذة وترك المعاصي، واستحضار ألطاف الله السابقة، والإكثار من الطاعات الخفية.' },
+        { q: 'ما أثر التفكر في قوله تعالى: ﴿وَفِي أَنفُسِكُمْ ۚ أَفَلَا تُبْصِرُونَ﴾ على اليقين؟', a: 'يورث ذهولاً ويقيناً قاطعاً بكمال قدرة الله وحكمته في أدق تفاصيل خلقه، مما يرسخ الثقة في تدبيره ورعايته.' },
+        { q: 'كيف يعالج الإنسان قسوة القلب والشكوك الطارئة؟', a: 'بتدبر القرآن، ومجاهدة النفس في ترك فضول الطعام والكلام والخلطة، والإكثار من ذكر الله وتذكر الموت.' },
+        { q: 'هل وردت أدعية نبوية مخصوصة لطلب رسوخ اليقين والثبات؟', a: 'نعم، دعاء: «اللَّهُمَّ اقْسِمْ لَنَا مِنْ خَشْيَتِكَ... وَمِنَ الْيَقِينِ مَا تُهَوِّنُ بِهِ عَلَيْنَا مُصِيبَاتِ الدُّنْيَا»، ودعاء: «يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ».' },
+        { q: 'ما هي أعظم ثمرات اليقين يوم القيامة؟', a: 'الفوز برضوان الله، والأمن من الفزع الأكبر، ودخول الجنة، والظفر بالنظر إلى وجه الله الكريم.' }
+      ]
+    }
+  ];
+
+  /* ---------- تشغيل الخريطة والمودال ---------- */
+  const mapGrid = document.getElementById('mapGrid');
+  const visited = new Set(JSON.parse(localStorage.getItem('visited_yaqeen_topics') || '[]'));
+  const ORD = ['١','٢','٣','٤','٥','٦','٧','٨','٩','١٠'];
+
+  topics.forEach((t, i) => {
+    const el = document.createElement('div');
+    el.className = 'node' + (visited.has(i) ? ' visited' : '');
+    el.innerHTML = `
+      <div class="node-num">${ORD[i]}</div>
+      <div class="node-icon">${t.icon}</div>
+      <div class="node-title">${t.title}</div>
+      <div class="node-teaser">${t.teaser}</div>
+      <div class="node-card-actions">
+        <span class="node-open-hint">استعراض المحور</span>
+        <button type="button" class="node-quick-card-btn" title="توليد وتصميم بطاقة كصورة لهذا المحور">
+          <span>🖼️</span>
+          <span>صورة</span>
+        </button>
+      </div>
+    `;
+    el.querySelector('.node-quick-card-btn')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openCardStudioForTopic(i);
+    });
+    el.addEventListener('click', () => openTopic(i));
+    mapGrid.appendChild(el);
+  });
+
+  const overlay = document.getElementById('overlay');
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalNum = document.getElementById('modalNum');
+  const modalBody = document.getElementById('modalBody');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  let currentTopicIndex = null;
+
+  function updateProgress() {
+    const pct = Math.round((visited.size / topics.length) * 100);
+    progressFill.style.width = pct + '%';
+    progressText.textContent = `${visited.size} / ${topics.length}`;
+    localStorage.setItem('visited_yaqeen_topics', JSON.stringify([...visited]));
+  }
+
+  function openTopic(i) {
+    if (i < 0 || i >= topics.length) return;
+    const t = topics[i];
+    currentTopicIndex = i;
+    window.currentTopicIndex = i;
+    modalNum.textContent = ORD[i];
+    modalTitle.textContent = t.title;
+    modalBody.innerHTML = t.body;
+
+    overlay.classList.add('open');
+    modal.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+
+    document.getElementById('prevTopicBtn').disabled = (i === 0);
+    document.getElementById('nextTopicBtn').disabled = (i === topics.length - 1);
+
+    updateTopicFavButton(i);
+
+    if (!visited.has(i)) {
+      visited.add(i);
+      mapGrid.children[i].classList.add('visited');
+      updateProgress();
+    }
+  }
+
+  window.updateTopicFavButton = function(i) {
+    if (typeof i === 'undefined' || i === null) i = currentTopicIndex;
+    const btn = document.getElementById('modalFavBtn');
+    const star = document.getElementById('modalFavStar');
+    const txt = document.getElementById('modalFavText');
+    if (!btn || !star || !txt || typeof ZadFavorites === 'undefined') return;
+
+    const topicId = 'yaqeen_' + (i + 1);
+    const isFav = ZadFavorites.isFavorited(topicId);
+    if (isFav) {
+      btn.classList.add('active');
+      star.textContent = '🌟';
+      txt.textContent = 'محفوظ بالمفضلة';
+    } else {
+      btn.classList.remove('active');
+      star.textContent = '⭐';
+      txt.textContent = 'حفظ بالمفضلة';
+    }
+  };
+
+  window.toggleCurrentTopicFav = function() {
+    if (currentTopicIndex === null || currentTopicIndex < 0 || currentTopicIndex >= topics.length) return;
+    const t = topics[currentTopicIndex];
+    const topicId = 'yaqeen_' + (currentTopicIndex + 1);
+    const firstP = modalBody.querySelector('p');
+    const snippet = firstP ? firstP.textContent.trim().slice(0, 120) + '...' : '';
+
+    if (typeof ZadFavorites !== 'undefined') {
+      ZadFavorites.toggle({
+        id: topicId,
+        title: 'المحور ' + ORD[currentTopicIndex] + ': ' + t.title,
+        type: 'yaqeen',
+        categoryLabel: '💎 اليقين بالله',
+        icon: '💎',
+        snippet: snippet,
+        link: 'yaqeen.html?open=' + (currentTopicIndex + 1)
+      });
+      updateTopicFavButton(currentTopicIndex);
+    }
+  };
+
+  // فتح المحور تلقائياً إذا كان الرابط يحتوي على معيار ?open=
+  function checkAutoOpenTopic() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const openNum = parseInt(urlParams.get('open'), 10);
+    if (!isNaN(openNum) && openNum >= 1 && openNum <= topics.length) {
+      setTimeout(() => openTopic(openNum - 1), 100);
+    }
+  }
+  if (document.readyState !== 'loading') {
+    checkAutoOpenTopic();
+  } else {
+    document.addEventListener('DOMContentLoaded', checkAutoOpenTopic);
+  }
+
+  document.getElementById('prevTopicBtn').addEventListener('click', () => {
+    if (currentTopicIndex !== null && currentTopicIndex > 0) openTopic(currentTopicIndex - 1);
+  });
+
+  document.getElementById('nextTopicBtn').addEventListener('click', () => {
+    if (currentTopicIndex !== null && currentTopicIndex < topics.length - 1) openTopic(currentTopicIndex + 1);
+  });
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    currentTopicIndex = null;
+    window.currentTopicIndex = null;
+  }
+
+  document.getElementById('closeBtn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+  /* ---------- دوال الإشعارات والنسخ والمشاركة ---------- */
+  function showToast(msg) {
+    let toast = document.getElementById('app-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'app-toast';
+      toast.style.cssText = 'position:fixed; bottom:85px; left:50%; transform:translateX(-50%); background:rgba(20,29,61,0.95); border:1px solid #d6a85c; color:#f0d9a8; padding:10px 22px; border-radius:25px; z-index:999999; font-family:Tajawal,sans-serif; font-size:0.9rem; font-weight:bold; box-shadow:0 10px 30px rgba(0,0,0,0.5); backdrop-filter:blur(10px); transition:all 0.3s ease; opacity:0; pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(10px)';
+    }, 2200);
+  }
+
+  document.getElementById('modalCopyBtn')?.addEventListener('click', () => {
+    if (currentTopicIndex === null) return;
+    const t = topics[currentTopicIndex];
+    const text = `💎 زاد المؤمن — اليقين بالله تعالى:\n\nالمحور ${t.id}: ${t.title}\n\n${t.teaser}\n\n${modalBody.innerText}\n\n📲 عبر موقع وتطبيق زاد المؤمن`;
+    navigator.clipboard.writeText(text).then(() => showToast('✨ تم نسخ المحور بالكامل بنجاح!'));
+  });
+
+  document.getElementById('modalShareBtn')?.addEventListener('click', () => {
+    if (currentTopicIndex === null) return;
+    const t = topics[currentTopicIndex];
+    const text = `💎 زاد المؤمن — اليقين بالله تعالى:\n\nالمحور ${t.id}: ${t.title}\n\n${t.teaser}\n\n📲 اقرأ المزيد عبر تطبيق زاد المؤمن`;
+    if (navigator.share) {
+      navigator.share({ title: t.title, text: text, url: window.location.href }).catch(() => {});
+    } else {
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + window.location.href)}`, '_blank');
+    }
+  });
+
+  // تفعيل وتشغيل زر توليد البطاقة كصورة داخل نافذة الموضوع
+  const modalCardGenBtn = document.getElementById('modalCardGenBtn');
+  if (modalCardGenBtn) {
+    modalCardGenBtn.onclick = function(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      const idx = (typeof currentTopicIndex === 'number' && currentTopicIndex >= 0) ? currentTopicIndex : (typeof window.currentTopicIndex === 'number' ? window.currentTopicIndex : 0);
+      openCardStudioForTopic(idx);
+    };
+    modalCardGenBtn.addEventListener('click', function(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      const idx = (typeof currentTopicIndex === 'number' && currentTopicIndex >= 0) ? currentTopicIndex : (typeof window.currentTopicIndex === 'number' ? window.currentTopicIndex : 0);
+      openCardStudioForTopic(idx);
+    });
+  }
+
+  /* ---------- التبديل بين التبويبات الفئوية ---------- */
+  document.querySelectorAll('.cat-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      const topicsSection = document.getElementById('mapGrid');
+      const topicsLabel = document.querySelector('.topics-section-label');
+      const topicsSub = document.querySelector('.topics-section-sub');
+      const qaSection = document.getElementById('qaWrap');
+      const qaLabel = document.querySelector('.qa-section-label');
+      const qaSub = document.querySelector('.qa-section-sub');
+
+      if (tab === 'all') {
+        if (topicsSection) topicsSection.style.display = 'grid';
+        if (topicsLabel) topicsLabel.style.display = 'block';
+        if (topicsSub) topicsSub.style.display = 'block';
+        if (qaSection) qaSection.style.display = 'block';
+        if (qaLabel) qaLabel.style.display = 'block';
+        if (qaSub) qaSub.style.display = 'block';
+      } else if (tab === 'topics') {
+        if (topicsSection) topicsSection.style.display = 'grid';
+        if (topicsLabel) topicsLabel.style.display = 'block';
+        if (topicsSub) topicsSub.style.display = 'block';
+        if (qaSection) qaSection.style.display = 'none';
+        if (qaLabel) qaLabel.style.display = 'none';
+        if (qaSub) qaSub.style.display = 'none';
+      } else if (tab === 'qa') {
+        if (topicsSection) topicsSection.style.display = 'none';
+        if (topicsLabel) topicsLabel.style.display = 'none';
+        if (topicsSub) topicsSub.style.display = 'none';
+        if (qaSection) qaSection.style.display = 'block';
+        if (qaLabel) qaLabel.style.display = 'block';
+        if (qaSub) qaSub.style.display = 'block';
+      }
+    });
+  });
+
+  /* ---------- بناء قسم الأسئلة والأجوبة ---------- */
+  const qaWrap = document.getElementById('qaWrap');
+  qa.forEach((cat) => {
+    const catEl = document.createElement('div');
+    catEl.className = 'qa-cat';
+    const body = document.createElement('div');
+    body.className = 'qa-cat-body';
+
+    cat.items.forEach((item) => {
+      const qEl = document.createElement('div');
+      qEl.className = 'qa-item';
+      qEl.innerHTML = `
+        <div class="qa-q"><span>${item.q}</span><span class="plus">+</span></div>
+        <div class="qa-a">
+          <div class="qa-a-inner">
+            ${item.a}
+            <div style="margin-top: 10px; display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap;">
+              <button class="copy-btn-inline fav-qa-btn" type="button">⭐ المفضلة</button>
+              <button class="copy-btn-inline" type="button">📋 نسخ السؤال والجواب</button>
+            </div>
+          </div>
+        </div>
+      `;
+      const qHead = qEl.querySelector('.qa-q');
+      const aBox = qEl.querySelector('.qa-a');
+      qHead.addEventListener('click', () => {
+        const isOpen = qEl.classList.toggle('open');
+        aBox.style.maxHeight = isOpen ? '1000px' : '0px';
+      });
+
+      const copyBtn = qEl.querySelector('.copy-btn-inline:not(.fav-qa-btn)');
+      copyBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const copyText = `سؤال: ${item.q}\n\nالجواب: ${item.a.replace(/<[^>]*>?/gm, '')}\n\n📲 عبر تطبيق زاد المؤمن`;
+        navigator.clipboard.writeText(copyText).then(() => showToast('✨ تم نسخ السؤال والإجابة بنجاح!'));
+      });
+
+      const favQaBtn = qEl.querySelector('.fav-qa-btn');
+      const qaId = 'qa_y_' + encodeURIComponent(item.q.slice(0, 25));
+      const syncFavQaBtn = () => {
+        if (typeof ZadFavorites !== 'undefined' && ZadFavorites.isFavorited(qaId)) {
+          favQaBtn.classList.add('active');
+          favQaBtn.textContent = '🌟 محفوظ بالمفضلة';
+        } else {
+          favQaBtn.classList.remove('active');
+          favQaBtn.textContent = '⭐ المفضلة';
+        }
+      };
+      syncFavQaBtn();
+
+      favQaBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (typeof ZadFavorites !== 'undefined') {
+          ZadFavorites.toggle({
+            id: qaId,
+            title: item.q,
+            type: 'qa',
+            categoryLabel: '❓ سؤال وجواب (اليقين)',
+            icon: '❓',
+            snippet: item.a.replace(/<[^>]*>?/gm, '').slice(0, 120) + '...',
+            link: 'yaqeen.html#qaSection'
+          });
+          syncFavQaBtn();
+        }
+      });
+
+      body.appendChild(qEl);
+    });
+
+    catEl.innerHTML = `<div class="qa-cat-head"><span>${cat.cat}</span><span class="arrow">▼</span></div>`;
+    catEl.appendChild(body);
+
+    const head = catEl.querySelector('.qa-cat-head');
+    head.addEventListener('click', () => {
+      const isOpen = catEl.classList.toggle('open');
+      body.style.maxHeight = isOpen ? '5000px' : '0px';
+    });
+
+    qaWrap.appendChild(catEl);
+  });
+
+  /* ---------- البحث المباشر السريع ---------- */
+  const quickSearch = document.getElementById('quickSearch');
+  const searchCount = document.getElementById('searchCount');
+
+  quickSearch.addEventListener('input', () => {
+    const term = quickSearch.value.trim().toLowerCase();
+    let matchCount = 0;
+
+    // بحث في محاور الخريطة
+    Array.from(mapGrid.children).forEach((el, i) => {
+      const txt = (topics[i].title + ' ' + topics[i].teaser).toLowerCase();
+      const match = !term || txt.includes(term);
+      el.classList.toggle('hidden-search', !match);
+      if (match && term) matchCount++;
+    });
+
+    // بحث في الأسئلة والأجوبة
+    document.querySelectorAll('.qa-cat').forEach((catEl) => {
+      let catHasMatch = false;
+      catEl.querySelectorAll('.qa-item').forEach((itemEl) => {
+        const qText = itemEl.querySelector('.qa-q').textContent.toLowerCase();
+        const aText = itemEl.querySelector('.qa-a-inner').textContent.toLowerCase();
+        const match = !term || qText.includes(term) || aText.includes(term);
+        itemEl.classList.toggle('hidden-search', !match);
+        if (match) {
+          catHasMatch = true;
+          if (term) matchCount++;
+        }
+      });
+      catEl.classList.toggle('hidden-search', !catHasMatch);
+      if (term && catHasMatch) {
+        catEl.classList.add('open');
+        catEl.querySelector('.qa-cat-body').style.maxHeight = '5000px';
+      }
+    });
+
+    searchCount.textContent = term ? `تم العثور على ${matchCount} نتيجة مطابقة` : '';
+  });
+
+  /* ---------- خلفية النجوم التفاعلية ---------- */
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function initStars() {
+    canvas.width = window.innerWidth;
+    canvas.height = Math.max(document.body.scrollHeight, window.innerHeight * 2);
+    stars = [];
+    const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        r: Math.random() * 1.1 + 0.3, a: Math.random(), speed: Math.random() * 0.01 + 0.003
+      });
+    }
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#f0d9a8';
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i]; s.a += s.speed;
+      ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener('resize', initStars);
+
+  /* ===== نظام التحكم بحجم الخط وتذكره ===== */
+  let currentFontScale = parseFloat(localStorage.getItem('user_font_scale')) || 1.0;
+
+  function setFontScale(scale) {
+    currentFontScale = Math.max(0.70, Math.min(1.60, Math.round(scale * 10) / 10));
+    document.documentElement.style.setProperty('--content-font-scale', currentFontScale);
+    const pct = Math.round(currentFontScale * 100) + '%';
+    const displayEl = document.getElementById('fontSizeDisplay');
+    if (displayEl) displayEl.textContent = pct;
+    const modalFontPct = document.getElementById('modalFontPct');
+    if (modalFontPct) modalFontPct.textContent = pct;
+    try {
+      localStorage.setItem('user_font_scale', currentFontScale);
+    } catch (e) {}
+    if (navigator.vibrate) {
+      try { navigator.vibrate(12); } catch (e) {}
+    }
+  }
+
+  function changeFontSize(delta) {
+    setFontScale(currentFontScale + delta);
+  }
+
+  function resetFontSize() {
+    setFontScale(1.0);
+  }
+
+  // تطبيق الحجم المحفوظ عند الإقلاع
+  setFontScale(currentFontScale);
+
+  /* ===== كود تشغيل وتفعيل زر الوضع الليلي/الفاتح وتذكره ===== */
+  const themeBtn = document.getElementById('themeBtn');
+
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+    if (themeBtn) themeBtn.textContent = '🌙';
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('light');
+      themeBtn.textContent = isLight ? '🌙' : '🌞';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      // تحديث ثيم البطاقة في حال كانت مفتوحة
+      if (document.getElementById('cardStudioOverlay')?.classList.contains('open')) {
+        setCardTheme(isLight ? 'dawn' : 'andalusian');
+      }
+    });
+  }
+
+    /* ===== استوديو توليد البطاقات والانفوجرافيك الدعوي (HTML5 Canvas) ===== */
+  let currentCardTheme = 'andalusian';
+  let currentCardMode = 'infographic'; // 'infographic' | 'story' | 'quote'
+  const cardCanvas = document.getElementById('cardCanvas');
+  const cardCtx = cardCanvas ? cardCanvas.getContext('2d') : null;
+  let returnToTopicModalOnStudioClose = false;
+
+  // المحتوى الشامل والكامل لمحاور اليقين الـ 10 (الشرح، الدليل، التخريج، التفصيل، واللفتة)
+  const cardTopicsData = [
+  {
+    "title": "ما هو اليقين ومنزلته في القلب؟",
+    "intro": "اليقين: هو استقرار العلم الجازم التام في القلب بحيث تنعدم معه كل شوائب الشك والتردد والريب. وهو غاية الإيمان ونهايته؛ فإذا كان الإيمان العام تصديقاً مجملاً، فاليقين هو الإيمان المفصل الذي يُورث الطمأنينة الكاملة والانقياد التام.",
+    "quote": "«الصَّبْرُ نِصْفُ الإِيمَانِ، وَالْيَقِينُ الإِيمَانُ كُلُّهُ»",
+    "quoteMeta": "عبد الله بن مسعود رضي الله عنه | رواه الطبراني والبيهقي",
+    "points": "• دفع الوساوس والخواطر العابرة:\nاليقين لا تعكره الخواطر والوساوس العابرة التي يكرهها القلب ويدافعها؛ لقوله صلى الله عليه وسلم:\n          «ذَاكَ صَرِيحُ الإِيمَانِ»",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"اليقين ليس معناه أنك معصوم من هجوم الأفكار المشوشة؛ الشيطان وظيفته أن يوسوس ويشكك، لكن الموقن أول ما تطرأ عليه الخاطرة يستعذب ردّها ويكرهها، وهذه المدافعة بحد ذاتها برهان على حياة قلبك ونقاء إيمانك!\""
+  },
+  {
+    "title": "مراتب اليقين الثلاث في الوحي",
+    "intro": "تتفاوت درجات اليقين في النفس وتتدرج عبر ثلاث مراتب تصاعدية:",
+    "quote": "﴿كَلَّا لَوْ تَعْلَمُونَ عِلْمَ الْيَقِينِ﴾ [التكاثر: 5]\n\n          ﴿ثُمَّ لَتَرَوُنَّهَا عَيْنَ الْيَقِينِ﴾ [التكاثر: 7]\n\n          ﴿إِنَّ هَٰذَا لَهُوَ حَقُّ الْيَقِينِ﴾ [الواقعة: 95]",
+    "quoteMeta": "سورة التكاثر والواقعة",
+    "points": "• علم اليقين: المعرفة الجازمة القائمة على الدليل والخبر الصادق (كإيماننا بالجنة والنار والبعث تصديقاً لنصوص الوحي).\n• عين اليقين: ارتقاء المعرفة لتصبح كالمشاهدة الحية بالبصيرة، باستشعار عظمة الله ودلائل قدرته في الآفاق والأنفس.\n• حق اليقين: أعلى المراتب وأكملها؛ وهي المعايشة التامة والذوق الوجداني المباشر، كدخول أهل الجنة إلى نعيمها واقعاً ومباشرته.",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"بالمثال يتضح المقال: لو قال لك شخص ثقة عندي عسل أصلي، فهذا (علم يقين)، ولو فتح الإناء ورأيته بعينك، فهذا (عين يقين)، فإذا غرفت منه وتذوقت طعمه، فهذا (حق يقين)! وهكذا يتدرج العبد في عبادته ومناجاته حتى يذوق حلاوة القرب والأنس بربه.\""
+  },
+  {
+    "title": "اليقين في الرزق والكفاية",
+    "intro": "استقرار الطمأنينة التامة بأن خزائن السماوات والأرض بيد الله وحده، وأن الرزق والأجل مقدران لا يملكهما بشر. هذا اليقين يقتلع الخوف من الفقر والقلق المستقبلي المنهك، ويمنح الإنسان عزة واستغناءً يمنعه من التنازل عن مبادئه أو التذلل للمخلوقين.",
+    "quote": "«إِنَّ نَفْسًا لَنْ تَمُوتَ حَتَّى تَسْتَوْفِيَ رِزْقَهَا، فَاتَّقُوا اللَّهَ وَأَجْمِلُوا فِي الطَّلَبِ»",
+    "quoteMeta": "رواه ابن ماجه وصححه الألباني",
+    "points": "﴿وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ * فَوَرَبِّ السَّمَاءِ وَالْأَرْضِ إِنَّهُ لَحَقٌّ مِّثْلَ مَا أَنَّكُمْ تَنطِقُونَ﴾\nسورة الذاريات — الآيات 22-23",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"تأمل في قوله صلى الله عليه وسلم: (وأجملوا في الطلب)! يعني اسعَ واجتهد وأبدع، لكن بوقار وهدوء دون هلع، ولا تذل نفسك لأحد؛ لأن الرزق المكتوب لك سيبحث عنك ويأتيك كما يبحث عنك أجلك تماماً.\""
+  },
+  {
+    "title": "الفرق بين اليقين بالله وحسن الظن بالله",
+    "intro": "اليقين بالله وحسن الظن به: من أعمال القلوب العظيمة، وبينهما علاقة وثيقة، لكنهما ليسا بمعنى واحد. فاليقين هو رسوخ الإيمان والتصديق بالله تعالى وبأسمائه وصفاته ووعده وقدرته وحكمته، حتى يطمئن القلب ولا يتزعزع بالشكوك والاضطرابات.\n\nأما حسن الظن بالله: فهو أن يعتقد العبد بربه ما يليق بجلاله وكماله من الرحمة والفضل والحكمة، وأن يرجو منه الخير، ويحمل أقداره وأفعاله على ما يليق بحكمته ورحمته، مع القيام بما أمر الله به من الطاعات والأسباب.",
+    "quote": "«أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، فَلْيَظُنَّ بِي مَا شَاءَ»\n«لَا يَمُوتَنَّ أَحَدُكُمْ إِلَّا وَهُوَ يُحْسِنُ الظَّنَّ بِاللَّهِ»",
+    "quoteMeta": "حديث قدسي | رواه أحمد وصححه الألباني — رواه مسلم عن جابر رضي الله عنه | وهذان الحديثان يدلان على عظيم شأن حسن الظن بالله، وأن المسلم ينبغي أن يمتلئ قلبه رجاءً بالله وثقةً برحمته وفضله.",
+    "points": "﴿وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا﴾ [سورة الأعراف — الآية 180 | فمعرفة أسماء الله الحسنى وصفاته تزيد العبد يقيناً بربه، وتعينه على حسن الظن به؛ فمن عرف أن الله رحيم وحكيم ولطيف، أحسن الظن بتدبيره وأقداره.]\n﴿وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ ۖ وَعَسَىٰ أَن تُحِبُّوا شَيْئًا وَهُوَ شَرٌّ لَّكُمْ ۗ وَاللَّهُ يَعْلَمُ وَأَنتُمْ لَا تَعْلَمُونَ﴾ [سورة البقرة — الآية 216 | تبين هذه الآية أن المؤمن قد يجهل الحكمة فيما يقع له، لكنه يثق بعلم الله وحكمته، فيسلّم لأمره ويحسن الظن بتدبيره.]\n\n✨ فما الفرق بينهما؟\n• اليقين بالله: رسوخ التصديق والإيمان في القلب، بحيث يثبت العبد على إيمانه بالله ووعده وقدرته وحكمته، ولا يتزعزع عند الشدائد.\n• حسن الظن بالله: رجاء الخير من الله، واعتقاد رحمته وفضله وحكمته، وعدم حمل أفعاله وأقداره على السوء.\n• العلاقة بينهما: اليقين أصل أوسع، وحسن الظن بالله من آثاره وثمراته؛ فكلما ازداد يقين العبد بالله وأسمائه وصفاته وحكمته، ازداد حسن ظنه به.",
+    "wisdom": "💡 مثال يوضح الفرق:\n\"إذا تأخرت إجابة الدعاء، فإن اليقين يجعل العبد يعلم أن الله قادر على الإجابة، وأنه لا يعجزه شيء، أما حسن الظن فيجعله يرجو أن يكون تأخير الإجابة لحكمة، وأن الله يختار له ما هو خير، فيستمر في الدعاء دون يأس أو سوء ظن.\"\n\n⚠️ تنبيه مهم: حسن الظن بالله لا يعني ترك العمل أو الاستمرار في المعصية بحجة الثقة برحمة الله، بل حسن الظن الصحيح يكون مع الطاعة والتوبة والأخذ بالأسباب.",
+    "hasMultiStory": true,
+    "story1": {
+      "subtitle": "الجزء الأول: التأصيل والأدلة الشرعية من الوحي",
+      "intro": "اليقين بالله وحسن الظن به: من أعمال القلوب العظيمة، وبينهما علاقة وثيقة، لكنهما ليسا بمعنى واحد. فاليقين هو رسوخ الإيمان والتصديق بالله تعالى وبأسمائه وصفاته ووعده وقدرته وحكمته، حتى يطمئن القلب ولا يتزعزع بالشكوك والاضطرابات.\n\nأما حسن الظن بالله: فهو أن يعتقد العبد بربه ما يليق بجلاله وكماله من الرحمة والفضل والحكمة، وأن يرجو منه الخير، ويحمل أقداره وأفعاله على ما يليق بحكمته ورحمته، مع القيام بما أمر الله به من الطاعات والأسباب.",
+      "quote": "«أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، فَلْيَظُنَّ بِي مَا شَاءَ»",
+      "quoteMeta": "حديث قدسي | رواه أحمد وصححه الألباني",
+      "points": "﴿وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا﴾\nسورة الأعراف — الآية 180 | فمعرفة أسماء الله الحسنى وصفاته تزيد العبد يقيناً بربه، وتعينه على حسن الظن به؛ فمن عرف أن الله رحيم وحكيم ولطيف، أحسن الظن بتدبيره وأقداره.\n\n﴿وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ ۖ وَعَسَىٰ أَن تُحِبُّوا شَيْئًا وَهُوَ شَرٌّ لَّكُمْ ۗ وَاللَّهُ يَعْلَمُ وَأَنتُمْ لَا تَعْلَمُونَ﴾\nسورة البقرة — الآية 216 | تبين هذه الآية أن المؤمن قد يجهل الحكمة فيما يقع له، لكنه يثق بعلم الله وحكمته، فيسلّم لأمره ويحسن الظن بتدبيره.",
+      "wisdom": "«لَا يَمُوتَنَّ أَحَدُكُمْ إِلَّا وَهُوَ يُحْسِنُ الظَّنَّ بِاللَّهِ»\nرواه مسلم عن جابر رضي الله عنه | وهذان الحديثان يدلان على عظيم شأن حسن الظن بالله، وأن المسلم ينبغي أن يمتلئ قلبه رجاءً بالله وثقةً برحمته وفضله."
+    },
+    "story2": {
+      "subtitle": "الجزء الثاني: الفروق الجوهرية والمثال والضوابط",
+      "intro": "✨ فما الفرق بينهما؟\n• اليقين بالله: رسوخ التصديق والإيمان في القلب، بحيث يثبت العبد على إيمانه بالله ووعده وقدرته وحكمته، ولا يتزعزع عند الشدائد.\n• حسن الظن بالله: رجاء الخير من الله، واعتقاد رحمته وفضله وحكمته، وعدم حمل أفعاله وأقداره على السوء.\n• العلاقة بينهما: اليقين أصل أوسع، وحسن الظن بالله من آثاره وثمراته؛ فكلما ازداد يقين العبد بالله وأسمائه وصفاته وحكمته، ازداد حسن ظنه به.",
+      "quote": "«لَا يَمُوتَنَّ أَحَدُكُمْ إِلَّا وَهُوَ يُحْسِنُ الظَّنَّ بِاللَّهِ»",
+      "quoteMeta": "رواه مسلم عن جابر رضي الله عنه",
+      "points": "💡 مثال يوضح الفرق:\n\"إذا تأخرت إجابة الدعاء، فإن اليقين يجعل العبد يعلم أن الله قادر على الإجابة، وأنه لا يعجزه شيء، أما حسن الظن فيجعله يرجو أن يكون تأخير الإجابة لحكمة، وأن الله يختار له ما هو خير، فيستمر في الدعاء دون يأس أو سوء ظن.\"",
+      "wisdom": "⚠️ تنبيه مهم: حسن الظن بالله لا يعني ترك العمل أو الاستمرار في المعصية بحجة الثقة برحمة الله، بل حسن الظن الصحيح يكون مع الطاعة والتوبة والأخذ بالأسباب."
+    }
+  },
+  {
+    "title": "اليقين في الدعاء ومعوقاته الخفية",
+    "intro": "الدعاء عبادة قلبية رفيعة تتطلب حضوراً وتهيؤاً روحياً؛ فإذا تحركت في قلبك رغبة في المناجاة، فهذه رسالة توفيق وإذن بالإقبال. لكن حذارِ من معوقات اليقين في الدعاء التي يلقيها الشيطان لإفساد قلبك:",
+    "quote": "«ادْعُوا اللَّهَ وَأَنْتُمْ مُوقِنُونَ بِالإِجَابَةِ، وَاعْلَمُوا أَنَّ اللَّهَ لاَ يَسْتَجِيبُ دُعَاءً مِنْ قَلْبٍ غَافِلٍ لَاهٍ»",
+    "quoteMeta": "رواه الترمذي وحسنه الألباني",
+    "points": "﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ﴾ [سورة البقرة — الآية 186]\n\n1. الشك في الاستحقاق بسبب الذنوب: يوسوس لك: (من أنت حتى يستجيب الله لك؟ انظر لتقصيرك!)، والرد: نحن ندعو الله لأنه أهل للرحمة والجود والإجابة، لا لأننا نستحق بأعمالنا؛ والله يجيب المضطر ولو كان مذنباً.\n2. الانشغال بكيفية الاستجابة ورسم الطريق: إياك أن ترسم لله سيناريو الفرج وتحدد الباب الذي يأتيك منه الرزق؛ فالحل عند الله ليس محصوراً في حساباتك، وهو يرزقك ﴿مِنْ حَيْثُ لَا يَحْتَسِبُ﴾.\n3. الشك في القدرة وتصغير المسألة: لا تُسقط عجزك البشري على قدرة الله فترى حاجتك \"كبيرة أو مستحيلة\"؛ كبّر مسألتك، فالذي خلق السماوات والأرض لا يعجزه شيء.\n4. مقارنة قصتك بقصص الآخرين: يوسوس الشيطان: (فلان دعا سنين وما تيسر له، لماذا تستمر؟)، والجواب: لا تقِس علاقتك بالله على تجارب غيرك؛ أنت لا تعلم بواطن قلوبهم، ولك قصتك الخاصة مع ربك الرحيم.\n5. فخ كلمة \"لكن\": أن تقول: (أنا واثق بربي.. لكن الظروف صعبة! لكن الواقع مقفل!)؛ فاعلم أن كل ما بعد كلمة \"لكن\" هو تشويش شيطاني يخدش كمال يقينك.",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"هندسة الدعاء تبدأ من طريقة دخولك على الله: هل يعقل أن تدخل على ملك الملوك وأنت شارد الذهن أو مشغول بهاتفك؟ ادخل بقلب كسرته الحاجة، واستعذ بالله من وساوس الشيطان، ولا ترسم لله كيف يفرجها، اترك تدبير الكيفية لربك وتفرغ أنت لصدق الافتقار!\"",
+    "hasMultiStory": true,
+    "story1": {
+      "subtitle": "الجزء الأول: فقه الإقبال ومعوقات اليقين (١ و ٢)",
+      "intro": "الدعاء عبادة قلبية رفيعة تتطلب حضوراً وتهيؤاً روحياً؛ فإذا تحركت في قلبك رغبة في المناجاة، فهذه رسالة توفيق وإذن بالإقبال. لكن حذارِ من معوقات اليقين في الدعاء التي يلقيها الشيطان لإفساد قلبك:",
+      "quote": "«ادْعُوا اللَّهَ وَأَنْتُمْ مُوقِنُونَ بِالإِجَابَةِ، وَاعْلَمُوا أَنَّ اللَّهَ لاَ يَسْتَجِيبُ دُعَاءً مِنْ قَلْبٍ غَافِلٍ لَاهٍ»",
+      "quoteMeta": "رواه الترمذي وحسنه الألباني",
+      "points": "﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ﴾ [سورة البقرة — الآية 186]\n\n1. الشك في الاستحقاق بسبب الذنوب: يوسوس لك: (من أنت حتى يستجيب الله لك؟ انظر لتقصيرك!)، والرد: نحن ندعو الله لأنه أهل للرحمة والجود والإجابة، لا لأننا نستحق بأعمالنا؛ والله يجيب المضطر ولو كان مذنباً.\n\n2. الانشغال بكيفية الاستجابة ورسم الطريق: إياك أن ترسم لله سيناريو الفرج وتحدد الباب الذي يأتيك منه الرزق؛ فالحل عند الله ليس محصوراً في حساباتك، وهو يرزقك ﴿مِنْ حَيْثُ لَا يَحْتَسِبُ﴾.",
+      "wisdom": "🎙️ لفتة شفهية للحضور:\n\"هندسة الدعاء تبدأ من طريقة دخولك على الله: هل يعقل أن تدخل على ملك الملوك وأنت شارد الذهن أو مشغول بهاتفك؟ ادخل بقلب كسرته الحاجة، واستعذ بالله من وساوس الشيطان، ولا ترسم لله كيف يفرجها، اترك تدبير الكيفية لربك وتفرغ أنت لصدق الافتقار!\""
+    },
+    "story2": {
+      "subtitle": "الجزء الثاني: معوقات اليقين في الدعاء (٣ و ٤ و ٥)",
+      "intro": "حذارِ من بقية معوقات اليقين في الدعاء التي يلقيها الشيطان لإفساد قلبك:",
+      "quote": "﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ﴾",
+      "quoteMeta": "سورة البقرة — الآية 186",
+      "points": "3. الشك في القدرة وتصغير المسألة: لا تُسقط عجزك البشري على قدرة الله فترى حاجتك \"كبيرة أو مستحيلة\"؛ كبّر مسألتك، فالذي خلق السماوات والأرض لا يعجزه شيء.\n\n4. مقارنة قصتك بقصص الآخرين: يوسوس الشيطان: (فلان دعا سنين وما تيسر له، لماذا تستمر؟)، والجواب: لا تقِس علاقتك بالله على تجارب غيرك؛ أنت لا تعلم بواطن قلوبهم، ولك قصتك الخاصة مع ربك الرحيم.\n\n5. فخ كلمة \"لكن\": أن تقول: (أنا واثق بربي.. لكن الظروف صعبة! لكن الواقع مقفل!)؛ فاعلم أن كل ما بعد كلمة \"لكن\" هو تشويش شيطاني يخدش كمال يقينك.",
+      "wisdom": "«ادْعُوا اللَّهَ وَأَنْتُمْ مُوقِنُونَ بِالإِجَابَةِ، وَاعْلَمُوا أَنَّ اللَّهَ لاَ يَسْتَجِيبُ دُعَاءً مِنْ قَلْبٍ غَافِلٍ لَاهٍ» [رواه الترمذي وحسنه الألباني]"
+    }
+  },
+  {
+    "title": "التحرر من الخوف ورسوخ عزة المؤمن",
+    "intro": "امتلاء القلب بهيبة الله يمحو الخوف من المخلوقين؛ لعلم العبد أن نواصي الخلق كلهم بقبضة الله، وأن أحداً لا يملك نفعاً ولا ضراً إلا بإذنه. هذا الرسوخ يمنح المؤمن شجاعة وثباتاً واستقلالاً نفسياً، فلا ينحني أمام تهديد، ولا يداهن على حساب دينه وقيمه.",
+    "quote": "«وَاعْلَمْ أَنَّ الأُمَّةَ لَوِ اجْتَمَعَتْ عَلَى أَنْ يَنْفَعُوكَ بِشَيْءٍ لَمْ يَنْفَعُوكَ إِلاَّ بِشَيْءٍ قَدْ كَتَبَهُ اللَّهُ لَكَ، وَلَوِ اجْتَمَعُوا عَلَى أَنْ يَضُرُّوكَ بِشَيْءٍ لَمْ يَضُرُّوكَ إِلاَّ بِشَيْءٍ قَدْ كَتَبَهُ اللَّهُ عَلَيْكَ»",
+    "quoteMeta": "رواه الترمذي وقال: حديث حسن صحيح",
+    "points": "﴿إِنَّمَا ذَٰلِكُمُ الشَّيْطَانُ يُخَوِّفُ أَوْلِيَاءَهُ فَلَا تَخَافُوهُمْ وَخَافُونِ إِن كُنتُم مُّؤْمِنِينَ﴾\nسورة آل عمران — الآية 175",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"إذا استقر في قلبك أن البشر كلهم أسباب مسخرة لا يملكون مثقال ذرة من نفع أو ضر بدون إذن الله، ستعيش حراً، مرفوع الرأس، لا يكسرك تهديد ولا يغريك تملق!\""
+  },
+  {
+    "title": "تجليات اليقين في سير الأنبياء عند انقطاع الأسباب",
+    "intro": "يظهر معدن اليقين الحقيقي حين تنغلق المنافذ المادية وتتلاشى الحسابات الأرضية؛ فالأنبياء واجهوا أعتى المخاطر باتكاء روحي مطلق على معية الله:",
+    "quote": "«مَا ظَنُّكَ يَا أَبَا بَكْرٍ بِاثْنَيْنِ اللَّهُ ثَالِثُهُمَا؟»",
+    "quoteMeta": "متفق عليه عن أبي بكر الصديق رضي الله عنه",
+    "points": "موسى عليه السلام: حين قال أصحابه ﴿إِنَّا لَمُدْرَكُونَ﴾، أجاب بلسان اليقين الحاسم: ﴿كَلَّا ۖ إِنَّ مَعِيَ رَبِّي سَيَهْدِينِ﴾.\nالنبي ﷺ في الغار: حين وقف المشركون على فوهته، ثبّت صاحبه قائلاً: ﴿لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا﴾.",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"أصحاب موسى نظروا بعين السبب المادي فقالوا (إنا لمدركون): البحر أمامنا والعدو خلفنا! لكن موسى نظر بعين مسبب الأسباب فقال (كلا إن معي ربي)! اليقين هو أن تبصر النجاة بقلبك قبل أن ينفلق البحر أمام عينك.\"",
+    "hasMultiStory": true,
+    "story1": {
+      "subtitle": "الجزء الأول: موسى عليه السلام أمام البحر",
+      "intro": "يظهر معدن اليقين الحقيقي حين تنغلق المنافذ المادية وتتلاشى الحسابات الأرضية؛ فالأنبياء واجهوا أعتى المخاطر باتكاء روحي مطلق على معية الله:",
+      "quote": "﴿كَلَّا ۖ إِنَّ مَعِيَ رَبِّي سَيَهْدِينِ﴾",
+      "quoteMeta": "سورة الشعراء — الآية 62",
+      "points": "موسى عليه السلام: حين قال أصحابه ﴿إِنَّا لَمُدْرَكُونَ﴾، أجاب بلسان اليقين الحاسم: ﴿كَلَّا ۖ إِنَّ مَعِيَ رَبِّي سَيَهْدِينِ﴾.",
+      "wisdom": "🎙️ لفتة شفهية للحضور:\n\"أصحاب موسى نظروا بعين السبب المادي فقالوا (إنا لمدركون): البحر أمامنا والعدو خلفنا! لكن موسى نظر بعين مسبب الأسباب فقال (كلا إن معي ربي)! اليقين هو أن تبصر النجاة بقلبك قبل أن ينفلق البحر أمام عينك.\""
+    },
+    "story2": {
+      "subtitle": "الجزء الثاني: النبي ﷺ في الغار ومعية الله المطلقة",
+      "intro": "يظهر معدن اليقين الحقيقي حين تنغلق المنافذ المادية وتتلاشى الحسابات الأرضية:",
+      "quote": "«مَا ظَنُّكَ يَا أَبَا بَكْرٍ بِاثْنَيْنِ اللَّهُ ثَالِثُهُمَا؟»",
+      "quoteMeta": "متفق عليه عن أبي بكر الصديق رضي الله عنه",
+      "points": "النبي ﷺ في الغار: حين وقف المشركون على فوهته، ثبّت صاحبه قائلاً: ﴿لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا﴾.",
+      "wisdom": "اتكاء روحي مطلق على معية الله: «مَا ظَنُّكَ يَا أَبَا بَكْرٍ بِاثْنَيْنِ اللَّهُ ثَالِثُهُمَا؟»"
+    }
+  },
+  {
+    "title": "اليقين عند نزول المصائب وضبط المشاعر",
+    "intro": "اليقين هو خط الدفاع الأول ضد الصدمات؛ فالموقن يستقبل البلاء بثبات لعلمه أن ما أصابه مقدر ومكتوب، وأن خلفه تكفيراً للسيئات ورفعة للدرجات وعوضاً عظيماً. واليقين لا ينفي الحزن الطبيعي أو دمع العين الفطري، بل يمنع الجزع واللطم والتسخط على أقدار الله.",
+    "quote": "«إِنَّ العَيْنَ تَدْمَعُ، وَالقَلْبَ يَحْزَنُ، وَلاَ نَقُولُ إِلاَّ مَا يَرْضَى رَبُّنَا»",
+    "quoteMeta": "رواه البخاري ومسلم عند وفاة ابنه إبراهيم عليه السلام",
+    "points": "﴿الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ * أُولَٰئِكَ عَلَيْهِمْ صَلَوَاتٌ مِّن رَّبِّهِمْ وَرَحْمَةٌ ۖ وَأُولَٰئِكَ هُمُ الْمُهْتَدُونَ﴾\nسورة البقرة — الآيات 156-157",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"الإسلام دين الفطرة والرحمة، لا يطلب منك أن تكون جماداً بليد الإحساس! ابكِ وتألم، فهذا تفريغ طبيعي لضعف الإنسان، لكن اضبط لسانك وقلبك عن الاعتراض على حكمة العزيز الحكيم.\""
+  },
+  {
+    "title": "التلازم بين صدق اليقين وبذل الأسباب",
+    "intro": "يضع المنهج الإسلامي حداً فاصلاً بين التوكل واليقين، وبين التواكل والكسل؛ فالقاعدة الكبرى في باب الأسباب:",
+    "quote": "سأل رجل النبي ﷺ عن ناقته: أيعقلها أم يتوكل؟ فقال له: «اعْقِلْهَا وَتَوَكَّلْ»",
+    "quoteMeta": "رواه الترمذي وحسنه الألباني",
+    "points": "الجوارح تعمل والأفئدة تتوكل: تبذل أقصى جهد في السبب وكأن الأسباب هي كل شيء، وقلبك متجرد تماماً من التعلق بها.\n\nطلاقة القدرة الإلهية: اعلم يقيناً أن «الله يعطي بالسبب، وبانعدام السبب، وبعكس السبب»؛ يعطي بالسبب كالدواء والعمل، وبانعدام السبب كما نبع الماء لإسماعيل من تحت قدمه، وبعكس السبب كما جعل النار المحرقة برداً وسلاماً على إبراهيم.",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"التوكل الصحيح كالمزارع الذي يحرث ويسقي ويتعب، لكنه يعلم أن إخراج النبتة وحمايتها من الآفات بيد الله وحده! من علق قلبه بالمدير أو الواسطة أو الوظيفة سقط في الشرك الخفي، ومن ترك العمل سقط في الجهل والكسل.\""
+  },
+  {
+    "title": "كيف يصل العبد إلى أعلى مراتب اليقين وثمراته؟",
+    "intro": "الوصول إلى مقام اليقين العالي مسار تربوي ورياضة روحية متواصلة:",
+    "quote": "﴿وَجَعَلْنَا مِنْهُمْ أَئِمَّةً يَهْدُونَ بِأَمْرِنَا لَمَّا صَبَرُوا ۖ وَكَانُوا بِآيَاتِنَا يُوقِنُونَ﴾",
+    "quoteMeta": "سورة السجدة — الآية 24 (الثمرة الكبرى: نيل الإمامة في الدين والسلام الداخلي)",
+    "points": "التفكر في عظمة الخلق والنفس: تأمل ملكوت السماوات، واختلاف الليل والنهار، ودقة خلق النفس ﴿وَفِي أَنفُسِكُمْ ۚ أَفَلَا تُبْصِرُونَ﴾؛ فهذا التفكر يرفع رصيد اليقين فوراً.\nتدبر القرآن الكريم: والتعرف الحي على أسماء الله الحسنى (الحكيم، الوكيل، الفتاح، القريب، اللطيف).\nتصفية القلب والابتعاد عن الفضول: تجنب فضول الكلام والطعام والخلطة، والمداومة على خبيئة صالحة في السر.\nاستحضار ألطاف الله السابقة: تذكر الأزمات القديمة التي فرجها الله عنك لبناء ثقة تراكمية تصمد أمام الشدائد الجديدة.",
+    "wisdom": "🎙️ لفتة شفهية للحضور:\n\"بالصبر تُدفع الشهوات، وباليقين تُدفع الشبهات! وإذا اجتمع في قلب العبد الصبر واليقين نال الإمامة والشرف في الدنيا والآخرة.\"\n\n🌟 الخاتمة: اليقين بالله هو البوصلة التي تضبط حركة القلب ومشاعره في كل مراحل الحياة؛ فبه تهون الشدائد، وتُطرد المخاوف، ويسكن القلق من المستقبل، ويتحرر الإنسان من التعلق بالمخلوقين. والمؤمن الحق يعيش بين بذل السبب والرضا بالقدر، موقناً برحمة ربه وحكمته في كل شأن."
+  }
+];
+
+function initCardStudioSelect() {
+    const select = document.getElementById('cardTopicSelect');
+    if (!select || select.options.length > 0) return;
+
+    cardTopicsData.forEach((t, idx) => {
+      const opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = `${ORD[idx] || (idx+1)}: ${t.title}`;
+      select.appendChild(opt);
+    });
+
+    const customOpt = document.createElement('option');
+    customOpt.value = 'custom';
+    customOpt.textContent = '✍️ نص مخصص (اكتب بطاقتك بنفسك)';
+    select.appendChild(customOpt);
+  }
+
+  let currentStoryPart = 'all';
+
+  function updateStoryPartsUI() {
+    const switcher = document.getElementById('storyPartSwitcher');
+    const downloadBothBtn = document.getElementById('cardDownloadBothBtn');
+    const downloadBtnText = document.getElementById('downloadBtnText');
+    const hint = document.getElementById('previewHint');
+
+    const selectVal = document.getElementById('cardTopicSelect')?.value;
+    let hasMulti = false;
+    if (selectVal !== 'custom' && selectVal !== undefined && selectVal !== '') {
+      const idx = parseInt(selectVal, 10);
+      const t = cardTopicsData[idx];
+      if (t && t.hasMultiStory) {
+        hasMulti = true;
+      }
+    }
+
+    if (currentCardMode === 'story') {
+      if (hasMulti) {
+        if (switcher) switcher.style.display = 'flex';
+        if (downloadBothBtn) downloadBothBtn.style.display = 'flex';
+        if (downloadBtnText) {
+          if (currentStoryPart === 'all') {
+            downloadBtnText.textContent = 'تحميل الستوري (النص كامل) 📦';
+          } else {
+            downloadBtnText.textContent = `تحميل ستوري ${currentStoryPart} (PNG)`;
+          }
+        }
+      } else {
+        if (switcher) switcher.style.display = 'none';
+        if (downloadBothBtn) downloadBothBtn.style.display = 'none';
+        if (downloadBtnText) downloadBtnText.textContent = 'تحميل الستوري (النص كامل) 📦';
+      }
+      if (hint) hint.textContent = '📱 دقة الستوري: أبعاد عمودية فائقة الدقة (1080 بكسل) مع كامل النص الأصلي دون أي اقتطاع';
+    } else {
+      if (switcher) switcher.style.display = 'none';
+      if (downloadBothBtn) downloadBothBtn.style.display = 'none';
+      if (downloadBtnText) downloadBtnText.textContent = 'تحميل الصورة (PNG)';
+      if (hint) {
+        if (currentCardMode === 'quote') {
+          hint.textContent = '📐 دقة المقتطف: 1080 × 1080 بكسل (مربعة فائقة الوضوح)';
+        } else {
+          hint.textContent = '📋 نمط الانفوجرافيك الكامل (أبعاد ديناميكية فائقة الدقة لكامل المحتوى)';
+        }
+      }
+    }
+  }
+
+  function switchStoryPart(part) {
+    currentStoryPart = part;
+    document.getElementById('storyPartBtnAll')?.classList.toggle('active', part === 'all');
+    document.getElementById('storyPartBtn1')?.classList.toggle('active', part === 1);
+    document.getElementById('storyPartBtn2')?.classList.toggle('active', part === 2);
+
+    const downloadBtnText = document.getElementById('downloadBtnText');
+    if (downloadBtnText) {
+      if (part === 'all') {
+        downloadBtnText.textContent = 'تحميل الستوري (النص كامل) 📦';
+      } else {
+        downloadBtnText.textContent = `تحميل ستوري ${part} (PNG)`;
+      }
+    }
+
+    const selectVal = document.getElementById('cardTopicSelect')?.value;
+    if (selectVal !== 'custom') {
+      const idx = parseInt(selectVal, 10);
+      const t = cardTopicsData[idx];
+      if (t) {
+        if (part === 'all' || !t.hasMultiStory) {
+          // استعادة كامل محتوى الموضوع الأصلي بدون أي حذف أو اجتزاء
+          if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = t.intro || '';
+          if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = t.quote || '';
+          if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = t.quoteMeta || '';
+          if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = t.points || '';
+          if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = t.wisdom || '';
+        } else {
+          const s = (part === 1) ? t.story1 : t.story2;
+          if (s) {
+            if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = s.intro || '';
+            if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = s.quote || '';
+            if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = s.quoteMeta || '';
+            if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = s.points || '';
+            if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = s.wisdom || '';
+          }
+        }
+      }
+    }
+    renderCardCanvas();
+  }
+
+  function setCardMode(mode) {
+    currentCardMode = mode;
+    ['modeBtnInfographic', 'modeBtnStory', 'modeBtnQuote'].forEach(id => {
+      document.getElementById(id)?.classList.remove('active');
+    });
+    if (mode === 'infographic') document.getElementById('modeBtnInfographic')?.classList.add('active');
+    if (mode === 'story') document.getElementById('modeBtnStory')?.classList.add('active');
+    if (mode === 'quote') document.getElementById('modeBtnQuote')?.classList.add('active');
+
+    // إخفاء أو إظهار حقول التفصيل حسب النمط المختار
+    const introGroup = document.getElementById('cardIntroGroup');
+    const metaGroup = document.getElementById('cardMetaGroup');
+    const pointsGroup = document.getElementById('cardPointsGroup');
+    const isQuoteOnly = (mode === 'quote');
+    if (introGroup) introGroup.style.display = isQuoteOnly ? 'none' : 'flex';
+    if (metaGroup) metaGroup.style.display = isQuoteOnly ? 'none' : 'flex';
+    if (pointsGroup) pointsGroup.style.display = isQuoteOnly ? 'none' : 'flex';
+
+    const selectVal = document.getElementById('cardTopicSelect')?.value;
+    if (selectVal !== 'custom') {
+      const idx = parseInt(selectVal, 10);
+      const t = cardTopicsData[idx];
+      if (t) {
+        if (mode === 'story') {
+          switchStoryPart('all');
+        } else {
+          // استعادة البيانات الكاملة للإنفوجرافيك أو المقتطف
+          if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = t.intro || '';
+          if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = t.quote || '';
+          if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = t.quoteMeta || '';
+          if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = t.points || '';
+          if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = t.wisdom || '';
+        }
+      }
+    }
+
+    updateStoryPartsUI();
+    renderCardCanvas();
+  }
+
+  function openCardStudio() {
+    initCardStudioSelect();
+    const studioOverlay = document.getElementById('cardStudioOverlay');
+    if (studioOverlay) {
+      studioOverlay.classList.add('open');
+      const idx = (typeof currentTopicIndex === 'number' && currentTopicIndex >= 0) ? currentTopicIndex : (typeof window.currentTopicIndex === 'number' ? window.currentTopicIndex : 0);
+      handleCardTopicChange(idx);
+      if (document.body.classList.contains('light')) {
+        setCardTheme('dawn');
+      } else {
+        setCardTheme('andalusian');
+      }
+    }
+  }
+
+  function openCardStudioForTopic(idx) {
+    // إخفاء نافذة المحور المفتوح حتى لا تظهر خلف استوديو التصوير أو تعيق الرؤية
+    const topicModalOverlay = document.getElementById('overlay');
+    if (topicModalOverlay && (topicModalOverlay.classList.contains('open') || topicModalOverlay.style.display === 'flex')) {
+      returnToTopicModalOnStudioClose = true;
+      topicModalOverlay.style.display = 'none';
+    } else {
+      returnToTopicModalOnStudioClose = false;
+    }
+
+    initCardStudioSelect();
+    const studioOverlay = document.getElementById('cardStudioOverlay');
+    if (studioOverlay) {
+      studioOverlay.classList.add('open');
+      let targetIdx = 0;
+      if (typeof idx === 'number' && !isNaN(idx) && idx >= 0 && idx < cardTopicsData.length) {
+        targetIdx = idx;
+      } else if (typeof currentTopicIndex === 'number' && currentTopicIndex >= 0 && currentTopicIndex < cardTopicsData.length) {
+        targetIdx = currentTopicIndex;
+      } else if (typeof window.currentTopicIndex === 'number' && window.currentTopicIndex >= 0 && window.currentTopicIndex < cardTopicsData.length) {
+        targetIdx = window.currentTopicIndex;
+      }
+      handleCardTopicChange(targetIdx);
+      if (document.body.classList.contains('light')) {
+        setCardTheme('dawn');
+      } else {
+        setCardTheme('andalusian');
+      }
+    }
+  }
+
+  window.openCardStudio = openCardStudio;
+  window.openCardStudioForTopic = openCardStudioForTopic;
+
+  function closeCardStudio(e) {
+    const studioOverlay = document.getElementById('cardStudioOverlay');
+    if (studioOverlay) studioOverlay.classList.remove('open');
+    showCardStatus('');
+
+    // إعادة إظهار نافذة الموضوع إن كان المستخدم قد فتح التوليد من داخلها
+    if (returnToTopicModalOnStudioClose) {
+      const topicModalOverlay = document.getElementById('overlay');
+      if (topicModalOverlay) {
+        topicModalOverlay.style.display = 'flex';
+        topicModalOverlay.classList.add('open');
+      }
+      returnToTopicModalOnStudioClose = false;
+    }
+  }
+
+  function setCardTheme(theme) {
+    currentCardTheme = theme;
+    ['themeBtnAndalusian', 'themeBtnEmerald', 'themeBtnDawn'].forEach(id => {
+      document.getElementById(id)?.classList.remove('active');
+    });
+    if (theme === 'andalusian') document.getElementById('themeBtnAndalusian')?.classList.add('active');
+    if (theme === 'emerald') document.getElementById('themeBtnEmerald')?.classList.add('active');
+    if (theme === 'dawn') document.getElementById('themeBtnDawn')?.classList.add('active');
+
+    renderCardCanvas();
+  }
+
+  function handleCardTopicChange(val) {
+    const select = document.getElementById('cardTopicSelect');
+    if (select) select.value = val;
+
+    currentStoryPart = 1;
+
+    if (val !== 'custom') {
+      const idx = parseInt(val, 10);
+      const data = cardTopicsData[idx];
+      if (data) {
+        if (document.getElementById('cardCustomTitle')) document.getElementById('cardCustomTitle').value = data.title || '';
+        if (currentCardMode === 'story' && data.hasMultiStory && data.story1) {
+          if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = data.story1.intro || '';
+          if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = data.story1.quote || '';
+          if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = data.story1.quoteMeta || '';
+          if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = data.story1.points || '';
+          if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = data.story1.wisdom || '';
+        } else {
+          if (document.getElementById('cardCustomIntro')) document.getElementById('cardCustomIntro').value = data.intro || '';
+          if (document.getElementById('cardCustomQuote')) document.getElementById('cardCustomQuote').value = data.quote || '';
+          if (document.getElementById('cardCustomQuoteMeta')) document.getElementById('cardCustomQuoteMeta').value = data.quoteMeta || '';
+          if (document.getElementById('cardCustomPoints')) document.getElementById('cardCustomPoints').value = data.points || '';
+          if (document.getElementById('cardCustomWisdom')) document.getElementById('cardCustomWisdom').value = data.wisdom || '';
+        }
+      }
+    }
+    updateStoryPartsUI();
+    renderCardCanvas();
+  }
+
+  // قياس النص وحساب الأسطر بدقة متناهية
+  function measureWrappedLines(ctx, text, maxWidth) {
+    if (!text) return [];
+    const paragraphs = text.split('\n');
+    const allLines = [];
+    paragraphs.forEach(para => {
+      const pTrim = para.trim();
+      if (!pTrim) {
+        allLines.push('');
+        return;
+      }
+      const words = pTrim.split(/\s+/);
+      let line = '';
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + (line ? ' ' : '') + words[n];
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          allLines.push(line);
+          line = words[n];
+        } else {
+          line = testLine;
+        }
+      }
+      if (line) allLines.push(line);
+    });
+    return allLines;
+  }
+
+  // رسم صندوق قسم متكامل مع شارة العنوان والنص
+  function drawContentPanel(ctx, x, y, w, badgeText, badgeIcon, lines, lineHeight, panelBg, panelBorder, badgeColor, textColor) {
+    const padX = 36;
+    const topPad = 52;
+    const botPad = 24;
+    const textH = lines.length * lineHeight;
+    const panelH = topPad + textH + botPad;
+
+    // خلفية الصندوق
+    ctx.fillStyle = panelBg;
+    roundRect(ctx, x, y, w, panelH, 18);
+    ctx.fill();
+
+    ctx.strokeStyle = panelBorder;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // شارة عنوان القسم
+    ctx.fillStyle = badgeColor;
+    ctx.font = 'bold 22px "Tajawal", sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(`${badgeIcon} ${badgeText}`, x + w - padX, y + 34);
+
+    // خط زخرفي فاصل ناعم تحت الشارة
+    ctx.strokeStyle = panelBorder;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x + padX, y + 44);
+    ctx.lineTo(x + w - padX, y + 44);
+    ctx.stroke();
+
+    // نصوص المحتوى
+    ctx.fillStyle = textColor;
+    ctx.textAlign = 'right';
+    let lineY = y + topPad + lineHeight * 0.72;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i]) {
+        ctx.fillText(lines[i], x + w - padX, lineY);
+      }
+      lineY += lineHeight;
+    }
+
+    return panelH;
+  }
+
+  // رسم وتوليد الانفوجرافيك أو البطاقة على Canvas بدقة فائقة
+  function renderCardCanvas() {
+    if (!cardCanvas || !cardCtx) return;
+    const ctx = cardCtx;
+    const w = 1080;
+
+    // قراءة البيانات من الحقول
+    const title = document.getElementById('cardCustomTitle')?.value || 'اليقين بالله تعالى';
+    const intro = document.getElementById('cardCustomIntro')?.value || '';
+    const quote = document.getElementById('cardCustomQuote')?.value || '';
+    const quoteMeta = document.getElementById('cardCustomQuoteMeta')?.value || '';
+    const points = document.getElementById('cardCustomPoints')?.value || '';
+    const wisdom = document.getElementById('cardCustomWisdom')?.value || '';
+
+    // تحديد ما إذا كان الموضوع الحالي ستوري متعدد الأجزاء
+    const selectVal = document.getElementById('cardTopicSelect')?.value;
+    let activeTopicData = null;
+    if (selectVal !== 'custom' && selectVal !== undefined && selectVal !== '') {
+      activeTopicData = cardTopicsData[parseInt(selectVal, 10)];
+    }
+    const isMultiStory = (currentCardMode === 'story' && activeTopicData && activeTopicData.hasMultiStory);
+
+    // 1. تحديد تدرجات الألوان حسب الثيم
+    let bgGradient;
+    let frameColor, innerFrameColor;
+    let headerColor, titleColor, panelBg, panelBorder, quoteBoxBg, quoteBoxBorder, quoteColor, badgeColor, textColor, metaColor, footerColor;
+
+    if (currentCardTheme === 'emerald') {
+      bgGradient = ctx.createLinearGradient(0, 0, w, 2000);
+      bgGradient.addColorStop(0, '#03140e');
+      bgGradient.addColorStop(0.5, '#08291e');
+      bgGradient.addColorStop(1, '#04150f');
+
+      frameColor = 'rgba(214, 168, 92, 0.45)';
+      innerFrameColor = 'rgba(46, 196, 182, 0.35)';
+      headerColor = '#2ec4b6';
+      titleColor = '#f5dfb8';
+      panelBg = 'rgba(10, 36, 28, 0.75)';
+      panelBorder = 'rgba(46, 196, 182, 0.28)';
+      quoteBoxBg = 'rgba(46, 196, 182, 0.12)';
+      quoteBoxBorder = 'rgba(214, 168, 92, 0.45)';
+      quoteColor = '#ffffff';
+      badgeColor = '#2ec4b6';
+      textColor = '#e2f7f3';
+      metaColor = '#d6a85c';
+      footerColor = 'rgba(214, 168, 92, 0.85)';
+    } else if (currentCardTheme === 'dawn') {
+      bgGradient = ctx.createLinearGradient(0, 0, w, 2000);
+      bgGradient.addColorStop(0, '#fdfbf6');
+      bgGradient.addColorStop(0.5, '#f7efe1');
+      bgGradient.addColorStop(1, '#ece0ca');
+
+      frameColor = 'rgba(178, 122, 50, 0.45)';
+      innerFrameColor = 'rgba(15, 133, 115, 0.3)';
+      headerColor = '#0f8573';
+      titleColor = '#2c2317';
+      panelBg = 'rgba(255, 255, 255, 0.9)';
+      panelBorder = 'rgba(178, 122, 50, 0.25)';
+      quoteBoxBg = 'rgba(255, 255, 255, 0.95)';
+      quoteBoxBorder = 'rgba(178, 122, 50, 0.45)';
+      quoteColor = '#1a5c3e';
+      badgeColor = '#8c581e';
+      textColor = '#2c2317';
+      metaColor = '#0f8573';
+      footerColor = '#8c581e';
+    } else { // andalusian (default)
+      bgGradient = ctx.createLinearGradient(0, 0, w, 2000);
+      bgGradient.addColorStop(0, '#060914');
+      bgGradient.addColorStop(0.5, '#0f1c3d');
+      bgGradient.addColorStop(1, '#070b18');
+
+      frameColor = 'rgba(214, 168, 92, 0.45)';
+      innerFrameColor = 'rgba(214, 168, 92, 0.25)';
+      headerColor = '#d6a85c';
+      titleColor = '#fdfaf0';
+      panelBg = 'rgba(18, 26, 54, 0.78)';
+      panelBorder = 'rgba(214, 168, 92, 0.25)';
+      quoteBoxBg = 'rgba(214, 168, 92, 0.09)';
+      quoteBoxBorder = 'rgba(214, 168, 92, 0.45)';
+      quoteColor = '#ffffff';
+      badgeColor = '#5fd6c4';
+      textColor = '#e9ecf5';
+      metaColor = '#d6a85c';
+      footerColor = 'rgba(214, 168, 92, 0.85)';
+    }
+
+    // 2. حساب أبعاد النصوص والأقسام لتحديد الارتفاع المطلوب للـ Canvas ديناميكياً
+    const padX = 64;
+    const boxW = w - padX * 2; // 952px
+    const textMaxWidth = boxW - 72; // 880px
+
+    let h;
+    if (currentCardMode === 'quote') {
+      h = 1080;
+    } else {
+      // قياس دقيق لكافة النصوص والأقسام لتحديد الارتفاع المطلوب ديناميكياً
+      ctx.font = '24px "Tajawal", sans-serif';
+      const introLinesEst = intro ? measureWrappedLines(ctx, intro, textMaxWidth) : [];
+      ctx.font = 'bold 28px "Amiri", serif';
+      const quoteLinesEst = quote ? measureWrappedLines(ctx, quote, textMaxWidth) : [];
+      ctx.font = '23px "Tajawal", sans-serif';
+      const pointsLinesEst = points ? measureWrappedLines(ctx, points, textMaxWidth) : [];
+      const wisdomLinesEst = wisdom ? measureWrappedLines(ctx, wisdom, textMaxWidth) : [];
+
+      let calcH = 290; // ترويسة وعنوان وشارة
+      if (introLinesEst.length) calcH += (52 + introLinesEst.length * 39 + 24) + 24;
+      if (quoteLinesEst.length) calcH += (52 + quoteLinesEst.length * 48 + (quoteMeta ? 40 : 0) + 26) + 24;
+      if (pointsLinesEst.length) calcH += (52 + pointsLinesEst.length * 37 + 24) + 24;
+      if (wisdomLinesEst.length) calcH += (52 + wisdomLinesEst.length * 39 + 24) + 24;
+      calcH += 130; // تذييل وهوامش أمان
+
+      if (currentCardMode === 'story') {
+        // نمط الستوري: يبدأ من 1920 كحد أدنى (النسبة العمودية 9:16)، ويتمدد تلقائياً إذا كان النص غنياً وكاملاً حتى يظهر كل المحتوى دون أي اقتطاع!
+        h = Math.max(1920, calcH);
+      } else {
+        // نمط الانفوجرافيك الشامل الكامل
+        h = Math.max(1450, calcH);
+      }
+    }
+
+    cardCanvas.width = w;
+    cardCanvas.height = h;
+    ctx.save();
+    ctx.clearRect(0, 0, w, h);
+
+    // رسم الخلفية
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, w, h);
+
+    // توهج دائري مركزي ناعم
+    const radial = ctx.createRadialGradient(w/2, h/2, 120, w/2, h/2, Math.max(w, h));
+    radial.addColorStop(0, currentCardTheme === 'dawn' ? 'rgba(255, 255, 255, 0.45)' : 'rgba(214, 168, 92, 0.08)');
+    radial.addColorStop(1, 'transparent');
+    ctx.fillStyle = radial;
+    ctx.fillRect(0, 0, w, h);
+
+    // رسم الإطارات والزخارف الإسلامية
+    ctx.strokeStyle = frameColor;
+    ctx.lineWidth = 2.5;
+    ctx.strokeRect(32, 32, w - 64, h - 64);
+
+    ctx.strokeStyle = innerFrameColor;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(44, 44, w - 88, h - 88);
+
+    drawIslamicCorners(ctx, frameColor, w, h);
+
+    // 3. الترويسة والشعار
+    ctx.textAlign = 'center';
+    ctx.fillStyle = headerColor;
+    ctx.font = 'bold 24px "Amiri", serif';
+    ctx.fillText('« زَادُ الْمُؤْمِنِ — مَنْظُومَةُ الْيَقِينِ بِاللَّهِ تَعَالَى »', w / 2, 92);
+
+    ctx.font = '19px "Tajawal", sans-serif';
+    ctx.fillStyle = currentCardTheme === 'dawn' ? '#6e5d48' : '#93a0c2';
+    ctx.fillText('سكون القلوب وثبات الأقدام أمام عواصف الشبهات والشهوات', w / 2, 122);
+
+    drawCardDivider(ctx, frameColor, 150, 420);
+
+    // 4. عنوان المحور مع ضبط ذكي
+    ctx.fillStyle = titleColor;
+    const titleFontSize = title.length > 34 ? 36 : 42;
+    ctx.font = 'bold ' + titleFontSize + 'px "Amiri", serif';
+    const titleEndY = drawWrappedText(ctx, title, w / 2, 204, 880, titleFontSize * 1.25, true);
+
+    let curY = Math.max(250, titleEndY + 14);
+
+    // شارة وتمييز نمط الستوري
+    if (currentCardMode === 'story') {
+      ctx.fillStyle = badgeColor;
+      ctx.font = 'bold 22px "Tajawal", sans-serif';
+      ctx.textAlign = 'center';
+      let partBadge = '📱 ستوري — كامل المحتوى';
+      if (isMultiStory) {
+        if (currentStoryPart === 1) partBadge = '✨ ستوري ١ من ٢ (الجزء الأول)';
+        else if (currentStoryPart === 2) partBadge = '✨ ستوري ٢ من ٢ (الجزء الثاني)';
+        else partBadge = '✨ ستوري كامل — كامل المحتوى الأصلي';
+      }
+      ctx.fillText(partBadge, w / 2, curY + 6);
+      curY += 34;
+
+      if (isMultiStory && (currentStoryPart === 1 || currentStoryPart === 2)) {
+        const sub = (currentStoryPart === 1) ? activeTopicData.story1?.subtitle : activeTopicData.story2?.subtitle;
+        if (sub) {
+          ctx.font = '19px "Tajawal", sans-serif';
+          ctx.fillStyle = currentCardTheme === 'dawn' ? '#6e5d48' : '#93a0c2';
+          ctx.fillText(sub, w / 2, curY + 2);
+          curY += 26;
+        }
+      }
+    }
+
+    drawCardDivider(ctx, innerFrameColor, curY, 260);
+    curY += 24;
+
+    // في نمط الستوري، حساب الفراغ المتبقي لتوسيط الأقسام عمودياً بجمالية متناسقة
+    if (currentCardMode === 'story' && h <= 1920) {
+      ctx.font = '24px "Tajawal", sans-serif';
+      const iLines = intro ? measureWrappedLines(ctx, intro, textMaxWidth) : [];
+      ctx.font = 'bold 28px "Amiri", serif';
+      const qLines = quote ? measureWrappedLines(ctx, quote, textMaxWidth) : [];
+      ctx.font = '23px "Tajawal", sans-serif';
+      const pLines = points ? measureWrappedLines(ctx, points, textMaxWidth) : [];
+      const wLines = wisdom ? measureWrappedLines(ctx, wisdom, textMaxWidth) : [];
+
+      let contentH = 0;
+      if (iLines.length) contentH += (52 + iLines.length * 39 + 24) + 28;
+      if (qLines.length) contentH += (52 + qLines.length * 48 + (quoteMeta ? 40 : 0) + 26) + 28;
+      if (pLines.length) contentH += (52 + pLines.length * 37 + 24) + 28;
+      if (wLines.length) contentH += (52 + wLines.length * 39 + 24) + 28;
+
+      const availableSpace = (h - 120) - (curY + contentH);
+      if (availableSpace > 40) {
+        curY += Math.min(80, Math.floor(availableSpace * 0.3));
+      }
+    }
+
+    // 5. رسم الأقسام حسب النمط المختار
+    if (currentCardMode === 'quote') {
+      // نمط المقتطف الموجز المربع (1080×1080)
+      ctx.font = 'bold 30px "Amiri", serif';
+      const quoteLines = measureWrappedLines(ctx, quote, textMaxWidth);
+      const quoteH = 50 + quoteLines.length * 48 + (quoteMeta ? 38 : 0) + 26;
+
+      ctx.fillStyle = quoteBoxBg;
+      roundRect(ctx, padX, curY, boxW, quoteH, 20);
+      ctx.fill();
+      ctx.strokeStyle = quoteBoxBorder;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = quoteColor;
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 30px "Amiri", serif';
+      let qY = curY + 60;
+      quoteLines.forEach(l => {
+        ctx.fillText(l, w / 2, qY);
+        qY += 48;
+      });
+
+      if (quoteMeta) {
+        ctx.fillStyle = metaColor;
+        ctx.font = 'bold 20px "Tajawal", sans-serif';
+        ctx.fillText(`🏷️ ${quoteMeta}`, w / 2, qY + 4);
+      }
+
+      curY += quoteH + 34;
+
+      // اللفتة الإيمانية
+      ctx.font = '24px "Tajawal", sans-serif';
+      const wisdomLines = measureWrappedLines(ctx, wisdom, textMaxWidth);
+      drawContentPanel(ctx, padX, curY, boxW, 'اللفتة الإيمانية وخلاصة المحور', '💡', wisdomLines, 40, panelBg, panelBorder, badgeColor, textColor);
+    } else {
+      // نمط الانفوجرافيك الكامل والستوري: رسم كافة المعلومات التفصيلية
+      const gap = (currentCardMode === 'story') ? 28 : 22;
+
+      // 1) الشرح والبيان
+      if (intro) {
+        ctx.font = '24px "Tajawal", sans-serif';
+        const introLines = measureWrappedLines(ctx, intro, textMaxWidth);
+        const pH = drawContentPanel(ctx, padX, curY, boxW, 'البيان والشرح الأساسي', '📖', introLines, 39, panelBg, panelBorder, badgeColor, textColor);
+        curY += pH + gap;
+      }
+
+      // 2) الدليل الشرعي والتخريج
+      if (quote) {
+        ctx.font = 'bold 28px "Amiri", serif';
+        const quoteLines = measureWrappedLines(ctx, quote, textMaxWidth);
+        const padBoxH = 52 + quoteLines.length * 48 + (quoteMeta ? 40 : 0) + 26;
+
+        ctx.fillStyle = quoteBoxBg;
+        roundRect(ctx, padX, curY, boxW, padBoxH, 18);
+        ctx.fill();
+        ctx.strokeStyle = quoteBoxBorder;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.fillStyle = badgeColor;
+        ctx.font = 'bold 22px "Tajawal", sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('📜 الدليل الشرعي والتخريج', padX + boxW - 36, curY + 34);
+
+        ctx.strokeStyle = quoteBoxBorder;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(padX + 36, curY + 44);
+        ctx.lineTo(padX + boxW - 36, curY + 44);
+        ctx.stroke();
+
+        ctx.fillStyle = quoteColor;
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 28px "Amiri", serif';
+        let qY = curY + 52 + 36;
+        quoteLines.forEach(l => {
+          ctx.fillText(l, w / 2, qY);
+          qY += 48;
+        });
+
+        if (quoteMeta) {
+          ctx.fillStyle = metaColor;
+          ctx.font = 'bold 20px "Tajawal", sans-serif';
+          ctx.fillText(`🏷️ ${quoteMeta}`, w / 2, qY + 6);
+        }
+
+        curY += padBoxH + gap;
+      }
+
+      // 3) النقاط والأمثلة العملية (إن وُجدت)
+      if (points) {
+        ctx.font = '23px "Tajawal", sans-serif';
+        const pointsLines = measureWrappedLines(ctx, points, textMaxWidth);
+        const pnlH = drawContentPanel(ctx, padX, curY, boxW, 'التفصيل والنقاط والأمثلة', '💎', pointsLines, 37, panelBg, panelBorder, badgeColor, textColor);
+        curY += pnlH + gap;
+      }
+
+      // 4) اللفتة الإيمانية والخلاصة
+      if (wisdom) {
+        ctx.font = '24px "Tajawal", sans-serif';
+        const wisdomLines = measureWrappedLines(ctx, wisdom, textMaxWidth);
+        const wH = drawContentPanel(ctx, padX, curY, boxW, 'اللفتة الإيمانية والخلاصة', '💡', wisdomLines, 39, panelBg, panelBorder, badgeColor, textColor);
+        curY += wH + gap;
+      }
+    }
+
+    // 6. التذييل والخاتمة في أسفل التصميم دائماً
+    const footerDividerY = h - 85;
+    drawCardDivider(ctx, frameColor, footerDividerY, 580);
+
+    if (isMultiStory && currentStoryPart === 1) {
+      ctx.font = 'bold 22px "Tajawal", sans-serif';
+      ctx.fillStyle = '#ffd700';
+      ctx.textAlign = 'center';
+      ctx.fillText('تابع الجزء الثاني ⬅️ | زاد المؤمن', w / 2, h - 48);
+    } else {
+      ctx.font = '22px "Tajawal", sans-serif';
+      ctx.fillStyle = footerColor;
+      ctx.textAlign = 'right';
+      ctx.fillText('✒️ مساهمة من عمر أفندي', w - 90, h - 48);
+
+      ctx.textAlign = 'left';
+      ctx.fillText('🌙 زاد المؤمن — صدقة جارية', 90, h - 48);
+    }
+
+    ctx.restore();
+  }
+
+  function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, isCentered) {
+    if (!text) return y;
+    const paragraphs = text.split('\n');
+    let curY = y;
+
+    paragraphs.forEach(para => {
+      const words = para.trim().split(/\s+/);
+      let line = '';
+
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + (line ? ' ' : '') + words[n];
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line, x, curY);
+          line = words[n];
+          curY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      if (line) {
+        ctx.fillText(line, x, curY);
+        curY += lineHeight;
+      }
+      curY += lineHeight * 0.15;
+    });
+
+    return curY;
+  }
+
+  function drawIslamicCorners(ctx, color, w, h) {
+    const margin = 48;
+    const size = 38;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+
+    drawCornerUnit(ctx, margin, margin, size, 1, 1);
+    drawCornerUnit(ctx, w - margin, margin, size, -1, 1);
+    drawCornerUnit(ctx, margin, h - margin, size, 1, -1);
+    drawCornerUnit(ctx, w - margin, h - margin, size, -1, -1);
+  }
+
+  function drawCornerUnit(ctx, x, y, s, dirX, dirY) {
+    ctx.beginPath();
+    ctx.moveTo(x, y + dirY * s);
+    ctx.lineTo(x, y);
+    ctx.lineTo(x + dirX * s, y);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x + dirX * 14, y + dirY * 14, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = ctx.strokeStyle;
+    ctx.fill();
+  }
+
+  function drawCardDivider(ctx, color, y, width) {
+    const cx = 540;
+    const startX = cx - width / 2;
+    const endX = cx + width / 2;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.5;
+
+    ctx.beginPath();
+    ctx.moveTo(startX, y);
+    ctx.lineTo(cx - 24, y);
+    ctx.moveTo(cx + 24, y);
+    ctx.lineTo(endX, y);
+    ctx.stroke();
+
+    // معين ذهبي في المنتصف
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(cx, y - 7);
+    ctx.lineTo(cx + 9, y);
+    ctx.lineTo(cx, y + 7);
+    ctx.lineTo(cx - 9, y);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function showCardStatus(msg) {
+    const el = document.getElementById('cardStatusMsg');
+    if (el) el.textContent = msg;
+  }
+
+  // تنزيل الصورة
+  function downloadCardImage() {
+    if (!cardCanvas) return;
+    const link = document.createElement('a');
+    const title = document.getElementById('cardCustomTitle')?.value || 'اليقين';
+    const cleanTitle = title.replace(/[\s\/:*?"<>|]+/g, '-');
+
+    let suffix = currentCardMode;
+    const selectVal = document.getElementById('cardTopicSelect')?.value;
+    if (currentCardMode === 'story') {
+      if (selectVal !== 'custom' && selectVal !== undefined && selectVal !== '') {
+        const t = cardTopicsData[parseInt(selectVal, 10)];
+        if (t && t.hasMultiStory) {
+          suffix = (currentStoryPart === 'all') ? 'ستوري-كامل' : `ستوري-جزء-${currentStoryPart}`;
+        } else {
+          suffix = 'ستوري-كامل';
+        }
+      } else {
+        suffix = 'ستوري-مخصص';
+      }
+    }
+
+    link.download = `زاد-المؤمن-${cleanTitle}-${suffix}.png`;
+    link.href = cardCanvas.toDataURL('image/png');
+    link.click();
+    showCardStatus('تم تحميل الصورة بنجاح! 📥');
+  }
+
+  // تنزيل كلتا الستوريتين معاً (١ و ٢)
+  async function downloadBothStories() {
+    if (!cardCanvas) return;
+    const title = document.getElementById('cardCustomTitle')?.value || 'اليقين';
+    const cleanTitle = title.replace(/[\s\/:*?"<>|]+/g, '-');
+
+    showCardStatus('⏳ جاري تصدير ستوري ١ (الجزء الأول)...');
+    switchStoryPart(1);
+    await new Promise(r => setTimeout(r, 140));
+
+    const link1 = document.createElement('a');
+    link1.download = `زاد-المؤمن-${cleanTitle}-ستوري-الجزء-1.png`;
+    link1.href = cardCanvas.toDataURL('image/png');
+    link1.click();
+
+    showCardStatus('⏳ جاري تصدير ستوري ٢ (الجزء الثاني)...');
+    setTimeout(async () => {
+      switchStoryPart(2);
+      await new Promise(r => setTimeout(r, 140));
+
+      const link2 = document.createElement('a');
+      link2.download = `زاد-المؤمن-${cleanTitle}-ستوري-الجزء-2.png`;
+      link2.href = cardCanvas.toDataURL('image/png');
+      link2.click();
+
+      showCardStatus('✅ تم تنزيل كلتا الستوريتين بنجاح!');
+      setTimeout(() => {
+        switchStoryPart('all');
+        showCardStatus('');
+      }, 1500);
+    }, 600);
+  }
+
+  // مشاركة سريعة
+  async function shareCardImage() {
+    if (!cardCanvas) return;
+    const title = document.getElementById('cardCustomTitle')?.value || 'زاد المؤمن';
+    showCardStatus('جاري تجهيز المشاركة...');
+
+    if (navigator.share && navigator.canShare) {
+      try {
+        cardCanvas.toBlob(async (blob) => {
+          if (!blob) {
+            downloadCardImage();
+            return;
+          }
+          const file = new File([blob], 'zad-al-momen-card.png', { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              title: `زاد المؤمن — ${title}`,
+              text: `${title}\nعبر تطبيق وموقع زاد المؤمن:`,
+              files: [file]
+            });
+            showCardStatus('تمت المشاركة بنجاح! 📲');
+            return;
+          }
+          downloadCardImage();
+        }, 'image/png');
+        return;
+      } catch (err) {
+        console.log('Share error:', err);
+      }
+    }
+    // في حال عدم توفر Web Share API
+    downloadCardImage();
+    showCardStatus('تم حفظ الصورة لجهازك لمشاركتها مباشرة 📲');
+  }
+
+  // نسخ الصورة للحافظة
+  async function copyCardImage() {
+    if (!cardCanvas) return;
+    try {
+      cardCanvas.toBlob(async (blob) => {
+        if (!blob) return;
+        if (navigator.clipboard && navigator.clipboard.write) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          showCardStatus('تم نسخ الصورة للحافظة بنجاح! 📋');
+        } else {
+          showCardStatus('المتصفح لا يدعم نسخ الصور، يمكنك استخدام زر التحميل.');
+        }
+      }, 'image/png');
+    } catch (e) {
+      showCardStatus('المتصفح لا يدعم نسخ الصور، يمكنك استخدام زر التحميل.');
+    }
+  }
+
+  // فتح استوديو البطاقات تلقائياً إذا كان الرابط يحتوي على #cardStudio
+  if (window.location.hash === '#cardStudio') {
+    setTimeout(openCardStudio, 350);
+  }
+  </script>
+
+  <script>
+  function toggleWaDrawer() {
+    const drawer = document.getElementById('waSideDrawer');
+    if (drawer) {
+      drawer.classList.toggle('active');
+    }
+  }
+  </script>
+  <script src="favorites.js" defer></script>
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>

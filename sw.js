@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zad-momen-v2'; // 👈 غير رقم النسخة هنا عند كل تحديث جديد
+const CACHE_NAME = 'zad-momen-v3'; // 👈 غير رقم النسخة هنا عند كل تحديث جديد
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

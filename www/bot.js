@@ -3,13 +3,64 @@
    تطوير وتصميم: عمر
    ========================================================================== */
 
+// دالة فتح وإغلاق المساعد تبصرة المتاحة في كافة الصفحات والأجهزة
+window.toggleChat = function(e) {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
+    const chatWindow = document.getElementById('chat-window');
+    const aiWidget = document.getElementById('ai-chat-widget');
+    if (!chatWindow) {
+        console.warn('عنصر نافذة الشات غير موجود في الصفحة.');
+        return;
+    }
+
+    const isVisible = chatWindow.classList.contains('active') || 
+                      (window.getComputedStyle(chatWindow).display === 'flex' && chatWindow.style.opacity !== '0');
+
+    if (isVisible) {
+        chatWindow.style.display = 'none';
+        chatWindow.classList.remove('active');
+    } else {
+        if (aiWidget) {
+            aiWidget.style.zIndex = '1000000';
+            aiWidget.style.display = 'block';
+        }
+        chatWindow.style.display = 'flex';
+        chatWindow.style.visibility = 'visible';
+        chatWindow.style.opacity = '1';
+        chatWindow.classList.add('active');
+
+        // النزول لأسفل الرسائل تلقائياً
+        const msgs = document.getElementById('chat-messages');
+        if (msgs) msgs.scrollTop = msgs.scrollHeight;
+
+        // التركيز على حقل الإدخال
+        const input = document.getElementById('chat-input');
+        if (input) setTimeout(() => input.focus(), 150);
+    }
+};
+
+// الاستماع لزر إغلاق الشات
+document.addEventListener('click', (e) => {
+    if (e.target && (e.target.id === 'chat-close-btn' || e.target.closest('#chat-close-btn'))) {
+        const chatWindow = document.getElementById('chat-window');
+        if (chatWindow) {
+            chatWindow.style.display = 'none';
+            chatWindow.classList.remove('active');
+        }
+    }
+});
+
 // 1. رابط خادم Cloudflare Worker
 const WORKER_URL = "https://zad-bot-proxy.almohanadgamer.workers.dev";
 
 // 2. فحص كافة الصفحات المتاحة في التطبيق
 const pathname = window.location.pathname;
 const isIndexPage = pathname.endsWith('index.html') || pathname.endsWith('/');
+const isTopicsPage = pathname.includes('topics.html');
 const isDuaaPage = pathname.includes('duaa.html');
+const isYaqeenPage = pathname.includes('yaqeen.html');
 const isAzkarPage = pathname.includes('azkar.html');
 const isEncyclopediaPage = pathname.includes('encyclopedia.html');
 const isNamesPage = pathname.includes('names.html');
@@ -21,8 +72,12 @@ const isBooksPage = pathname.includes('books.html');
 let SYSTEM_INSTRUCTION = "أنت باحث شرعي ومفتي رقمي مساعد في موقع 'زاد المؤمن'، المطوّر والمصمّم من قِبَل (عمر). مهمتك الإجابة حصراً على الأسئلة الشرعية والدينية والفقهية بكل أدب واحترام. يُلزم عليك دائماً وأبداً دعم جميع الفتاوى والأحكام بذكر الأدلة الشرعية الصريحة والمباشرة من آيات القرآن الكريم والأحاديث النبوية الصحيحة مع ذكر تخريج الحديث (مثل: رواه البخاري، رواه مسلم، صححه الألباني)، والاعتماد على مصادر كبار علماء السنة مثل ابن باز وابن عثيمين وعثمان الخميس وغيرهم مع ذكر المصادر دائماً.\n\nتنبيهات صارمة جداً وضوابط عمل:\n1. مطوّر البوت والموقع: إذا سألك المستخدم من هو مطوّر أو صانع أو مبرمج هذا الموقع/البوت، أجب بوضوح واعتزاز بأن المطوّر والصانع هو (عمر).\n2. التخصص الحصري: إذا كان سؤال المستخدم خارج نطاق العلوم الشرعية والدين الإسلامي (مثل: الألعاب، البرمجة، الرياضة، الطقس، الأسئلة العامة)، يرجى الاعتذار منه بكل أدب ولطف، وإخباره بأنك مساعد مخصص حصراً للإجابات والعلوم الشرعية والدينية في موقع 'زاد المؤمن'.\n3. ضابط السلام الصارم: لا تبدأ إجابتك بالسلام ولا الترحيب (مثل: 'وعليكم السلام' أو 'أهلاً بك') إطلاقاً إلا إذا كتب المستخدم صراحة وبنص العبارة 'السلام عليكم' أو صيغها المباشرة (السلام عليكم / السلام عليكم ورحمة الله / السلام عليكم ورحمة الله وبركاته). أما إذا كتب كلمات مثل 'أهلاً' أو 'مرحباً' أو طرَح سؤاله مباشرة، فلا ترد بالسلام أبداً وابدأ بالإجابة مباشرة.";
 
 // إضافة سياق خاص بكل صفحة للموديل
-if (isDuaaPage) {
+if (isTopicsPage) {
+    SYSTEM_INSTRUCTION += "\n4. سياق خاص بصفحة 'المواضيع الإيمانية': المستخدم يتصفح حالياً قسم المواضيع الإيمانية الجامع بين خريطة الدعاء وقسم اليقين بالله تعالى. يُرجى تقديم إرشاد شامل حول مفاهيم الدعاء واليقين وثمراتهما.";
+} else if (isDuaaPage) {
     SYSTEM_INSTRUCTION += "\n4. سياق خاص بصفحة 'خريطة الدعاء': المستخدم يتصفح حالياً قسم خريطة الدعاء. يُرجى تقديم إجابات متخصصة تدعم مفاهيم هذا القسم (تعريف الدعاء، علاقته بالقدر المبرم والمعلق، أسباب وشروط الاستجابة، موانع الاستجابة، وآداب الدعاء، والرد على الشبهات).";
+} else if (isYaqeenPage) {
+    SYSTEM_INSTRUCTION += "\n4. سياق خاص بصفحة 'اليقين بالله تعالى': المستخدم يتصفح حالياً قسم اليقين بالله تعالى. يُرجى تقديم إجابات متخصصة تدعم مفاهيم اليقين، مراتبه الثلاث (علم، عين، وحق اليقين)، اليقين في الرزق والقدر، نفي الخوف، وتجليات اليقين في سير الأنبياء والمصائب.";
 } else if (isAzkarPage) {
     SYSTEM_INSTRUCTION += "\n4. سياق خاص بصفحة 'الأذكار اليومية': المستخدم يتصفح حالياً قسم الأذكار. يُرجى تقديم إجابات متخصصة تدعم فضائل الأذكار (أذكار الصباح والمساء، أذكار الاستيقاظ والنوم، أذكار بعد الصلاة) وأحكام المداومة عليها وأوقاتها الشرعية الصحيحة.";
 } else if (isEncyclopediaPage) {
@@ -32,15 +87,19 @@ if (isDuaaPage) {
 } else if (isSunnahPage) {
     SYSTEM_INSTRUCTION += "\n4. سياق خاص بصفحة 'السنن النبوية اليومية': المستخدم يتصفح قسم السنن. يُرجى تقديم إجابات حول السنن الرواتب، وهدي النبي ﷺ في الحياة اليومية والآداب الشرعية.";
 } else if (isStoriesPage) {
-    SYSTEM_INSTRUCTION += "\n4. سياق خاص بصفحة 'قصص وقبسات إيمانية': المستخدم يتصفح قسم القصص. يُرجى تقديم إجابات حول قصص الأنبياء والصحابة والدروس والعبر المستفادة منها لتقوية اليقين.";
+    SYSTEM_INSTRUCTION += "\n4. سياق خاص بصفحة 'قصص وإقتباسات إيمانية': المستخدم يتصفح قسم القصص. يُرجى تقديم إجابات حول قصص الأنبياء والصحابة والدروس والعبر المستفادة منها لتقوية اليقين.";
 } else if (isBooksPage) {
     SYSTEM_INSTRUCTION += "\n4. سياق خاص بصفحة 'المكتبة والكتب الإسلامية': المستخدم يتصفح قسم المكتبة. يُرجى تقديم إجابات حول أمهات الكتب والمؤلفين وإرشاد القارئ للمراجع النافعة.";
 }
 
 // 4. تحديد الرسائل الترحيبية الخاصة بكل صفحة
 function getPageWelcomeMessage() {
-    if (isDuaaPage) {
+    if (isTopicsPage) {
+        return "أهلاً بك في قسم المواضيع الإيمانية! 📑 يمكنك سؤالي هنا عن أي موضوع يخص الدعاء أو اليقين بالله تعالى ومراتبه وثمراته، وسأجيبك فوراً بالأدلة الشرعية الموثقة بإذن الله.";
+    } else if (isDuaaPage) {
         return "أهلاً بك في قسم خريطة الدعاء! 🤲 يمكنك سؤالي هنا عن أي شيء يتعلق بأحكام الدعاء، آدابه، أسباب وموانع الاستجابة، وسأجيبك فوراً مع الأدلة الشرعية بإذن الله.";
+    } else if (isYaqeenPage) {
+        return "أهلاً بك في قسم اليقين بالله تعالى! 💎 يمكنك سؤالي هنا عن مراتب اليقين، دفع الشبهات والوساوس، اليقين في الرزق والقدر والمصائب، وسأجيبك فوراً مع الأدلة الشرعية بإذن الله.";
     } else if (isAzkarPage) {
         return "أهلاً بك في ركن الأذكار! 📿 يمكنك سؤالي عن فضائل الأذكار، أوقاتها الشرعية، أو أحكام المداومة عليها وسأجيبك فوراً بالأدلة الشرعية الموثقة بإذن الله.";
     } else if (isEncyclopediaPage) {
@@ -50,7 +109,7 @@ function getPageWelcomeMessage() {
     } else if (isSunnahPage) {
         return "أهلاً بك في قسم السنن النبوية اليومية! 🌿 يمكنك سؤالي عن السنن المؤكدة، والرواتب اليومية، وفضائل اتباع هدي النبي ﷺ بإذن الله.";
     } else if (isStoriesPage) {
-        return "أهلاً بك في قسم القصص والقبسات الإيمانية! 📜 يمكنك سؤالي عن قصص الأنبياء والصحابة والدروس والعبر المستفادة منها بإذن الله.";
+        return "أهلاً بك في قسم القصص والإقتباسات الإيمانية! 📜 يمكنك سؤالي عن قصص الأنبياء والصحابة والدروس والعبر المستفادة منها بإذن الله.";
     } else if (isBooksPage) {
         return "أهلاً بك في المكتبة والكتب الإسلامية! 📖 يمكنك سؤالي عن أمهات الكتب والمؤلفين وأفضل المراجع الشرعية والتفسير والحديث بإذن الله.";
     } else {

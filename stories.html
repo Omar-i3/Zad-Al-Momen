@@ -9,11 +9,16 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>">
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070b18">
   <link rel="stylesheet" href="app.css">
@@ -242,63 +247,49 @@
   <div id="storiesContainer"></div>
 </div>
 
-<!-- بنر تثبيت التطبيق الذكي -->
-<div id="smart-app-banner" style="display: none; position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); z-index: 9998; width: 92%; max-width: 480px; background: linear-gradient(135deg, #0f1730, #141d3d); border: 1px solid rgba(214, 168, 92, 0.4); border-radius: 18px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); backdrop-filter: blur(12px); color: #f3efe3; font-family: 'Tajawal', sans-serif;">
-    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 2rem;">🌙</span>
-            <div>
-                <div style="font-weight: bold; color: #f0d9a8; font-size: 0.95rem;">تطبيق "زاد المؤمن"</div>
-                <div id="banner-text" style="font-size: 0.8rem; color: #93a0c2; line-height: 1.4; margin-top: 2px;"></div>
-            </div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <a id="apk-download-btn" href="zad-al-momen.apk" download style="display: none; background: linear-gradient(135deg, #d6a85c, #b9803a); color: #1a1200; font-weight: bold; padding: 8px 14px; border-radius: 10px; text-decoration: none; font-size: 0.82rem; white-space: nowrap;">تحميل APK 📲</a>
-            <button type="button" onclick="closeAppInstallBanner()" style="background: none; border: none; color: #93a0c2; font-size: 1.2rem; cursor: pointer; padding: 4px;">✕</button>
-        </div>
-    </div>
-</div>
+
 
 <footer>
   <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — قصص وإقتباسات إيمانية</div>
   <div class="small">جميع الحقوق محفوظة © عمر</div>
 </footer>
 
-<!-- ==================== شريط الملاحة السفلي ==================== -->
-<nav class="liquid-bottom-nav encyclopedia-nav">
-  <a href="encyclopedia.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📚</span>
-    <span>الموسوعة</span>
-  </a>
-  <a href="duaa.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">🤲</span>
-    <span>الدعاء</span>
-  </a>
-  <a href="names.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">✨</span>
-    <span>الأسماء</span>
-  </a>
-  <a href="sunnah.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">🌿</span>
-    <span>السنن</span>
-  </a>
-  <a href="stories.html" class="liquid-nav-item active">
-    <span style="font-size: 1.2rem;">📜</span>
-    <span>القصص</span>
-  </a>
-  <a href="books.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📖</span>
-    <span>المكتبة</span>
-  </a>
-  <a href="azkar.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📿</span>
-    <span>الأذكار</span>
-  </a>
-  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">💬</span>
-    <span>المساعد</span>
-  </a>
-</nav>
+<!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
+  <!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
+  <nav class="liquid-bottom-nav encyclopedia-nav">
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="azkar.html" class="liquid-nav-item">
+      <span>📿</span>
+      <span>الأذكار</span>
+    </a>
+    <a href="names.html" class="liquid-nav-item">
+      <span>✨</span>
+      <span>الأسماء</span>
+    </a>
+    <a href="sunnah.html" class="liquid-nav-item">
+      <span>🌿</span>
+      <span>السنن</span>
+    </a>
+    <a href="stories.html" class="liquid-nav-item active">
+      <span>📜</span>
+      <span>القصص</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span>💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
 
 <!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
 <div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
@@ -418,8 +409,15 @@ function renderStories(list = storiesData) {
   storiesContainer.innerHTML = list.map((story, index) => `
     <div class="azkar-accordion" id="story_${index}">
       <div class="accordion-header" onclick="toggleStory('story_${index}')">
-        <h3 class="accordion-title"><span>📖</span> ${story.title}</h3>
-        <span class="accordion-icon">▼</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <h3 class="accordion-title" style="margin:0;"><span>📖</span> ${story.title}</h3>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" onclick="toggleStoryFav('${index}', '${story.title.replace(/'/g, "\\'")}', '${story.text.slice(0, 100).replace(/'/g, "\\'")}', event)" style="background:none; border:none; cursor:pointer; font-size:1.15rem;" title="حفظ القصة في المفضلة">
+            <span>${typeof ZadFavorites !== 'undefined' && ZadFavorites.isFavorited('story_' + index) ? '🌟' : '⭐'}</span>
+          </button>
+          <span class="accordion-icon">▼</span>
+        </div>
       </div>
       <div class="accordion-content">
         <div class="accordion-body">
@@ -431,6 +429,22 @@ function renderStories(list = storiesData) {
     </div>
   `).join('');
 }
+
+window.toggleStoryFav = function(index, title, textSnippet, event) {
+  if (event) event.stopPropagation();
+  if (typeof ZadFavorites === 'undefined') return;
+  const favId = 'story_' + index;
+  ZadFavorites.toggle({
+    id: favId,
+    title: title,
+    type: 'stories',
+    categoryLabel: '📜 القصص والعبر',
+    icon: '📜',
+    snippet: textSnippet,
+    link: 'stories.html'
+  });
+  renderStories();
+};
 
 function toggleStory(id) {
   const acc = document.getElementById(id);
@@ -575,6 +589,7 @@ function toggleWaDrawer() {
   }
 }
 </script>
+  <script src="favorites.js" defer></script>
   <script src="notifications.js" defer></script>
   <script src="bot.js" defer></script>
   <script src="check-update.js" defer></script>

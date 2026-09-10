@@ -10,7 +10,13 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
@@ -260,41 +266,42 @@
   <div class="small">جميع الحقوق محفوظة © عمر</div>
 </footer>
 
-<!-- ==================== شريط الملاحة السفلي ==================== -->
-<nav class="liquid-bottom-nav encyclopedia-nav">
-  <a href="encyclopedia.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📚</span>
-    <span>الموسوعة</span>
-  </a>
-  <a href="duaa.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">🤲</span>
-    <span>الدعاء</span>
-  </a>
-  <a href="names.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">✨</span>
-    <span>الأسماء</span>
-  </a>
-  <a href="sunnah.html" class="liquid-nav-item active">
-    <span style="font-size: 1.2rem;">🌿</span>
-    <span>السنن</span>
-  </a>
-  <a href="stories.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📜</span>
-    <span>القصص</span>
-  </a>
-  <a href="books.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📖</span>
-    <span>المكتبة</span>
-  </a>
-  <a href="azkar.html" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">📿</span>
-    <span>الأذكار</span>
-  </a>
-  <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
-    <span style="font-size: 1.2rem;">💬</span>
-    <span>المساعد</span>
-  </a>
-</nav>
+<!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
+  <!-- ==================== شريط ملاحة الموسوعة الخاص (Encyclopedia Liquid Glass Bar) ==================== -->
+  <nav class="liquid-bottom-nav encyclopedia-nav">
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="azkar.html" class="liquid-nav-item">
+      <span>📿</span>
+      <span>الأذكار</span>
+    </a>
+    <a href="names.html" class="liquid-nav-item">
+      <span>✨</span>
+      <span>الأسماء</span>
+    </a>
+    <a href="sunnah.html" class="liquid-nav-item active">
+      <span>🌿</span>
+      <span>السنن</span>
+    </a>
+    <a href="stories.html" class="liquid-nav-item">
+      <span>📜</span>
+      <span>القصص</span>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleChat()" class="liquid-nav-item">
+      <span>💬</span>
+      <span>المساعد</span>
+    </a>
+  </nav>
 
 <!-- ==================== صندوق الشات الذكي التفاعلي ==================== -->
 <div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
@@ -408,7 +415,12 @@ function renderSunnahList(list = sunnahData) {
     div.className = 'sunnah-item' + (isDone ? ' completed' : '');
     div.innerHTML = `
       <div style="flex: 1;">
-        <div style="font-weight: 700; font-size: 1.05rem; color: var(--gold-soft); margin-bottom: 4px;">${item.title}</div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div style="font-weight: 700; font-size: 1.05rem; color: var(--gold-soft); margin-bottom: 4px;">${item.title}</div>
+          <button type="button" onclick="toggleSunnahFav('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', event)" style="background:none; border:none; cursor:pointer; font-size:1.15rem; padding: 0 4px;" title="حفظ السنة في المفضلة">
+            <span>${typeof ZadFavorites !== 'undefined' && ZadFavorites.isFavorited('sunnah_' + item.id) ? '🌟' : '⭐'}</span>
+          </button>
+        </div>
         <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.6; margin-bottom: 8px;">${item.desc}</div>
         <div class="hadith-box" style="margin: 0; padding: 10px 12px;">
           <div class="txt" style="font-size: 0.95rem;">📖 ${item.evidence}</div>
@@ -419,6 +431,22 @@ function renderSunnahList(list = sunnahData) {
     sunnahList.appendChild(div);
   });
 }
+
+window.toggleSunnahFav = function(id, title, desc, event) {
+  if (event) event.stopPropagation();
+  if (typeof ZadFavorites === 'undefined') return;
+  const favId = 'sunnah_' + id;
+  ZadFavorites.toggle({
+    id: favId,
+    title: 'سنة: ' + title,
+    type: 'sunnah',
+    categoryLabel: '🌱 السنن النبوية',
+    icon: '🌿',
+    snippet: desc,
+    link: 'sunnah.html'
+  });
+  renderSunnahList();
+};
 
 function toggleSunnah(id) {
   if (completedSunnahs.has(id)) {
@@ -541,6 +569,7 @@ function toggleWaDrawer() {
   }
 }
 </script>
+  <script src="favorites.js" defer></script>
   <script src="notifications.js" defer></script>
   <script src="bot.js" defer></script>
   <script src="check-update.js" defer></script>

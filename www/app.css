@@ -5,6 +5,46 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   0. الخطوط الرسمية المحلية الفاخرة (Local Offline Fonts)
+   ضمان ظهور خطي تجوال والأميري 100% دون الحاجة لإنترنت في التطبيق والويب
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Tajawal';
+  src: url('fonts/Tajawal-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Tajawal';
+  src: url('fonts/Tajawal-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Tajawal';
+  src: url('fonts/Tajawal-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Amiri';
+  src: url('fonts/Amiri-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Amiri';
+  src: url('fonts/Amiri-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
    1. المتغيرات العامة والألوان (CSS Custom Properties)
    -------------------------------------------------------------------------- */
 :root {
@@ -193,23 +233,351 @@ button {
 }
 
 .moon {
-  width: 110px;
-  height: 110px;
-  margin: 0 auto 22px;
+  width: 115px;
+  height: 115px;
+  margin: 0 auto 24px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 55%, #8a6a34 100%);
-  box-shadow: 0 0 60px 10px rgba(214, 168, 92, 0.45), 0 0 120px 40px rgba(214, 168, 92, 0.15);
-  animation: breathe 5s ease-in-out infinite;
+  position: relative;
+  cursor: default;
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes breathe {
+.moon::before,
+.moon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: all 1.5s ease;
+}
+
+/* ==========================================================================
+   🌙 1. القمر الحقيقي ثلاثي الأبعاد (Real 3D Moon with Craters & Lunar Maria)
+   ========================================================================== */
+.hero .moon.celestial-night,
+.moon.celestial-night {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #edf1f7 25%, #c8d3e0 55%, #8a96a8 85%, #505a69 100%) !important;
+  box-shadow: 
+    inset -8px -8px 18px rgba(20, 25, 40, 0.85),
+    inset 4px 4px 10px rgba(255, 255, 255, 0.9),
+    0 0 45px 10px rgba(200, 220, 255, 0.45),
+    0 0 90px 25px rgba(214, 168, 92, 0.2),
+    0 0 160px 60px rgba(95, 214, 196, 0.1) !important;
+  animation: realMoonFloat 6s ease-in-out infinite !important;
+  overflow: visible;
+}
+
+/* طبقة فوهات القمر الحقيقية وتضاريسه (Lunar Surface Craters) */
+.hero .moon.celestial-night::before,
+.moon.celestial-night::before {
+  opacity: 1;
+  background-image: 
+    /* فوهة كوبرنيكوس */
+    radial-gradient(circle at 28% 46%, rgba(55, 62, 75, 0.65) 0%, rgba(70, 80, 95, 0.35) 8%, rgba(255, 255, 255, 0.5) 10%, transparent 12%),
+    /* فوهة تيخو الكبرى وإشعاعاتها */
+    radial-gradient(circle at 42% 78%, rgba(45, 50, 65, 0.7) 0%, rgba(70, 80, 95, 0.4) 7%, rgba(255, 255, 255, 0.65) 9%, transparent 13%),
+    /* فوهات صغيرة متناثرة */
+    radial-gradient(circle at 65% 28%, rgba(55, 62, 75, 0.55) 0%, rgba(70, 80, 95, 0.3) 5%, rgba(255, 255, 255, 0.45) 7%, transparent 9%),
+    radial-gradient(circle at 72% 62%, rgba(50, 58, 70, 0.55) 0%, rgba(70, 80, 95, 0.25) 6%, rgba(255, 255, 255, 0.4) 8%, transparent 10%),
+    /* بحار القمر (Lunar Maria) */
+    radial-gradient(ellipse 45% 35% at 68% 42%, rgba(50, 58, 72, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 30% at 32% 30%, rgba(45, 52, 65, 0.4) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 35% at 55% 68%, rgba(40, 48, 60, 0.35) 0%, transparent 70%) !important;
+  box-shadow: inset -6px -6px 14px rgba(10, 15, 28, 0.7);
+}
+
+/* هالة ضوء القمر الليلية والظل الكروي ثلاثي الأبعاد */
+.hero .moon.celestial-night::after,
+.moon.celestial-night::after {
+  opacity: 1;
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 35%, rgba(10, 16, 32, 0.4) 70%, rgba(5, 10, 20, 0.8) 100%) !important;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes realMoonFloat {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 60px 10px rgba(214, 168, 92, 0.45), 0 0 120px 40px rgba(214, 168, 92, 0.15);
+    box-shadow: 
+      inset -8px -8px 18px rgba(20, 25, 40, 0.85),
+      inset 4px 4px 10px rgba(255, 255, 255, 0.9),
+      0 0 45px 10px rgba(200, 220, 255, 0.45),
+      0 0 90px 25px rgba(214, 168, 92, 0.2),
+      0 0 160px 60px rgba(95, 214, 196, 0.1);
   }
   50% {
-    transform: scale(1.06);
-    box-shadow: 0 0 80px 18px rgba(214, 168, 92, 0.6), 0 0 150px 55px rgba(214, 168, 92, 0.22);
+    transform: scale(1.05);
+    box-shadow: 
+      inset -9px -9px 20px rgba(20, 25, 40, 0.9),
+      inset 5px 5px 12px rgba(255, 255, 255, 1),
+      0 0 65px 16px rgba(200, 225, 255, 0.6),
+      0 0 120px 35px rgba(214, 168, 92, 0.3),
+      0 0 190px 75px rgba(95, 214, 196, 0.16);
+  }
+}
+
+/* ==========================================================================
+   ☀️ 2. شمس الضحى الحقيقية الساطعة والقوية (Real Blazing Solar Sun with Corona Rays)
+   ========================================================================== */
+.hero .moon.celestial-duha,
+.moon.celestial-duha {
+  background: radial-gradient(circle at 45% 45%, #ffffff 0%, #fff9c4 20%, #ffeb3b 45%, #ff9800 75%, #e65100 100%) !important;
+  box-shadow: 
+    inset 0 0 15px rgba(255, 255, 255, 0.9),
+    0 0 60px 20px rgba(255, 235, 59, 0.9),
+    0 0 120px 45px rgba(255, 152, 0, 0.6),
+    0 0 220px 80px rgba(255, 87, 34, 0.3) !important;
+  animation: realSunPulse 3s ease-in-out infinite !important;
+  overflow: visible;
+}
+
+/* أشعة الشمس الذهبية الحقيقية الدوارة (Rotating Solar Corona Rays) */
+.hero .moon.celestial-duha::after,
+.moon.celestial-duha::after {
+  content: '';
+  position: absolute;
+  inset: -36px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255, 235, 59, 0.55) 0deg 7deg,
+    rgba(255, 152, 0, 0) 7deg 15deg,
+    rgba(255, 215, 0, 0.65) 15deg 22deg,
+    rgba(255, 87, 34, 0) 22deg 30deg,
+    rgba(255, 245, 157, 0.6) 30deg 38deg,
+    transparent 38deg 45deg
+  ) !important;
+  mask-image: radial-gradient(circle, transparent 35%, rgba(0,0,0,0.9) 50%, transparent 72%);
+  -webkit-mask-image: radial-gradient(circle, transparent 35%, rgba(0,0,0,0.9) 50%, transparent 72%);
+  animation: rotateSolarRays 18s linear infinite !important;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* بلازما وتوهج السطح الشمسي الحبيبي (Solar Plasma Glow) */
+.hero .moon.celestial-duha::before,
+.moon.celestial-duha::before {
+  opacity: 1;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 235, 59, 0.4) 30%, transparent 65%) !important;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+  animation: solarCoreShimmer 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes rotateSolarRays {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.08); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes realSunPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      inset 0 0 15px rgba(255, 255, 255, 0.9),
+      0 0 60px 20px rgba(255, 235, 59, 0.9),
+      0 0 120px 45px rgba(255, 152, 0, 0.6),
+      0 0 220px 80px rgba(255, 87, 34, 0.3);
+    filter: brightness(1.05);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 
+      inset 0 0 22px rgba(255, 255, 255, 1),
+      0 0 85px 28px rgba(255, 245, 157, 1),
+      0 0 150px 55px rgba(255, 152, 0, 0.75),
+      0 0 260px 95px rgba(255, 87, 34, 0.4);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes solarCoreShimmer {
+  0% { opacity: 0.8; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1.03); }
+}
+
+/* ==========================================================================
+   🌤️ 3. شمس العصر الدافئة الحقيقية (Real Afternoon Warm Sun)
+   ========================================================================== */
+.hero .moon.celestial-afternoon,
+.moon.celestial-afternoon {
+  background: radial-gradient(circle at 45% 40%, #ffffff 0%, #fff8e1 20%, #ffd54f 45%, #ff9800 75%, #bf360c 100%) !important;
+  box-shadow: 
+    inset 0 0 12px rgba(255, 255, 255, 0.8),
+    0 0 50px 15px rgba(255, 193, 7, 0.75),
+    0 0 105px 35px rgba(245, 124, 0, 0.45),
+    0 0 180px 60px rgba(191, 54, 12, 0.22) !important;
+  animation: realAfternoonPulse 4s ease-in-out infinite !important;
+  overflow: visible;
+}
+
+.hero .moon.celestial-afternoon::after,
+.moon.celestial-afternoon::after {
+  content: '';
+  position: absolute;
+  inset: -28px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 15deg,
+    rgba(255, 213, 79, 0.45) 0deg 8deg,
+    transparent 8deg 18deg,
+    rgba(255, 152, 0, 0.4) 18deg 26deg,
+    transparent 26deg 36deg
+  ) !important;
+  mask-image: radial-gradient(circle, transparent 38%, rgba(0,0,0,0.85) 52%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, transparent 38%, rgba(0,0,0,0.85) 52%, transparent 70%);
+  animation: rotateSolarRays 24s linear infinite !important;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero .moon.celestial-afternoon::before,
+.moon.celestial-afternoon::before {
+  opacity: 1;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 213, 79, 0.35) 35%, transparent 70%) !important;
+}
+
+@keyframes realAfternoonPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      inset 0 0 12px rgba(255, 255, 255, 0.8),
+      0 0 50px 15px rgba(255, 193, 7, 0.75),
+      0 0 105px 35px rgba(245, 124, 0, 0.45),
+      0 0 180px 60px rgba(191, 54, 12, 0.22);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 
+      inset 0 0 18px rgba(255, 255, 255, 0.95),
+      0 0 70px 20px rgba(255, 213, 79, 0.85),
+      0 0 130px 45px rgba(245, 124, 0, 0.55),
+      0 0 210px 75px rgba(191, 54, 12, 0.3);
+  }
+}
+
+/* ==========================================================================
+   🌇 4. شمس الشفق والغروب الحقيقية (Real Sunset Sun & Twilight Dusk)
+   ========================================================================== */
+.hero .moon.celestial-shafaq,
+.moon.celestial-shafaq {
+  background: radial-gradient(circle at 50% 35%, #fff3e0 0%, #ff8a65 25%, #e64a19 55%, #880e4f 85%, #311b92 100%) !important;
+  box-shadow: 
+    inset 0 -6px 15px rgba(49, 27, 146, 0.7),
+    inset 0 4px 12px rgba(255, 243, 224, 0.8),
+    0 0 45px 12px rgba(255, 112, 67, 0.7),
+    0 0 95px 30px rgba(233, 30, 99, 0.4),
+    0 0 160px 55px rgba(74, 20, 140, 0.25) !important;
+  animation: realShafaqPulse 5s ease-in-out infinite !important;
+  overflow: visible;
+}
+
+.hero .moon.celestial-shafaq::after,
+.moon.celestial-shafaq::after {
+  content: '';
+  position: absolute;
+  inset: -24px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 30deg,
+    rgba(255, 112, 67, 0.4) 0deg 10deg,
+    transparent 10deg 22deg,
+    rgba(233, 30, 99, 0.35) 22deg 32deg,
+    transparent 32deg 45deg
+  ) !important;
+  mask-image: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 55%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 55%, transparent 70%);
+  animation: rotateSolarRays 32s linear infinite !important;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero .moon.celestial-shafaq::before,
+.moon.celestial-shafaq::before {
+  opacity: 1;
+  background: radial-gradient(circle at 45% 30%, rgba(255, 243, 224, 0.6) 0%, rgba(255, 138, 101, 0.3) 40%, transparent 70%) !important;
+}
+
+@keyframes realShafaqPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      inset 0 -6px 15px rgba(49, 27, 146, 0.7),
+      inset 0 4px 12px rgba(255, 243, 224, 0.8),
+      0 0 45px 12px rgba(255, 112, 67, 0.7),
+      0 0 95px 30px rgba(233, 30, 99, 0.4),
+      0 0 160px 55px rgba(74, 20, 140, 0.25);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 
+      inset 0 -8px 18px rgba(49, 27, 146, 0.8),
+      inset 0 5px 15px rgba(255, 243, 224, 0.95),
+      0 0 60px 18px rgba(255, 87, 34, 0.85),
+      0 0 120px 40px rgba(194, 24, 91, 0.5),
+      0 0 190px 65px rgba(106, 27, 154, 0.35);
+  }
+}
+
+/* ==========================================================================
+   🌅 5. شمس الشروق والفجر الحقيقية (Real Dawn & Early Sunrise Sun)
+   ========================================================================== */
+.hero .moon.celestial-dawn,
+.moon.celestial-dawn {
+  background: radial-gradient(circle at 45% 40%, #ffffff 0%, #ffebee 20%, #ffab91 45%, #ff7043 70%, #d84315 100%) !important;
+  box-shadow: 
+    inset 0 0 12px rgba(255, 255, 255, 0.85),
+    0 0 45px 12px rgba(255, 171, 145, 0.65),
+    0 0 95px 28px rgba(255, 112, 67, 0.38),
+    0 0 160px 50px rgba(255, 183, 77, 0.2) !important;
+  animation: realDawnPulse 4.5s ease-in-out infinite !important;
+  overflow: visible;
+}
+
+.hero .moon.celestial-dawn::after,
+.moon.celestial-dawn::after {
+  content: '';
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 45deg,
+    rgba(255, 204, 128, 0.45) 0deg 8deg,
+    transparent 8deg 18deg,
+    rgba(255, 138, 101, 0.4) 18deg 28deg,
+    transparent 28deg 38deg
+  ) !important;
+  mask-image: radial-gradient(circle, transparent 38%, rgba(0,0,0,0.85) 52%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, transparent 38%, rgba(0,0,0,0.85) 52%, transparent 70%);
+  animation: rotateSolarRays 22s linear infinite !important;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero .moon.celestial-dawn::before,
+.moon.celestial-dawn::before {
+  opacity: 1;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.75) 0%, rgba(255, 171, 145, 0.35) 35%, transparent 70%) !important;
+}
+
+@keyframes realDawnPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      inset 0 0 12px rgba(255, 255, 255, 0.85),
+      0 0 45px 12px rgba(255, 171, 145, 0.65),
+      0 0 95px 28px rgba(255, 112, 67, 0.38),
+      0 0 160px 50px rgba(255, 183, 77, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 
+      inset 0 0 16px rgba(255, 255, 255, 1),
+      0 0 65px 18px rgba(255, 204, 128, 0.8),
+      0 0 120px 38px rgba(255, 112, 67, 0.5),
+      0 0 190px 65px rgba(255, 183, 77, 0.28);
   }
 }
 
@@ -1461,32 +1829,29 @@ input:checked + .slider:before {
 
 
 /* --------------------------------------------------------------------------
-   شريط الملاحة السفلي الشفاف (Liquid Bottom Glass Dock) - إصلاح المظهر
-   -------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------
-   شريط الملاحة السفلي الشفاف (Liquid Bottom Glass Dock)
+   شريط الملاحة السفلي الشفاف الفاخر (Liquid Bottom Glass Dock)
    -------------------------------------------------------------------------- */
 .liquid-bottom-nav {
   position: fixed !important;
   bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: auto !important;
-  max-width: 480px !important;
-  height: 62px !important;
-  background: rgba(15, 23, 42, 0.92) !important;
-  backdrop-filter: blur(25px) saturate(200%) !important;
-  -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+  width: min(calc(100% - 16px), 520px) !important;
+  max-width: 520px !important;
+  height: 64px !important;
+  background: rgba(15, 23, 48, 0.94) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   border: 1px solid rgba(214, 168, 92, 0.35) !important;
   border-radius: 32px !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: center !important;
-  gap: 4px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  justify-content: space-around !important;
+  gap: 2px !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6) !important;
   z-index: 99999 !important;
-  padding: 0 8px !important;
-  overflow: hidden !important;
+  padding: 0 6px !important;
+  overflow: visible !important;
 }
 
 .liquid-nav-item {
@@ -1499,63 +1864,106 @@ input:checked + .slider:before {
   background: transparent !important;
   border: none !important;
   cursor: pointer !important;
-  padding: 4px 10px !important;
-  border-radius: 20px !important;
-  transition: all 0.2s ease !important;
+  padding: 4px 2px !important;
+  border-radius: 18px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
   white-space: nowrap !important;
-  flex-shrink: 0 !important;
-  min-width: 44px !important;
+  flex: 1 !important;
+  min-width: 55px !important;
+  text-align: center !important;
 }
 
 .liquid-nav-item.active {
   color: #f0d9a8 !important;
-  background: rgba(214, 168, 92, 0.18) !important;
+  background: rgba(214, 168, 92, 0.2) !important;
+  box-shadow: inset 0 0 12px rgba(214, 168, 92, 0.15) !important;
 }
 
 /* ===== الأيقونة ===== */
 .liquid-nav-item span:first-child {
-  font-size: 1.2rem !important;
-  line-height: 1.2 !important;
+  font-size: 1.25rem !important;
+  line-height: 1.1 !important;
+  display: block !important;
 }
 
 /* ===== النص تحت الأيقونة ===== */
 .liquid-nav-item span:last-child {
-  font-size: 0.6rem !important;
-  font-weight: 600 !important;
-  margin-top: 1px !important;
-  line-height: 1.3 !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  margin-top: 3px !important;
+  line-height: 1.2 !important;
+  display: block !important;
+  font-family: 'Tajawal', sans-serif !important;
 }
 
 /* ==========================================
    شريط الموسوعة الفرعي
    ========================================== */
 .encyclopedia-nav {
-  gap: 2px !important;
-  justify-content: flex-start !important;
+  width: min(calc(100% - 12px), 660px) !important;
+  max-width: 660px !important;
+  height: 64px !important;
+  justify-content: space-around !important;
   padding: 0 4px !important;
-  height: 56px !important;
-  width: 96% !important;
-  max-width: 480px !important;
-  overflow: hidden !important;
-  flex-wrap: nowrap !important;
+  gap: 1px !important;
 }
 
 .encyclopedia-nav .liquid-nav-item {
-  padding: 4px 6px !important;
-  min-width: 36px !important;
+  padding: 3px 1px !important;
+  min-width: 0 !important;
   flex: 1 !important;
+  text-align: center !important;
 }
 
 .encyclopedia-nav .liquid-nav-item span:first-child {
-  font-size: 0.95rem !important;
-  line-height: 1.2 !important;
+  font-size: 1.12rem !important;
+  line-height: 1.1 !important;
 }
 
 .encyclopedia-nav .liquid-nav-item span:last-child {
-  font-size: 0.48rem !important;
-  font-weight: 600 !important;
-  line-height: 1.3 !important;
-  margin-top: 1px !important;
+  font-size: 0.62rem !important;
+  font-weight: 700 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 2px !important;
+  white-space: nowrap !important;
+}
+
+/* للشاشات المتوسطة والأجهزة اللوحية (iPads / Tablets) واللابتوبات */
+@media (min-width: 768px) {
+  .encyclopedia-nav {
+    max-width: 680px !important;
+    gap: 4px !important;
+    padding: 0 8px !important;
+    height: 66px !important;
+  }
+  .encyclopedia-nav .liquid-nav-item {
+    padding: 4px 4px !important;
+  }
+  .encyclopedia-nav .liquid-nav-item span:first-child {
+    font-size: 1.22rem !important;
+  }
+  .encyclopedia-nav .liquid-nav-item span:last-child {
+    font-size: 0.70rem !important;
+  }
+}
+
+/* للهواتف الصغيرة (Small Phones <= 380px) */
+@media (max-width: 380px) {
+  .encyclopedia-nav {
+    width: calc(100% - 6px) !important;
+    padding: 0 1px !important;
+    gap: 0px !important;
+    height: 60px !important;
+  }
+  .encyclopedia-nav .liquid-nav-item {
+    padding: 2px 1px !important;
+  }
+  .encyclopedia-nav .liquid-nav-item span:first-child {
+    font-size: 0.96rem !important;
+  }
+  .encyclopedia-nav .liquid-nav-item span:last-child {
+    font-size: 0.50rem !important;
+  }
 }
 /* --------------------------------------------------------------------------
    22. إشعارات البانر الطافية (Toast Banner Notifications)
@@ -1708,3 +2116,1238 @@ footer {
   height: 100%;
   border: none;
 }
+/* ===== ودجت التواصل والخدمات الجانبي المطور ===== */
+.wa-drawer {
+  position: fixed;
+  right: 0;
+  bottom: clamp(120px, 25vh, 200px);
+  z-index: 99995;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wa-drawer.active {
+  transform: translateX(0);
+}
+
+/* زر الفتح الصغير الشفاف */
+.wa-toggle-btn {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 48px;
+  background: rgba(15, 23, 48, 0.85);
+  border: 1px solid rgba(214, 168, 92, 0.3);
+  border-right: none;
+  border-radius: 14px 0 0 14px;
+  color: var(--gold-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: -4px 4px 15px rgba(0, 0, 0, 0.4);
+  gap: 3px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0.82;
+  transition: opacity 0.25s ease, background 0.25s ease;
+}
+
+.wa-toggle-btn:hover {
+  opacity: 1;
+  background: rgba(20, 29, 61, 0.95);
+  border-color: var(--gold);
+}
+
+.wa-drawer.active .wa-toggle-btn .wa-arrow {
+  transform: rotate(180deg);
+}
+
+/* الكرت المنسحب أوسع وأنيق */
+.wa-drawer-content {
+  width: 290px;
+  max-width: 88vw;
+  background: rgba(15, 23, 48, 0.96);
+  border: 1px solid rgba(214, 168, 92, 0.35);
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  padding: 16px 18px;
+  box-shadow: -10px 15px 35px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wa-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  color: var(--gold-soft);
+  font-size: 0.92rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  font-family: 'Amiri', serif;
+}
+
+.wa-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* بطاقات الخدمات والروابط الداخلية */
+.drawer-service-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(214, 168, 92, 0.2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawer-service-card:hover {
+  border-color: var(--gold);
+  background: rgba(214, 168, 92, 0.06);
+}
+
+.drawer-service-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-soft);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drawer-service-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.drawer-btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 7px 10px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  margin-top: 2px;
+}
+
+.btn-wa-channel { background: linear-gradient(135deg, #25D366, #128C7E); color: #fff !important; }
+.btn-tabsera-bot { background: linear-gradient(135deg, #10b981, #059669); color: #fff !important; }
+.btn-email-support { background: rgba(214, 168, 92, 0.15); border: 1px solid var(--gold); color: var(--gold-soft) !important; }
+
+
+/* منع تحديد النصوص وإلغاء التظليل الرمادي ليعطي ملمس تطبيق حقيقي */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* السماح بتحديد الأذكار أو النصوص إذا احتاج المستخدم نسخها */
+.azkar-text, p {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* ==========================================================================
+   24. الوضع النهاري الموحد للتطبيق (Global Light Mode Theme)
+   ========================================================================== */
+body.light {
+  --bg-deep: #f8f4ec;
+  --bg-panel: #ffffff;
+  --bg-panel-2: #fffaf0;
+  --bg-glass: rgba(0, 0, 0, 0.03);
+  --bg-glass-hover: rgba(178, 122, 50, 0.1);
+  --gold: #b27a32;
+  --gold-soft: #8c581e;
+  --gold-bright: #d49339;
+  --teal: #0f8573;
+  --teal-soft: #14a08b;
+  --text-main: #2c2317;
+  --text-muted: #6e5d48;
+  --text-dim: #948573;
+  --hadith: #1a6b48;
+  --verse-gold: #8c581e;
+  --border-glass: rgba(178, 122, 50, 0.22);
+  --border-glass-light: rgba(178, 122, 50, 0.12);
+  --shadow-deep: 0 15px 35px rgba(140, 88, 30, 0.12);
+  --shadow-glow: 0 0 25px rgba(178, 122, 50, 0.15);
+  background:
+    radial-gradient(ellipse at 20% -10%, rgba(15, 133, 115, 0.08), transparent 45%),
+    radial-gradient(ellipse at 80% 0%, rgba(178, 122, 50, 0.10), transparent 40%),
+    var(--bg-deep);
+  color: var(--text-main);
+}
+
+body.light #stars {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+body.light #time-hijri-container {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border: 1px solid rgba(178, 122, 50, 0.28) !important;
+  box-shadow: 0 4px 18px rgba(140, 88, 30, 0.08) !important;
+}
+
+body.light #makkah-time-text {
+  color: #8c581e !important;
+}
+
+body.light #hijri-date-text {
+  color: #b27a32 !important;
+}
+
+body.light .theme-btn {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(178, 122, 50, 0.28) !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 4px 15px rgba(140, 88, 30, 0.1) !important;
+}
+
+body.light .liquid-bottom-nav {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(178, 122, 50, 0.28) !important;
+  box-shadow: 0 10px 30px rgba(140, 88, 30, 0.12) !important;
+}
+
+body.light .liquid-nav-item {
+  color: var(--text-muted) !important;
+}
+
+body.light .liquid-nav-item:hover {
+  color: var(--gold-soft) !important;
+}
+
+body.light .liquid-nav-item.active {
+  color: var(--gold-soft) !important;
+  background: rgba(178, 122, 50, 0.14) !important;
+}
+
+body.light .wa-drawer-content {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid rgba(37, 211, 102, 0.4) !important;
+  border-right: none !important;
+  box-shadow: -6px 10px 30px rgba(140, 88, 30, 0.12) !important;
+}
+
+body.light .wa-drawer-header {
+  color: var(--gold-soft) !important;
+  border-bottom: 1px solid rgba(178, 122, 50, 0.15) !important;
+}
+
+body.light .wa-close-btn {
+  color: var(--text-muted) !important;
+}
+
+body.light .wa-close-btn:hover {
+  color: var(--text-main) !important;
+}
+
+body.light .wa-drawer-text {
+  color: var(--text-muted) !important;
+}
+
+body.light .drawer-service-card {
+  background: rgba(178, 122, 50, 0.05) !important;
+  border: 1px solid rgba(178, 122, 50, 0.18) !important;
+}
+
+body.light .drawer-service-card:hover {
+  border-color: var(--gold) !important;
+  background: rgba(178, 122, 50, 0.1) !important;
+}
+
+body.light .drawer-service-title {
+  color: var(--gold-soft) !important;
+}
+
+body.light .drawer-service-desc {
+  color: var(--text-muted) !important;
+}
+
+body.light .btn-email-support {
+  background: rgba(178, 122, 50, 0.12) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold-soft) !important;
+}
+
+/* ==========================================================================
+   ⭐ نظام المفضلة والمحفوظات الإيمانية الفاخر (Zad Favorites System)
+   ========================================================================== */
+
+/* زر المفضلة العائم في الرأس (أعلى اليمين دائماً لمنع أي تداخل) */
+.fav-quick-btn {
+  position: fixed !important;
+  top: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  z-index: 99999 !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  background: rgba(15, 23, 48, 0.85) !important;
+  border: 1.5px solid var(--gold) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.3rem !important;
+  cursor: pointer !important;
+  color: var(--gold-soft) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 12px rgba(214, 168, 92, 0.25) !important;
+  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast) !important;
+}
+
+.fav-quick-btn:hover {
+  transform: scale(1.1) !important;
+  background: rgba(214, 168, 92, 0.25) !important;
+  border-color: #ffd700 !important;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4) !important;
+}
+
+.fav-quick-btn:active {
+  transform: scale(0.92) !important;
+}
+
+/* شارة عدد المحفوظات الصغيرة */
+.fav-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: linear-gradient(135deg, #e65100, #ff9800);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  font-family: 'Tajawal', sans-serif;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 4px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #070b18;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+/* خلفية المودال الزجاجية المظلمة */
+.fav-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 18, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  direction: rtl;
+}
+
+.fav-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* بطاقة المودال الرئيسية */
+.fav-modal-card {
+  width: 100%;
+  max-width: 580px;
+  max-height: 88vh;
+  background: linear-gradient(180deg, #101833, #0a1024);
+  border: 1.5px solid rgba(214, 168, 92, 0.4);
+  border-radius: 24px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 35px rgba(214, 168, 92, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: favModalSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes favModalSlide {
+  from { transform: translateY(30px) scale(0.96); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* رأس المودال */
+.fav-modal-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(214, 168, 92, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.fav-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fav-title-star {
+  font-size: 2rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.6));
+}
+
+.fav-modal-title h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #ffffff;
+  font-family: 'Amiri', serif;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+
+.fav-modal-title p {
+  margin: 3px 0 0;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.fav-modal-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.fav-modal-close:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+/* شريط تبويبات الفلاتر */
+.fav-filter-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px;
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.fav-filter-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.fav-tab-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(214, 168, 92, 0.25);
+  color: #e2e8f0 !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fav-tab-btn:hover {
+  background: rgba(214, 168, 92, 0.2);
+  color: #ffffff !important;
+  border-color: #ffd700;
+}
+
+.fav-tab-btn.active {
+  background: linear-gradient(135deg, #d6a85c, #9e6d24) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  font-weight: 800 !important;
+  border: 1.5px solid #ffd700 !important;
+  box-shadow: 0 4px 15px rgba(214, 168, 92, 0.4), 0 0 12px rgba(255, 215, 0, 0.25) !important;
+}
+
+/* حاوية قائمة العناصر المحفوظة */
+.fav-list-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 240px;
+  max-height: 56vh;
+}
+
+/* بطاقة العنصر الواحد في المفضلة - وضوح فائق وتباين عالي */
+.fav-card-item {
+  background: #141c38;
+  border: 1.5px solid rgba(214, 168, 92, 0.3);
+  border-radius: 18px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+.fav-card-item:hover {
+  background: #1a2448;
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(214, 168, 92, 0.15);
+}
+
+.fav-item-main {
+  flex: 1;
+  cursor: pointer;
+}
+
+.fav-item-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #5fd6c4;
+  background: rgba(95, 214, 196, 0.14);
+  border: 1px solid rgba(95, 214, 196, 0.3);
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.fav-item-title {
+  margin: 0;
+  font-size: 1.12rem !important;
+  color: #ffffff !important;
+  font-family: 'Amiri', serif !important;
+  font-weight: bold !important;
+  line-height: 1.45;
+}
+
+.fav-item-snippet {
+  margin: 6px 0 0;
+  font-size: 0.9rem !important;
+  color: #cbd5e1 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fav-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.fav-action-link {
+  background: linear-gradient(135deg, #d6a85c, #9e6d24) !important;
+  border: 1px solid #ffd700 !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-family: 'Tajawal', sans-serif;
+  padding: 8px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(214, 168, 92, 0.3);
+  transition: all 0.2s ease;
+}
+
+.fav-action-link:hover {
+  background: #ffd700 !important;
+  color: #10172a !important;
+  transform: scale(1.05);
+}
+
+.fav-action-delete {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.fav-action-delete:hover {
+  background: rgba(239, 68, 68, 0.3);
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+/* الحالة الفارغة */
+.fav-empty-state {
+  text-align: center;
+  padding: 35px 20px;
+  color: #cbd5e1 !important;
+}
+
+.fav-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+}
+
+.fav-empty-state h4 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  color: #ffd700 !important;
+  font-family: 'Amiri', serif;
+  font-weight: bold;
+}
+
+.fav-empty-state p {
+  margin: 0 auto;
+  max-width: 380px;
+  font-size: 0.92rem !important;
+  line-height: 1.7;
+  color: #e2e8f0 !important;
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* تذييل المودال */
+.fav-modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.fav-btn-clear {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Tajawal', sans-serif;
+  transition: color 0.2s ease;
+}
+
+.fav-btn-clear:hover {
+  color: #ff6b6b;
+}
+
+.fav-btn-done {
+  background: linear-gradient(135deg, #d6a85c, #9e6d24) !important;
+  border: 1.5px solid #ffd700 !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-family: 'Tajawal', sans-serif;
+  padding: 9px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(214, 168, 92, 0.35);
+  transition: all 0.2s ease;
+}
+
+.fav-btn-done:hover {
+  background: #ffd700 !important;
+  color: #10172a !important;
+  transform: scale(1.03);
+}
+
+/* زر المفضلة المخصص داخل نوافذ المواضيع */
+.modal-action-btn.fav-btn {
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+.modal-action-btn.fav-btn.active {
+  background: rgba(214, 168, 92, 0.22);
+  border-color: var(--gold);
+  color: var(--gold-soft);
+  box-shadow: inset 0 0 10px rgba(214, 168, 92, 0.2);
+}
+
+/* ==========================================
+   25. ودجت العد التنازلي للصلاة القادمة (Next Prayer Countdown)
+   ========================================== */
+.next-prayer-hero {
+  background: linear-gradient(135deg, rgba(214, 168, 92, 0.14), rgba(15, 23, 48, 0.75));
+  border: 1px solid rgba(214, 168, 92, 0.35);
+  border-radius: 20px;
+  padding: 18px 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+}
+
+.next-prayer-hero::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(214, 168, 92, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.np-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.np-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(214, 168, 92, 0.15);
+  border: 1px solid rgba(214, 168, 92, 0.4);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  color: #fce7b0;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.np-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: npPulse 1.8s infinite;
+}
+
+@keyframes npPulse {
+  0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 4px #10b981; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px #10b981; }
+  100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 4px #10b981; }
+}
+
+.np-target-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: 'Tajawal', sans-serif;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.np-target-name span.np-icon {
+  font-size: 1.4rem;
+}
+
+/* صناديق العد التنازلي التفاعلية */
+.np-countdown-boxes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 0 10px;
+  direction: ltr;
+}
+
+.np-digit-block {
+  background: rgba(8, 14, 30, 0.75);
+  border: 1px solid rgba(214, 168, 92, 0.35);
+  border-radius: 14px;
+  padding: 8px 14px;
+  min-width: 64px;
+  text-align: center;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.np-digit-block:hover {
+  transform: translateY(-2px);
+  border-color: #ffd700;
+}
+
+.np-digit-val {
+  display: block;
+  font-family: 'Tajawal', monospace;
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #ffd700;
+  line-height: 1.1;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.45);
+}
+
+.np-digit-sub {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-top: 3px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.np-sep-dots {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: rgba(214, 168, 92, 0.8);
+  animation: npBlink 1s infinite;
+  line-height: 1;
+}
+
+@keyframes npBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* موعد الأذان */
+.np-exact-adhan {
+  font-size: 0.84rem;
+  color: #cbd5e1;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.np-exact-adhan strong {
+  color: #ffd700;
+  font-weight: 800;
+}
+
+/* شريط تقدم الوقت بين الصلاتين */
+.np-progress-section {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.np-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.np-progress-header span:nth-child(2) {
+  color: var(--gold-soft);
+}
+
+.np-progress-track {
+  width: 100%;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.np-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #d6a85c, #ffd700);
+  border-radius: 10px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(214, 168, 92, 0.6);
+}
+
+/* تمييز كارد الصلاة القادمة في جدول الصلوات */
+.prayer-card.is-next-prayer {
+  background: linear-gradient(145deg, rgba(214, 168, 92, 0.25), rgba(16, 185, 129, 0.15)) !important;
+  border: 1.5px solid #ffd700 !important;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.28) !important;
+  transform: translateY(-2px);
+  position: relative;
+}
+
+.prayer-card.is-next-prayer::after {
+  content: 'القادمة';
+  position: absolute;
+  top: -9px;
+  right: 50%;
+  transform: translateX(50%);
+  background: linear-gradient(135deg, #d6a85c, #9e6d24);
+  color: #ffffff;
+  font-size: 0.58rem;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 8px;
+  border: 1px solid #ffd700;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  white-space: nowrap;
+}
+
+/* ==========================================
+   26. نافذة مساعد تبصرة الذكي (Tabsera AI Assistant Widget)
+   ========================================== */
+#ai-chat-widget {
+  position: fixed !important;
+  bottom: 84px !important;
+  left: 20px !important;
+  z-index: 1000000 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  pointer-events: auto !important;
+}
+
+#chat-window {
+  width: 360px !important;
+  max-width: calc(100vw - 32px) !important;
+  height: 500px !important;
+  max-height: calc(100vh - 130px) !important;
+  background: linear-gradient(180deg, rgba(20, 29, 61, 0.96), rgba(15, 23, 48, 0.98)) !important;
+  border: 1.5px solid rgba(214, 168, 92, 0.35) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 25px rgba(214, 168, 92, 0.15) !important;
+  backdrop-filter: blur(25px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  position: relative !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  animation: chatSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes chatSlideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 480px) {
+  #ai-chat-widget {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 80px !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  #chat-window {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 480px !important;
+    max-height: calc(100vh - 110px) !important;
+  }
+}
+
+@keyframes slideUpApkPrompt {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideUpPwaPrompt {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   🔍 نظام التكبير والتصغير الشامل التفاعلي (الخطوط + الأيقونات)
+   ========================================================================== */
+:root {
+  --content-font-scale: 1;
+}
+
+/* 1. تكبير وتصغير الأيقونات والرموز التعبيرية بحجم متناسق */
+.node-icon {
+  font-size: calc(1.7rem * var(--content-font-scale, 1)) !important;
+  line-height: 1 !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.modal-head .modal-icon,
+.modal-head .node-icon,
+.card-icon,
+.topic-icon,
+.cat-icon,
+.badge-icon,
+.head-icon,
+.sec-icon,
+.tree-icon,
+.story-icon,
+.azkar-icon {
+  font-size: calc(1.5rem * var(--content-font-scale, 1)) !important;
+  line-height: 1 !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.modal-num {
+  width: calc(40px * var(--content-font-scale, 1)) !important;
+  height: calc(40px * var(--content-font-scale, 1)) !important;
+  min-width: calc(40px * var(--content-font-scale, 1)) !important;
+  font-size: calc(1rem * var(--content-font-scale, 1)) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.action-btn span,
+.modal-action-btn span,
+.node-btn span {
+  font-size: calc(0.95rem * var(--content-font-scale, 1)) !important;
+}
+
+/* 2. تكبير وتصغير العناوين الرئيسية والفرعية */
+.node-title {
+  font-size: calc(1.05rem * var(--content-font-scale, 1)) !important;
+  line-height: 1.45 !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.modal h2,
+.modal-head h2,
+.modal-title {
+  font-size: calc(1.42rem * var(--content-font-scale, 1)) !important;
+  line-height: 1.4 !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.modal h3,
+.modal-body h3,
+.section-title {
+  font-size: calc(1.18rem * var(--content-font-scale, 1)) !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 3. تكبير وتصغير نصوص ومحتوى القراءة */
+.node-desc,
+.node-teaser,
+.node-preview {
+  font-size: calc(0.86rem * var(--content-font-scale, 1)) !important;
+  line-height: calc(1.75 * var(--content-font-scale, 1)) !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.node-tag,
+.badge,
+.category-badge,
+.meta-tag,
+.pill-tag {
+  font-size: calc(0.74rem * var(--content-font-scale, 1)) !important;
+}
+
+.modal-body {
+  font-size: calc(0.98rem * var(--content-font-scale, 1)) !important;
+}
+
+.modal-body p {
+  font-size: calc(0.98rem * var(--content-font-scale, 1)) !important;
+  line-height: calc(1.85 * var(--content-font-scale, 1)) !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.modal-body li {
+  font-size: calc(0.96rem * var(--content-font-scale, 1)) !important;
+  line-height: calc(1.8 * var(--content-font-scale, 1)) !important;
+}
+
+.hadith-box .txt {
+  font-size: calc(1.2rem * var(--content-font-scale, 1)) !important;
+  line-height: calc(1.85 * var(--content-font-scale, 1)) !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.verse-box .txt {
+  font-size: calc(1.26rem * var(--content-font-scale, 1)) !important;
+  line-height: calc(1.9 * var(--content-font-scale, 1)) !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.lafata-box,
+.lafata-box p {
+  font-size: calc(0.95rem * var(--content-font-scale, 1)) !important;
+  line-height: calc(1.8 * var(--content-font-scale, 1)) !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.qa-q {
+  font-size: calc(1.02rem * var(--content-font-scale, 1)) !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.qa-a {
+  font-size: calc(0.96rem * var(--content-font-scale, 1)) !important;
+  line-height: calc(1.8 * var(--content-font-scale, 1)) !important;
+  transition: font-size 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.topic-hero-card p,
+.topic-hero-card li,
+.suggest-hero-banner p,
+.pill-link {
+  font-size: calc(0.88rem * var(--content-font-scale, 1)) !important;
+}
+
+/* 4. تحسين استجابة أزرار تكبير وتصغير الخط على الجوال */
+.stepper-btn {
+  min-width: 32px !important;
+  min-height: 32px !important;
+  touch-action: manipulation;
+  user-select: none;
+  font-size: 0.92rem !important;
+}
+
+.modal-font-stepper {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.modal-font-stepper button {
+  min-width: 32px !important;
+  min-height: 32px !important;
+  touch-action: manipulation;
+  user-select: none;
+  font-weight: 800 !important;
+  font-size: 0.95rem !important;
+}
+
+@media (max-width: 768px) {
+  .reader-floating-bar {
+    top: 12px !important;
+    left: 10px !important;
+    padding: 6px 10px !important;
+    gap: 10px !important;
+  }
+  .stepper-btn {
+    min-width: 36px !important;
+    min-height: 36px !important;
+    font-size: 1rem !important;
+  }
+  .stepper-val {
+    font-size: 0.85rem !important;
+    padding: 0 6px !important;
+  }
+  .modal-font-stepper button {
+    min-width: 36px !important;
+    min-height: 36px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* ==========================================================================
+   📱 شريط التبديل بين أجزاء الستوري المتعددة (ستوري ١ وستوري ٢)
+   ========================================================================== */
+.story-part-switcher {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  max-width: 440px;
+  margin-bottom: 8px;
+  animation: fadeIn 0.25s ease;
+}
+
+.story-tab {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: var(--text-main);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.story-tab:hover {
+  background: rgba(214, 168, 92, 0.15);
+  border-color: var(--gold-soft);
+}
+
+.story-tab.active {
+  background: linear-gradient(135deg, rgba(214, 168, 92, 0.3), rgba(185, 128, 58, 0.3));
+  border-color: var(--gold);
+  color: #ffd700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+body.light .story-tab {
+  background: #fbf8f0;
+  color: #3d2f1d;
+  border-color: rgba(178, 122, 50, 0.3);
+}
+
+body.light .story-tab.active {
+  background: rgba(178, 122, 50, 0.2);
+  color: #8c581e;
+  border-color: var(--gold);
+}
+
+
+
+
