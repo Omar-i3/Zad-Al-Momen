@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>إذاعة القرآن الكريم — زاد المؤمن</title>
+
+  <!-- 🚫 منع المتصفح من تخزين صفحة الـ HTML القديمة -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
+  <link rel="stylesheet" href="app.css">
+
+  <style>
+    /* ===== تصميم مشغل الراديو الفخم ===== */
+    .radio-main-player {
+      background: linear-gradient(165deg, rgba(20, 35, 80, 0.85), rgba(9, 18, 45, 0.95));
+      border: 1.5px solid rgba(214, 168, 92, 0.45);
+      border-radius: 28px;
+      padding: 28px 24px;
+      margin: 0 auto 30px;
+      max-width: 650px;
+      text-align: center;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(214, 168, 92, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .radio-main-player::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(214, 168, 92, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .live-dot {
+      width: 9px;
+      height: 9px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ef4444;
+      animation: pulseLive 1.5s infinite;
+    }
+
+    @keyframes pulseLive {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 14px #ef4444; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+
+    .current-station-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #f7e6c4;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .current-station-sub {
+      font-size: 0.95rem;
+      color: #9bb0d8;
+      margin-bottom: 20px;
+    }
+
+    /* موجات الصوت المتحركة */
+    .wave-visualizer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 48px;
+      margin: 18px 0;
+    }
+
+    .wave-bar {
+      width: 5px;
+      background: linear-gradient(180deg, #ffd700, #d6a85c);
+      border-radius: 4px;
+      height: 6px;
+      transition: height 0.2s ease;
+    }
+
+    .wave-visualizer.playing .wave-bar {
+      animation: waveBounce 1.2s ease-in-out infinite alternate;
+    }
+
+    .wave-visualizer.playing .wave-bar:nth-child(1) { animation-delay: 0.1s; height: 18px; }
+    .wave-visualizer.playing .wave-bar:nth-child(2) { animation-delay: 0.3s; height: 36px; }
+    .wave-visualizer.playing .wave-bar:nth-child(3) { animation-delay: 0.5s; height: 24px; }
+    .wave-visualizer.playing .wave-bar:nth-child(4) { animation-delay: 0.2s; height: 44px; }
+    .wave-visualizer.playing .wave-bar:nth-child(5) { animation-delay: 0.6s; height: 32px; }
+    .wave-visualizer.playing .wave-bar:nth-child(6) { animation-delay: 0.4s; height: 40px; }
+    .wave-visualizer.playing .wave-bar:nth-child(7) { animation-delay: 0.7s; height: 26px; }
+    .wave-visualizer.playing .wave-bar:nth-child(8) { animation-delay: 0.3s; height: 38px; }
+    .wave-visualizer.playing .wave-bar:nth-child(9) { animation-delay: 0.5s; height: 20px; }
+
+    @keyframes waveBounce {
+      0% { height: 6px; }
+      100% { height: 46px; }
+    }
+
+    /* أزرار التحكم الرئيسية */
+    .player-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      margin-top: 14px;
+    }
+
+    .btn-play-pause {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd700, #d6a85c, #b9803a);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: #12192d;
+      font-size: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(214, 168, 92, 0.5), 0 0 15px rgba(255, 215, 0, 0.3);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    }
+
+    .btn-play-pause:hover {
+      transform: scale(1.06);
+      box-shadow: 0 12px 30px rgba(214, 168, 92, 0.7);
+    }
+
+    .btn-play-pause:active {
+      transform: scale(0.95);
+    }
+
+    .btn-control-secondary {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(214, 168, 92, 0.3);
+      color: #f0d9a8;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-control-secondary:hover {
+      background: rgba(214, 168, 92, 0.2);
+      border-color: #ffd700;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* شريط مستوى الصوت */
+    .volume-control-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+      padding: 0 20px;
+    }
+
+    .volume-slider {
+      flex: 1;
+      max-width: 220px;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ffd700;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(214, 168, 92, 0.8);
+    }
+
+    /* شريط مؤقت النوم */
+    .timer-wrap {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #9bb0d8;
+    }
+
+    .timer-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(214, 168, 92, 0.25);
+      color: #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .timer-btn.active {
+      background: rgba(214, 168, 92, 0.25);
+      border-color: #ffd700;
+      color: #ffd700;
+      font-weight: 700;
+    }
+
+    /* شبكة اختيار الإذاعات والمحطات */
+    .stations-section {
+      max-width: 900px;
+      margin: 0 auto 50px;
+      padding: 0 16px;
+    }
+
+    .station-category-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.35rem;
+      color: #ffd700;
+      margin: 28px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(214, 168, 92, 0.2);
+      padding-bottom: 8px;
+    }
+
+    .stations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .station-item-card {
+      background: linear-gradient(145deg, rgba(16, 28, 64, 0.75), rgba(10, 18, 44, 0.85));
+      border: 1px solid rgba(214, 168, 92, 0.25);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .station-item-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(214, 168, 92, 0.6);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .station-item-card.active {
+      border-color: #ffd700;
+      background: linear-gradient(145deg, rgba(28, 48, 105, 0.9), rgba(14, 26, 62, 0.95));
+      box-shadow: 0 0 20px rgba(214, 168, 92, 0.35);
+    }
+
+    .station-item-card.active::after {
+      content: '▶ قيد التشغيل';
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      font-size: 0.72rem;
+      font-weight: bold;
+      color: #ffd700;
+      background: rgba(214, 168, 92, 0.2);
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(214, 168, 92, 0.4);
+    }
+
+    .station-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(214, 168, 92, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .station-card-info {
+      flex: 1;
+      text-align: right;
+    }
+
+    .station-card-name {
+      font-family: 'Amiri', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f7e6c4;
+      margin-bottom: 2px;
+    }
+
+    .station-card-desc {
+      font-size: 0.82rem;
+      color: #9bb0d8;
+    }
+
+    /* كارت الإذاعة المعتمدة - مكة المكرمة بارز */
+    .station-item-card.makkah-featured {
+      border: 1.5px solid rgba(214, 168, 92, 0.7);
+      background: linear-gradient(135deg, rgba(25, 45, 95, 0.85), rgba(12, 22, 54, 0.9));
+    }
+
+    /* حالة التحميل */
+    .loading-spinner {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #ffd700;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars"></canvas>
+  <button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+  <!-- ودجت الخدمات والتواصل الجانبي -->
+  <div id="waSideDrawer" class="wa-drawer">
+    <button type="button" class="wa-toggle-btn" onclick="toggleWaDrawer()" aria-label="الخدمات والتواصل">
+      <span style="font-size: 1rem;">🔗</span>
+      <span class="wa-arrow" style="font-size: 0.65rem;">❯</span>
+    </button>
+    <div class="wa-drawer-content">
+      <div class="wa-drawer-header">
+        <span>✨ خدمات وتواصل زاد المؤمن</span>
+        <button type="button" class="wa-close-btn" onclick="toggleWaDrawer()">✕</button>
+      </div>
+      <div class="drawer-service-card">
+        <div class="drawer-service-title"><span>📢</span><span>قناة زاد المؤمن على الواتساب</span></div>
+        <div class="drawer-service-desc">انضم للقناة للحصول على التحديثات والأدعية اليومية.</div>
+        <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="drawer-btn-link btn-wa-channel">الانضمام للقناة ↗</a>
+      </div>
+      <div class="drawer-service-card">
+        <div class="drawer-service-title"><span>🌙</span><span>مساعد تبصرة الرقمي</span></div>
+        <div class="drawer-service-desc">تصفّح النسخة المباشرة الكاملة من مساعد تبصرة الشرعي الذكي.</div>
+        <a href="https://omar-i3.github.io/Tabsera/" target="_blank" rel="noopener" class="drawer-btn-link btn-tabsera-bot">زيارة موقع تبصرة ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- شريط توقيت مكة والتاريخ الهجري -->
+  <div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+  </div>
+
+  <!-- الهيدر والترحيب -->
+  <div class="hero">
+    <div class="moon"></div>
+    <h1>إذاعة القرآن الكريم</h1>
+    <p class="tagline">بث مباشر 24 ساعة لأقدس التلاوات وأندى الأصوات من رحاب مكة المكرمة ونخبة من أئمة الحرم وقراء العالم الإسلامي.</p>
+  </div>
+
+  <!-- المشغل الصوتي الرئيسي الكبير -->
+  <div class="radio-main-player">
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      <span id="player-status-text">بث مباشر متواصل 24/7</span>
+    </div>
+
+    <div class="current-station-title" id="current-station-name">إذاعة القرآن الكريم — مكة المكرمة</div>
+    <div class="current-station-sub" id="current-station-desc">البث المباشر المعتمد من المملكة العربية السعودية</div>
+
+    <!-- الموجات الصوتية -->
+    <div class="wave-visualizer" id="waveVisualizer">
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+    </div>
+
+    <!-- عنصر الصوت الخفي -->
+    <audio id="main-audio" preload="none"></audio>
+
+    <!-- أزرار التحكم -->
+    <div class="player-controls-row">
+      <button type="button" class="btn-control-secondary" onclick="changeStationRelative(-1)" title="المحطة السابقة">⏮</button>
+      <button type="button" class="btn-play-pause" id="playPauseBtn" onclick="togglePlay()" title="تشغيل / إيقاف">
+        <span id="playIcon">▶</span>
+      </button>
+      <button type="button" class="btn-control-secondary" onclick="changeStationRelative(1)" title="المحطة التالية">⏭</button>
+    </div>
+
+    <!-- شريط التحكم بمستوى الصوت -->
+    <div class="volume-control-wrap">
+      <span style="font-size: 1.1rem; color: #d6a85c;">🔊</span>
+      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="1" title="مستوى الصوت">
+      <button type="button" onclick="toggleMute()" id="muteBtn" style="background: none; border: none; color: #9bb0d8; cursor: pointer; font-size: 0.9rem;" title="كتم / تفعيل الصوت">كتم</button>
+    </div>
+
+    <!-- مؤقت النوم السلس -->
+    <div class="timer-wrap">
+      <span>⏱️ مؤقت الإيقاف:</span>
+      <button type="button" class="timer-btn" onclick="setSleepTimer(15, this)">15 د</button>
+      <button type="button" class="timer-btn" onclick="setSleepTimer(30, this)">30 د</button>
+      <button type="button" class="timer-btn" onclick="setSleepTimer(60, this)">ساعة</button>
+      <button type="button" class="timer-btn active" onclick="clearSleepTimer(this)">إيقاف</button>
+      <span id="timerCountdown" style="color: #ffd700; font-weight: bold; margin-right: 6px;"></span>
+    </div>
+  </div>
+
+  <!-- شبكة تصنيف واختيار الإذاعات -->
+  <div class="stations-section">
+
+    <!-- الفئة 1: الإذاعات الكبرى الرسمية -->
+    <div class="station-category-title">
+      <span>🕋</span>
+      <span>الإذاعات الرسمية والبث المباشر</span>
+    </div>
+    <div class="stations-grid" id="official-stations-grid"></div>
+
+    <!-- الفئة 2: إذاعات كبار القراء -->
+    <div class="station-category-title">
+      <span>🎙️</span>
+      <span>إذاعات كبار القراء (تلاوات خاشعة 24 ساعة)</span>
+    </div>
+    <div class="stations-grid" id="reciters-stations-grid"></div>
+
+    <!-- الفئة 3: أذكار ورقيا شرعية -->
+    <div class="station-category-title">
+      <span>📿</span>
+      <span>الأذكار والرقية الشرعية والسنن</span>
+    </div>
+    <div class="stations-grid" id="azkar-stations-grid"></div>
+
+  </div>
+
+  <!-- تذييل الصفحة -->
+  <footer>
+    <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — إذاعة القرآن الكريم</div>
+    <div class="small">جميع الحقوق محفوظة © عمر • وقف إيماني وصدقة جارية</div>
+  </footer>
+
+  <!-- ==================== شريط الملاحة السفلي ==================== -->
+  <nav class="liquid-bottom-nav">
+    <a href="index.html" class="liquid-nav-item">
+      <span>🏠</span>
+      <span>الرئيسية</span>
+    </a>
+    <a href="topics.html" class="liquid-nav-item">
+      <span>📑</span>
+      <span>المواضيع</span>
+    </a>
+    <a href="encyclopedia.html" class="liquid-nav-item">
+      <span>📚</span>
+      <span>الموسوعة</span>
+    </a>
+    <a href="radio.html" class="liquid-nav-item active">
+      <span>📻</span>
+      <span>الراديو</span>
+    </a>
+    <a href="cards.html" class="liquid-nav-item">
+      <span>🎨</span>
+      <span>البطاقات</span>
+    </a>
+    <a href="azkar.html" class="liquid-nav-item">
+      <span>📿</span>
+      <span>الأذكار</span>
+    </a>
+  </nav>
+
+  <!-- الشات الذكي التفاعلي -->
+  <div id="ai-chat-widget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; font-family: 'Tajawal', sans-serif;">
+    <div id="chat-window" style="display: none; width: 350px; max-width: 90vw; height: 480px; max-height: 80vh; background: linear-gradient(180deg, #141d3d, #0f1730); border: 1px solid rgba(214,168,92,0.28); border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; left: 0; animation: chatSlideUp 0.3s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);">
+      <div style="background: rgba(255,255,255,0.03); padding: 14px 16px; border-bottom: 1px solid rgba(214,168,92,0.15); display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.3rem;">🌙</span>
+          <div>
+            <div style="font-weight: 700; color: #f0d9a8; font-size: 0.95rem;">مساعد تبصرة الرقمي</div>
+            <div style="font-size: 0.72rem; color: #5fd6c4;">فتاوى موثقة وأدلية من السنة الصحيحة</div>
+          </div>
+        </div>
+        <button id="chat-close-btn" style="background: none; border: none; color: #93a0c2; font-size: 1.1rem; cursor: pointer;">✕</button>
+      </div>
+      <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; line-height: 1.6;"></div>
+      <form id="chat-form" style="display: flex; padding: 10px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(214,168,92,0.1); gap: 8px;">
+        <input type="text" id="chat-input" placeholder="اكتب سؤالك الشرعي هنا..." autocomplete="off" required style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(214,168,92,0.15); border-radius: 12px; padding: 10px 14px; color: #f3efe3; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; outline: none;">
+        <button type="submit" style="background: linear-gradient(135deg, #d6a85c, #b9803a); border: none; color: #1a1200; font-weight: 700; padding: 0 16px; border-radius: 12px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.9rem;">إرسال</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- خلفية النجوم -->
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let stars = [];
+    function initStars() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      for (let i = 0; i < 90; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.5 + 0.3,
+          a: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.02 + 0.005
+        });
+      }
+    }
+    function drawStars() {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#f0d9a8';
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i]; s.a += s.speed;
+        ctx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(drawStars);
+    }
+    window.addEventListener('resize', initStars);
+    initStars();
+    drawStars();
+
+    /* الثيم */
+    const themeBtn = document.getElementById('themeBtn');
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+      if (themeBtn) themeBtn.textContent = '🌙';
+    }
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        themeBtn.textContent = isLight ? '🌙' : '🌞';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+    }
+
+    function toggleWaDrawer() {
+      const drawer = document.getElementById('waSideDrawer');
+      if (drawer) drawer.classList.toggle('active');
+    }
+  </script>
+
+  <!-- ==================== منطق راديو القرآن الكريم المباشر ==================== -->
+  <script>
+    // قائمة الإذاعات الكاملة
+    const STATIONS = [
+      // 1. الإذاعات الرسمية
+      {
+        id: 'makkah',
+        category: 'official',
+        name: 'إذاعة القرآن الكريم — مكة المكرمة',
+        sub: 'البث المباشر المعتمد من المملكة العربية السعودية (SBA)',
+        icon: '🕋',
+        url: 'https://stream.radiojar.com/0tpy1h0kxtzuv',
+        featured: true
+      },
+      {
+        id: 'tarateel',
+        category: 'official',
+        name: 'إذاعة تراتيل وتلاوات خاشعة',
+        sub: 'بث مباشر منتقى لأعذب التلاوات القرآنية الخاشعة',
+        icon: '📜',
+        url: 'https://qurango.net/radio/tarateel'
+      },
+      {
+        id: 'mix',
+        category: 'official',
+        name: 'الإذاعة العامة لمزيج التلاوات',
+        sub: 'تلاوات متنوعة متواصلة لكبار قراء العالم الإسلامي',
+        icon: '📻',
+        url: 'https://qurango.net/radio/mix'
+      },
+
+      // 2. كبار القراء
+      {
+        id: 'minshawi',
+        category: 'reciters',
+        name: 'الشيخ محمد صديق المنشاوي',
+        sub: 'المصحف المرتل برواية حفص عن عاصم - صوت خاشع ندي',
+        icon: '🎙️',
+        url: 'https://backup.qurango.net/radio/mohammed_siddiq_alminshawi'
+      },
+      {
+        id: 'abdulbasit',
+        category: 'reciters',
+        name: 'الشيخ عبد الباسط عبد الصمد',
+        sub: 'المصحف المجود والتلاوات الخالدة',
+        icon: '🎙️',
+        url: 'https://backup.qurango.net/radio/abdulbasit_abdulsamad_mojawwad'
+      },
+      {
+        id: 'afasy',
+        category: 'reciters',
+        name: 'الشيخ مشاري بن راشد العفاسي',
+        sub: 'المصحف المرتل كاملاً بصوت نقي متواصل',
+        icon: '🎙️',
+        url: 'https://backup.qurango.net/radio/mishary_alafasi'
+      },
+      {
+        id: 'hussary',
+        category: 'reciters',
+        name: 'الشيخ محمود خليل الحصري',
+        sub: 'الإتقان والتجويد الشريف برواية حفص',
+        icon: '🎙️',
+        url: 'https://backup.qurango.net/radio/mahmoud_khalil_alhussary'
+      },
+
+      // 3. أذكار ورقية
+      {
+        id: 'sabah',
+        category: 'azkar',
+        name: 'أذكار الصباح والمساء واليومية',
+        sub: 'حصن المسلم الصوتي وأدعية الحفظ والبركة',
+        icon: '📿',
+        url: 'https://backup.qurango.net/radio/athkar_sabah'
+      },
+      {
+        id: 'roqiah',
+        category: 'azkar',
+        name: 'الرقية الشرعية المطولة',
+        sub: 'آيات وأدعية الشفاء والسكينة والتحصين',
+        icon: '🌿',
+        url: 'https://backup.qurango.net/radio/roqiah'
+      }
+    ];
+
+    let currentStationIndex = 0;
+    const audio = document.getElementById('main-audio');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playIcon');
+    const waveVisualizer = document.getElementById('waveVisualizer');
+    const stationNameElem = document.getElementById('current-station-name');
+    const stationDescElem = document.getElementById('current-station-desc');
+    const statusTextElem = document.getElementById('player-status-text');
+    const volumeSlider = document.getElementById('volumeSlider');
+    let isPlaying = false;
+    let sleepTimerTimeout = null;
+    let sleepTimerInterval = null;
+
+    // تهيئة شبكة الإذاعات في الصفحة
+    function renderStationsList() {
+      const officialGrid = document.getElementById('official-stations-grid');
+      const recitersGrid = document.getElementById('reciters-stations-grid');
+      const azkarGrid = document.getElementById('azkar-stations-grid');
+
+      officialGrid.innerHTML = '';
+      recitersGrid.innerHTML = '';
+      azkarGrid.innerHTML = '';
+
+      STATIONS.forEach((station, index) => {
+        const card = document.createElement('div');
+        card.className = `station-item-card ${index === currentStationIndex ? 'active' : ''} ${station.featured ? 'makkah-featured' : ''}`;
+        card.id = `station-card-${index}`;
+        card.onclick = () => selectStation(index);
+
+        card.innerHTML = `
+          <div class="station-card-icon">${station.icon}</div>
+          <div class="station-card-info">
+            <div class="station-card-name">${station.name}</div>
+            <div class="station-card-desc">${station.sub}</div>
+          </div>
+        `;
+
+        if (station.category === 'official') officialGrid.appendChild(card);
+        else if (station.category === 'reciters') recitersGrid.appendChild(card);
+        else if (station.category === 'azkar') azkarGrid.appendChild(card);
+      });
+    }
+
+    // اختيار إذاعة
+    function selectStation(index, autoPlay = true) {
+      currentStationIndex = index;
+      const station = STATIONS[index];
+
+      // تحديث العناوين
+      stationNameElem.textContent = station.name;
+      stationDescElem.textContent = station.sub;
+
+      // تحديث الكروت النشطة
+      document.querySelectorAll('.station-item-card').forEach((c, idx) => {
+        if (idx === index) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+
+      // حفظ الإذاعة المفضلة
+      localStorage.setItem('zad_saved_radio_station', station.id);
+
+      // تحديث مصدر الصوت
+      audio.pause();
+      audio.src = station.url;
+      audio.load();
+
+      updateMediaSession(station);
+
+      if (autoPlay) {
+        startPlay();
+      } else {
+        stopPlayState();
+      }
+    }
+
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+        stopPlayState();
+      } else {
+        startPlay();
+      }
+    }
+
+    function startPlay() {
+      statusTextElem.innerHTML = '<span class="loading-spinner" style="width:14px;height:14px;border-width:2px;vertical-align:middle;margin-left:4px;"></span> جاري الاتصال بالبث المباشر...';
+      playIcon.textContent = '⏳';
+
+      audio.play().then(() => {
+        isPlaying = true;
+        playIcon.textContent = '⏸';
+        statusTextElem.textContent = 'بث حي ومباشر 24/7';
+        waveVisualizer.classList.add('playing');
+        if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+      }).catch(err => {
+        console.warn('تعذر التشغيل المباشر:', err);
+        statusTextElem.textContent = 'انقر على زر التشغيل للبدء';
+        stopPlayState();
+      });
+    }
+
+    function stopPlayState() {
+      isPlaying = false;
+      playIcon.textContent = '▶';
+      statusTextElem.textContent = 'متوقف مؤقتاً';
+      waveVisualizer.classList.remove('playing');
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
+    }
+
+    function changeStationRelative(delta) {
+      let nextIndex = (currentStationIndex + delta + STATIONS.length) % STATIONS.length;
+      selectStation(nextIndex, isPlaying);
+    }
+
+    // التحكم بالصوت
+    volumeSlider.addEventListener('input', (e) => {
+      audio.volume = parseFloat(e.target.value);
+    });
+
+    function toggleMute() {
+      const muteBtn = document.getElementById('muteBtn');
+      if (audio.volume > 0) {
+        audio.volume = 0;
+        volumeSlider.value = 0;
+        muteBtn.textContent = 'إلغاء الكتم';
+      } else {
+        audio.volume = 1;
+        volumeSlider.value = 1;
+        muteBtn.textContent = 'كتم';
+      }
+    }
+
+    // MediaSession API لشاشة القفل والإشعارات
+    function updateMediaSession(station) {
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: station.name,
+          artist: 'زاد المؤمن — إذاعة القرآن الكريم',
+          album: 'بث إيماني مباشر 24/7',
+          artwork: [
+            { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
+            { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }
+          ]
+        });
+
+        navigator.mediaSession.setActionHandler('play', () => startPlay());
+        navigator.mediaSession.setActionHandler('pause', () => { audio.pause(); stopPlayState(); });
+        navigator.mediaSession.setActionHandler('stop', () => { audio.pause(); stopPlayState(); });
+        navigator.mediaSession.setActionHandler('previoustrack', () => changeStationRelative(-1));
+        navigator.mediaSession.setActionHandler('nexttrack', () => changeStationRelative(1));
+      }
+    }
+
+    // مؤقت النوم (Sleep Timer)
+    function setSleepTimer(minutes, btnElem) {
+      clearSleepTimer();
+      document.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
+      if (btnElem) btnElem.classList.add('active');
+
+      const targetTime = Date.now() + minutes * 60 * 1000;
+      const timerDisplay = document.getElementById('timerCountdown');
+
+      sleepTimerInterval = setInterval(() => {
+        const remainingMs = targetTime - Date.now();
+        if (remainingMs <= 0) {
+          clearSleepTimer();
+          audio.pause();
+          stopPlayState();
+          timerDisplay.textContent = 'انتهى المؤقت';
+        } else {
+          const m = Math.floor(remainingMs / 60000);
+          const s = Math.floor((remainingMs % 60000) / 1000);
+          timerDisplay.textContent = `(متبقي ${m}:${s < 10 ? '0' : ''}${s})`;
+        }
+      }, 1000);
+    }
+
+    function clearSleepTimer(btnElem) {
+      if (sleepTimerTimeout) clearTimeout(sleepTimerTimeout);
+      if (sleepTimerInterval) clearInterval(sleepTimerInterval);
+      const timerDisplay = document.getElementById('timerCountdown');
+      if (timerDisplay) timerDisplay.textContent = '';
+      if (btnElem) {
+        document.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
+        btnElem.classList.add('active');
+      }
+    }
+
+    // معالجة الأخطاء والانقطاع المؤقت للبث
+    audio.addEventListener('waiting', () => {
+      statusTextElem.innerHTML = '<span class="loading-spinner" style="width:12px;height:12px;border-width:2px;vertical-align:middle;margin-left:4px;"></span> جاري التخزين المؤقت...';
+    });
+
+    audio.addEventListener('playing', () => {
+      isPlaying = true;
+      playIcon.textContent = '⏸';
+      statusTextElem.textContent = 'بث مباشر متواصل 24/7';
+      waveVisualizer.classList.add('playing');
+    });
+
+    audio.addEventListener('error', () => {
+      console.warn('خطأ في تدفق الإذاعة، جاري إعادة المحاولة...');
+      statusTextElem.textContent = 'تعذر الاتصال، جاري إعادة المحاولة...';
+      setTimeout(() => {
+        if (isPlaying) {
+          audio.load();
+          audio.play().catch(() => {});
+        }
+      }, 3000);
+    });
+
+    // بدء التشغيل بالإذاعة الافتراضية (مكة المكرمة)
+    window.addEventListener('DOMContentLoaded', () => {
+      renderStationsList();
+      const savedStationId = localStorage.getItem('zad_saved_radio_station');
+      let defaultIdx = 0;
+      if (savedStationId) {
+        const found = STATIONS.findIndex(s => s.id === savedStationId);
+        if (found !== -1) defaultIdx = found;
+      }
+      selectStation(defaultIdx, false);
+    });
+  </script>
+
+  <!-- السكربتات المشتركة -->
+  <script src="favorites.js" defer></script>
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>

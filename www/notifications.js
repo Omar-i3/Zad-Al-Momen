@@ -295,8 +295,101 @@ function updatePrayerCountdown(timings) {
   if (targetCard) {
     targetCard.classList.add('is-next-prayer');
   }
+
+  // تحديث حاسبة قيام الليل والثلث الأخير
+  updateQiyamCalculator(timings);
 }
 window.updatePrayerCountdown = updatePrayerCountdown;
+
+// ==========================================
+// حاسبة قيام الليل والثلث الأخير الفلكية الشرعية
+// ==========================================
+function updateQiyamCalculator(timings) {
+  const card = document.getElementById('qiyam-night-card');
+  if (!card || !timings || !timings.Maghrib || !timings.Fajr) return;
+
+  const now = new Date();
+
+  function parseTime(timeStr, dayOffset = 0) {
+    const [h, m] = timeStr.split(':').map(Number);
+    const d = new Date(now);
+    d.setDate(d.getDate() + dayOffset);
+    d.setHours(h, m, 0, 0);
+    return d;
+  }
+
+  let maghribDate = parseTime(timings.Maghrib, 0);
+  let fajrDate = parseTime(timings.Fajr, 0);
+
+  if (now < fajrDate) {
+    maghribDate = parseTime(timings.Maghrib, -1);
+    fajrDate = parseTime(timings.Fajr, 0);
+  } else if (now >= maghribDate) {
+    maghribDate = parseTime(timings.Maghrib, 0);
+    fajrDate = parseTime(timings.Fajr, 1);
+  } else {
+    maghribDate = parseTime(timings.Maghrib, 0);
+    fajrDate = parseTime(timings.Fajr, 1);
+  }
+
+  const totalNightMs = fajrDate - maghribDate;
+  const midnightDate = new Date(maghribDate.getTime() + totalNightMs / 2);
+  const lastThirdDate = new Date(maghribDate.getTime() + (totalNightMs * 2) / 3);
+
+  const midnightElem = document.getElementById('qiyam-midnight-time');
+  const lastThirdElem = document.getElementById('qiyam-last-third-time');
+  const fajrElem = document.getElementById('qiyam-fajr-time');
+  const banner = document.getElementById('qiyam-live-status-banner');
+  const statusText = document.getElementById('qiyam-status-text');
+
+  function fmtDate(d) {
+    let h = d.getHours();
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const ampm = h >= 12 ? 'م' : 'ص';
+    h = h % 12 || 12;
+    return `${h}:${m} ${ampm}`;
+  }
+
+  if (midnightElem) midnightElem.textContent = fmtDate(midnightDate);
+  if (lastThirdElem) lastThirdElem.textContent = fmtDate(lastThirdDate);
+  if (fajrElem) fajrElem.textContent = fmtDate(fajrDate);
+
+  const isCurrentlyInLastThird = (now >= lastThirdDate && now < fajrDate);
+
+  if (isCurrentlyInLastThird) {
+    const diffMs = fajrDate - now;
+    const remMin = Math.floor(diffMs / 60000);
+    if (banner) {
+      banner.style.background = 'linear-gradient(135deg, rgba(214, 168, 92, 0.28), rgba(255, 215, 0, 0.18))';
+      banner.style.borderColor = '#ffd700';
+      banner.style.boxShadow = '0 0 22px rgba(214, 168, 92, 0.4)';
+      banner.style.color = '#fff5db';
+    }
+    if (statusText) {
+      statusText.innerHTML = `✨ <strong>الثلث الأخير من الليل قائم الآن!</strong> وقت النزول الإلهي واستجابة الدعوات (متبقي على الفجر: ${remMin} دقيقة).`;
+    }
+  } else {
+    let nextTarget = lastThirdDate;
+    if (now >= fajrDate && now < maghribDate) {
+      // نهار اليوم
+      nextTarget = lastThirdDate;
+    }
+    const diffMs = Math.max(0, nextTarget - now);
+    const h = Math.floor(diffMs / 3600000);
+    const m = Math.floor((diffMs % 3600000) / 60000);
+    if (banner) {
+      banner.style.background = 'rgba(255, 255, 255, 0.04)';
+      banner.style.borderColor = 'rgba(214, 168, 92, 0.2)';
+      banner.style.boxShadow = 'none';
+      banner.style.color = '#cbd5e1';
+    }
+    if (statusText) {
+      statusText.innerHTML = `⏳ متبقي على بداية الثلث الأخير الليلة: <strong>${h} ساعة و ${m} دقيقة</strong>`;
+    }
+  }
+}
+window.updateQiyamCalculator = updateQiyamCalculator;
+
 
 // 5. فحص الأذان والإشعارات الموسعة الحية
 function checkPrayerAdhan() {

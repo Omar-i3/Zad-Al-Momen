@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>صانع البطاقات الإيمانية — زاد المؤمن</title>
+
+  <!-- 🚫 منع المتصفح من تخزين صفحة الـ HTML القديمة -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- أيقونات الموقع والتطبيق PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070b18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
+  <link rel="stylesheet" href="app.css">
+
+  <style>
+    /* استوديو تصميم البطاقات */
+    .studio-container {
+      max-width: 1100px;
+      margin: 0 auto 50px;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .studio-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* لوحة المعاينة */
+    .preview-panel {
+      position: sticky;
+      top: 20px;
+      background: linear-gradient(160deg, rgba(20, 35, 80, 0.8), rgba(9, 18, 45, 0.9));
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      border-radius: 24px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+    }
+
+    .canvas-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 18px;
+      padding: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    #cardCanvas {
+      max-width: 100%;
+      height: auto;
+      max-height: 480px;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      display: block;
+    }
+
+    .action-buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .btn-action-main {
+      background: linear-gradient(135deg, #ffd700, #d6a85c, #b9803a);
+      color: #12192d !important;
+      font-weight: 700;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(214, 168, 92, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-action-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(214, 168, 92, 0.6);
+    }
+
+    .btn-action-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      color: #f7e6c4;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-secondary:hover {
+      background: rgba(214, 168, 92, 0.2);
+      border-color: #ffd700;
+      color: #ffffff;
+    }
+
+    /* لوحة التحكم والخيارات */
+    .controls-panel {
+      background: linear-gradient(160deg, rgba(16, 28, 64, 0.85), rgba(9, 17, 42, 0.92));
+      border: 1px solid rgba(214, 168, 92, 0.3);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(14px);
+    }
+
+    .control-group {
+      margin-bottom: 22px;
+    }
+
+    .control-label {
+      font-family: 'Amiri', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffd700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    /* أزرار اختيار الأبعاد */
+    .format-pills {
+      display: flex;
+      gap: 10px;
+    }
+
+    .format-pill-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(214, 168, 92, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .format-pill-btn.active {
+      background: rgba(214, 168, 92, 0.25);
+      border-color: #ffd700;
+      color: #ffd700;
+      box-shadow: 0 0 12px rgba(214, 168, 92, 0.3);
+    }
+
+    /* تصنيف النصوص الجاهزة */
+    .category-chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+
+    .category-chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(214, 168, 92, 0.25);
+      color: #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .category-chip.active {
+      background: rgba(214, 168, 92, 0.3);
+      border-color: #ffd700;
+      color: #ffd700;
+      font-weight: 700;
+    }
+
+    .preset-select {
+      width: 100%;
+      background: rgba(10, 20, 50, 0.9);
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #f3efe3;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .studio-textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(214, 168, 92, 0.3);
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: #ffffff;
+      font-family: 'Amiri', serif;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      min-height: 110px;
+      resize: vertical;
+      outline: none;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+    }
+
+    .studio-textarea:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 10px rgba(214, 168, 92, 0.3);
+    }
+
+    .studio-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(214, 168, 92, 0.25);
+      border-radius: 12px;
+      padding: 9px 12px;
+      color: #ffffff;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+    }
+
+    /* اختيار الثيم اللوني */
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .theme-card-option {
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .theme-card-option.active {
+      border-color: #ffd700;
+      box-shadow: 0 0 14px rgba(214, 168, 92, 0.5);
+      transform: scale(1.03);
+    }
+
+    .theme-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin: 0 auto 6px;
+      border: 1.5px solid rgba(214, 168, 92, 0.4);
+    }
+
+    .theme-label {
+      font-size: 0.76rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars"></canvas>
+  <button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع">🌞</button>
+
+  <!-- ودجت الخدمات والتواصل الجانبي -->
+  <div id="waSideDrawer" class="wa-drawer">
+    <button type="button" class="wa-toggle-btn" onclick="toggleWaDrawer()" aria-label="الخدمات والتواصل">
+      <span style="font-size: 1rem;">🔗</span>
+      <span class="wa-arrow" style="font-size: 0.65rem;">❯</span>
+    </button>
+    <div class="wa-drawer-content">
+      <div class="wa-drawer-header">
+        <span>✨ خدمات وتواصل زاد المؤمن</span>
+        <button type="button" class="wa-close-btn" onclick="toggleWaDrawer()">✕</button>
+      </div>
+      <div class="drawer-service-card">
+        <div class="drawer-service-title"><span>📢</span><span>قناة زاد المؤمن على الواتساب</span></div>
+        <div class="drawer-service-desc">انضم للقناة للحصول على التحديثات والأدعية اليومية.</div>
+        <a href="https://whatsapp.com/channel/0029VbCZ9Oj5fM5Se5Dn2B3z" target="_blank" rel="noopener" class="drawer-btn-link btn-wa-channel">الانضمام للقناة ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- شريط توقيت مكة والتاريخ الهجري -->
+  <div id="time-hijri-container">
+    <div id="makkah-time-badge"><span id="makkah-time-text">🕋 مكة: --:--:--</span></div>
+    <div id="hijri-date-badge"><span id="hijri-date-text">📅 جاري جلب التاريخ الهجري...</span></div>
+  </div>
+
+  <div class="hero">
+    <div class="moon"></div>
+    <h1>صانع البطاقات الإيمانية</h1>
+    <p class="tagline">صمّم بطاقات دعوية فاخرة بأعذب الآيات والأدعية، وحمّلها بجودة عالية وانشرها كصدقة جارية على منصات التواصل.</p>
+  </div>
+
+  <!-- استوديو التصميم -->
+  <div class="studio-container">
+
+    <!-- لوحة المعاينة والأزرار (اليسار) -->
+    <div class="preview-panel">
+      <div class="canvas-wrapper">
+        <canvas id="cardCanvas" width="1080" height="1920"></canvas>
+      </div>
+
+      <div class="action-buttons-row">
+        <button type="button" class="btn-action-main" onclick="downloadCardImage()">
+          <span>📥</span>
+          <span>تحميل البطاقة (PNG)</span>
+        </button>
+        <button type="button" class="btn-action-secondary" onclick="shareCardImage()">
+          <span>📲</span>
+          <span>مشاركة مباشرة</span>
+        </button>
+        <button type="button" class="btn-action-secondary" onclick="copyCardText()">
+          <span>📋</span>
+          <span>نسخ النص</span>
+        </button>
+      </div>
+      <div id="shareStatusText" style="font-size: 0.8rem; color: #ffd700; margin-top: 8px;"></div>
+    </div>
+
+    <!-- لوحة التحكم والخيارات (اليمين) -->
+    <div class="controls-panel">
+
+      <!-- 1. المقاس والأبعاد -->
+      <div class="control-group">
+        <div class="control-label"><span>📐</span><span>أبعاد البطاقة:</span></div>
+        <div class="format-pills">
+          <button type="button" class="format-pill-btn active" onclick="setFormat('story', this)">
+            📱 ستوري رأسي (9:16)
+          </button>
+          <button type="button" class="format-pill-btn" onclick="setFormat('post', this)">
+            🖼️ منشور مربع (1:1)
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. باقة النصوص الجاهزة المصنفة -->
+      <div class="control-group">
+        <div class="control-label"><span>📖</span><span>اختر من باقة النصوص المجهزة:</span></div>
+        <div class="category-chips">
+          <button type="button" class="category-chip active" onclick="setPresetCategory('duaa', this)">أدعية نبوية</button>
+          <button type="button" class="category-chip" onclick="setPresetCategory('ayah', this)">آيات السكينة</button>
+          <button type="button" class="category-chip" onclick="setPresetCategory('hadith', this)">أحاديث شريفة</button>
+          <button type="button" class="category-chip" onclick="setPresetCategory('names', this)">أسماء الله الحسنى</button>
+          <button type="button" class="category-chip" onclick="setPresetCategory('azkar', this)">أذكار وتسابيح</button>
+        </div>
+        <select id="presetDropdown" class="preset-select" onchange="loadSelectedPreset()"></select>
+      </div>
+
+      <!-- 3. تحرير النص والمصدر -->
+      <div class="control-group">
+        <div class="control-label"><span>✍️</span><span>نص البطاقة:</span></div>
+        <textarea id="cardTextInput" class="studio-textarea" placeholder="اكتب أو عدّل النص هنا..." oninput="renderCard()"></textarea>
+        
+        <input type="text" id="cardSourceInput" class="studio-input" placeholder="المصدر / التخريج (مثال: سورة البقرة • آية 186)" oninput="renderCard()">
+        <input type="text" id="cardAuthorInput" class="studio-input" placeholder="اسم المُهدي / صاحب الصدقة (اختياري)" oninput="renderCard()">
+      </div>
+
+      <!-- 4. الثيم اللوني -->
+      <div class="control-group">
+        <div class="control-label"><span>🎨</span><span>المظهر والثيم اللوني:</span></div>
+        <div class="themes-grid">
+          <div class="theme-card-option active" onclick="setCardTheme('navy', this)">
+            <div class="theme-circle" style="background: linear-gradient(135deg, #050d24, #12285a);"></div>
+            <div class="theme-label">كحلي ملكي</div>
+          </div>
+          <div class="theme-card-option" onclick="setCardTheme('emerald', this)">
+            <div class="theme-circle" style="background: linear-gradient(135deg, #05241b, #0d5440);"></div>
+            <div class="theme-label">زمردي وقار</div>
+          </div>
+          <div class="theme-card-option" onclick="setCardTheme('burgundy', this)">
+            <div class="theme-circle" style="background: linear-gradient(135deg, #2b0816, #581230);"></div>
+            <div class="theme-label">عنّابي إيماني</div>
+          </div>
+          <div class="theme-card-option" onclick="setCardTheme('midnight', this)">
+            <div class="theme-circle" style="background: linear-gradient(135deg, #07090e, #131722);"></div>
+            <div class="theme-label">ليل كاحل</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. حجم الخط والنمط -->
+      <div class="control-group">
+        <div class="control-label"><span>🔤</span><span>حجم الخط:</span></div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <input type="range" id="fontSizeSlider" min="32" max="68" value="48" style="flex:1;" oninput="renderCard()">
+          <span id="fontSizeDisplay" style="color: #ffd700; font-weight: bold; width: 45px;">48px</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- تذييل الصفحة -->
+  <footer>
+    <div class="amiri" style="font-size: 1.1rem; color: var(--gold-soft); margin-bottom: 8px;">زاد المؤمن — استوديو البطاقات الإيمانية</div>
+    <div class="small">جميع الحقوق محفوظة © عمر • وقف إيماني وصدقة جارية</div>
+  </footer>
+
+  <!-- شريط الملاحة السفلي -->
+  <nav class="liquid-bottom-nav">
+    <a href="index.html" class="liquid-nav-item"><span>🏠</span><span>الرئيسية</span></a>
+    <a href="topics.html" class="liquid-nav-item"><span>📑</span><span>المواضيع</span></a>
+    <a href="encyclopedia.html" class="liquid-nav-item"><span>📚</span><span>الموسوعة</span></a>
+    <a href="radio.html" class="liquid-nav-item"><span>📻</span><span>الراديو</span></a>
+    <a href="cards.html" class="liquid-nav-item active"><span>🎨</span><span>البطاقات</span></a>
+    <a href="azkar.html" class="liquid-nav-item"><span>📿</span><span>الأذكار</span></a>
+  </nav>
+
+  <!-- خلفية النجوم -->
+  <script>
+    const bgCanvas = document.getElementById('stars');
+    const bgCtx = bgCanvas ? bgCanvas.getContext('2d') : null;
+    let bgStars = [];
+    function initBgStars() {
+      if (!bgCanvas) return;
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+      bgStars = [];
+      for (let i = 0; i < 80; i++) {
+        bgStars.push({
+          x: Math.random() * bgCanvas.width,
+          y: Math.random() * bgCanvas.height,
+          r: Math.random() * 1.5 + 0.3,
+          a: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.02 + 0.005
+        });
+      }
+    }
+    function drawBgStars() {
+      if (!bgCtx || !bgCanvas) return;
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      bgCtx.fillStyle = '#f0d9a8';
+      for (let i = 0; i < bgStars.length; i++) {
+        const s = bgStars[i]; s.a += s.speed;
+        bgCtx.globalAlpha = (Math.sin(s.a) + 1) / 2 * 0.6 + 0.15;
+        bgCtx.beginPath(); bgCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2); bgCtx.fill();
+      }
+      bgCtx.globalAlpha = 1;
+      requestAnimationFrame(drawBgStars);
+    }
+    window.addEventListener('resize', initBgStars);
+    initBgStars();
+    drawBgStars();
+
+    const themeBtn = document.getElementById('themeBtn');
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+      if (themeBtn) themeBtn.textContent = '🌙';
+    }
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        themeBtn.textContent = isLight ? '🌙' : '🌞';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+    }
+
+    function toggleWaDrawer() {
+      const drawer = document.getElementById('waSideDrawer');
+      if (drawer) drawer.classList.toggle('active');
+    }
+  </script>
+
+  <!-- ==================== محرك توليد ورسم البطاقات الإيمانية ==================== -->
+  <script>
+    // مكتبة النصوص الجاهزة
+    const PRESETS = {
+      duaa: [
+        {
+          text: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ.',
+          source: 'دعاء جامع • مسند الإمام أحمد'
+        },
+        {
+          text: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ.',
+          source: 'سورة البقرة • آية 201'
+        },
+        {
+          text: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.',
+          source: 'سيد الاستغفار • صحيح البخاري'
+        },
+        {
+          text: 'يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ.',
+          source: 'دعاء الكرب • سنن النسائي'
+        }
+      ],
+      ayah: [
+        {
+          text: 'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ فَلْيَسْتَجِيبُوا لِي وَلْيُؤْمِنُوا بِي لَعَلَّهُمْ يَرْشُدُونَ.',
+          source: 'سورة البقرة • آية 186'
+        },
+        {
+          text: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ.',
+          source: 'سورة الرعد • آية 28'
+        },
+        {
+          text: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا • إِنَّ مَعَ الْعُسْرِ يُسْرًا.',
+          source: 'سورة الشرح • آية 5-6'
+        },
+        {
+          text: 'وَتَوَكَّلْ عَلَى الْحَيِّ الَّذِي لَا يَمُوتُ وَسَبِّحْ بِحَمْدِهِ.',
+          source: 'سورة الفرقان • آية 58'
+        }
+      ],
+      hadith: [
+        {
+          text: 'عَجَبًا لِأَمْرِ الْمُؤْمِنِ، إِنَّ أَمْرَهُ كُلَّهُ خَيْرٌ، وَلَيْسَ ذَاكَ لِأَحَدٍ إِلَّا لِلْمُؤْمِنِ؛ إِنْ أَصَابَتْهُ سَرَّاءُ شَكَرَ فَكَانَ خَيْرًا لَهُ، وَإِنْ أَصَابَتْهُ ضَرَّاءُ صَبَرَ فَكَانَ خَيْرًا لَهُ.',
+          source: 'صحيح مسلم • عن صهيب الرومي'
+        },
+        {
+          text: 'احْفَظِ اللَّهَ يَحْفَظْكَ، احْفَظِ اللَّهَ تَجِدْهُ تُجَاهَكَ، إِذَا سَأَلْتَ فَاسْأَلِ اللَّهَ، وَإِذَا اسْتَعَنْتَ فَاسْتَعِنْ بِاللَّهِ.',
+          source: 'سنن الترمذي • وصية النبي لابن عباس'
+        },
+        {
+          text: 'مَنْ لَزِمَ الِاسْتِغْفَارَ جَعَلَ اللَّهُ لَهُ مِنْ كُلِّ ضِيقٍ مَخْرَجًا، وَمِنْ كُلِّ هَمٍّ فَرَجًا، وَرَزَقَهُ مِنْ حَيْثُ لَا يَحْتَسِبُ.',
+          source: 'سنن أبي داود'
+        }
+      ],
+      names: [
+        {
+          text: 'الرَّحْمَنُ الرَّحِيمُ: ذو الرحمة الشاملة الواسعة التي وسعت كل شيء، والرحمة الخاصة بالمؤمنين هدايةً وتوفيقاً وسكينة.',
+          source: 'أسماء الله الحسنى • رياض الإيمان'
+        },
+        {
+          text: 'اللَّطِيفُ: الذي يوصل إليك الخير والإحسان بلطف خفي لا تهتدي إليه العقول، ويصرف عنك السوء من حيث لا تحتسب.',
+          source: 'أسماء الله الحسنى • بصائر اليقين'
+        },
+        {
+          text: 'الْوَكِيلُ: الكافي لمن توكل عليه، القائم بمصالح عباده، فمن فوّض أمره إليه كفاه ما أهمّه وأرضاه.',
+          source: 'أسماء الله الحسنى • حقائق التوكل'
+        }
+      ],
+      azkar: [
+        {
+          text: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ • كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ، حَبِيبَتَانِ إِلَى الرَّحْمَنِ.',
+          source: 'صحيح البخاري ومسلم'
+        },
+        {
+          text: 'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ • كَنْزٌ مِنْ كُنُوزِ الْجَنَّةِ، وَبَرَاءَةٌ مِنَ الْعَجْزِ وَالْحَوْلِ.',
+          source: 'صحيح البخاري'
+        },
+        {
+          text: 'أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ.',
+          source: 'ذكر التوبة والاستغفار'
+        }
+      ]
+    };
+
+    // إعدادات الحالة الحالية
+    let currentFormat = 'story'; // 'story' (1080x1920) or 'post' (1080x1080)
+    let currentTheme = 'navy';
+    let currentCategory = 'duaa';
+
+    const canvasElem = document.getElementById('cardCanvas');
+    const canvasCtx = canvasElem.getContext('2d');
+    const textInput = document.getElementById('cardTextInput');
+    const sourceInput = document.getElementById('cardSourceInput');
+    const authorInput = document.getElementById('cardAuthorInput');
+    const fontSizeSlider = document.getElementById('fontSizeSlider');
+    const fontSizeDisplay = document.getElementById('fontSizeDisplay');
+
+    // ثيمات الألوان والجرادينت
+    const THEMES = {
+      navy: {
+        bg1: '#030614',
+        bg2: '#08173a',
+        bg3: '#0f265c',
+        border: '#d6a85c',
+        borderSoft: 'rgba(214, 168, 92, 0.45)',
+        goldText: '#ffd700',
+        bodyText: '#ffffff',
+        accent: '#5fd6c4'
+      },
+      emerald: {
+        bg1: '#02130e',
+        bg2: '#06291f',
+        bg3: '#0e4a38',
+        border: '#d6a85c',
+        borderSoft: 'rgba(214, 168, 92, 0.45)',
+        goldText: '#fadc82',
+        bodyText: '#f3fbf7',
+        accent: '#5fe6b5'
+      },
+      burgundy: {
+        bg1: '#18040d',
+        bg2: '#320b1c',
+        bg3: '#521430',
+        border: '#d6a85c',
+        borderSoft: 'rgba(214, 168, 92, 0.45)',
+        goldText: '#ffd700',
+        bodyText: '#fff1f5',
+        accent: '#fca5a5'
+      },
+      midnight: {
+        bg1: '#040508',
+        bg2: '#0a0d15',
+        bg3: '#151b2b',
+        border: '#c4974f',
+        borderSoft: 'rgba(196, 151, 79, 0.45)',
+        goldText: '#ffd700',
+        bodyText: '#f8fafc',
+        accent: '#94a3b8'
+      }
+    };
+
+    function setFormat(fmt, btn) {
+      currentFormat = fmt;
+      document.querySelectorAll('.format-pill-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      if (fmt === 'story') {
+        canvasElem.width = 1080;
+        canvasElem.height = 1920;
+        fontSizeSlider.value = 48;
+      } else {
+        canvasElem.width = 1080;
+        canvasElem.height = 1080;
+        fontSizeSlider.value = 42;
+      }
+      fontSizeDisplay.textContent = `${fontSizeSlider.value}px`;
+      renderCard();
+    }
+
+    function setCardTheme(thm, elem) {
+      currentTheme = thm;
+      document.querySelectorAll('.theme-card-option').forEach(t => t.classList.remove('active'));
+      if (elem) elem.classList.add('active');
+      renderCard();
+    }
+
+    function setPresetCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      populatePresetsDropdown();
+    }
+
+    function populatePresetsDropdown() {
+      const dd = document.getElementById('presetDropdown');
+      dd.innerHTML = '';
+      const list = PRESETS[currentCategory] || [];
+      list.forEach((item, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = `${item.source}: ${item.text.substring(0, 45)}...`;
+        dd.appendChild(opt);
+      });
+      loadSelectedPreset();
+    }
+
+    function loadSelectedPreset() {
+      const dd = document.getElementById('presetDropdown');
+      const idx = parseInt(dd.value, 10);
+      const list = PRESETS[currentCategory] || [];
+      if (list[idx]) {
+        textInput.value = list[idx].text;
+        sourceInput.value = list[idx].source;
+        renderCard();
+      }
+    }
+
+    // تقسيم النصوص العربية إلى أسطر
+    function getWrappedLines(ctx, text, maxWidth) {
+      const words = text.split(' ');
+      const lines = [];
+      let currentLine = '';
+
+      for (let i = 0; i < words.length; i++) {
+        const testLine = currentLine ? currentLine + ' ' + words[i] : words[i];
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && currentLine) {
+          lines.push(currentLine);
+          currentLine = words[i];
+        } else {
+          currentLine = testLine;
+        }
+      }
+      if (currentLine) lines.push(currentLine);
+      return lines;
+    }
+
+    // محرك الرسم الرئيسي على الـ Canvas
+    function renderCard() {
+      const W = canvasElem.width;
+      const H = canvasElem.height;
+      const theme = THEMES[currentTheme];
+      const fontSize = parseInt(fontSizeSlider.value, 10);
+      fontSizeDisplay.textContent = `${fontSize}px`;
+
+      // 1. الخلفية التدرجية الملكية
+      const grad = canvasCtx.createRadialGradient(W / 2, H * 0.4, 100, W / 2, H / 2, W * 0.9);
+      grad.addColorStop(0, theme.bg3);
+      grad.addColorStop(0.5, theme.bg2);
+      grad.addColorStop(1, theme.bg1);
+      canvasCtx.fillStyle = grad;
+      canvasCtx.fillRect(0, 0, W, H);
+
+      // 2. نجوم ونقاط إيمانية هادئة في الخلفية
+      canvasCtx.fillStyle = '#ffffff';
+      const seedPoints = [
+        [150, 200, 1.8], [920, 240, 2], [300, 120, 1.2], [800, 150, 1.5],
+        [180, 600, 1.4], [900, 750, 2.2], [140, 1100, 1.8], [940, 1300, 1.5],
+        [220, 1500, 2], [850, 1650, 1.6], [540, 220, 1.2], [540, 1750, 1.5]
+      ];
+      seedPoints.forEach(pt => {
+        if (pt[1] < H) {
+          canvasCtx.globalAlpha = 0.5;
+          canvasCtx.beginPath();
+          canvasCtx.arc(pt[0], pt[1], pt[2], 0, Math.PI * 2);
+          canvasCtx.fill();
+        }
+      });
+      canvasCtx.globalAlpha = 1.0;
+
+      // 3. الإطار المزدوج والزخارف الذهبية
+      const margin = currentFormat === 'story' ? 44 : 36;
+      canvasCtx.strokeStyle = theme.borderSoft;
+      canvasCtx.lineWidth = 3;
+      canvasCtx.strokeRect(margin, margin, W - margin * 2, H - margin * 2);
+
+      const innerMargin = margin + 14;
+      canvasCtx.strokeStyle = 'rgba(214, 168, 92, 0.28)';
+      canvasCtx.lineWidth = 1;
+      canvasCtx.strokeRect(innerMargin, innerMargin, W - innerMargin * 2, H - innerMargin * 2);
+
+      // رسم زخارف الأركان الذهبية
+      drawCorner(margin, margin, 1, 1, theme.border);
+      drawCorner(W - margin, margin, -1, 1, theme.border);
+      drawCorner(margin, H - margin, 1, -1, theme.border);
+      drawCorner(W - margin, H - margin, -1, -1, theme.border);
+
+      // 4. رأس البطاقة (الهيدر التزييني والبسملة)
+      const topY = currentFormat === 'story' ? 170 : 120;
+      canvasCtx.textAlign = 'center';
+      canvasCtx.font = "bold 26px 'Amiri', serif";
+      canvasCtx.fillStyle = theme.goldText;
+      canvasCtx.fillText('✨ بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ✨', W / 2, topY);
+
+      // فاصل زخرفي صغير
+      drawGoldDivider(W / 2, topY + 28, 220);
+
+      // 5. رسم النص الأساسي
+      const text = textInput.value || 'اكتب دعاءك أو اختر من الباقة...';
+      const maxTextWidth = W - (innerMargin * 2 + 70);
+
+      canvasCtx.font = `bold ${fontSize}px 'Amiri', serif`;
+      const lineHeight = fontSize * 1.8;
+      const lines = getWrappedLines(canvasCtx, text, maxTextWidth);
+
+      // حساب الارتفاع الرأسي ليكون النص في المنتصف تماماً
+      const totalTextHeight = lines.length * lineHeight;
+      const centerY = currentFormat === 'story' ? (H * 0.47) : (H * 0.46);
+      let startY = centerY - (totalTextHeight / 2) + (fontSize * 0.4);
+
+      canvasCtx.fillStyle = theme.bodyText;
+      canvasCtx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+      canvasCtx.shadowBlur = 12;
+
+      for (let i = 0; i < lines.length; i++) {
+        canvasCtx.fillText(lines[i], W / 2, startY + (i * lineHeight));
+      }
+      canvasCtx.shadowBlur = 0;
+
+      // 6. المصدر أو التخريج
+      const source = sourceInput.value.trim();
+      if (source) {
+        const sourceY = startY + (lines.length * lineHeight) + 38;
+        canvasCtx.font = "bold 24px 'Tajawal', sans-serif";
+        canvasCtx.fillStyle = theme.goldText;
+        canvasCtx.fillText(`— ${source} —`, W / 2, sourceY);
+      }
+
+      // 7. فاصل سفلي وزخرفة التذييل
+      const footerY = currentFormat === 'story' ? (H - 150) : (H - 95);
+      drawGoldDivider(W / 2, footerY - 40, 260);
+
+      // 8. التذييل وشعار زاد المؤمن واسم المُهدي
+      const author = authorInput.value.trim();
+      if (author) {
+        canvasCtx.font = "bold 22px 'Tajawal', sans-serif";
+        canvasCtx.fillStyle = '#f0d9a8';
+        canvasCtx.fillText(`إهداء من: ${author}`, W / 2, footerY - 8);
+      }
+
+      canvasCtx.font = "normal 20px 'Tajawal', sans-serif";
+      canvasCtx.fillStyle = 'rgba(214, 168, 92, 0.9)';
+      canvasCtx.fillText('🌙 زاد المؤمن — وقف إيماني وصدقة جارية', W / 2, footerY + 24);
+    }
+
+    function drawCorner(x, y, dirX, dirY, color) {
+      const len = 34;
+      canvasCtx.strokeStyle = color;
+      canvasCtx.lineWidth = 3.5;
+      canvasCtx.beginPath();
+      canvasCtx.moveTo(x + (len * dirX), y);
+      canvasCtx.lineTo(x, y);
+      canvasCtx.lineTo(x, y + (len * dirY));
+      canvasCtx.stroke();
+    }
+
+    function drawGoldDivider(cx, cy, width) {
+      canvasCtx.save();
+      canvasCtx.strokeStyle = 'rgba(214, 168, 92, 0.55)';
+      canvasCtx.lineWidth = 1.5;
+      canvasCtx.beginPath();
+      canvasCtx.moveTo(cx - width / 2, cy);
+      canvasCtx.lineTo(cx + width / 2, cy);
+      canvasCtx.stroke();
+
+      // معين صغير في المنتصف
+      canvasCtx.fillStyle = '#ffd700';
+      canvasCtx.beginPath();
+      canvasCtx.moveTo(cx, cy - 5);
+      canvasCtx.lineTo(cx + 5, cy);
+      canvasCtx.lineTo(cx, cy + 5);
+      canvasCtx.lineTo(cx - 5, cy);
+      canvasCtx.closePath();
+      canvasCtx.fill();
+      canvasCtx.restore();
+    }
+
+    // إجراءات التحميل والمشاركة
+    function downloadCardImage() {
+      const link = document.createElement('a');
+      link.download = `زاد-المؤمن-بطاقة-${Date.now()}.png`;
+      link.href = canvasElem.toDataURL('image/png');
+      link.click();
+      showStatus('✅ تم تحميل البطاقة بنجاح!');
+    }
+
+    async function shareCardImage() {
+      if (!navigator.share) {
+        downloadCardImage();
+        showStatus('المشاركة المباشرة غير مدعومة في متصفحك، تم تحميل الصورة لتشاركها يدوياً.');
+        return;
+      }
+
+      try {
+        canvasElem.toBlob(async (blob) => {
+          if (!blob) return;
+          const file = new File([blob], 'zad-al-momen-card.png', { type: 'image/png' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'بطاقة إيمانية من زاد المؤمن',
+              text: `${textInput.value}\n\nزاد المؤمن: https://omar-i3.github.io/Zad-Al-Momen/`
+            });
+            showStatus('✨ تم فتح قائمة المشاركة بنجاح');
+          } else {
+            await navigator.share({
+              title: 'بطاقة إيمانية من زاد المؤمن',
+              text: `${textInput.value}\n\nزاد المؤمن: https://omar-i3.github.io/Zad-Al-Momen/`
+            });
+          }
+        });
+      } catch (err) {
+        console.warn('إلغاء المشاركة:', err);
+      }
+    }
+
+    function copyCardText() {
+      const fullText = `${textInput.value}\n${sourceInput.value ? '— ' + sourceInput.value : ''}\n\nزاد المؤمن: https://omar-i3.github.io/Zad-Al-Momen/`;
+      navigator.clipboard.writeText(fullText).then(() => {
+        showStatus('📋 تم نسخ النص للحافظة بنجاح!');
+      }).catch(() => {
+        showStatus('تعذر النسخ التلقائي.');
+      });
+    }
+
+    function showStatus(msg) {
+      const el = document.getElementById('shareStatusText');
+      if (el) {
+        el.textContent = msg;
+        setTimeout(() => { el.textContent = ''; }, 3500);
+      }
+    }
+
+    // التهيئة الأولى
+    window.addEventListener('DOMContentLoaded', () => {
+      populatePresetsDropdown();
+      // انتظار بسيط لتحميل الخطوط
+      setTimeout(() => {
+        renderCard();
+      }, 200);
+    });
+  </script>
+
+  <script src="favorites.js" defer></script>
+  <script src="notifications.js" defer></script>
+  <script src="bot.js" defer></script>
+  <script src="check-update.js" defer></script>
+</body>
+</html>
