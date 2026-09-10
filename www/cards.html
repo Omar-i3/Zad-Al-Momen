@@ -423,7 +423,7 @@
       <div class="control-group">
         <div class="control-label"><span>🔤</span><span>حجم الخط:</span></div>
         <div style="display: flex; align-items: center; gap: 12px;">
-          <input type="range" id="fontSizeSlider" min="32" max="68" value="48" style="flex:1;" oninput="renderCard()">
+          <input type="range" id="fontSizeSlider" min="32" max="76" value="48" style="flex:1;" oninput="renderCard()">
           <span id="fontSizeDisplay" style="color: #ffd700; font-weight: bold; width: 45px;">48px</span>
         </div>
       </div>
@@ -652,7 +652,7 @@
       if (fmt === 'story') {
         canvasElem.width = 1080;
         canvasElem.height = 1920;
-        fontSizeSlider.value = 48;
+        fontSizeSlider.value = 54;
       } else {
         canvasElem.width = 1080;
         canvasElem.height = 1080;
@@ -773,12 +773,13 @@
       // 4. رأس البطاقة (الهيدر التزييني والبسملة)
       const topY = currentFormat === 'story' ? 170 : 120;
       canvasCtx.textAlign = 'center';
-      canvasCtx.font = "bold 26px 'Amiri', serif";
+      const bsmSize = currentFormat === 'story' ? 32 : 26;
+      canvasCtx.font = `bold ${bsmSize}px 'Amiri', serif`;
       canvasCtx.fillStyle = theme.goldText;
       canvasCtx.fillText('✨ بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ✨', W / 2, topY);
 
       // فاصل زخرفي صغير
-      drawGoldDivider(W / 2, topY + 28, 220);
+      drawGoldDivider(W / 2, topY + (currentFormat === 'story' ? 34 : 28), currentFormat === 'story' ? 280 : 220);
 
       // 5. رسم النص الأساسي
       const text = textInput.value || 'اكتب دعاءك أو اختر من الباقة...';
@@ -805,25 +806,28 @@
       // 6. المصدر أو التخريج
       const source = sourceInput.value.trim();
       if (source) {
-        const sourceY = startY + (lines.length * lineHeight) + 38;
-        canvasCtx.font = "bold 24px 'Tajawal', sans-serif";
+        const sourceY = startY + (lines.length * lineHeight) + (currentFormat === 'story' ? 44 : 38);
+        const srcSize = currentFormat === 'story' ? 28 : 24;
+        canvasCtx.font = `bold ${srcSize}px 'Tajawal', sans-serif`;
         canvasCtx.fillStyle = theme.goldText;
         canvasCtx.fillText(`— ${source} —`, W / 2, sourceY);
       }
 
       // 7. فاصل سفلي وزخرفة التذييل
       const footerY = currentFormat === 'story' ? (H - 150) : (H - 95);
-      drawGoldDivider(W / 2, footerY - 40, 260);
+      drawGoldDivider(W / 2, footerY - 40, currentFormat === 'story' ? 320 : 260);
 
       // 8. التذييل وشعار زاد المؤمن واسم المُهدي
       const author = authorInput.value.trim();
       if (author) {
-        canvasCtx.font = "bold 22px 'Tajawal', sans-serif";
+        const authSize = currentFormat === 'story' ? 26 : 22;
+        canvasCtx.font = `bold ${authSize}px 'Tajawal', sans-serif`;
         canvasCtx.fillStyle = '#f0d9a8';
         canvasCtx.fillText(`إهداء من: ${author}`, W / 2, footerY - 8);
       }
 
-      canvasCtx.font = "normal 20px 'Tajawal', sans-serif";
+      const footSize = currentFormat === 'story' ? 24 : 20;
+      canvasCtx.font = `normal ${footSize}px 'Tajawal', sans-serif`;
       canvasCtx.fillStyle = 'rgba(214, 168, 92, 0.9)';
       canvasCtx.fillText('🌙 زاد المؤمن — وقف إيماني وصدقة جارية', W / 2, footerY + 24);
     }

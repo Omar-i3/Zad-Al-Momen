@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>باقة ستوريات زاد المؤمن التعريفية</title>
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="stylesheet" href="app.css">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #0d1a3a 0%, #030717 60%, #02040b 100%);
+      color: #ffffff;
+      font-family: 'Tajawal', sans-serif;
+      padding: 12px 10px 40px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* الحاوية المركزية لضبط العرض ومنع المشاكل في شاشات الجوال */
+    .page-container {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    /* الشريط العلوي */
+    .top-nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 0 2px;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      color: #f7e6c4;
+      padding: 7px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .back-btn:hover {
+      background: rgba(214, 168, 92, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .page-title {
+      color: #ffd700;
+      font-weight: 800;
+      font-size: 1.02rem;
+      margin: 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* شريط التبديل بين الأنماط */
+    .mode-switch-bar {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 8px;
+      background: rgba(14, 25, 58, 0.85);
+      padding: 5px;
+      border-radius: 16px;
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .mode-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #9bb0d8;
+      padding: 7px 6px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: right;
+      min-width: 0;
+    }
+
+    .mode-btn .mode-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .mode-btn .mode-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      line-height: 1.22;
+    }
+
+    .mode-btn .mode-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mode-btn .mode-sub {
+      font-size: 0.7rem;
+      opacity: 0.75;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mode-btn.active {
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.32), rgba(46, 196, 182, 0.22));
+      color: #ffd700;
+      border-color: rgba(214, 168, 92, 0.65);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    }
+
+    .mode-btn.active .mode-sub {
+      color: #f7e6c4;
+      opacity: 0.95;
+    }
+
+    /* بطاقة العرض الرئيسية */
+    .preview-card {
+      width: 100%;
+      background: rgba(12, 22, 52, 0.88);
+      border: 1.5px solid rgba(214, 168, 92, 0.45);
+      border-radius: 22px;
+      padding: 12px;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* تبويبات الأجزاء الثلاثة للسلسلة */
+    .series-tabs {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .series-tabs.is-hidden {
+      display: none !important;
+    }
+
+    .series-tab {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(214, 168, 92, 0.25);
+      color: #a8bcd8;
+      padding: 7px 4px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: rgba(214, 168, 92, 0.2);
+      color: #ffd700;
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .tab-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+
+    .series-tab.active {
+      background: rgba(214, 168, 92, 0.25);
+      border-color: #ffd700;
+      color: #ffffff;
+      box-shadow: 0 3px 12px rgba(214, 168, 92, 0.3);
+    }
+
+    .series-tab.active .tab-badge {
+      background: #ffd700;
+      color: #030717;
+    }
+
+    /* إطار صورة الستوري */
+    .story-img-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 270px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+      background: #020614;
+      border: 1px solid rgba(214, 168, 92, 0.25);
+    }
+
+    .story-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.22s ease;
+    }
+
+    /* شريط الأزرار والإجراءات */
+    .actions-bar {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .download-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #d6a85c, #b38234);
+      color: #050d24 !important;
+      text-decoration: none;
+      font-size: 0.98rem;
+      font-weight: 800;
+      padding: 12px 14px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(214, 168, 92, 0.35);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .download-btn:active {
+      transform: scale(0.98);
+    }
+
+    .secondary-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .sub-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(214, 168, 92, 0.35);
+      color: #f7e6c4;
+      padding: 9px 8px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      min-width: 0;
+      text-align: center;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .sub-btn.is-hidden {
+      display: none !important;
+    }
+
+    .sub-btn:active {
+      background: rgba(214, 168, 92, 0.25);
+      transform: scale(0.98);
+    }
+
+    .info-badge {
+      font-size: 0.8rem;
+      color: #9bb0d8;
+      line-height: 1.5;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      text-align: center;
+    }
+
+    /* تحسينات الشاشات الصغيرة (أقل من 360px) */
+    @media (max-width: 360px) {
+      body {
+        padding: 10px 6px 32px;
+      }
+      .page-title {
+        font-size: 0.92rem;
+      }
+      .back-btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+      .mode-btn {
+        padding: 6px 3px;
+        gap: 5px;
+      }
+      .mode-btn .mode-title {
+        font-size: 0.8rem;
+      }
+      .mode-btn .mode-sub {
+        font-size: 0.66rem;
+      }
+      .tab-title {
+        font-size: 0.76rem;
+      }
+      .secondary-actions {
+        grid-template-columns: 1fr;
+      }
+      .download-btn {
+        font-size: 0.9rem;
+        padding: 10px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container">
+    <!-- الشريط العلوي -->
+    <header class="top-nav">
+      <a href="index.html" class="back-btn">⬅️ الرئيسية</a>
+      <h1 class="page-title">📱 استوديو الستوريات</h1>
+    </header>
+
+    <!-- التبديل بين السلسلة الثلاثية والستوري الفردي -->
+    <div class="mode-switch-bar">
+      <button type="button" class="mode-btn active" id="btnSeriesMode" onclick="setMode('series')">
+        <span class="mode-icon">✨</span>
+        <span class="mode-text">
+          <span class="mode-title">السلسلة الثلاثية</span>
+          <span class="mode-sub">موصى بها للموبايل</span>
+        </span>
+      </button>
+      <button type="button" class="mode-btn" id="btnSingleMode" onclick="setMode('single')">
+        <span class="mode-icon">📱</span>
+        <span class="mode-text">
+          <span class="mode-title">ستوري شامل</span>
+          <span class="mode-sub">صورة واحدة فقط</span>
+        </span>
+      </button>
+    </div>
+
+    <main class="preview-card">
+      <!-- أزرار أجزاء السلسلة الثلاثية -->
+      <nav id="seriesTabsWrap" class="series-tabs" aria-label="أجزاء السلسلة">
+        <button type="button" class="series-tab active" id="tab1" onclick="switchPart(1)">
+          <span class="tab-badge">١</span>
+          <span class="tab-title">الواجهة</span>
+        </button>
+        <button type="button" class="series-tab" id="tab2" onclick="switchPart(2)">
+          <span class="tab-badge">٢</span>
+          <span class="tab-title">الموسوعة</span>
+        </button>
+        <button type="button" class="series-tab" id="tab3" onclick="switchPart(3)">
+          <span class="tab-badge">٣</span>
+          <span class="tab-title">الباركود</span>
+        </button>
+      </nav>
+
+      <!-- صورة الستوري -->
+      <div class="story-img-wrap">
+        <img id="mainStoryImg" src="zad-story-1.png" alt="ستوري زاد المؤمن" class="story-img" loading="eager">
+      </div>
+      
+      <!-- الأزرار والإجراءات -->
+      <div class="actions-bar">
+        <a id="mainDownloadBtn" href="zad-story-1.png" download="زاد-المؤمن-ستوري-الجزء-1.png" class="download-btn">
+          <span id="mainDownloadText">📥 تحميل ستوري ١ <bdi dir="ltr">(1080×1920)</bdi></span>
+        </a>
+
+        <div class="secondary-actions" id="seriesBulkActions">
+          <button type="button" class="sub-btn" id="btnDownloadAll" onclick="downloadAllSeries()">
+            <span>📦</span>
+            <span>تحميل الـ ٣ كاملة</span>
+          </button>
+          <button type="button" class="sub-btn" id="btnShareStory" onclick="shareCurrentStory()">
+            <span>📤</span>
+            <span>مشاركة الستوري</span>
+          </button>
+        </div>
+
+        <div class="info-badge" id="infoBadgeText">
+          ✨ <b>السلسلة الثلاثية:</b> خطوط كبيرة جداً ومريحة للعين، مخصصة للنشر المتتابع على سناب شات، واتساب ستاتس، وإنستغرام.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let currentMode = 'series'; // 'series' | 'single'
+    let currentPart = 1; // 1 | 2 | 3
+
+    const STORIES_META = {
+      1: {
+        file: 'zad-story-1.png',
+        downloadName: 'زاد-المؤمن-ستوري-الجزء-1.png',
+        title: '📥 تحميل ستوري ١ <bdi dir="ltr">(1080×1920)</bdi>'
+      },
+      2: {
+        file: 'zad-story-2.png',
+        downloadName: 'زاد-المؤمن-ستوري-الجزء-2.png',
+        title: '📥 تحميل ستوري ٢ <bdi dir="ltr">(1080×1920)</bdi>'
+      },
+      3: {
+        file: 'zad-story-3.png',
+        downloadName: 'زاد-المؤمن-ستوري-الجزء-3.png',
+        title: '📥 تحميل ستوري ٣ <bdi dir="ltr">(1080×1920)</bdi>'
+      }
+    };
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.getElementById('btnSeriesMode').classList.toggle('active', mode === 'series');
+      document.getElementById('btnSingleMode').classList.toggle('active', mode === 'single');
+
+      const tabsWrap = document.getElementById('seriesTabsWrap');
+      const btnDownloadAll = document.getElementById('btnDownloadAll');
+      const bulkActions = document.getElementById('seriesBulkActions');
+      const img = document.getElementById('mainStoryImg');
+      const dlBtn = document.getElementById('mainDownloadBtn');
+      const dlText = document.getElementById('mainDownloadText');
+      const infoText = document.getElementById('infoBadgeText');
+
+      if (mode === 'series') {
+        tabsWrap.classList.remove('is-hidden');
+        btnDownloadAll.classList.remove('is-hidden');
+        bulkActions.style.gridTemplateColumns = '';
+        switchPart(currentPart);
+        infoText.innerHTML = '✨ <b>السلسلة الثلاثية:</b> خطوط كبيرة جداً ومريحة للعين، مخصصة للنشر المتتابع على سناب شات، واتساب ستاتس، وإنستغرام.';
+      } else {
+        tabsWrap.classList.add('is-hidden');
+        btnDownloadAll.classList.add('is-hidden');
+        bulkActions.style.gridTemplateColumns = '1fr';
+        img.src = 'zad-al-momen-story.png';
+        dlBtn.href = 'zad-al-momen-story.png';
+        dlBtn.download = 'زاد-المؤمن-ستوري-شامل.png';
+        dlText.innerHTML = '📥 تحميل الستوري الشامل <bdi dir="ltr">(1080×1920)</bdi>';
+        infoText.innerHTML = '📱 <b>الستوري الشامل الفردي:</b> يجمع كافة الأقسام والباركودين في صورة واحدة متكاملة بخطوط كبيرة وواضحة.';
+      }
+    }
+
+    function switchPart(part) {
+      currentPart = part;
+      [1, 2, 3].forEach(p => {
+        document.getElementById(`tab${p}`)?.classList.toggle('active', p === part);
+      });
+
+      const meta = STORIES_META[part];
+      const img = document.getElementById('mainStoryImg');
+      const dlBtn = document.getElementById('mainDownloadBtn');
+      const dlText = document.getElementById('mainDownloadText');
+
+      img.style.opacity = '0.3';
+      setTimeout(() => {
+        img.src = meta.file;
+        dlBtn.href = meta.file;
+        dlBtn.download = meta.downloadName;
+        dlText.innerHTML = meta.title;
+        img.style.opacity = '1';
+      }, 100);
+    }
+
+    // تحميل الـ 3 ستوريات معاً
+    function downloadAllSeries() {
+      [1, 2, 3].forEach((p, idx) => {
+        setTimeout(() => {
+          const a = document.createElement('a');
+          a.href = STORIES_META[p].file;
+          a.download = STORIES_META[p].downloadName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }, idx * 450);
+      });
+    }
+
+    // مشاركة الستوري الحالي عبر Web Share API
+    async function shareCurrentStory() {
+      const fileUrl = (currentMode === 'series') ? STORIES_META[currentPart].file : 'zad-al-momen-story.png';
+      try {
+        const response = await fetch(fileUrl);
+        const blob = await response.blob();
+        const file = new File([blob], fileUrl, { type: 'image/png' });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'ستوري زاد المؤمن',
+            text: '🌙 زاد المؤمن — بوابتك الروحية الشاملة: https://Omar-i3.github.io/Zad-Al-Momen/'
+          });
+        } else {
+          document.getElementById('mainDownloadBtn').click();
+        }
+      } catch (err) {
+        console.warn('Share canceled/failed:', err);
+        document.getElementById('mainDownloadBtn').click();
+      }
+    }
+  </script>
+
+</body>
+</html>

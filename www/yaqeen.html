@@ -3124,7 +3124,7 @@ function initCardStudioSelect() {
   }
 
   // رسم صندوق قسم متكامل مع شارة العنوان والنص
-  function drawContentPanel(ctx, x, y, w, badgeText, badgeIcon, lines, lineHeight, panelBg, panelBorder, badgeColor, textColor) {
+  function drawContentPanel(ctx, x, y, w, badgeText, badgeIcon, lines, lineHeight, panelBg, panelBorder, badgeColor, textColor, contentFont) {
     const padX = 36;
     const topPad = 52;
     const botPad = 24;
@@ -3157,6 +3157,7 @@ function initCardStudioSelect() {
     // نصوص المحتوى
     ctx.fillStyle = textColor;
     ctx.textAlign = 'right';
+    ctx.font = contentFont || '24px "Tajawal", sans-serif';
     let lineY = y + topPad + lineHeight * 0.72;
     for (let i = 0; i < lines.length; i++) {
       if (lines[i]) {
@@ -3264,20 +3265,27 @@ function initCardStudioSelect() {
       h = 1080;
     } else {
       // قياس دقيق لكافة النصوص والأقسام لتحديد الارتفاع المطلوب ديناميكياً
-      ctx.font = '24px "Tajawal", sans-serif';
+      const isStory = (currentCardMode === 'story');
+      const introLineH = isStory ? 44 : 39;
+      const quoteLineH = isStory ? 54 : 48;
+      const pointsLineH = isStory ? 42 : 37;
+      const wisdomLineH = isStory ? 44 : 39;
+
+      ctx.font = isStory ? '27px "Tajawal", sans-serif' : '24px "Tajawal", sans-serif';
       const introLinesEst = intro ? measureWrappedLines(ctx, intro, textMaxWidth) : [];
-      ctx.font = 'bold 28px "Amiri", serif';
+      ctx.font = isStory ? 'bold 33px "Amiri", serif' : 'bold 28px "Amiri", serif';
       const quoteLinesEst = quote ? measureWrappedLines(ctx, quote, textMaxWidth) : [];
-      ctx.font = '23px "Tajawal", sans-serif';
+      ctx.font = isStory ? '26px "Tajawal", sans-serif' : '23px "Tajawal", sans-serif';
       const pointsLinesEst = points ? measureWrappedLines(ctx, points, textMaxWidth) : [];
+      ctx.font = isStory ? '27px "Tajawal", sans-serif' : '24px "Tajawal", sans-serif';
       const wisdomLinesEst = wisdom ? measureWrappedLines(ctx, wisdom, textMaxWidth) : [];
 
-      let calcH = 290; // ترويسة وعنوان وشارة
-      if (introLinesEst.length) calcH += (52 + introLinesEst.length * 39 + 24) + 24;
-      if (quoteLinesEst.length) calcH += (52 + quoteLinesEst.length * 48 + (quoteMeta ? 40 : 0) + 26) + 24;
-      if (pointsLinesEst.length) calcH += (52 + pointsLinesEst.length * 37 + 24) + 24;
-      if (wisdomLinesEst.length) calcH += (52 + wisdomLinesEst.length * 39 + 24) + 24;
-      calcH += 130; // تذييل وهوامش أمان
+      let calcH = 290;
+      if (introLinesEst.length) calcH += (52 + introLinesEst.length * introLineH + 24) + 24;
+      if (quoteLinesEst.length) calcH += (52 + quoteLinesEst.length * quoteLineH + (quoteMeta ? 44 : 0) + 26) + 24;
+      if (pointsLinesEst.length) calcH += (52 + pointsLinesEst.length * pointsLineH + 24) + 24;
+      if (wisdomLinesEst.length) calcH += (52 + wisdomLinesEst.length * wisdomLineH + 24) + 24;
+      calcH += 130;
 
       if (currentCardMode === 'story') {
         // نمط الستوري: يبدأ من 1920 كحد أدنى (النسبة العمودية 9:16)، ويتمدد تلقائياً إذا كان النص غنياً وكاملاً حتى يظهر كل المحتوى دون أي اقتطاع!
@@ -3329,7 +3337,7 @@ function initCardStudioSelect() {
 
     // 4. عنوان المحور مع ضبط ذكي
     ctx.fillStyle = titleColor;
-    const titleFontSize = title.length > 34 ? 36 : 42;
+    const titleFontSize = title.length > 34 ? (currentCardMode === 'story' ? 40 : 36) : (currentCardMode === 'story' ? 46 : 42);
     ctx.font = 'bold ' + titleFontSize + 'px "Amiri", serif';
     const titleEndY = drawWrappedText(ctx, title, w / 2, 204, 880, titleFontSize * 1.25, true);
 
@@ -3422,21 +3430,30 @@ function initCardStudioSelect() {
       drawContentPanel(ctx, padX, curY, boxW, 'اللفتة الإيمانية وخلاصة المحور', '💡', wisdomLines, 40, panelBg, panelBorder, badgeColor, textColor);
     } else {
       // نمط الانفوجرافيك الكامل والستوري: رسم كافة المعلومات التفصيلية
-      const gap = (currentCardMode === 'story') ? 28 : 22;
+      const isStory = (currentCardMode === 'story');
+      const gap = isStory ? 28 : 22;
+      const introLineH = isStory ? 44 : 39;
+      const quoteLineH = isStory ? 54 : 48;
+      const pointsLineH = isStory ? 42 : 37;
+      const wisdomLineH = isStory ? 44 : 39;
+      const introFont = isStory ? '27px "Tajawal", sans-serif' : '24px "Tajawal", sans-serif';
+      const quoteFont = isStory ? 'bold 33px "Amiri", serif' : 'bold 28px "Amiri", serif';
+      const pointsFont = isStory ? '26px "Tajawal", sans-serif' : '23px "Tajawal", sans-serif';
+      const wisdomFont = isStory ? '27px "Tajawal", sans-serif' : '24px "Tajawal", sans-serif';
 
       // 1) الشرح والبيان
       if (intro) {
-        ctx.font = '24px "Tajawal", sans-serif';
+        ctx.font = introFont;
         const introLines = measureWrappedLines(ctx, intro, textMaxWidth);
-        const pH = drawContentPanel(ctx, padX, curY, boxW, 'البيان والشرح الأساسي', '📖', introLines, 39, panelBg, panelBorder, badgeColor, textColor);
+        const pH = drawContentPanel(ctx, padX, curY, boxW, 'البيان والشرح الأساسي', '📖', introLines, introLineH, panelBg, panelBorder, badgeColor, textColor, introFont);
         curY += pH + gap;
       }
 
       // 2) الدليل الشرعي والتخريج
       if (quote) {
-        ctx.font = 'bold 28px "Amiri", serif';
+        ctx.font = quoteFont;
         const quoteLines = measureWrappedLines(ctx, quote, textMaxWidth);
-        const padBoxH = 52 + quoteLines.length * 48 + (quoteMeta ? 40 : 0) + 26;
+        const padBoxH = 52 + quoteLines.length * quoteLineH + (quoteMeta ? 44 : 0) + 26;
 
         ctx.fillStyle = quoteBoxBg;
         roundRect(ctx, padX, curY, boxW, padBoxH, 18);
@@ -3446,7 +3463,7 @@ function initCardStudioSelect() {
         ctx.stroke();
 
         ctx.fillStyle = badgeColor;
-        ctx.font = 'bold 22px "Tajawal", sans-serif';
+        ctx.font = isStory ? 'bold 24px "Tajawal", sans-serif' : 'bold 22px "Tajawal", sans-serif';
         ctx.textAlign = 'right';
         ctx.fillText('📜 الدليل الشرعي والتخريج', padX + boxW - 36, curY + 34);
 
@@ -3459,16 +3476,16 @@ function initCardStudioSelect() {
 
         ctx.fillStyle = quoteColor;
         ctx.textAlign = 'center';
-        ctx.font = 'bold 28px "Amiri", serif';
+        ctx.font = quoteFont;
         let qY = curY + 52 + 36;
         quoteLines.forEach(l => {
           ctx.fillText(l, w / 2, qY);
-          qY += 48;
+          qY += quoteLineH;
         });
 
         if (quoteMeta) {
           ctx.fillStyle = metaColor;
-          ctx.font = 'bold 20px "Tajawal", sans-serif';
+          ctx.font = isStory ? 'bold 23px "Tajawal", sans-serif' : 'bold 20px "Tajawal", sans-serif';
           ctx.fillText(`🏷️ ${quoteMeta}`, w / 2, qY + 6);
         }
 
@@ -3477,17 +3494,17 @@ function initCardStudioSelect() {
 
       // 3) النقاط والأمثلة العملية (إن وُجدت)
       if (points) {
-        ctx.font = '23px "Tajawal", sans-serif';
+        ctx.font = pointsFont;
         const pointsLines = measureWrappedLines(ctx, points, textMaxWidth);
-        const pnlH = drawContentPanel(ctx, padX, curY, boxW, 'التفصيل والنقاط والأمثلة', '💎', pointsLines, 37, panelBg, panelBorder, badgeColor, textColor);
+        const pnlH = drawContentPanel(ctx, padX, curY, boxW, 'التفصيل والنقاط والأمثلة', '💎', pointsLines, pointsLineH, panelBg, panelBorder, badgeColor, textColor, pointsFont);
         curY += pnlH + gap;
       }
 
       // 4) اللفتة الإيمانية والخلاصة
       if (wisdom) {
-        ctx.font = '24px "Tajawal", sans-serif';
+        ctx.font = wisdomFont;
         const wisdomLines = measureWrappedLines(ctx, wisdom, textMaxWidth);
-        const wH = drawContentPanel(ctx, padX, curY, boxW, 'اللفتة الإيمانية والخلاصة', '💡', wisdomLines, 39, panelBg, panelBorder, badgeColor, textColor);
+        const wH = drawContentPanel(ctx, padX, curY, boxW, 'اللفتة الإيمانية والخلاصة', '💡', wisdomLines, wisdomLineH, panelBg, panelBorder, badgeColor, textColor, wisdomFont);
         curY += wH + gap;
       }
     }

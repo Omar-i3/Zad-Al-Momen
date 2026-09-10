@@ -2664,7 +2664,7 @@ function measureWrappedLines(ctx, text, maxWidth) {
 }
 
 // رسم صندوق قسم متكامل مع شارة العنوان والنص
-function drawContentPanel(ctx, x, y, w, badgeText, badgeIcon, lines, lineHeight, panelBg, panelBorder, badgeColor, textColor) {
+function drawContentPanel(ctx, x, y, w, badgeText, badgeIcon, lines, lineHeight, panelBg, panelBorder, badgeColor, textColor, contentFont) {
   const padX = 36;
   const topPad = 52;
   const botPad = 24;
@@ -2697,6 +2697,7 @@ function drawContentPanel(ctx, x, y, w, badgeText, badgeIcon, lines, lineHeight,
   // نصوص المحتوى
   ctx.fillStyle = textColor;
   ctx.textAlign = 'right';
+    ctx.font = contentFont || '24px \"Tajawal\", sans-serif';
   let lineY = y + topPad + lineHeight * 0.72;
   for (let i = 0; i < lines.length; i++) {
     if (lines[i]) {
@@ -2803,20 +2804,27 @@ function renderCardCanvas() {
   if (currentCardMode === 'quote') {
     h = 1080;
   } else {
-    ctx.font = '24px "Tajawal", sans-serif';
-    const introLinesEst = intro ? measureWrappedLines(ctx, intro, textMaxWidth) : [];
-    ctx.font = 'bold 28px "Amiri", serif';
-    const quoteLinesEst = quote ? measureWrappedLines(ctx, quote, textMaxWidth) : [];
-    ctx.font = '23px "Tajawal", sans-serif';
-    const pointsLinesEst = points ? measureWrappedLines(ctx, points, textMaxWidth) : [];
-    const wisdomLinesEst = wisdom ? measureWrappedLines(ctx, wisdom, textMaxWidth) : [];
+    const isStory = (currentCardMode === 'story');
+      const introLineH = isStory ? 44 : 39;
+      const quoteLineH = isStory ? 54 : 48;
+      const pointsLineH = isStory ? 42 : 37;
+      const wisdomLineH = isStory ? 44 : 39;
 
-    let calcH = 290;
-    if (introLinesEst.length) calcH += (52 + introLinesEst.length * 39 + 24) + 24;
-    if (quoteLinesEst.length) calcH += (52 + quoteLinesEst.length * 48 + (quoteMeta ? 40 : 0) + 26) + 24;
-    if (pointsLinesEst.length) calcH += (52 + pointsLinesEst.length * 37 + 24) + 24;
-    if (wisdomLinesEst.length) calcH += (52 + wisdomLinesEst.length * 39 + 24) + 24;
-    calcH += 130;
+      ctx.font = isStory ? '27px "Tajawal", sans-serif' : '24px "Tajawal", sans-serif';
+      const introLinesEst = intro ? measureWrappedLines(ctx, intro, textMaxWidth) : [];
+      ctx.font = isStory ? 'bold 33px "Amiri", serif' : 'bold 28px "Amiri", serif';
+      const quoteLinesEst = quote ? measureWrappedLines(ctx, quote, textMaxWidth) : [];
+      ctx.font = isStory ? '26px "Tajawal", sans-serif' : '23px "Tajawal", sans-serif';
+      const pointsLinesEst = points ? measureWrappedLines(ctx, points, textMaxWidth) : [];
+      ctx.font = isStory ? '27px "Tajawal", sans-serif' : '24px "Tajawal", sans-serif';
+      const wisdomLinesEst = wisdom ? measureWrappedLines(ctx, wisdom, textMaxWidth) : [];
+
+      let calcH = 290;
+      if (introLinesEst.length) calcH += (52 + introLinesEst.length * introLineH + 24) + 24;
+      if (quoteLinesEst.length) calcH += (52 + quoteLinesEst.length * quoteLineH + (quoteMeta ? 44 : 0) + 26) + 24;
+      if (pointsLinesEst.length) calcH += (52 + pointsLinesEst.length * pointsLineH + 24) + 24;
+      if (wisdomLinesEst.length) calcH += (52 + wisdomLinesEst.length * wisdomLineH + 24) + 24;
+      calcH += 130;
 
     if (currentCardMode === 'story') {
       // نمط الستوري: يبدأ من 1920 كحد أدنى (النسبة العمودية 9:16)، ويتمدد تلقائياً إذا كان النص غنياً وكاملاً حتى يظهر كل المحتوى دون أي اقتطاع!
@@ -2867,7 +2875,7 @@ function renderCardCanvas() {
 
   // 4. عنوان المحور مع ضبط ذكي
   ctx.fillStyle = titleColor;
-  const titleFontSize = title.length > 34 ? 36 : 42;
+  const titleFontSize = title.length > 34 ? (currentCardMode === 'story' ? 40 : 36) : (currentCardMode === 'story' ? 46 : 42);
   ctx.font = 'bold ' + titleFontSize + 'px "Amiri", serif';
   const titleEndY = drawWrappedText(ctx, title, w / 2, 204, 880, titleFontSize * 1.25, true);
 
@@ -2963,9 +2971,9 @@ function renderCardCanvas() {
 
     // 1) الشرح والبيان
     if (intro) {
-      ctx.font = '24px "Tajawal", sans-serif';
+      ctx.font = isStory ? \'27px "Tajawal", sans-serif\' : \'24px "Tajawal", sans-serif\';
       const introLines = measureWrappedLines(ctx, intro, textMaxWidth);
-      const pH = drawContentPanel(ctx, padX, curY, boxW, 'البيان والشرح الأساسي', '📖', introLines, 39, panelBg, panelBorder, badgeColor, textColor);
+      const pH = drawContentPanel(ctx, padX, curY, boxW, 'البيان والشرح الأساسي', '📖', introLines, isStory ? 44 : 39, panelBg, panelBorder, badgeColor, textColor, isStory ? \'27px "Tajawal", sans-serif\' : \'24px "Tajawal", sans-serif\');
       curY += pH + gap;
     }
 
