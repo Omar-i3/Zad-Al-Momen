@@ -183,38 +183,68 @@
       gap: 7px;
     }
 
-    /* أزرار اختيار الأبعاد بنظام شبكة متوازن يمنع الاقتطاع */
+    /* أزرار اختيار الأبعاد بنظام عمودي أنيق (تحت بعض) لراحة الاستخدام */
     .format-pills {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
       width: 100%;
     }
 
     .format-pill-btn {
-      padding: 11px 8px;
+      width: 100%;
+      padding: 12px 16px;
       border-radius: 14px;
       border: 1px solid rgba(214, 168, 92, 0.3);
       background: rgba(255, 255, 255, 0.05);
       color: #cbd5e1;
       font-family: 'Tajawal', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
       cursor: pointer;
-      text-align: center;
+      text-align: right;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      white-space: nowrap;
+      gap: 12px;
+      box-sizing: border-box;
+    }
+
+    .format-pill-btn .pill-icon {
+      font-size: 1.35rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .format-pill-btn .pill-text-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: right;
+      flex: 1;
+    }
+
+    .format-pill-btn .pill-title {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #f7e6c4;
+    }
+
+    .format-pill-btn .pill-sub {
+      font-size: 0.74rem;
+      color: #9bb0d8;
     }
 
     .format-pill-btn.active {
-      background: rgba(214, 168, 92, 0.25);
+      background: rgba(214, 168, 92, 0.22);
       border-color: #ffd700;
+      box-shadow: 0 4px 18px rgba(214, 168, 92, 0.32);
+    }
+
+    .format-pill-btn.active .pill-title {
       color: #ffd700;
-      box-shadow: 0 0 12px rgba(214, 168, 92, 0.3);
+    }
+
+    .format-pill-btn.active .pill-sub {
+      color: #f3efe3;
     }
 
     /* تصنيف النصوص الجاهزة */
@@ -486,22 +516,58 @@
         width: auto !important;
       }
 
+      /* أزرار الأبعاد تحت بعض بالكامل */
+      .format-pills {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+      }
+
+      .format-pill-btn {
+        width: 100% !important;
+        padding: 13px 15px !important;
+      }
+
+      /* أزرار التحميل والمشاركة تحت بعض */
       .action-buttons-row {
-        gap: 8px;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
       }
 
-      .btn-action-main {
-        width: 100%;
-        justify-content: center;
-        padding: 12px 16px;
-        font-size: 0.92rem;
+      .action-buttons-row .btn-action-main,
+      .action-buttons-row .btn-action-secondary {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 13px 16px !important;
+        font-size: 0.94rem !important;
+        border-radius: 14px !important;
+        box-sizing: border-box !important;
       }
 
-      .btn-action-secondary {
-        flex: 1 1 45%;
-        justify-content: center;
-        padding: 10px 8px;
-        font-size: 0.84rem;
+      /* أزرار الإجراءات السفلية تحت بعض */
+      .controls-bottom-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+      }
+
+      .controls-secondary-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+      }
+
+      .controls-secondary-row .btn-action-secondary {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 12px 14px !important;
+        font-size: 0.92rem !important;
+        box-sizing: border-box !important;
       }
 
       .controls-panel {
@@ -510,25 +576,45 @@
       }
 
       .control-group {
-        margin-bottom: 18px;
+        margin-bottom: 20px;
       }
 
+      /* تصنيفات النصوص الجاهزة موزعة ومريحة للنقر */
+      .category-chips {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        overflow-x: visible !important;
+        padding-bottom: 2px !important;
+      }
+
+      .category-chip {
+        flex: 1 1 calc(50% - 8px) !important;
+        text-align: center !important;
+        padding: 9px 8px !important;
+        font-size: 0.85rem !important;
+        box-sizing: border-box !important;
+      }
+
+      /* الثيمات شبكة 2x2 مريحة */
       .themes-grid {
-        gap: 6px;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
       }
 
       .theme-card-option {
-        padding: 6px 4px;
+        padding: 8px 6px !important;
       }
 
       .theme-circle {
-        width: 28px;
-        height: 28px;
-        margin-bottom: 4px;
+        width: 30px !important;
+        height: 30px !important;
+        margin-bottom: 5px !important;
       }
 
       .theme-label {
-        font-size: 0.72rem;
+        font-size: 0.78rem !important;
       }
     }
 
@@ -648,10 +734,18 @@
         <div class="control-label"><span>📐</span><span>أبعاد البطاقة:</span></div>
         <div class="format-pills">
           <button type="button" class="format-pill-btn active" onclick="setFormat('story', this)">
-            📱 ستوري رأسي (9:16)
+            <span class="pill-icon">📱</span>
+            <div class="pill-text-wrap">
+              <span class="pill-title">ستوري رأسي (9:16)</span>
+              <span class="pill-sub">لحالات واتساب، إنستغرام، وسناب شات</span>
+            </div>
           </button>
           <button type="button" class="format-pill-btn" onclick="setFormat('post', this)">
-            🖼️ منشور مربع (1:1)
+            <span class="pill-icon">🖼️</span>
+            <div class="pill-text-wrap">
+              <span class="pill-title">منشور مربع (1:1)</span>
+              <span class="pill-sub">لتويتر، فيسبوك، وبوستات الإنستغرام</span>
+            </div>
           </button>
         </div>
       </div>
