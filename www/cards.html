@@ -20,6 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070b18">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="زاد المؤمن">
@@ -37,12 +38,6 @@
       align-items: start;
     }
 
-    @media (max-width: 860px) {
-      .studio-container {
-        grid-template-columns: 1fr;
-      }
-    }
-
     /* لوحة المعاينة */
     .preview-panel {
       position: sticky;
@@ -54,6 +49,7 @@
       text-align: center;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .canvas-wrapper {
@@ -66,6 +62,35 @@
       padding: 12px;
       margin-bottom: 16px;
       overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .canvas-zoom-hint {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(214, 168, 92, 0.3);
+      color: #ffd700;
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      pointer-events: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0.9;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: opacity 0.2s ease;
+    }
+
+    .canvas-wrapper:hover .canvas-zoom-hint {
+      opacity: 1;
+      background: rgba(20, 35, 80, 0.85);
+      border-color: #ffd700;
     }
 
     #cardCanvas {
@@ -76,6 +101,7 @@
       border-radius: 14px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
       display: block;
+      transition: transform 0.2s ease;
     }
 
     .action-buttons-row {
@@ -100,6 +126,7 @@
       gap: 8px;
       box-shadow: 0 6px 20px rgba(214, 168, 92, 0.4);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
     }
 
     .btn-action-main:hover {
@@ -121,6 +148,7 @@
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
+      text-decoration: none;
     }
 
     .btn-action-secondary:hover {
@@ -137,6 +165,7 @@
       padding: 24px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .control-group {
@@ -154,25 +183,31 @@
       gap: 7px;
     }
 
-    /* أزرار اختيار الأبعاد */
+    /* أزرار اختيار الأبعاد بنظام شبكة متوازن يمنع الاقتطاع */
     .format-pills {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
+      width: 100%;
     }
 
     .format-pill-btn {
-      flex: 1;
-      padding: 10px;
+      padding: 11px 8px;
       border-radius: 14px;
       border: 1px solid rgba(214, 168, 92, 0.3);
       background: rgba(255, 255, 255, 0.05);
       color: #cbd5e1;
       font-family: 'Tajawal', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.88rem;
+      font-weight: 700;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
     }
 
     .format-pill-btn.active {
@@ -187,20 +222,27 @@
       display: flex;
       gap: 6px;
       overflow-x: auto;
-      padding-bottom: 6px;
+      padding-bottom: 8px;
       margin-bottom: 10px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .category-chips::-webkit-scrollbar {
+      display: none;
     }
 
     .category-chip {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(214, 168, 92, 0.25);
       color: #cbd5e1;
-      padding: 5px 12px;
+      padding: 6px 13px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
 
     .category-chip.active {
@@ -294,6 +336,239 @@
       color: #cbd5e1;
       font-weight: 600;
     }
+
+    /* رابط الاستوديو الجاهز */
+    .story-link-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(214, 168, 92, 0.18), rgba(46, 196, 182, 0.18));
+      border: 1px solid rgba(214, 168, 92, 0.45);
+      color: #ffd700;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 12px;
+      transition: all 0.22s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    .story-link-badge:hover {
+      background: rgba(214, 168, 92, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(214, 168, 92, 0.4);
+    }
+
+    /* أزرار الإجراءات السفلية داخل لوحة التحكم */
+    .controls-bottom-actions {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px dashed rgba(214, 168, 92, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .controls-secondary-row {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .controls-secondary-row .btn-action-secondary {
+      flex: 1;
+      justify-content: center;
+      padding: 10px 8px;
+      font-size: 0.85rem;
+    }
+
+    /* نافذة المعاينة المكبرة عالية الدقة */
+    .card-zoom-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(3, 7, 23, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    .card-zoom-modal.active {
+      display: flex;
+    }
+
+    .zoom-modal-box {
+      position: relative;
+      max-width: 420px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .zoom-close-btn {
+      position: absolute;
+      top: -46px;
+      left: 0;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(214, 168, 92, 0.4);
+      color: #ffd700;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.15rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .zoom-close-btn:hover {
+      background: rgba(214, 168, 92, 0.3);
+      transform: scale(1.08);
+    }
+
+    #zoomModalImg {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 16px;
+      border: 1.5px solid rgba(214, 168, 92, 0.45);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8);
+    }
+
+    .zoom-actions {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* التنسيقات المتجاوبة للشاشات الصغيرة والجوال */
+    @media (max-width: 860px) {
+      .studio-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 0 12px;
+        margin-bottom: 30px;
+      }
+
+      /* إلغاء الـ sticky تماماً لمنع تراكب لوحة التحكم وتغطية المعاينة */
+      .preview-panel {
+        position: relative !important;
+        top: 0 !important;
+        padding: 14px 12px;
+        border-radius: 20px;
+      }
+
+      .canvas-wrapper {
+        padding: 10px 8px;
+        margin-bottom: 12px;
+      }
+
+      /* ضبط الارتفاع ليتناسب تماماً مع كل شاشات الجوال */
+      #cardCanvas {
+        max-height: 290px !important;
+        width: auto !important;
+      }
+
+      .action-buttons-row {
+        gap: 8px;
+      }
+
+      .btn-action-main {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+        font-size: 0.92rem;
+      }
+
+      .btn-action-secondary {
+        flex: 1 1 45%;
+        justify-content: center;
+        padding: 10px 8px;
+        font-size: 0.84rem;
+      }
+
+      .controls-panel {
+        padding: 18px 14px;
+        border-radius: 20px;
+      }
+
+      .control-group {
+        margin-bottom: 18px;
+      }
+
+      .themes-grid {
+        gap: 6px;
+      }
+
+      .theme-card-option {
+        padding: 6px 4px;
+      }
+
+      .theme-circle {
+        width: 28px;
+        height: 28px;
+        margin-bottom: 4px;
+      }
+
+      .theme-label {
+        font-size: 0.72rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 55px; /* يمنع تداخل زر الثيم والمفضلة مع العنوان */
+        margin-bottom: 16px;
+      }
+
+      .hero h1 {
+        font-size: 1.55rem;
+      }
+
+      .hero .tagline {
+        font-size: 0.86rem;
+        line-height: 1.6;
+        padding: 0 8px;
+      }
+
+      .theme-btn {
+        top: 12px !important;
+        left: 12px !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.15rem !important;
+      }
+
+      .fav-quick-btn {
+        top: 12px !important;
+        right: 12px !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.15rem !important;
+      }
+
+      /* مسافة أمان سفلية كافية لحماية المحتوى من شريط الملاحة السفلي */
+      footer {
+        padding-bottom: 105px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -330,6 +605,12 @@
     <div class="moon"></div>
     <h1>صانع البطاقات الإيمانية</h1>
     <p class="tagline">صمّم بطاقات دعوية فاخرة بأعذب الآيات والأدعية، وحمّلها بجودة عالية وانشرها كصدقة جارية على منصات التواصل.</p>
+    <div>
+      <a href="story-card.html" class="story-link-badge">
+        <span>📱</span>
+        <span>باقة ستوريات زاد المؤمن الجاهزة للنشر ❯</span>
+      </a>
+    </div>
   </div>
 
   <!-- استوديو التصميم -->
@@ -337,8 +618,9 @@
 
     <!-- لوحة المعاينة والأزرار (اليسار) -->
     <div class="preview-panel">
-      <div class="canvas-wrapper">
+      <div class="canvas-wrapper" onclick="openCardZoom()" title="انقر لتكبير البطاقة بدقة عالية">
         <canvas id="cardCanvas" width="1080" height="1920"></canvas>
+        <div class="canvas-zoom-hint"><span>🔍</span><span>انقر لتكبير المعاينة بدقة عالية</span></div>
       </div>
 
       <div class="action-buttons-row">
@@ -425,6 +707,28 @@
         <div style="display: flex; align-items: center; gap: 12px;">
           <input type="range" id="fontSizeSlider" min="32" max="76" value="48" style="flex:1;" oninput="renderCard()">
           <span id="fontSizeDisplay" style="color: #ffd700; font-weight: bold; width: 45px;">48px</span>
+        </div>
+      </div>
+
+      <!-- إجراءات سريعة أسفل لوحة التحكم لتسهيل التحميل على الهواتف -->
+      <div class="controls-bottom-actions">
+        <button type="button" class="btn-action-main" onclick="downloadCardImage()" style="width: 100%; justify-content: center;">
+          <span>📥</span>
+          <span>تحميل البطاقة (PNG عالية الدقة)</span>
+        </button>
+        <div class="controls-secondary-row">
+          <button type="button" class="btn-action-secondary" onclick="shareCardImage()">
+            <span>📲</span>
+            <span>مشاركة</span>
+          </button>
+          <button type="button" class="btn-action-secondary" onclick="copyCardText()">
+            <span>📋</span>
+            <span>نسخ النص</span>
+          </button>
+          <button type="button" class="btn-action-secondary" onclick="scrollToPreview()" title="الصعود لمعاينة البطاقة">
+            <span>👁️</span>
+            <span>المعاينة</span>
+          </button>
         </div>
       </div>
 
@@ -920,6 +1224,29 @@
       }
     }
 
+    function scrollToPreview() {
+      const preview = document.querySelector('.preview-panel');
+      if (preview) {
+        preview.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function openCardZoom() {
+      const modal = document.getElementById('cardZoomModal');
+      const img = document.getElementById('zoomModalImg');
+      if (modal && img) {
+        img.src = canvasElem.toDataURL('image/png');
+        modal.classList.add('active');
+      }
+    }
+
+    function closeCardZoom(e) {
+      if (!e || e.target.id === 'cardZoomModal' || e.target.classList.contains('zoom-close-btn') || e.target.closest('.zoom-close-btn') || (e.target.closest('.btn-action-secondary') && !e.target.closest('.action-buttons-row'))) {
+        const modal = document.getElementById('cardZoomModal');
+        if (modal) modal.classList.remove('active');
+      }
+    }
+
     // التهيئة الأولى
     window.addEventListener('DOMContentLoaded', () => {
       populatePresetsDropdown();
@@ -929,6 +1256,24 @@
       }, 200);
     });
   </script>
+
+  <!-- مودال المعاينة المكبرة عالية الدقة للجوال -->
+  <div id="cardZoomModal" class="card-zoom-modal" onclick="closeCardZoom(event)">
+    <div class="zoom-modal-box">
+      <button type="button" class="zoom-close-btn" onclick="closeCardZoom(event)">✕</button>
+      <img id="zoomModalImg" alt="معاينة البطاقة مكبرة">
+      <div class="zoom-actions">
+        <button type="button" class="btn-action-main" onclick="downloadCardImage()">
+          <span>📥</span>
+          <span>تحميل البطاقة (PNG)</span>
+        </button>
+        <button type="button" class="btn-action-secondary" onclick="closeCardZoom(event)">
+          <span>✕</span>
+          <span>إغلاق</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script src="favorites.js" defer></script>
   <script src="notifications.js" defer></script>
