@@ -7,7 +7,7 @@
    3. استبعاد الظهور في حال كان التطبيق مثبتاً أو يعمل في وضع Standalone
    ========================================================================== */
 
-const CURRENT_APP_VERSION = '1.2.0';
+const CURRENT_APP_VERSION = '1.3.0';
 const VERSION_CHECK_URL = 'version.json';
 
 // متغير التقاط طلب التثبيت التلقائي لمتصفحات Chrome / Edge / Android
